@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CONVERGE</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+<div class="layout">
+ 
+	
+	<div class="topbar">
+		<div class="logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="hcfmuspLogo" class="brand-logo-img brand-logo-hcfmusp" src="LOGO HCFMUSP.png" alt="Logo HCFMUSP" />
+			</div>
+		</div>
+			<div class="logo-box ceac-logo-box brand-safe-area">
+				<div class="brand-logo">
+					<img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
+				</div>
+			</div>
+		</div>
+ 
+	<div class="body-row">
+
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-scroll" id="menuContainer"></div>
+			<div class="sidebar-footer">
+				<div class="sidebar-profile">
+					<div class="sidebar-avatar">RB</div>
+					<div class="sidebar-profile-info">
+						<div class="sidebar-profile-name">ricardo.borges</div>
+						<a class="sidebar-profile-link" href="#">
+							Ver meu perfil
+							<i class="ti ti-external-link"></i>
+						</a>
+					</div>
+				</div>
+				<button class="sidebar-logout" type="button">
+					<i class="ti ti-logout"></i>
+					<span>Sair do sistema</span>
+				</button>
+				<button id="themeToggleBtn" class="sidebar-theme-btn" type="button" title="Alternar modo">
+					<i class="ti ti-contrast"></i>
+					<span>Modo: Padrão</span>
+				</button>
+				<div class="toggle-btn" id="toggleBtn" title="Recolher menu">
+					<i class="ti ti-chevrons-left" id="toggleIcon"></i>
+				</div>
+			</div>
+		</div>
+ 
+		<div class="main">
+
+			<div class="content">
+				<div class="page-title">
+					<i class="ti ti-world"></i>
+					<span id="dispPageTitle">Meus Sistemas</span>
+				</div>
+				<div class="cards-grid" id="cardsGrid"></div>
+				<div class="empty-state" id="emptyState" style="display:none">
+					<i class="ti ti-apps"></i>
+					<p>Nenhum sistema nesta seção</p>
+				</div>
+			</div>
+
+			<div class="footer" id="footerEl">
+				<span class="brand">NETi</span> HCFMUSP © 2016-2026
+			</div>
+
+		</div>
+	</div>
+</div>
+ 
+
+<div class="modal-overlay" id="modalCard">
+	<div class="modal">
+		<h3><i class="ti ti-app-window"></i> Adicionar Sistema</h3>
+		<label>Nome do sistema</label>
+		<input id="cardName" placeholder="Ex: Painel MV" />
+		<label>Seção</label>
+		<select id="cardSection"></select>
+			<div class="modal-actions">
+				<button id="modalCardCancel" class="btn">Cancelar</button>
+				<button id="modalCardAdd" class="btn primary">Adicionar</button>
+			</div>
+	</div>
+</div>
+ 
+
+<div class="modal-overlay" id="modalSection">
+	<div class="modal">
+		<h3><i class="ti ti-folder-plus"></i> Nova Seção</h3>
+		<label>Nome da seção</label>
+		<input id="sectionName" placeholder="Ex: Financeiro" />
+		<div class="modal-actions">
+			<button id="modalSectionCancel" class="btn">Cancelar</button>
+			<button id="modalSectionAdd" class="btn primary">Criar</button>
+		</div>
+	</div>
+</div>
+ 
+<script src="script.js"></script>
+</body>
+</html>

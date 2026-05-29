@@ -1,0 +1,5695 @@
+/* 
+:root = aqui ficam as variáveis globais do sistema.
+Pensa nisso como uma "caixa de configurações".
+Tudo que começa com -- é uma variável reutilizável.
+*/
+
+:root {
+
+  /* Cor azul principal da marca */
+  --brand-blue: #0077c8;
+
+  /* Cor verde/azulada da marca */
+  --brand-teal: #009ca6;
+
+  /* Caminho da imagem da logo CeAC */
+  --logo-ceac: url("./Logo CeAC Azul e Turqueza Sem Fundo.png");
+
+  /* Caminho da imagem da logo HCFMUSP */
+  --logo-hcfmusp: url("./LOGO HCFMUSP.png");
+
+  /* 
+  --hc recebe o valor da variável --brand-blue
+  Ou seja:
+  hc = azul principal
+  */
+  --hc: var(--brand-blue);
+
+  /* Azul mais escuro */
+  --hc-dark: #005f9a;
+
+  /* Azul clarinho */
+  --hc-light: #e8f4f6;
+
+  /* Azul ainda mais claro */
+  --hc-lighter: #f0f9fa;
+
+  /* 
+  Largura da sidebar/menu lateral
+  260px = 260 pixels
+  */
+  --sidebar-w: 260px;
+
+  /* Altura da barra superior */
+  --topbar-h: 58px;
+
+  /* Cor de fundo geral do site */
+  --bg: #f5f7f8;
+
+  /* Cor dos cartões/caixas/superfícies */
+  --surface: #ffffff;
+
+  /* Cor das bordas */
+  --border: #e0e4e6;
+
+  /* Cor principal dos textos */
+  --text: #1a2224;
+
+  /* Cor de texto mais apagada/secundária */
+  --text-muted: #6b7b80;
+
+  /* 
+  Arredondamento padrão das bordas
+  quanto maior o número, mais arredondado fica
+  */
+  --radius: 8px;
+
+  /* Arredondamento maior */
+  --radius-lg: 12px;
+
+  /* 
+  Sombra suave dos elementos
+  0 = lado
+  5px = altura da sombra
+  20px = desfoque
+  rgba = cor com transparência
+  */
+  --shadow-soft: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 
+* = seleciona TODOS os elementos da página
+Exemplo:
+div, body, button, img, tudo mesmo
+*/
+
+* {
+
+  /* 
+  Faz com que padding e borda NÃO aumentem o tamanho do elemento.
+  
+  Sem isso:
+  width: 100px + padding = fica maior que 100px
+  
+  Com isso:
+  o elemento continua no tamanho certo.
+  
+  RESUMINDO:
+  deixa os tamanhos organizados e evita bagunça no layout.
+  */
+  box-sizing: border-box;
+
+  /* 
+  Remove margens automáticas dos elementos.
+  
+  Muitos elementos já vêm com espaço padrão,
+  tipo h1, p, body...
+  
+  Isso zera tudo.
+  */
+  margin: 0;
+
+  /* 
+  Remove espaçamento interno automático.
+  
+  padding = espaço DENTRO da caixa
+  */
+  padding: 0;
+}
+
+/* 
+.site-nav = estiliza a área do menu/navegação do site
+(normalmente a barra onde ficam os botões do menu)
+*/
+
+.site-nav {
+
+  /* 
+  background = cor de fundo
+  
+  #fff = branco
+  */
+  background: #fff;
+
+  /* 
+  box-shadow = sombra da caixa
+  
+  0 = sombra não vai para os lados
+  2px = sombra desce um pouco
+  8px = deixa a sombra mais suave/esfumaçada
+  rgba = cor preta com transparência
+  
+  RESUMINDO:
+  cria uma sombrinha embaixo do menu
+  para dar efeito mais bonito/profissional.
+  */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+/* 
+.site-nav nav ul
+
+Isso está pegando:
+- .site-nav = área do menu
+- nav = navegação
+- ul = lista do menu
+
+Ou seja:
+está estilizando a LISTA dos itens do menu.
+*/
+
+.site-nav nav ul {
+
+  /* 
+  Remove as bolinhas da lista
+  
+  Sem isso:
+  • Item
+  
+  Com isso:
+  Item
+  */
+  list-style: none;
+
+  /* 
+  display: flex
+  
+  Coloca os itens lado a lado.
+  
+  Sem flex:
+  um embaixo do outro
+  
+  Com flex:
+  um do lado do outro
+  */
+  display: flex;
+
+  /* 
+  gap = espaço ENTRE os itens
+  
+  18px = distância entre cada botão/item do menu
+  */
+  gap: 18px;
+
+  /* 
+  padding = espaço interno
+  
+  12px = cima e baixo
+  24px = esquerda e direita
+  
+  Faz o menu "respirar"
+  e não ficar colado nas bordas.
+  */
+  padding: 12px 24px;
+
+  /* 
+  align-items: center
+  
+  Alinha os itens no centro na vertical.
+  
+  Deixa tudo reto e alinhado bonitinho.
+  */
+  align-items: center;
+}
+/* 
+.site-nav nav a
+
+Aqui estamos estilizando os LINKS do menu.
+  
+"a" = tag de link
+Exemplo:
+<a href="">Inicio</a>
+*/
+
+.site-nav nav a {
+
+  /* 
+  text-decoration: none
+  
+  Remove o sublinhado do link.
+  
+  Sem isso:
+  Inicio__
+  
+  Com isso:
+  Inicio
+  */
+  text-decoration: none;
+
+  /* 
+  color = cor do texto
+  
+  #333 = cinza escuro
+  */
+  color: #333;
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Deixa o texto mais forte e visível.
+  */
+  font-weight: 600;
+}
+/* 
+:hover = efeito quando passa o mouse em cima
+  
+Ou seja:
+quando o usuário colocar o mouse no link do menu,
+esse estilo será ativado.
+*/
+
+.site-nav nav a:hover {
+
+  /* 
+  Muda a cor do texto
+  
+  var(--hc) = pega a cor salva na variável --hc
+  
+  Lá no começo:
+  --hc = azul principal da marca
+  
+  RESUMINDO:
+  quando passa o mouse,
+  o link fica azul.
+  */
+  color: var(--hc);
+}
+/* 
+.layout = área principal do site
+  
+Geralmente é a estrutura que segura:
+- topo
+- menu
+- conteúdo
+- rodapé
+*/
+
+.layout {
+
+  /* 
+  display: flex
+  
+  Ativa o modo flexbox.
+  
+  Isso ajuda a organizar os elementos
+  de forma mais fácil.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Organiza os elementos em COLUNA.
+  
+  Ou seja:
+  um embaixo do outro.
+  
+  Exemplo:
+  topo
+  menu
+  conteúdo
+  rodapé
+  */
+  flex-direction: column;
+
+  /* 
+  height: 100vh
+  
+  Faz a área ocupar 100% da altura da tela.
+  
+  vh = altura da tela do navegador
+  
+  100vh = tela inteira
+  */
+  height: 100vh;
+}
+/* 
+.body-row = área principal do meio do site
+  
+Normalmente segura:
+- menu lateral
+- conteúdo principal
+  
+Tudo na mesma linha.
+*/
+
+.body-row {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  [ MENU ] [ CONTEÚDO ]
+  */
+  display: flex;
+
+  /* 
+  flex: 1
+  
+  Faz essa área crescer e ocupar
+  todo espaço disponível restante.
+  
+  Muito usado para o conteúdo principal.
+  */
+  flex: 1;
+
+  /* 
+  overflow: hidden
+  
+  Esconde qualquer conteúdo que ultrapasse a área.
+  
+  Evita:
+  - barra de rolagem indesejada
+  - elementos vazando da tela
+  */
+  overflow: hidden;
+}
+
+/* 
+.topbar = barra superior do sistema
+  
+Normalmente onde fica:
+- logo
+- menu
+- usuário
+- botões
+*/
+
+.topbar {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc) = usa a variável azul principal
+  */
+  background: var(--hc);
+
+  /* 
+  height = altura da barra
+  
+  var(--topbar-h) = pega a altura salva na variável
+  */
+  height: var(--topbar-h);
+
+  /* 
+  display: flex
+  
+  Coloca os itens lado a lado
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  
+  Faz logo e textos ficarem alinhados certinho.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: flex-start
+  
+  Joga os itens para o começo da linha
+  (lado esquerdo).
+  */
+  justify-content: flex-start;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  Exemplo:
+  logo   menu   usuário
+  */
+  gap: 18px;
+
+  /* 
+  padding: 0 20px
+  
+  0 = sem espaço em cima/baixo
+  20px = espaço nas laterais
+  
+  Evita elementos grudados na borda.
+  */
+  padding: 0 20px;
+
+  /* 
+  flex-shrink: 0
+  
+  Impede a barra de encolher
+  quando faltar espaço.
+  
+  Faz ela manter o tamanho correto.
+  */
+  flex-shrink: 0;
+
+  /* 
+  z-index = camada do elemento
+  
+  Quanto maior o número,
+  mais "na frente" ele fica.
+  
+  100 = barra fica acima de outros elementos.
+  */
+  z-index: 100;
+}
+
+/* 
+.logo-box = caixa onde fica a logo
+  
+É o "container" da imagem/logo.
+*/
+
+.logo-box {
+
+  /* 
+  display: flex
+  
+  Organiza os elementos lado a lado.
+  
+  Muito usado para alinhar logo + texto.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  
+  Faz a logo ficar bem alinhada.
+  */
+  align-items: center;
+
+  /* 
+  background = cor de fundo
+  
+  #fff = branco
+  */
+  background: #fff;
+
+  /* 
+  border-radius = arredondamento das bordas
+  
+  Ordem:
+  topo-esquerda
+  topo-direita
+  baixo-direita
+  baixo-esquerda
+  
+  Aqui:
+  em cima reto
+  embaixo arredondado
+  */
+  border-radius: 0 0 6px 6px;
+
+  /* 
+  padding = espaço interno
+  
+  6px = cima/baixo
+  16px = lados
+  
+  Faz a logo não ficar grudada.
+  */
+  padding: 6px 16px;
+
+  /* 
+  height = altura da caixa
+  */
+  height: 58px;
+
+  /* 
+  box-shadow = sombra
+  
+  0 = sem mover pros lados
+  4px = sombra desce
+  16px = deixa suave
+  rgba = preto transparente
+  
+  Dá efeito moderno/flutuando.
+  */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+/* 
+.brand-logo = área da logo da marca
+  
+Normalmente segura:
+- imagem da logo
+- talvez texto junto
+*/
+
+.brand-logo {
+
+  /* 
+  display: flex
+  
+  Organiza os elementos lado a lado.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  
+  Faz a logo ficar alinhada certinho
+  dentro da caixa.
+  */
+  align-items: center;
+
+  /* 
+  height: 100%
+  
+  Faz essa área ocupar
+  toda altura disponível do elemento pai.
+  
+  Exemplo:
+  se a caixa da logo tem 58px,
+  ela também terá 58px.
+  */
+  height: 100%;
+}
+/* 
+.brand-logo-img = imagem da logo
+  
+Aqui estamos estilizando a IMG da logo.
+*/
+
+.brand-logo-img {
+
+  /* 
+  display: block
+  
+  Faz a imagem se comportar como bloco.
+  
+  Ajuda a evitar espaços estranhos
+  ao redor da imagem.
+  */
+  display: block;
+
+  /* 
+  max-width: 100%
+  
+  Faz a imagem nunca ultrapassar
+  o tamanho da caixa onde ela está.
+  
+  Evita a logo "estourar" o layout.
+  */
+  max-width: 100%;
+
+  /* 
+  object-fit: contain
+  
+  Faz a imagem caber inteira
+  sem cortar.
+  
+  Muito usado em logos.
+  
+  RESUMINDO:
+  encaixa a imagem certinho.
+  */
+  object-fit: contain;
+
+  /* 
+  object-position: center
+  
+  Centraliza a imagem dentro da área.
+  */
+  object-position: center;
+}
+/* 
+.brand-logo-ceac = logo específica do CEAC
+  
+Aqui estamos definindo o tamanho da logo.
+*/
+
+.brand-logo-ceac {
+
+  /* 
+  width = largura da imagem
+  
+  138px = 138 pixels de largura
+  */
+  width: 138px;
+
+  /* 
+  height = altura da imagem
+  
+  42px = 42 pixels de altura
+  */
+  height: 42px;
+}
+/* 
+.brand-logo-hcfmusp = logo do HCFMUSP
+  
+Aqui define o tamanho dessa logo específica.
+*/
+
+.brand-logo-hcfmusp {
+
+  /* 
+  width = largura da logo
+  
+  72px = largura da imagem
+  */
+  width: 72px;
+
+  /* 
+  height = altura da logo
+  
+  38px = altura da imagem
+  */
+  height: 38px;
+}
+/* 
+.ceac-logo-box = caixa da logo do CEAC
+*/
+
+.ceac-logo-box {
+
+  /* 
+  margin-left: auto
+  
+  Empurra o elemento totalmente
+  para a direita.
+  
+  Muito usado no flexbox.
+  
+  EXEMPLO:
+  
+  [ logo ]           [ CEAC ]
+  
+  Tudo porque o auto ocupa
+  o espaço vazio automaticamente.
+  */
+  margin-left: auto;
+}
+/* 
+.brand-name = nome da marca/logo em texto
+  
+Exemplo:
+"CEAC"
+"HCFMUSP"
+*/
+
+.brand-name {
+
+  /* 
+  font-weight = grossura da letra
+  
+  700 = negrito forte
+  */
+  font-weight: 700;
+
+  /* 
+  color = cor do texto
+  
+  var(--brand-teal) = pega a cor verde/azulada
+  salva nas variáveis.
+  */
+  color: var(--brand-teal);
+
+  /* 
+  font-size = tamanho da letra
+  
+  16px = tamanho do texto
+  */
+  font-size: 16px;
+
+  /* 
+  letter-spacing = espaço entre as letras
+  
+  0.05em = letras um pouco mais separadas
+  
+  Dá aparência mais moderna.
+  */
+  letter-spacing: 0.05em;
+
+  /* 
+  text-transform: uppercase
+  
+  Transforma tudo em MAIÚSCULO.
+  
+  Exemplo:
+  ceac → CEAC
+  */
+  text-transform: uppercase;
+}
+
+/* 
+.brand-safe-area = área de segurança da marca/logo
+  
+Normalmente usada para controlar
+o espaço interno da logo.
+*/
+
+.brand-safe-area {
+
+  /* 
+  padding = espaço interno
+  
+  0 = remove TODO espaço interno.
+  
+  Ou seja:
+  a logo fica sem afastamento
+  dentro da caixa.
+  */
+  padding: 0;
+}
+/* 
+.brand-min-size = tamanho mínimo da marca/logo
+  
+Serve para impedir que o elemento
+fique pequeno demais.
+*/
+
+.brand-min-size {
+
+  /* 
+  min-width = largura mínima
+  
+  Mesmo se a tela apertar,
+  o elemento NUNCA ficará menor que 32px.
+  
+  Muito usado em:
+  - logos
+  - ícones
+  - botões
+  */
+  min-width: 32px;
+}
+/* 
+.topbar-user = área do usuário na barra superior
+  
+Normalmente onde fica:
+- foto do usuário
+- nome
+- ícone de perfil
+*/
+
+.topbar-user {
+
+  /* 
+  display: flex
+  
+  Coloca os itens lado a lado.
+  
+  Exemplo:
+  [ foto ] [ nome ]
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza tudo na vertical.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  10px = distância entre foto e nome
+  */
+  gap: 10px;
+
+  /* 
+  color = cor do texto/ícones
+  
+  #fff = branco
+  */
+  color: #fff;
+
+  /* 
+  cursor: pointer
+  
+  Quando passa o mouse,
+  aparece a "mãozinha".
+  
+  Mostra que é clicável.
+  */
+  cursor: pointer;
+
+  /* 
+  padding = espaço interno
+  
+  6px = cima/baixo
+  10px = lados
+  
+  Faz o botão respirar.
+  */
+  padding: 6px 10px;
+
+  /* 
+  border-radius = arredonda as bordas
+  
+  var(--radius) = pega o valor salvo nas variáveis
+  */
+  border-radius: var(--radius);
+
+  /* 
+  transition = animação suave
+  
+  background = anima a cor de fundo
+  0.15s = velocidade da animação
+  
+  Faz o hover ficar suave e bonito.
+  */
+  transition: background 0.15s;
+}
+/* 
+:hover = ativa quando o mouse passa em cima
+  
+Aqui:
+quando o usuário passa o mouse
+na área do perfil/topbar-user
+*/
+
+.topbar-user:hover {
+
+  /* 
+  background = cor de fundo
+  
+  rgba:
+  255,255,255 = branco
+  0.12 = transparência
+  
+  RESUMINDO:
+  cria um fundo branco bem transparente
+  quando passa o mouse.
+  
+  Isso dá efeito de botão moderno.
+  */
+  background: rgba(255, 255, 255, 0.12);
+}
+/* 
+.topbar-user-info = área das informações do usuário
+  
+Exemplo:
+Nome
+Cargo
+*/
+
+.topbar-user-info {
+
+  /* 
+  text-align: right
+  
+  Alinha o texto para a direita.
+  
+  Exemplo:
+          Ellen
+      Administrador
+  */
+  text-align: right;
+}
+/* 
+.topbar-actions = área dos botões/ações da barra superior
+  
+Exemplo:
+- sino de notificação
+- configurações
+- logout
+- perfil
+*/
+
+.topbar-actions {
+
+  /* 
+  display: flex
+  
+  Coloca os itens lado a lado.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  
+  Faz todos os ícones ficarem alinhados.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os itens
+  
+  10px = distância entre os botões/ícones
+  */
+  gap: 10px;
+}
+/* 
+.topbar-actions .btn
+
+Está pegando:
+.btn que estiver DENTRO de .topbar-actions
+  
+Ou seja:
+os botões da barra superior.
+*/
+
+.topbar-actions .btn {
+
+  /* 
+  padding = espaço interno do botão
+  
+  6px = cima/baixo
+  10px = lados
+  
+  Faz o botão não ficar apertado.
+  */
+  padding: 6px 10px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+}
+/* 
+.topbar-user-info .label
+
+Pega o elemento .label
+que está dentro de .topbar-user-info
+  
+Normalmente é um texto menor,
+tipo:
+"Administrador"
+"Online"
+"Usuário"
+*/
+
+.topbar-user-info .label {
+
+  /* 
+  font-size = tamanho da letra
+  
+  11px = texto pequeno
+  */
+  font-size: 11px;
+
+  /* 
+  opacity = transparência
+  
+  1 = totalmente visível
+  0 = invisível
+  
+  0.85 = levemente apagado/transparente
+  
+  Muito usado para texto secundário.
+  */
+  opacity: 0.85;
+}
+/* 
+.topbar-user-info .name
+
+Pega o elemento .name
+dentro das informações do usuário.
+  
+Normalmente:
+nome da pessoa logada.
+*/
+
+.topbar-user-info .name {
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Faz o nome ficar mais destacado.
+  */
+  font-weight: 600;
+
+  /* 
+  font-size = tamanho da letra
+  
+  13px = tamanho do texto
+  */
+  font-size: 13px;
+}
+/* 
+.avatar = foto/ícone do usuário
+  
+Pode ser:
+- foto de perfil
+- iniciais do nome
+- ícone
+*/
+
+.avatar {
+
+  /* 
+  width = largura do avatar
+  */
+  width: 36px;
+
+  /* 
+  height = altura do avatar
+  */
+  height: 36px;
+
+  /* 
+  border-radius: 50%
+  
+  Faz o elemento virar um CÍRCULO.
+  
+  Muito usado em fotos de perfil.
+  */
+  border-radius: 50%;
+
+  /* 
+  background = cor de fundo
+  
+  rgba branco com transparência.
+  
+  Dá aquele efeito suave/transparente.
+  */
+  background: rgba(255, 255, 255, 0.25);
+
+  /* 
+  border = borda do avatar
+  
+  1.5px = espessura
+  solid = linha contínua
+  rgba = branco transparente
+  */
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+
+  /* 
+  display: flex
+  
+  Ativa o flexbox
+  para centralizar o conteúdo.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza na vertical.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: center
+  
+  Centraliza na horizontal.
+  
+  Resultado:
+  conteúdo fica bem no meio do círculo.
+  */
+  justify-content: center;
+
+  /* 
+  font-size = tamanho da letra
+  
+  Muito usado quando o avatar
+  mostra iniciais.
+  
+  Exemplo:
+  EG
+  */
+  font-size: 13px;
+
+  /* 
+  font-weight = grossura da letra
+  
+  700 = negrito forte
+  */
+  font-weight: 700;
+
+  /* 
+  color = cor do texto
+  
+  branco
+  */
+  color: #fff;
+}
+/* 
+.topbar .ti-chevron-down
+
+Pega o ícone "setinha para baixo"
+dentro da barra superior.
+  
+Normalmente usado em:
+- menu do usuário
+- dropdown
+- abrir opções
+*/
+
+.topbar .ti-chevron-down {
+
+  /* 
+  color = cor do ícone
+  
+  #fff = branco
+  */
+  color: #fff;
+
+  /* 
+  font-size = tamanho do ícone
+  
+  14px = tamanho pequeno/médio
+  */
+  font-size: 14px;
+}
+
+/* 
+.sidebar = menu lateral do sistema
+  
+Normalmente fica no lado esquerdo.
+  
+Exemplo:
+- Dashboard
+- Usuários
+- Configurações
+*/
+
+.sidebar {
+
+  /* 
+  width = largura da sidebar
+  
+  var(--sidebar-w) = usa a largura salva na variável
+  */
+  width: var(--sidebar-w);
+
+  /* 
+  min-width = largura mínima
+  
+  Impede o menu de ficar menor
+  do que o valor definido.
+  */
+  min-width: var(--sidebar-w);
+
+  /* 
+  background = cor de fundo
+  
+  var(--surface) = geralmente branco
+  */
+  background: var(--surface);
+
+  /* 
+  border-right = borda do lado direito
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border-right: 1px solid var(--border);
+
+  /* 
+  display: flex
+  
+  Ativa o flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Organiza os itens em coluna.
+  
+  Exemplo:
+  botão
+  botão
+  botão
+  */
+  flex-direction: column;
+
+  /* 
+  transition = animação suave
+  
+  Aqui anima:
+  - width (largura)
+  - min-width
+  
+  0.25s = velocidade
+  ease = movimento suave
+  
+  Muito usado quando a sidebar
+  abre e fecha.
+  */
+  transition:
+    width 0.25s ease,
+    min-width 0.25s ease;
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar a área.
+  
+  Evita textos/imagens vazando.
+  */
+  overflow: hidden;
+
+  /* 
+  position: relative
+  
+  Permite posicionar elementos
+  internos com mais controle.
+  
+  Muito usado para:
+  - ícones
+  - botões
+  - elementos absolutos
+  */
+  position: relative;
+
+  /* 
+  flex-shrink: 0
+  
+  Impede a sidebar de encolher
+  quando faltar espaço.
+  */
+  flex-shrink: 0;
+}
+/* 
+.sidebar.collapsed
+
+Quando a sidebar recebe a classe "collapsed",
+ela entra no modo recolhido/fechado.
+  
+Exemplo:
+menu pequeno só com ícones.
+*/
+
+.sidebar.collapsed {
+
+  /* 
+  width = nova largura da sidebar
+  
+  52px = menu bem estreito
+  */
+  width: 52px;
+
+  /* 
+  min-width = largura mínima
+  
+  Mantém o menu sempre com 52px
+  mesmo se a tela apertar.
+  */
+  min-width: 52px;
+}
+/* 
+.sidebar-scroll = área rolável da sidebar
+  
+É a parte do menu lateral
+que pode ter rolagem.
+*/
+
+.sidebar-scroll {
+
+  /* 
+  flex: 1
+  
+  Faz essa área crescer
+  ocupando o espaço disponível.
+  */
+  flex: 1;
+
+  /* 
+  overflow-y: auto
+  
+  Ativa rolagem VERTICAL
+  somente se precisar.
+  
+  Se tiver muito conteúdo:
+  aparece barra de rolagem.
+  */
+  overflow-y: auto;
+
+  /* 
+  overflow-x: hidden
+  
+  Esconde rolagem horizontal.
+  
+  Evita barra lateral feia
+  para os lados.
+  */
+  overflow-x: hidden;
+
+  /* 
+  padding-bottom = espaço interno embaixo
+  
+  52px = deixa um espaço no final
+  da sidebar.
+  
+  Muito usado para:
+  - não deixar item colado no final
+  - evitar sobreposição com botão fixo
+  */
+  padding-bottom: 52px;
+}
+/* 
+.sidebar-scroll::-webkit-scrollbar
+
+Estiliza a barra de rolagem da sidebar
+em navegadores como Chrome, Edge e Safari.
+*/
+
+.sidebar-scroll::-webkit-scrollbar {
+
+  /* 
+  width = largura da barra de rolagem
+  
+  6px = barra fininha
+  */
+  width: 6px;
+}
+/* 
+.sidebar-scroll::-webkit-scrollbar-thumb
+
+"thumb" = a parte que você arrasta
+na barra de rolagem.
+  
+Aquela "barrinha" que sobe e desce.
+*/
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+
+  /* 
+  background = cor da barrinha
+  
+  var(--border) = usa a cor da variável border
+  */
+  background: var(--border);
+
+  /* 
+  border-radius = arredonda a barrinha
+  
+  3px = leve arredondamento
+  */
+  border-radius: 3px;
+}
+/* 
+.menu-section = seção/bloco do menu lateral
+  
+Exemplo:
+- Administração
+- Relatórios
+- Configurações
+  
+Cada grupo pode ser uma "section".
+*/
+
+.menu-section {
+
+  /* 
+  border-bottom = borda embaixo
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  
+  RESUMINDO:
+  cria uma linha separando
+  uma seção da outra.
+  */
+  border-bottom: 1px solid var(--border);
+}
+/* 
+.section-header = cabeçalho da seção do menu
+  
+Normalmente é a parte clicável
+que abre/fecha os itens.
+  
+Exemplo:
+▶ Relatórios
+▶ Configurações
+*/
+
+.section-header {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  texto + seta
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: space-between
+  
+  Joga um item para cada lado.
+  
+  Exemplo:
+  Relatórios           ▼
+  */
+  justify-content: space-between;
+
+  /* 
+  padding = espaço interno
+  
+  10px = cima/baixo
+  14px = lados
+  */
+  padding: 10px 14px;
+
+  /* 
+  cursor: pointer
+  
+  Mostra a mãozinha do mouse.
+  
+  Indica que pode clicar.
+  */
+  cursor: pointer;
+
+  /* 
+  user-select: none
+  
+  Impede selecionar o texto.
+  
+  Evita aquele efeito feio
+  de texto azul selecionado
+  quando clica rápido.
+  */
+  user-select: none;
+
+  /* 
+  transition = animação suave
+  
+  background = anima mudança de fundo
+  0.12s = velocidade rápida e suave
+  */
+  transition: background 0.12s;
+}
+/* 
+:hover = ativa quando o mouse passa em cima
+  
+Aqui:
+quando passar o mouse
+no cabeçalho da seção do menu.
+*/
+
+.section-header:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-lighter) = azul bem clarinho
+  salvo nas variáveis.
+  
+  RESUMINDO:
+  quando passa o mouse,
+  o fundo da seção fica azul claro.
+  
+  Dá efeito visual de botão interativo.
+  */
+  background: var(--hc-lighter);
+}
+/* 
+.section-title = título da seção do menu
+  
+Exemplo:
+- Relatórios
+- Administração
+- Configurações
+*/
+
+.section-title {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  [ícone] [texto]
+  */
+  display: flex;
+
+  /* 
+  align-items: flex-start
+  
+  Alinha os itens no topo.
+  
+  Muito usado quando:
+  - ícone
+  - texto
+  têm tamanhos diferentes.
+  */
+  align-items: flex-start;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  10px = distância entre ícone e texto
+  */
+  gap: 10px;
+
+  /* 
+  color = cor do texto/ícone
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  */
+  font-weight: 600;
+
+  /* 
+  font-size = tamanho da letra
+  
+  13px = tamanho do texto
+  */
+  font-size: 13px;
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar o tamanho.
+  
+  Evita:
+  - texto vazando
+  - layout quebrando
+  */
+  overflow: hidden;
+}
+/* 
+.section-title i
+
+Pega o ícone <i>
+dentro do título da seção.
+  
+Exemplo:
+📊 Relatórios
+⚙ Configurações
+*/
+
+.section-title i {
+
+  /* 
+  font-size = tamanho do ícone
+  
+  18px = ícone médio
+  */
+  font-size: 18px;
+
+  /* 
+  flex-shrink: 0
+  
+  Impede o ícone de encolher
+  quando faltar espaço.
+  */
+  flex-shrink: 0;
+
+  /* 
+  width = largura do ícone
+  */
+  width: 24px;
+
+  /* 
+  height = altura do ícone
+  */
+  height: 24px;
+
+  /* 
+  display: flex
+  
+  Ativa flexbox no ícone.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza na vertical.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: center
+  
+  Centraliza na horizontal.
+  
+  Resultado:
+  ícone fica bem no meio.
+  */
+  justify-content: center;
+
+  /* 
+  border-radius = arredonda bordas
+  
+  6px = leve arredondamento
+  */
+  border-radius: 6px;
+}
+/* 
+.section-title-copy = área dos textos do título
+  
+Normalmente segura:
+- título principal
+- subtítulo/descrição
+*/
+
+.section-title-copy {
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Coloca os elementos em coluna.
+  
+  Exemplo:
+  Relatórios
+  Gestão mensal
+  */
+  flex-direction: column;
+
+  /* 
+  gap = espaço entre os textos
+  
+  2px = espaço pequeno
+  */
+  gap: 2px;
+
+  /* 
+  min-width: 0
+  
+  Permite que o texto encolha corretamente
+  dentro do flexbox.
+  
+  Muito usado para evitar:
+  - texto vazando
+  - layout quebrando
+  - flex bugado
+  */
+  min-width: 0;
+}
+/* 
+.section-title-text = texto do título da seção
+  
+Aqui controla o comportamento
+do texto quando ele fica grande demais.
+*/
+
+.section-title-text {
+
+  /* 
+  overflow: hidden
+  
+  Esconde o texto que ultrapassar a área.
+  */
+  overflow: hidden;
+
+  /* 
+  text-overflow: ellipsis
+  
+  Coloca "..." quando o texto não cabe.
+  
+  Exemplo:
+  "Relatórios Financei..."
+  */
+  text-overflow: ellipsis;
+
+  /* 
+  white-space: nowrap
+  
+  Impede quebra de linha.
+  
+  O texto fica sempre em UMA linha só.
+  */
+  white-space: nowrap;
+}
+/* 
+.section-subtitle-item = subtítulo/item secundário do menu
+  
+Normalmente usado para:
+- descrição
+- categoria
+- texto auxiliar
+*/
+
+.section-subtitle-item {
+
+  /* 
+  padding = espaço interno
+  
+  Ordem:
+  cima | direita | baixo | esquerda
+  
+  10px = cima
+  14px = direita
+  10px = baixo
+  42px = esquerda
+  
+  O 42px empurra o texto mais pra direita,
+  criando efeito de "subitem".
+  */
+  padding: 10px 14px 10px 42px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = cor mais apagada/suave
+  */
+  color: var(--text-muted);
+
+  /* 
+  background = fundo bem clarinho
+  
+  rgba preto com transparência leve
+  */
+  background: rgba(0, 0, 0, 0.02);
+
+  /* 
+  border-left = borda do lado esquerdo
+  
+  3px = espessura
+  solid = linha contínua
+  transparent = invisível
+  
+  Muito usado para depois mudar a cor
+  quando item estiver ativo/selecionado.
+  */
+  border-left: 3px solid transparent;
+
+  /* 
+  letter-spacing = espaço entre letras
+  
+  0.02em = leve separação
+  */
+  letter-spacing: 0.02em;
+
+  /* 
+  line-height = altura entre linhas
+  
+  1.4 = deixa o texto respirar melhor
+  e facilita leitura.
+  */
+  line-height: 1.4;
+}
+/* 
+.section-subtitle-item + .menu-item
+
+O sinal + significa:
+"pega o próximo elemento logo depois"
+  
+Ou seja:
+quando existir um .menu-item
+logo após um .section-subtitle-item,
+esse estilo será aplicado.
+*/
+
+.section-subtitle-item + .menu-item {
+
+  /* 
+  border-top = borda em cima
+  
+  1px = espessura
+  solid = linha contínua
+  rgba = preto bem transparente
+  
+  RESUMINDO:
+  cria uma linha separando os itens.
+  */
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+/* 
+.chevron = ícone de seta
+  
+Normalmente usado para:
+▶ abrir menu
+▼ fechar menu
+*/
+
+.chevron {
+
+  /* 
+  font-size = tamanho da seta/ícone
+  
+  14px = tamanho pequeno/médio
+  */
+  font-size: 14px;
+
+  /* 
+  color = cor da seta
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  transition = animação suave
+  
+  transform = anima rotações/movimentos
+  0.18s = velocidade da animação
+  
+  Muito usado quando a seta gira.
+  */
+  transition: transform 0.18s;
+
+  /* 
+  flex-shrink: 0
+  
+  Impede a seta de encolher
+  quando faltar espaço.
+  */
+  flex-shrink: 0;
+}
+/* 
+.chevron.open
+
+Quando a seta recebe a classe "open",
+ela muda de posição.
+  
+Normalmente:
+menu aberto.
+*/
+
+.chevron.open {
+
+  /* 
+  transform: rotate(180deg)
+  
+  Gira a seta 180 graus.
+  
+  Exemplo:
+  ▼ vira ▲
+  
+  Muito usado em:
+  - accordion
+  - dropdown
+  - menus expansíveis
+  */
+  transform: rotate(180deg);
+}
+/* 
+.section-items = área que guarda
+os itens internos da seção
+  
+Exemplo:
+Relatórios
+  - Mensal
+  - Financeiro
+  - Usuários
+*/
+
+.section-items {
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar a área.
+  
+  Muito usado em menus que abrem/fecham.
+  */
+  overflow: hidden;
+
+  /* 
+  transition = animação suave
+  
+  max-height = anima a altura máxima
+  0.22s = velocidade
+  ease = movimento suave
+  
+  RESUMINDO:
+  cria efeito suave ao abrir/fechar
+  os itens da seção.
+  */
+  transition: max-height 0.22s ease;
+}
+/* 
+.section-items.closed
+
+Quando a área dos itens recebe
+a classe "closed",
+ela fica fechada/escondida.
+*/
+
+.section-items.closed {
+
+  /* 
+  max-height = altura máxima
+  
+  0 = sem altura
+  
+  Resultado:
+  os itens somem/fecham.
+  */
+  max-height: 0 !important;
+
+  /* 
+  !important
+  
+  Força essa regra a ter prioridade.
+  
+  Mesmo que outro código tente mudar,
+  esse valor continua valendo.
+  */
+}
+/* 
+.menu-item = item do menu lateral
+  
+Exemplo:
+- Dashboard
+- Usuários
+- Relatórios
+*/
+
+.menu-item {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  ícone + texto
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre elementos
+  
+  8px = distância entre ícone e texto
+  */
+  gap: 8px;
+
+  /* 
+  padding = espaço interno
+  
+  Ordem:
+  cima | direita | baixo | esquerda
+  
+  42px na esquerda empurra o item
+  mais pra direita.
+  
+  Muito usado para submenus.
+  */
+  padding: 8px 14px 8px 42px;
+
+  /* 
+  font-size = tamanho do texto
+  
+  13px = tamanho médio pequeno
+  */
+  font-size: 13px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = texto mais suave/apagado
+  */
+  color: var(--text-muted);
+
+  /* 
+  cursor: pointer
+  
+  Mostra a mãozinha do mouse.
+  
+  Indica que o item pode ser clicado.
+  */
+  cursor: pointer;
+
+  /* 
+  white-space: normal
+  
+  Permite quebra de linha no texto.
+  
+  Se o nome for grande,
+  ele desce para outra linha.
+  */
+  white-space: normal;
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar a área.
+  */
+  overflow: hidden;
+
+  /* 
+  border-left = borda esquerda
+  
+  3px = espessura
+  transparent = invisível
+  
+  Muito usado para destacar item ativo.
+  */
+  border-left: 3px solid transparent;
+
+  /* 
+  transition = animação suave
+  
+  background = fundo
+  border-color = cor da borda
+  color = cor do texto
+  
+  Tudo muda suavemente no hover/ativo.
+  */
+  transition:
+    background 0.12s,
+    border-color 0.12s,
+    color 0.12s;
+
+  /* 
+  position: relative
+  
+  Permite posicionar elementos internos
+  com mais controle.
+  */
+  position: relative;
+}
+/* 
+.menu-item.has-children
+
+Esse item do menu possui "filhos",
+ou seja:
+submenus dentro dele.
+  
+Exemplo:
+Relatórios
+  - Mensal
+  - Financeiro
+*/
+
+.menu-item.has-children {
+
+  /* 
+  flex-direction: column
+  
+  Em vez de ficar lado a lado,
+  os elementos ficam um embaixo do outro.
+  */
+  flex-direction: column;
+
+  /* 
+  align-items: flex-start
+  
+  Alinha tudo no começo/esquerda.
+  
+  Evita conteúdo centralizado.
+  */
+  align-items: flex-start;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  4px = pequena distância
+  entre título e submenu.
+  */
+  gap: 4px;
+}
+/* 
+.menu-item::before
+
+::before cria um elemento ANTES do conteúdo.
+  
+Aqui está criando uma bolinha
+antes do item do menu.
+*/
+
+.menu-item::before {
+
+  /* 
+  content = conteúdo criado
+  
+  "•" = bolinha
+  */
+  content: "•";
+
+  /* 
+  position: absolute
+  
+  Permite posicionar a bolinha
+  em um local exato.
+  */
+  position: absolute;
+
+  /* 
+  left = distância da esquerda
+  
+  26px = posição da bolinha
+  */
+  left: 26px;
+
+  /* 
+  color = cor da bolinha
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-size = tamanho da bolinha
+  
+  10px = pequena
+  */
+  font-size: 10px;
+
+  /* 
+  line-height = altura da linha
+  
+  1 = tamanho normal/compacto
+  */
+  line-height: 1;
+}
+/* 
+.sidebar.collapsed .menu-item
+
+Quando a sidebar estiver recolhida/fechada,
+os itens do menu mudam de aparência.
+*/
+
+.sidebar.collapsed .menu-item {
+
+  /* 
+  padding = espaço interno
+  
+  8px = cima/baixo
+  14px = lados
+  
+  Remove aquele espaço grande da esquerda
+  porque o menu ficou pequeno.
+  */
+  padding: 8px 14px;
+
+  /* 
+  justify-content: center
+  
+  Centraliza o conteúdo horizontalmente.
+  
+  Muito usado quando sobra só o ícone
+  no menu recolhido.
+  */
+  justify-content: center;
+}
+/* 
+.sidebar.collapsed .menu-item::before
+
+Quando a sidebar estiver recolhida,
+o elemento criado no ::before
+(a bolinha do menu)
+será escondido.
+*/
+
+.sidebar.collapsed .menu-item::before {
+
+  /* 
+  display: none
+  
+  Esconde completamente o elemento.
+  
+  Resultado:
+  a bolinha "•" desaparece.
+  */
+  display: none;
+}
+/* 
+.menu-item:hover
+
+:hover ativa quando o mouse
+passa em cima do item do menu.
+*/
+
+.menu-item:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  RESULTADO:
+  
+  Quando passa o mouse:
+  - fundo fica azul claro
+  - texto fica azul forte
+  
+  Dá efeito visual de item selecionável.
+  */
+}
+/* 
+.menu-item.active
+
+.active = item ATIVO/selecionado
+  
+Ou seja:
+a página atual do menu.
+  
+Exemplo:
+se você estiver em "Relatórios",
+esse item fica destacado.
+*/
+
+.menu-item.active {
+
+  /* 
+  border-left-color = cor da borda esquerda
+  
+  var(--hc) = azul principal
+  
+  Faz aparecer a barrinha azul lateral.
+  */
+  border-left-color: var(--hc);
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto
+  
+  azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Deixa o item mais destacado.
+  */
+  font-weight: 600;
+}
+/* 
+.item-label = texto/nome do item
+  
+Exemplo:
+- Dashboard
+- Relatórios
+- Usuários
+*/
+
+.item-label {
+
+  /* 
+  display: inline-block
+  
+  Faz o elemento se comportar
+  como bloco em linha.
+  
+  Isso permite controlar:
+  - largura
+  - overflow
+  - ellipsis
+  */
+  display: inline-block;
+
+  /* 
+  overflow: hidden
+  
+  Esconde texto que ultrapassar o espaço.
+  */
+  overflow: hidden;
+
+  /* 
+  text-overflow: ellipsis
+  
+  Coloca "..." quando o texto é grande demais.
+  
+  Exemplo:
+  "Relatórios Financei..."
+  */
+  text-overflow: ellipsis;
+}
+/* 
+.item-content = área do conteúdo do item
+  
+Normalmente segura:
+- título
+- descrição
+- subtítulo
+*/
+
+.item-content {
+
+  /* 
+  display: flex
+  
+  Ativa o flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Organiza os elementos em coluna.
+  
+  Exemplo:
+  Relatórios
+  Gestão mensal
+  */
+  flex-direction: column;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  4px = pequena distância
+  entre os textos.
+  */
+  gap: 4px;
+}
+/* 
+.item-children = área dos itens filhos/submenus
+  
+Exemplo:
+Relatórios
+  - Mensal
+  - Financeiro
+*/
+
+.item-children {
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Coloca os subitens um embaixo do outro.
+  */
+  flex-direction: column;
+
+  /* 
+  gap = espaço entre os subitens
+  
+  4px = pequena distância
+  */
+  gap: 4px;
+
+  /* 
+  margin-left = espaço do lado esquerdo
+  
+  20px = empurra os submenus pra direita.
+  
+  Cria efeito visual de hierarquia.
+  */
+  margin-left: 20px;
+
+  /* 
+  margin-top = espaço em cima
+  
+  4px = separa o submenu do título principal.
+  */
+  margin-top: 4px;
+}
+/* 
+.item-child = subitem/submenu
+  
+Exemplo:
+Relatórios
+  - Mensal
+  - Financeiro
+*/
+
+.item-child {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  ícone + texto
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  8px = distância entre ícone e texto
+  */
+  gap: 8px;
+
+  /* 
+  padding = espaço interno
+  
+  Ordem:
+  cima | direita | baixo | esquerda
+  
+  42px na esquerda cria efeito
+  de submenu identado.
+  */
+  padding: 8px 14px 8px 42px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  13px = tamanho médio pequeno
+  */
+  font-size: 13px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = cor mais suave/apagada
+  */
+  color: var(--text-muted);
+
+  /* 
+  cursor: pointer
+  
+  Mostra a mãozinha do mouse.
+  
+  Indica que pode clicar.
+  */
+  cursor: pointer;
+
+  /* 
+  white-space: nowrap
+  
+  Impede quebra de linha.
+  
+  O texto fica sempre em uma linha.
+  */
+  white-space: nowrap;
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar a área.
+  */
+  overflow: hidden;
+
+  /* 
+  border-left = borda esquerda
+  
+  Inicialmente invisível.
+  
+  Muito usada para destacar item ativo.
+  */
+  border-left: 3px solid transparent;
+
+  /* 
+  transition = animação suave
+  
+  Anima:
+  - fundo
+  - texto
+  - borda
+  
+  Deixa hover e seleção mais bonitos.
+  */
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+
+  /* 
+  position: relative
+  
+  Permite posicionar elementos internos
+  com mais controle.
+  */
+  position: relative;
+}
+/* 
+.item-child::before
+
+::before cria algo ANTES do conteúdo.
+  
+Aqui:
+está criando uma bolinha
+antes do subitem do menu.
+*/
+
+.item-child::before {
+
+  /* 
+  content = conteúdo criado
+  
+  "•" = bolinha
+  */
+  content: "•";
+
+  /* 
+  position: absolute
+  
+  Permite posicionar a bolinha
+  em local exato.
+  */
+  position: absolute;
+
+  /* 
+  left = distância da esquerda
+  
+  26px = posição da bolinha
+  */
+  left: 26px;
+
+  /* 
+  color = cor da bolinha
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-size = tamanho da bolinha
+  
+  10px = pequena
+  */
+  font-size: 10px;
+
+  /* 
+  line-height = altura da linha
+  
+  1 = compacto/normal
+  */
+  line-height: 1;
+}
+/* 
+.item-child:hover
+
+:hover ativa quando o mouse
+passa em cima do subitem do menu.
+*/
+
+.item-child:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  RESULTADO:
+  
+  Quando passa o mouse:
+  - fundo fica azul claro
+  - texto fica azul
+  
+  Dá efeito visual de item interativo.
+  */
+}
+/* 
+.item-child.active
+
+.active = subitem ATIVO/selecionado
+  
+Ou seja:
+a página atual aberta no submenu.
+  
+Exemplo:
+Relatórios
+  → Financeiro
+*/
+
+.item-child.active {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Faz o item ativo ficar destacado.
+  */
+  font-weight: 600;
+}
+
+/* 
+.toggle-btn:hover
+
+:hover ativa quando o mouse
+passa em cima do botão toggle.
+  
+Toggle normalmente é:
+- abrir/fechar menu
+- expandir/recolher
+- ativar/desativar
+*/
+
+.toggle-btn:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto/ícone
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  border-color = cor da borda
+  
+  var(--hc) = azul principal
+  */
+  border-color: var(--hc);
+
+  /* 
+  RESULTADO:
+  
+  Quando passa o mouse:
+  - fundo azul claro
+  - texto/ícone azul
+  - borda azul
+  
+  Dá efeito moderno de botão interativo.
+  */
+}
+
+/* 
+.main = área principal do sistema
+  
+Normalmente onde fica:
+- conteúdo da página
+- tabelas
+- cards
+- formulários
+*/
+
+.main {
+
+  /* 
+  flex: 1
+  
+  Faz essa área crescer
+  ocupando todo espaço disponível.
+  */
+  flex: 1;
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Organiza os elementos em coluna.
+  
+  Exemplo:
+  topo
+  conteúdo
+  rodapé
+  */
+  flex-direction: column;
+
+  /* 
+  overflow: hidden
+  
+  Esconde conteúdo que ultrapassar a área.
+  
+  Evita barras e vazamentos estranhos.
+  */
+  overflow: hidden;
+
+  /* 
+  min-width: 0
+  
+  Permite o flexbox encolher corretamente.
+  
+  Muito usado para evitar:
+  - layout quebrado
+  - texto vazando
+  - elementos estourando largura
+  */
+  min-width: 0;
+}
+/* 
+.edit-bar = barra de edição/ferramentas
+  
+Normalmente usada para:
+- filtros
+- botões
+- ações rápidas
+- ferramentas do sistema
+*/
+
+.edit-bar {
+
+  /* 
+  background = cor de fundo
+  
+  #fff = branco
+  */
+  background: #fff;
+
+  /* 
+  border-bottom = borda embaixo
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border-bottom: 1px solid var(--border);
+
+  /* 
+  padding = espaço interno
+  
+  8px = cima/baixo
+  20px = lados
+  
+  Faz os itens não ficarem grudados.
+  */
+  padding: 8px 20px;
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  12px = distância entre botões/campos
+  */
+  gap: 12px;
+
+  /* 
+  flex-wrap: wrap
+  
+  Permite quebrar linha
+  quando faltar espaço.
+  
+  Exemplo:
+  botão botão botão
+  botão botão
+  */
+  flex-wrap: wrap;
+
+  /* 
+  font-size = tamanho do texto
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+}
+/* 
+.edit-bar label
+
+Pega as labels dentro da barra de edição.
+  
+Label normalmente é:
+- texto explicando um campo
+- nome de input
+- descrição
+  
+Exemplo:
+"Pesquisar:"
+"Filtro:"
+*/
+
+.edit-bar label {
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = texto mais suave/apagado
+  */
+  color: var(--text-muted);
+
+  /* 
+  font-weight = grossura da letra
+  
+  500 = meio termo entre normal e negrito
+  */
+  font-weight: 500;
+
+  /* 
+  white-space: nowrap
+  
+  Impede quebra de linha.
+  
+  Faz o texto ficar sempre em uma linha só.
+  
+  Exemplo:
+  "Pesquisar por usuário"
+  não quebra no meio.
+  */
+  white-space: nowrap;
+}
+/* 
+.edit-bar input
+
+Pega os campos de input
+dentro da barra de edição.
+  
+Exemplo:
+- pesquisa
+- filtro
+- formulário
+*/
+
+.edit-bar input {
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+
+  /* 
+  padding = espaço interno
+  
+  5px = cima/baixo
+  9px = lados
+  
+  Faz o texto não ficar grudado.
+  */
+  padding: 5px 9px;
+
+  /* 
+  border-radius = arredonda as bordas
+  
+  var(--radius) = valor salvo nas variáveis
+  */
+  border-radius: var(--radius);
+
+  /* 
+  border = borda do input
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border: 1px solid var(--border);
+
+  /* 
+  background = cor de fundo
+  
+  var(--bg) = fundo padrão do sistema
+  */
+  background: var(--bg);
+
+  /* 
+  color = cor do texto digitado
+  
+  var(--text) = cor principal do texto
+  */
+  color: var(--text);
+
+  /* 
+  width = largura do input
+  
+  140px = tamanho do campo
+  */
+  width: 140px;
+
+  /* 
+  outline: none
+  
+  Remove aquela borda azul padrão
+  quando clica no input.
+  */
+  outline: none;
+
+  /* 
+  transition = animação suave
+  
+  border-color = anima mudança da borda
+  0.12s = velocidade rápida/suave
+  */
+  transition: border-color 0.12s;
+}
+/* 
+.edit-bar input:focus
+
+:focus ativa quando o usuário
+CLICA no input ou começa digitar.
+  
+Ou seja:
+campo selecionado.
+*/
+
+.edit-bar input:focus {
+
+  /* 
+  border-color = cor da borda
+  
+  var(--hc) = azul principal
+  
+  RESULTADO:
+  quando clica no campo,
+  a borda fica azul.
+  
+  Isso ajuda o usuário saber
+  qual campo está ativo.
+  */
+  border-color: var(--hc);
+}
+/* 
+.btn = estilo padrão dos botões
+  
+Exemplo:
+- salvar
+- editar
+- excluir
+- pesquisar
+*/
+
+.btn {
+
+  /* 
+  display: inline-flex
+  
+  Funciona como flexbox,
+  mas sem ocupar a linha inteira.
+  
+  Muito usado em botões.
+  */
+  display: inline-flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza conteúdo na vertical.
+  
+  Exemplo:
+  ícone + texto alinhados.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  6px = distância entre ícone e texto
+  */
+  gap: 6px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+
+  /* 
+  padding = espaço interno
+  
+  6px = cima/baixo
+  12px = lados
+  
+  Faz o botão respirar.
+  */
+  padding: 6px 12px;
+
+  /* 
+  border-radius = arredonda as bordas
+  
+  var(--radius) = valor salvo nas variáveis
+  */
+  border-radius: var(--radius);
+
+  /* 
+  border = borda do botão
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border: 1px solid var(--border);
+
+  /* 
+  background = cor de fundo
+  
+  var(--surface) = fundo padrão/branco
+  */
+  background: var(--surface);
+
+  /* 
+  color = cor do texto
+  
+  var(--text) = cor principal do sistema
+  */
+  color: var(--text);
+
+  /* 
+  cursor: pointer
+  
+  Mostra a mãozinha do mouse.
+  
+  Indica que é clicável.
+  */
+  cursor: pointer;
+
+  /* 
+  font-weight = grossura da letra
+  
+  500 = meio termo entre normal e negrito
+  */
+  font-weight: 500;
+
+  /* 
+  white-space: nowrap
+  
+  Impede quebra de linha.
+  
+  Texto do botão fica em uma linha só.
+  */
+  white-space: nowrap;
+
+  /* 
+  transition = animação suave
+  
+  Anima:
+  - fundo
+  - borda
+  - cor do texto
+  
+  Faz hover e clique ficarem suaves.
+  */
+  transition:
+    background 0.12s,
+    border-color 0.12s,
+    color 0.12s;
+}
+/* 
+.btn:hover
+
+:hover ativa quando o mouse
+passa em cima do botão.
+*/
+
+.btn:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-light) = azul clarinho
+  */
+  background: var(--hc-light);
+
+  /* 
+  color = cor do texto/ícone
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  border-color = cor da borda
+  
+  var(--hc) = azul principal
+  */
+  border-color: var(--hc);
+
+  /* 
+  RESULTADO:
+  
+  Quando passa o mouse:
+  - fundo azul claro
+  - texto azul
+  - borda azul
+  
+  Dá efeito moderno e interativo.
+  */
+}
+/* 
+.btn.primary
+
+Botão principal do sistema.
+  
+Normalmente usado para:
+- salvar
+- confirmar
+- enviar
+- criar
+*/
+
+.btn.primary {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc) = azul principal
+  */
+  background: var(--hc);
+
+  /* 
+  color = cor do texto
+  
+  #fff = branco
+  */
+  color: #fff;
+
+  /* 
+  border-color = cor da borda
+  
+  mesma cor azul principal
+  */
+  border-color: var(--hc);
+
+  /* 
+  RESULTADO:
+  
+  botão azul com texto branco,
+  destacando a ação principal.
+  */
+}
+/* 
+.btn.primary:hover
+
+:hover ativa quando o mouse
+passa em cima do botão principal.
+*/
+
+.btn.primary:hover {
+
+  /* 
+  background = cor de fundo
+  
+  var(--hc-dark) = azul mais escuro
+  */
+  background: var(--hc-dark);
+
+  /* 
+  border-color = cor da borda
+  
+  mesma cor azul escuro
+  */
+  border-color: var(--hc-dark);
+
+  /* 
+  RESULTADO:
+  
+  quando passa o mouse:
+  o botão fica azul mais escuro,
+  dando efeito de interação/clique.
+  */
+}
+/* 
+.content = área do conteúdo principal
+  
+Onde normalmente aparece:
+- tabelas
+- cards
+- formulários
+- gráficos
+- textos
+*/
+
+.content {
+
+  /* 
+  flex: 1
+  
+  Faz essa área crescer
+  ocupando o espaço disponível.
+  */
+  flex: 1;
+
+  /* 
+  padding = espaço interno
+  
+  28px = cima/baixo
+  36px = lados
+  
+  Faz o conteúdo não ficar grudado
+  nas bordas da tela.
+  */
+  padding: 28px 36px;
+
+  /* 
+  overflow-y: auto
+  
+  Ativa rolagem vertical
+  somente se precisar.
+  
+  Se o conteúdo ficar grande:
+  aparece scroll.
+  */
+  overflow-y: auto;
+}
+/* 
+.page-title = título principal da página
+  
+Exemplo:
+- Dashboard
+- Relatórios
+- Usuários
+*/
+
+.page-title {
+
+  /* 
+  display: flex
+  
+  Coloca os elementos lado a lado.
+  
+  Exemplo:
+  ícone + título
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza os itens na vertical.
+  */
+  align-items: center;
+
+  /* 
+  gap = espaço entre os elementos
+  
+  10px = distância entre ícone e texto
+  */
+  gap: 10px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  22px = título grande
+  */
+  font-size: 22px;
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  */
+  font-weight: 600;
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  margin-bottom = espaço embaixo
+  
+  24px = separa o título
+  do conteúdo abaixo.
+  */
+  margin-bottom: 24px;
+}
+/* 
+.page-title i
+
+Pega o ícone <i>
+dentro do título da página.
+  
+Exemplo:
+📊 Dashboard
+👤 Usuários
+*/
+
+.page-title i {
+
+  /* 
+  font-size = tamanho do ícone
+  
+  26px = ícone grande
+  */
+  font-size: 26px;
+}
+/* 
+.cards-grid = grade/layout dos cards
+  
+Serve para organizar vários cards
+automaticamente na tela.
+*/
+
+.cards-grid {
+
+  /* 
+  display: grid
+  
+  Ativa o sistema GRID do CSS.
+  
+  Muito usado para:
+  - cards
+  - galerias
+  - dashboards
+  */
+  display: grid;
+
+  /* 
+  grid-template-columns
+  
+  Define as colunas do grid.
+  
+  repeat(...) = repete automaticamente
+  auto-fill = cria quantas colunas couberem
+  minmax(160px, 1fr):
+  
+  mínimo = 160px
+  máximo = ocupar espaço disponível
+  
+  RESUMINDO:
+  os cards se organizam automaticamente
+  conforme o tamanho da tela.
+  */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+
+  /* 
+  gap = espaço entre os cards
+  
+  14px = distância entre eles
+  */
+  gap: 14px;
+}
+/* 
+.sys-card = card do sistema
+  
+Exemplo:
+- card de relatório
+- card de usuário
+- card de estatística
+*/
+
+.sys-card {
+
+  /* 
+  background = cor de fundo
+  
+  var(--surface) = fundo padrão/branco
+  */
+  background: var(--surface);
+
+  /* 
+  border = borda do card
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border: 1px solid var(--border);
+
+  /* 
+  border-radius = arredonda bordas
+  
+  var(--radius-lg) = arredondamento maior
+  */
+  border-radius: var(--radius-lg);
+
+  /* 
+  padding = espaço interno
+  
+  20px = cima/baixo
+  16px = lados
+  
+  Faz o conteúdo respirar.
+  */
+  padding: 20px 16px;
+
+  /* 
+  cursor: pointer
+  
+  Mostra mãozinha do mouse.
+  
+  Indica que o card é clicável.
+  */
+  cursor: pointer;
+
+  /* 
+  transition = animação suave
+  
+  Anima:
+  - cor da borda
+  - sombra
+  - movimento
+  
+  Muito usado em hover.
+  */
+  transition:
+    border-color 0.12s,
+    box-shadow 0.12s,
+    transform 0.08s;
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Organiza elementos em coluna.
+  
+  Exemplo:
+  título
+  descrição
+  botão
+  */
+  flex-direction: column;
+
+  /* 
+  gap = espaço entre elementos
+  
+  8px = pequena distância
+  */
+  gap: 8px;
+
+  /* 
+  position: relative
+  
+  Permite posicionar elementos internos
+  com mais controle.
+  */
+  position: relative;
+}
+/* 
+.sys-card:hover
+
+:hover ativa quando o mouse
+passa em cima do card.
+*/
+
+.sys-card:hover {
+
+  /* 
+  border-color = cor da borda
+  
+  var(--hc) = azul principal
+  */
+  border-color: var(--hc);
+
+  /* 
+  box-shadow = sombra do card
+  
+  0 = sem mover pros lados
+  2px = sombra desce um pouco
+  12px = sombra suave/desfocada
+  
+  rgba = cor com transparência
+  
+  RESULTADO:
+  card ganha destaque/flutuação.
+  */
+  box-shadow: 0 2px 12px rgba(33, 150, 168, 0.12);
+
+  /* 
+  transform: translateY(-1px)
+  
+  Move o card levemente para cima.
+  
+  -1px = sobe 1 pixel
+  
+  Dá efeito moderno de "levantou".
+  */
+  transform: translateY(-1px);
+}
+/* 
+.sys-card i
+
+Pega o ícone <i>
+dentro do card.
+  
+Exemplo:
+📊 gráfico
+👤 usuário
+⚙ configuração
+*/
+
+.sys-card i {
+
+  /* 
+  font-size = tamanho do ícone
+  
+  30px = ícone grande
+  */
+  font-size: 30px;
+
+  /* 
+  color = cor do ícone
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+}
+/* 
+.sys-card-name = nome/título do card
+  
+Exemplo:
+- Relatórios
+- Usuários
+- Financeiro
+*/
+
+.sys-card-name {
+
+  /* 
+  font-size = tamanho da letra
+  
+  13px = texto médio pequeno
+  */
+  font-size: 13px;
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Faz o título ficar destacado.
+  */
+  font-weight: 600;
+
+  /* 
+  color = cor do texto
+  
+  var(--text) = cor principal do sistema
+  */
+  color: var(--text);
+
+  /* 
+  line-height = altura entre linhas
+  
+  1.3 = melhora a leitura
+  caso o texto tenha mais de uma linha.
+  */
+  line-height: 1.3;
+}
+/* 
+.sys-card-cat = categoria/subtexto do card
+  
+Exemplo:
+- Administrativo
+- Financeiro
+- Sistema interno
+*/
+
+.sys-card-cat {
+
+  /* 
+  font-size = tamanho da letra
+  
+  11px = texto pequeno
+  */
+  font-size: 11px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = cor mais suave/apagada
+  
+  Muito usado para texto secundário.
+  */
+  color: var(--text-muted);
+}
+/* 
+.sys-card .del-btn
+
+Pega o botão de deletar/excluir
+dentro do card.
+  
+Exemplo:
+🗑 excluir card
+✖ remover item
+*/
+
+.sys-card .del-btn {
+
+  /* 
+  position: absolute
+  
+  Permite colocar o botão
+  em posição exata dentro do card.
+  */
+  position: absolute;
+
+  /* 
+  top = distância do topo
+  
+  8px = fica um pouco abaixo do topo
+  */
+  top: 8px;
+
+  /* 
+  right = distância da direita
+  
+  8px = fica afastado da borda direita
+  */
+  right: 8px;
+
+  /* 
+  font-size = tamanho do ícone/texto
+  
+  14px = pequeno/médio
+  */
+  font-size: 14px;
+
+  /* 
+  color = cor do ícone
+  
+  var(--border) = cinza claro
+  */
+  color: var(--border);
+
+  /* 
+  cursor: pointer
+  
+  Mostra mãozinha do mouse.
+  
+  Indica que pode clicar.
+  */
+  cursor: pointer;
+
+  /* 
+  opacity = transparência
+  
+  0 = invisível
+  
+  O botão começa escondido.
+  */
+  opacity: 0;
+
+  /* 
+  transition = animação suave
+  
+  Anima:
+  - transparência
+  - cor
+  
+  Muito usado no hover.
+  */
+  transition:
+    opacity 0.12s,
+    color 0.12s;
+
+  /* 
+  background: none
+  
+  Remove fundo do botão.
+  */
+  background: none;
+
+  /* 
+  border: none
+  
+  Remove borda padrão do botão.
+  */
+  border: none;
+
+  /* 
+  padding = espaço interno
+  
+  2px = área clicável levemente maior
+  */
+  padding: 2px;
+}
+/* 
+.sys-card:hover .del-btn
+
+Quando o mouse passa no card,
+o botão de excluir aparece.
+*/
+
+.sys-card:hover .del-btn {
+
+  /* 
+  opacity = transparência
+  
+  1 = totalmente visível
+  
+  Antes:
+  opacity: 0 → escondido
+  
+  Agora:
+  aparece suavemente.
+  */
+  opacity: 1;
+}
+/* 
+.sys-card .del-btn:hover
+
+:hover ativa quando o mouse
+passa em cima do botão excluir.
+*/
+
+.sys-card .del-btn:hover {
+
+  /* 
+  color = cor do ícone
+  
+  #e24b4a = vermelho
+  
+  RESULTADO:
+  o botão fica vermelho no hover,
+  indicando ação de excluir/remover.
+  */
+  color: #e24b4a;
+}
+
+/* 
+.empty-state = estado vazio
+  
+Tela mostrada quando NÃO existe conteúdo.
+  
+Exemplo:
+- nenhum card encontrado
+- nenhuma pesquisa
+- lista vazia
+*/
+
+.empty-state {
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  flex-direction: column
+  
+  Coloca os elementos um embaixo do outro.
+  
+  Exemplo:
+  ícone
+  texto
+  botão
+  */
+  flex-direction: column;
+
+  /* 
+  align-items: center
+  
+  Centraliza horizontalmente.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: center
+  
+  Centraliza verticalmente.
+  */
+  justify-content: center;
+
+  /* 
+  padding = espaço interno
+  
+  80px cima/baixo
+  0 lados
+  
+  Cria bastante espaço
+  para a tela respirar.
+  */
+  padding: 80px 0;
+
+  /* 
+  color = cor do texto/ícone
+  
+  var(--text-muted) = cinza suave/apagado
+  */
+  color: var(--text-muted);
+
+  /* 
+  gap = espaço entre os elementos
+  
+  12px = distância entre ícone/texto
+  */
+  gap: 12px;
+}
+/* 
+.empty-state i
+
+Pega o ícone <i>
+da tela vazia.
+  
+Exemplo:
+📂
+🔍
+📭
+*/
+
+.empty-state i {
+
+  /* 
+  font-size = tamanho do ícone
+  
+  52px = ícone grande
+  */
+  font-size: 52px;
+
+  /* 
+  opacity = transparência
+  
+  0.25 = bem transparente/apagado
+  
+  Dá efeito mais suave/discreto.
+  */
+  opacity: 0.25;
+}
+/* 
+.empty-state p
+
+Pega o texto <p>
+(parágrafo)
+da tela vazia.
+  
+Exemplo:
+"Nenhum resultado encontrado"
+*/
+
+.empty-state p {
+
+  /* 
+  font-size = tamanho da letra
+  
+  14px = texto médio
+  */
+  font-size: 14px;
+}
+/* 
+.footer = rodapé do sistema
+  
+Normalmente fica no final da página.
+  
+Exemplo:
+© 2026 Sistema Interno
+*/
+
+.footer {
+
+  /* 
+  text-align: center
+  
+  Centraliza o texto.
+  */
+  text-align: center;
+
+  /* 
+  padding = espaço interno
+  
+  14px = espaço em todos os lados
+  */
+  padding: 14px;
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = texto mais suave/apagado
+  */
+  color: var(--text-muted);
+
+  /* 
+  border-top = borda em cima
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  
+  Cria uma linha separando o rodapé.
+  */
+  border-top: 1px solid var(--border);
+
+  /* 
+  background = cor de fundo
+  
+  var(--surface) = fundo padrão/branco
+  */
+  background: var(--surface);
+
+  /* 
+  flex-shrink: 0
+  
+  Impede o rodapé de encolher
+  quando faltar espaço.
+  */
+  flex-shrink: 0;
+}
+/* 
+.footer .brand
+
+Pega o elemento .brand
+dentro do rodapé.
+  
+Normalmente:
+nome da marca/sistema.
+*/
+
+.footer .brand {
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+
+  /* 
+  font-weight = grossura da letra
+  
+  700 = negrito forte
+  
+  Faz a marca ficar destacada.
+  */
+  font-weight: 700;
+}
+
+/* 
+.modal-overlay = fundo escuro da modal
+  
+É aquela camada escura atrás
+da janela popup/modal.
+*/
+
+.modal-overlay {
+
+  /* 
+  position: fixed
+  
+  Faz o elemento ficar fixo na tela,
+  mesmo rolando a página.
+  */
+  position: fixed;
+
+  /* 
+  inset: 0
+  
+  Equivale a:
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  
+  Ou seja:
+  ocupa a tela inteira.
+  */
+  inset: 0;
+
+  /* 
+  background = fundo escuro transparente
+  
+  rgba:
+  preto com transparência 0.35
+  */
+  background: rgba(0, 0, 0, 0.35);
+
+  /* 
+  display: flex
+  
+  Ativa flexbox.
+  */
+  display: flex;
+
+  /* 
+  align-items: center
+  
+  Centraliza verticalmente.
+  */
+  align-items: center;
+
+  /* 
+  justify-content: center
+  
+  Centraliza horizontalmente.
+  
+  Resultado:
+  modal fica no meio da tela.
+  */
+  justify-content: center;
+
+  /* 
+  z-index = camada do elemento
+  
+  999 = fica acima de quase tudo.
+  */
+  z-index: 999;
+
+  /* 
+  opacity = transparência
+  
+  0 = invisível
+  
+  Modal começa escondida.
+  */
+  opacity: 0;
+
+  /* 
+  pointer-events: none
+  
+  Impede cliques/interações.
+  
+  Como está invisível,
+  também não pode ser clicada.
+  */
+  pointer-events: none;
+
+  /* 
+  transition = animação suave
+  
+  opacity 0.18s
+  
+  Faz a modal aparecer suavemente.
+  */
+  transition: opacity 0.18s;
+}
+/* 
+.modal-overlay.show
+
+Quando a modal recebe a classe "show",
+ela aparece na tela.
+*/
+
+.modal-overlay.show {
+
+  /* 
+  opacity = transparência
+  
+  1 = totalmente visível
+  
+  Antes:
+  opacity: 0 → invisível
+  
+  Agora:
+  a modal aparece.
+  */
+  opacity: 1;
+
+  /* 
+  pointer-events: all
+  
+  Permite clicar/interagir novamente.
+  
+  Exemplo:
+  - clicar botão
+  - fechar modal
+  - usar formulário
+  */
+  pointer-events: all;
+}
+/* 
+.modal = caixa/janela popup do sistema
+  
+É a janela que aparece na frente da tela.
+  
+Exemplo:
+- confirmação
+- formulário
+- editar usuário
+- aviso
+*/
+
+.modal {
+
+  /* 
+  background = cor de fundo
+  
+  var(--surface) = fundo padrão do sistema
+  (normalmente branco)
+  */
+  background: var(--surface);
+
+  /* 
+  border-radius = arredondamento das bordas
+  
+  var(--radius-lg) = arredondamento maior
+  */
+  border-radius: var(--radius-lg);
+
+  /* 
+  border = borda da modal
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border: 1px solid var(--border);
+
+  /* 
+  padding = espaço interno
+  
+  24px = espaço em todos os lados
+  
+  Faz o conteúdo respirar.
+  */
+  padding: 24px;
+
+  /* 
+  width = largura da modal
+  
+  360px = tamanho padrão
+  */
+  width: 360px;
+
+  /* 
+  max-width = largura máxima
+  
+  90vw = no máximo 90% da largura da tela
+  
+  Ajuda no celular/responsivo.
+  */
+  max-width: 90vw;
+
+  /* 
+  box-shadow = sombra
+  
+  Dá efeito de profundidade/flutuação.
+  
+  A modal parece "na frente" da tela.
+  */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+
+  /* 
+  transform: translateY(10px)
+  
+  Move a modal 10px para baixo.
+  
+  Muito usado em animação de entrada.
+  */
+  transform: translateY(10px);
+
+  /* 
+  transition = animação suave
+  
+  transform 0.18s
+  
+  Faz a modal subir suavemente
+  ao aparecer.
+  */
+  transition: transform 0.18s;
+}
+/* 
+.modal-overlay.show .modal
+
+Quando a modal estiver aberta/show,
+a animação da caixa modal é ativada.
+*/
+
+.modal-overlay.show .modal {
+
+  /* 
+  transform: translateY(0)
+  
+  Move a modal para posição normal.
+  
+  Antes:
+  translateY(10px)
+  → modal estava um pouco mais embaixo
+  
+  Agora:
+  0 = posição original
+  
+  RESULTADO:
+  a modal sobe suavemente
+  quando aparece.
+  */
+  transform: translateY(0);
+}
+/* 
+.modal h3
+
+Pega o título <h3>
+dentro da modal.
+  
+Exemplo:
+"Editar Usuário"
+"Confirmar Exclusão"
+*/
+
+.modal h3 {
+
+  /* 
+  font-size = tamanho da letra
+  
+  16px = título médio
+  */
+  font-size: 16px;
+
+  /* 
+  font-weight = grossura da letra
+  
+  600 = semi-negrito
+  
+  Faz o título ficar destacado.
+  */
+  font-weight: 600;
+
+  /* 
+  margin-bottom = espaço embaixo
+  
+  16px = separa o título
+  do conteúdo abaixo.
+  */
+  margin-bottom: 16px;
+
+  /* 
+  color = cor do texto
+  
+  var(--hc) = azul principal
+  */
+  color: var(--hc);
+}
+/* 
+.modal label
+
+Pega as labels dentro da modal.
+  
+Label = texto que explica o campo.
+  
+Exemplo:
+"Nome"
+"E-mail"
+"Senha"
+*/
+
+.modal label {
+
+  /* 
+  font-size = tamanho da letra
+  
+  12px = texto pequeno
+  */
+  font-size: 12px;
+
+  /* 
+  color = cor do texto
+  
+  var(--text-muted) = cinza suave/apagado
+  */
+  color: var(--text-muted);
+
+  /* 
+  display: block
+  
+  Faz a label ocupar a linha inteira.
+  
+  Assim o campo vai para baixo dela.
+  */
+  display: block;
+
+  /* 
+  margin-bottom = espaço embaixo
+  
+  4px = distância pequena
+  entre label e input.
+  */
+  margin-bottom: 4px;
+
+  /* 
+  margin-top = espaço em cima
+  
+  12px = separa um campo do outro.
+  */
+  margin-top: 12px;
+}
+/* 
+.modal input,
+.modal select
+
+Pega:
+- inputs
+- selects
+
+que estiverem dentro da modal.
+  
+Exemplo:
+- campo de nome
+- campo de email
+- lista de opções
+*/
+
+.modal input,
+.modal select {
+
+  /* 
+  width: 100%
+  
+  Faz o campo ocupar
+  toda largura disponível.
+  */
+  width: 100%;
+
+  /* 
+  font-size = tamanho da letra
+  
+  13px = texto médio pequeno
+  */
+  font-size: 13px;
+
+  /* 
+  padding = espaço interno
+  
+  8px = cima/baixo
+  10px = lados
+  
+  Faz o texto respirar dentro do campo.
+  */
+  padding: 8px 10px;
+
+  /* 
+  border-radius = arredonda bordas
+  
+  var(--radius) = valor salvo nas variáveis
+  */
+  border-radius: var(--radius);
+
+  /* 
+  border = borda do campo
+  
+  1px = espessura
+  solid = linha contínua
+  var(--border) = cor da borda
+  */
+  border: 1px solid var(--border);
+
+  /* 
+  background = cor de fundo
+  
+  var(--bg) = fundo padrão do sistema
+  */
+  background: var(--bg);
+
+  /* 
+  color = cor do texto digitado
+  
+  var(--text) = cor principal do sistema
+  */
+  color: var(--text);
+
+  /* 
+  outline: none
+  
+  Remove a borda azul padrão
+  quando clica no campo.
+  */
+  outline: none;
+}
+/* 
+.modal input:focus,
+.modal select:focus
+
+:focus ativa quando:
+- o usuário clica no campo
+- começa digitar
+- seleciona o select
+  
+Ou seja:
+campo ATIVO.
+*/
+
+.modal input:focus,
+.modal select:focus {
+
+  /* 
+  border-color = cor da borda
+  
+  var(--hc) = azul principal
+  
+  RESULTADO:
+  quando o campo está selecionado,
+  a borda fica azul.
+  
+  Isso ajuda o usuário identificar
+  qual campo está usando.
+  */
+  border-color: var(--hc);
+}
+/* 
+.modal-actions = área dos botões da modal
+  
+Normalmente:
+- salvar
+- cancelar
+- excluir
+*/
+
+.modal-actions {
+
+  /* 
+  display: flex
+  
+  Coloca os botões lado a lado.
+  */
+  display: flex;
+
+  /* 
+  gap = espaço entre os botões
+  
+  8px = distância entre eles
+  */
+  gap: 8px;
+
+  /* 
+  justify-content: flex-end
+  
+  Joga os botões para a direita.
+  
+  Exemplo:
+              [Cancelar] [Salvar]
+  */
+  justify-content: flex-end;
+
+  /* 
+  margin-top = espaço em cima
+  
+  20px = separa os botões
+  do conteúdo da modal.
+  */
+  margin-top: 20px;
+}
+
+/* 
+@media = responsividade
+  
+Esse bloco ativa regras diferentes
+quando a tela fica pequena.
+  
+(max-width: 900px)
+=
+quando a tela tiver 900px ou menos.
+  
+Exemplo:
+tablet e celular.
+*/
+
+@media (max-width: 900px) {
+
+  /* 
+  .sidebar = menu lateral
+  */
+  .sidebar {
+
+    /* 
+    position: fixed
+    
+    Faz a sidebar ficar fixa na tela.
+    */
+    position: fixed;
+
+    /* 
+    left: -100%
+    
+    Joga a sidebar totalmente
+    para fora da tela.
+    
+    Resultado:
+    menu escondido.
+    */
+    left: -100%;
+
+    /* 
+    z-index = camada do elemento
+    
+    999 = fica acima do conteúdo.
+    */
+    z-index: 999;
+
+    /* 
+    height: 100%
+    
+    Ocupa toda altura da tela.
+    */
+    height: 100%;
+  }
+
+  /* 
+  Quando a sidebar estiver "collapsed"
+  no mobile
+  */
+  .sidebar.collapsed {
+
+    /* 
+    left: 0
+    
+    Traz a sidebar de volta para tela.
+    
+    Resultado:
+    menu aparece.
+    */
+    left: 0;
+
+    /* 
+    width = largura do menu
+    
+    280px = largura no mobile
+    */
+    width: 280px;
+  }
+
+  /* 
+  Ajuste da barra superior no mobile
+  */
+  .topbar {
+
+    /* 
+    padding = espaço interno
+    
+    20px em todos os lados.
+    */
+    padding: 20px;
+  }
+
+  /* 
+  Ajuste do conteúdo no mobile
+  */
+  .content {
+
+    /* 
+    padding = espaço interno
+    
+    18px = conteúdo mais compacto
+    para telas pequenas.
+    */
+    padding: 18px;
+  }
+}
+
+/* 
+.hidden = classe para esconder elementos
+  
+Muito usada com JavaScript.
+  
+Exemplo:
+abrir/fechar
+mostrar/esconder
+*/
+
+.hidden {
+
+  /* 
+  display: none
+  
+  Esconde COMPLETAMENTE o elemento.
+  
+  O elemento:
+  - desaparece
+  - não ocupa espaço
+  - não aparece na tela
+  */
+  display: none !important;
+
+  /* 
+  !important
+  
+  Força essa regra ter prioridade máxima.
+  
+  Mesmo que outro código tente mostrar,
+  ele continuará escondido.
+  */
+}
+
+
+/* 
+.mode-dark = modo escuro (dark mode)
+  
+Quando essa classe é ativada,
+o sistema muda para tema escuro.
+*/
+
+.mode-dark {
+
+  /* 
+  background = cor de fundo
+  
+  #0b0f12 = preto/cinza bem escuro
+  */
+  background: #0b0f12;
+
+  /* 
+  color = cor do texto
+  
+  #e6eef0 = texto claro
+  
+  RESULTADO:
+  fundo escuro + texto claro,
+  padrão de dark mode.
+  */
+  color: #e6eef0;
+}
+/* 
+.mode-dark .topbar
+
+Quando o modo escuro estiver ativo,
+a barra superior (.topbar)
+muda de cor.
+*/
+
+.mode-dark .topbar {
+
+  /* 
+  background = cor de fundo
+  
+  #07171a = tom bem escuro
+  azul/preto.
+  
+  RESULTADO:
+  topbar fica combinando
+  com o dark mode.
+  */
+  background: #07171a;
+}
+/* 
+.mode-dark .main,
+.mode-dark .sidebar,
+.mode-dark .modal
+
+Quando o modo escuro estiver ativo,
+essas áreas mudam para tema dark:
+- conteúdo principal
+- menu lateral
+- modal
+*/
+
+.mode-dark .main,
+.mode-dark .sidebar,
+.mode-dark .modal {
+
+  /* 
+  background = cor de fundo
+  
+  #0b0f12 = fundo bem escuro
+  */
+  background: #0b0f12;
+
+  /* 
+  color = cor do texto
+  
+  #e6eef0 = texto claro
+  
+  RESULTADO:
+  fundo escuro + texto claro,
+  padrão do dark mode.
+  */
+  color: #e6eef0;
+}
+/* 
+.mode-dark .sys-card
+
+Quando o modo escuro estiver ativo,
+os cards do sistema mudam de aparência.
+*/
+
+.mode-dark .sys-card {
+
+  /* 
+  background = cor de fundo do card
+  
+  #0f1416 = cinza/preto escuro
+  */
+  background: #0f1416;
+
+  /* 
+  border-color = cor da borda
+  
+  #1b2729 = borda escura suave
+  
+  RESULTADO:
+  card combina com o tema dark
+  sem ficar totalmente preto.
+  */
+  border-color: #1b2729;
+}
+/* 
+.mode-dark .edit-bar,
+.mode-dark .footer
+
+Quando o modo escuro estiver ativo,
+essas áreas mudam para versão dark:
+- barra de edição
+- rodapé
+*/
+
+.mode-dark .edit-bar,
+.mode-dark .footer {
+
+  /* 
+  background = cor de fundo
+  
+  #071215 = fundo escuro
+  azul/preto.
+  */
+  background: #071215;
+
+  /* 
+  border-color = cor da borda
+  
+  #162022 = borda escura suave
+  
+  RESULTADO:
+  combina com o tema dark
+  sem deixar tudo preto chapado.
+  */
+  border-color: #162022;
+}
+/* 
+.mode-dark .topbar-user-info .label,
+.mode-dark .topbar-user-info .name
+
+Quando o modo escuro estiver ativo,
+os textos das informações do usuário
+ficam claros.
+  
+Exemplo:
+- nome do usuário
+- cargo/status
+*/
+
+.mode-dark .topbar-user-info .label,
+.mode-dark .topbar-user-info .name {
+
+  /* 
+  color = cor do texto
+  
+  #e6eef0 = branco/cinza claro
+  
+  RESULTADO:
+  melhora a leitura no fundo escuro.
+  */
+  color: #e6eef0;
+}
+
+
+.mode-high-contrast {
+  background: #000;
+  color: #fff;
+}
+.mode-high-contrast .sys-card {
+  background: #000;
+  border-color: #fff;
+}
+.mode-high-contrast .menu-item {
+  color: #fff;
+}
+.mode-high-contrast .page-title {
+  color: #fff;
+}
+
+
+.mode-dark .btn.primary {
+  background: #0d6efd;
+}
+.mode-high-contrast .btn {
+  border-color: #fff;
+}
+
+:root {
+  --hc: #2196a8;
+  --hc-dark: #1a7a85;
+  --hc-light: #e8f4f6;
+  --hc-lighter: #f0f9fa;
+  --sidebar-w: 260px;
+  --topbar-h: 58px;
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --border: #e0e4e6;
+  --text: #1a2224;
+  --text-muted: #6b7b80;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.topbar {
+  background: var(--hc);
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding: 0 20px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+.topbar-user:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.topbar-user-info {
+  text-align: right;
+}
+.topbar-user-info .label {
+  font-size: 11px;
+  opacity: 0.8;
+}
+.topbar-user-info .name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.topbar .ti-chevron-down {
+  color: #fff;
+  font-size: 14px;
+}
+
+.body-row {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition:
+    width 0.25s ease,
+    min-width 0.25s ease;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+.sidebar.collapsed {
+  width: 52px;
+  min-width: 52px;
+}
+.sidebar.collapsed .section-title-text,
+.sidebar.collapsed .item-label,
+.sidebar.collapsed .chevron {
+  display: none;
+}
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 52px;
+}
+.menu-section {
+  border-bottom: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.section-header:hover {
+  background: var(--hc-lighter);
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--hc);
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.section-title i {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.chevron {
+  font-size: 14px;
+  color: var(--hc);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.chevron.open {
+  transform: rotate(180deg);
+}
+.section-items {
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.section-items.closed {
+  max-height: 0 !important;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 42px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  border-left: 3px solid transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+  position: relative;
+}
+.sidebar.collapsed .menu-item {
+  padding: 8px 14px;
+  justify-content: center;
+}
+.menu-item:hover {
+  background: var(--hc-light);
+  color: var(--hc);
+}
+.menu-item.active {
+  border-left-color: var(--hc);
+  background: var(--hc-light);
+  color: var(--hc);
+  font-weight: 600;
+}
+.toggle-btn {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-muted);
+  transition:
+    background 0.15s,
+    color 0.15s;
+  z-index: 10;
+}
+.toggle-btn:hover {
+  background: var(--hc-light);
+  color: var(--hc);
+  border-color: var(--hc);
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+.edit-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.edit-bar label {
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.edit-bar input {
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  width: 140px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.edit-bar input:focus {
+  border-color: var(--hc);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+.btn:hover {
+  background: var(--hc-light);
+  color: var(--hc);
+  border-color: var(--hc);
+}
+.btn.primary {
+  background: var(--hc);
+  color: #fff;
+  border-color: var(--hc);
+}
+.btn.primary:hover {
+  background: var(--hc-dark);
+  border-color: var(--hc-dark);
+}
+.content {
+  flex: 1;
+  padding: 28px 36px;
+  overflow-y: auto;
+}
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--hc);
+  margin-bottom: 24px;
+}
+.page-title i {
+  font-size: 26px;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+.sys-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.sys-card:hover {
+  border-color: var(--hc);
+  box-shadow: 0 2px 12px rgba(33, 150, 168, 0.12);
+  transform: translateY(-1px);
+}
+.sys-card i {
+  font-size: 30px;
+  color: var(--hc);
+}
+.sys-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.sys-card-cat {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.sys-card .del-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 14px;
+  color: var(--border);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    color 0.15s;
+  background: none;
+  border: none;
+  padding: 2px;
+}
+.sys-card:hover .del-btn {
+  opacity: 1;
+}
+.sys-card .del-btn:hover {
+  color: #e24b4a;
+}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  color: var(--text-muted);
+  gap: 12px;
+}
+.empty-state i {
+  font-size: 52px;
+  opacity: 0.25;
+}
+.empty-state p {
+  font-size: 14px;
+}
+.footer {
+  text-align: center;
+  padding: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var (--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.footer .brand {
+  color: var(--hc);
+  font-weight: 700;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 24px;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(10px);
+  transition: transform 0.2s;
+}
+.modal-overlay.show .modal {
+  transform: translateY(0);
+}
+.modal h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--hc);
+}
+.modal label {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+.modal input,
+.modal select {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+}
+.modal input:focus,
+.modal select:focus {
+  border-color: var(--hc);
+}
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    z-index: 999;
+    height: 100%;
+  }
+  .sidebar.collapsed {
+    left: 0;
+    width: 280px;
+  }
+  .topbar {
+    padding: 20px;
+  }
+}
+
+:root {
+  --topbar-h: 58px;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  background:
+    radial-gradient(circle at 55% -35%, rgba(0, 156, 166, 0.38), transparent 42%),
+    linear-gradient(105deg, #004c68 0%, #006c77 48%, #003d57 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding: 0 8px 0 0;
+  overflow: hidden;
+}
+
+.logo-box {
+  height: auto;
+  min-width: 0;
+  padding: 0;
+  margin-left: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.brand-logo-img {
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.brand-logo-hcfmusp {
+  width: 150px;
+  height: 48px;
+}
+
+.brand-logo-ceac {
+  width: 150px;
+  height: 48px;
+}
+
+.ceac-logo-box {
+  margin-left: auto;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.topbar-actions .btn {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  background: #fff;
+  color: #10233b;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.14);
+}
+
+.topbar-actions .btn:hover {
+  background: #fff;
+  color: #10233b;
+  border-color: #fff;
+}
+
+.topbar-user {
+  gap: 10px;
+  padding: 0;
+  color: #fff;
+}
+
+.topbar-user:hover {
+  background: transparent;
+}
+
+.topbar-user-info {
+  text-align: left;
+}
+
+.topbar-user-info .label {
+  font-size: 11px;
+  line-height: 1.05;
+  opacity: 1;
+  font-weight: 400;
+}
+
+.topbar-user-info .name {
+  font-size: 13px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  background: rgba(4, 42, 67, 0.25);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.topbar .ti-chevron-down {
+  color: #fff;
+  font-size: 14px;
+  margin-left: 0;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --topbar-h: 58px;
+  }
+
+  .topbar {
+    gap: 10px;
+    padding: 0 6px 0 0;
+  }
+
+  .brand-logo-hcfmusp {
+    width: 118px;
+    height: 44px;
+  }
+
+  .brand-logo-ceac {
+    width: 118px;
+    height: 44px;
+  }
+
+  .topbar-actions .btn {
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 9px;
+    font-size: 12px;
+  }
+
+  .topbar-user-info {
+    display: none;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .topbar .ti-chevron-down {
+    font-size: 14px;
+  }
+}
+
+/* Sidebar account footer */
+.sidebar-scroll {
+  padding-bottom: 0;
+}
+
+.sidebar-footer {
+  flex-shrink: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 16px;
+}
+
+.sidebar-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #06283f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+  flex-shrink: 0;
+}
+
+.sidebar-profile-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-profile-name {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--hc);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.sidebar-profile-link:hover {
+  text-decoration: underline;
+}
+
+.sidebar-logout {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 28px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.sidebar-logout i {
+  color: #355269;
+  font-size: 18px;
+}
+
+.sidebar-logout:hover {
+  background: var(--hc-lighter);
+  color: var(--hc);
+}
+
+.sidebar-theme-btn {
+  width: calc(100% - 32px);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 16px 0;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.sidebar-theme-btn i {
+  color: var(--hc);
+  font-size: 15px;
+}
+
+.sidebar-theme-btn:hover {
+  background: var(--hc-lighter);
+  color: var(--hc);
+}
+
+.sidebar-footer .toggle-btn {
+  position: static;
+  transform: none;
+  margin: 16px auto 12px;
+  width: 38px;
+  height: 38px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.sidebar.collapsed .sidebar-profile {
+  justify-content: center;
+  padding: 14px 5px 10px;
+}
+
+.sidebar.collapsed .sidebar-profile-info,
+.sidebar.collapsed .sidebar-logout span,
+.sidebar.collapsed .sidebar-logout,
+.sidebar.collapsed .sidebar-theme-btn span {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-theme-btn {
+  width: 34px;
+  justify-content: center;
+  margin: 10px auto 0;
+  padding: 0;
+}
+
+.sidebar.collapsed .sidebar-avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 12px;
+}
+
+.mode-dark .sidebar-footer,
+.mode-dark .sidebar-logout,
+.mode-dark .sidebar-theme-btn {
+  background: #071215;
+  border-color: #162022;
+}
+
+.mode-dark .sidebar-profile-name,
+.mode-dark .sidebar-logout,
+.mode-dark .sidebar-theme-btn {
+  color: #e6eef0;
+}
+.mode-dark .sidebar-profile-link {
+  color: #e6eef0;
+} 
+.mode-dark .sidebar-profile-link:hover {
+  text-decoration: underline;
+}
+.mode-dark .sidebar-logout i,
+.mode-dark .sidebar-theme-btn i { 
+  color: #e6eef0;
+}

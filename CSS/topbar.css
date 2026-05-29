@@ -1,0 +1,130 @@
+.topbar {
+  background: var(--hc);
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding: 0 20px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  background:
+    radial-gradient(circle at 55% -35%, rgba(0, 156, 166, 0.38), transparent 42%),
+    linear-gradient(105deg, #004c68 0%, #006c77 48%, #003d57 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding: 0 8px 0 0;
+  overflow: hidden;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+.topbar-user:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.topbar-user {
+  gap: 10px;
+  padding: 0;
+  color: #fff;
+}
+.topbar-user:hover {
+  background: transparent;
+}
+.topbar-user-info {
+  text-align: right;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-actions .btn {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+.topbar-actions .btn {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  background: #fff;
+  color: #10233b;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.14);
+}
+.topbar-actions .btn:hover {
+  background: #fff;
+  color: #10233b;
+  border-color: #fff;
+}
+.topbar-user-info .label {
+  font-size: 11px;
+  opacity: 0.85;
+}
+.topbar-user-info .name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.topbar-user-info .label {
+  font-size: 11px;
+  line-height: 1.05;
+  opacity: 1;
+  font-weight: 400;
+}
+.topbar-user-info .name {
+  font-size: 13px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  background: rgba(4, 42, 67, 0.25);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+.topbar .ti-chevron-down {
+  color: #fff;
+  font-size: 14px;
+}
+.topbar .ti-chevron-down {
+  color: #fff;
+  font-size: 14px;
+  margin-left: 0;
+}

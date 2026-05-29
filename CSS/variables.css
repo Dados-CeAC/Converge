@@ -1,0 +1,40 @@
+:root {
+  --brand-blue: #0077c8;
+  --brand-teal: #009ca6;
+  --logo-ceac: url("./Logo CeAC Azul e Turqueza Sem Fundo.png");
+  --logo-hcfmusp: url("./LOGO HCFMUSP.png");
+  --hc: var(--brand-blue);
+  --hc-dark: #005f9a;
+  --hc-light: #e8f4f6;
+  --hc-lighter: #f0f9fa;
+  --sidebar-w: 260px;
+  --topbar-h: 58px;
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --border: #e0e4e6;
+  --text: #1a2224;
+  --text-muted: #6b7b80;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-soft: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+:root {
+  --hc: #2196a8;
+  --hc-dark: #1a7a85;
+  --hc-light: #e8f4f6;
+  --hc-lighter: #f0f9fa;
+  --sidebar-w: 260px;
+  --topbar-h: 58px;
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --border: #e0e4e6;
+  --text: #1a2224;
+  --text-muted: #6b7b80;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+:root {
+  --topbar-h: 58px;
+}
