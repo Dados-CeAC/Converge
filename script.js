@@ -24,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "Apoio Predial": "ti-building",
     "Segurança do Trabalho": "ti-shield-check",
     "Saúde Ocupacional": "ti-user-check",
+    "Minhas Doses": "ti-droplet",
+    "Meu ASO": "ti-file-check",
+    "Votação - CIPA": "ti-checklist",
+    "Compromissos Ocupacionais": "ti-calendar",
+    Agenda: "ti-calendar-event",
+    Exame: "ti-stethoscope",
+    "Ficha de EPI": "ti-shield-check",
   };
 
   const screeningIcons = {
@@ -78,6 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "Saúde mental",
   ];
 
+  const colaboradorCards = [
+    "Minhas Doses",
+    "Meu ASO",
+    "Votação - CIPA",
+    "Compromissos Ocupacionais",
+    "Ficha de EPI",
+  ];
+
+  const compromissosOcupacionaisCards = ["Agenda", "Exame"];
+
   const borboletasQuestions = [
     "A violência vem aumentando de gravidade e/ou de frequência no último mês?",
     "A senhora/você está grávida ou teve bebê nos últimos 18 meses?",
@@ -116,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 7, name: "Assistencial", items: ["Linha de Cuidados", "Programa de Rastreio" ] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 3, name: "Pronto Atendimento", items: ["Pronto Atendimento"] },
-    { id: 4, name: "Colaborador", items: [] },
+    { id: 4, name: "Colaborador", items: colaboradorCards },
     { id: 9, name: "Qualidade", items: [] },
     { id: 10, name: "Dados", items: [] },
     { id: 11, name: "Projetos", items: [] },
@@ -180,6 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const isLinhaCuidados =
       activeCard === "Linha de Cuidados" || linhaCuidadosCards.includes(activeCard);
     const isBorboletas = activeCard === "Borboletas";
+    const isCompromissos = activeCard === "Compromissos Ocupacionais";
+    const isFichaEpi = activeCard === "Ficha de EPI";
+    const isColaboradorSection = sec.name === "Colaborador";
+    const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
 
     title.textContent = isBorboletas
       ? "Borboletas"
@@ -187,6 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ? "Programa de Rastreio"
       : isLinhaCuidados
       ? "Linha de Cuidados"
+      : activeCard
+      ? activeCard
       : sec.name;
 
     grid.classList.toggle("borboletas-active", isBorboletas);
@@ -195,6 +218,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isBorboletas) {
       renderBorboletasForm(grid);
+      return;
+    }
+
+    if (isCompromissos) {
+      renderCompromissosCards(grid);
       return;
     }
 
@@ -358,7 +386,31 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-  
+
+  function renderCompromissosCards(grid) {
+    const cards = compromissosOcupacionaisCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = document.createElement("i");
+      iconEl.className = "ti " + cardData.icon;
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
 
   function toggleSidebar() {
     collapsed = !collapsed;
