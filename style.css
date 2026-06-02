@@ -4847,6 +4847,122 @@ Exemplo:
 }
 
 
+.mode-dark .btn.primary {
+  background: #0d6efd;
+}
+
+.mode-dark .sidebar {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  background: #07131a;
+}
+
+.mode-dark .sidebar-scroll {
+  background: transparent;
+}
+
+.mode-dark .menu-section {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  border-radius: 18px;
+  margin: 10px 12px;
+}
+
+.mode-dark .section-header {
+  background: transparent;
+}
+
+.mode-dark .section-header:hover,
+.mode-dark .section-header.active {
+  background: rgba(110, 166, 255, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.mode-dark .section-header.active .section-title,
+.mode-dark .section-header.active .chevron {
+  color: #ffffff;
+}
+
+.mode-dark .section-title,
+.mode-dark .section-title-text,
+.mode-dark .chevron {
+  color: #b6dcff;
+}
+
+.mode-dark .menu-item,
+.mode-dark .item-child {
+  background: transparent;
+  color: rgba(230, 238, 240, 0.88);
+  border-left-color: transparent;
+}
+
+.mode-dark .menu-item:hover,
+.mode-dark .item-child:hover {
+  background: rgba(110, 166, 255, 0.18);
+  color: #ffffff;
+}
+
+.mode-dark .menu-item.active,
+.mode-dark .item-child.active {
+  background: transparent;
+  color: #ffffff;
+  border-left-color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.mode-dark .sys-card {
+  background: #121b24;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.mode-dark .sys-card:hover,
+.mode-dark .sys-card:focus,
+.mode-dark .sys-card:active,
+.mode-dark .sys-card.active {
+  background: rgba(110, 166, 255, 0.32);
+  border-color: rgba(110, 166, 255, 1);
+  box-shadow: 0 24px 80px rgba(12, 44, 82, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.mode-dark .sys-card-name,
+.mode-dark .sys-card-cat,
+.mode-dark .sys-card i,
+.mode-dark .page-title,
+.mode-dark .page-title i {
+  color: #ffffff;
+}
+
+.mode-dark .sys-card-cat {
+  opacity: 0.92;
+}
+
+.mode-dark .btn,
+.mode-dark .btn.primary {
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+.mode-dark .btn:hover,
+.mode-dark .btn.primary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.mode-dark input,
+.mode-dark select,
+.mode-dark textarea {
+  background: #111924;
+  color: #f4f7fb;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mode-dark input::placeholder {
+  color: rgba(255, 255, 255, 0.60);
+}
+
 .mode-high-contrast {
   background: #000;
   color: #fff;
@@ -4862,10 +4978,6 @@ Exemplo:
   color: #fff;
 }
 
-
-.mode-dark .btn.primary {
-  background: #0d6efd;
-}
 .mode-high-contrast .btn {
   border-color: #fff;
 }
@@ -4996,6 +5108,10 @@ body {
 }
 .menu-section {
   border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 8px 10px;
 }
 .section-header {
   display: flex;
@@ -5103,6 +5219,7 @@ body {
   overflow: hidden;
   min-width: 0;
 }
+
 .edit-bar {
   background: #fff;
   border-bottom: 1px solid var(--border);
@@ -5262,13 +5379,32 @@ body {
   padding: 14px;
   font-size: 12px;
   color: var(--text-muted);
-  border-top: 1px solid var (--border);
+  border-top: 1px solid var(--border);
   background: var(--surface);
   flex-shrink: 0;
 }
 .footer .brand {
   color: var(--hc);
   font-weight: 700;
+}
+/* Campos para preencher */
+input,
+select,
+textarea {
+  background: #0b1113;
+  color: #dffbff;
+  border: 1px solid rgba(0, 207, 255, 0.35);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Luz SOMENTE quando clicar no campo */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00cfff;
+  box-shadow: 0 0 18px rgba(0, 207, 255, 0.45);
 }
 .modal-overlay {
   position: fixed;

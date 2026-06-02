@@ -16,6 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
       "ti-arrows-transfer-up",
     "Gerenciador de Sistemas": "ti-settings-2",
     PIH: "ti-chart-pie",
+    "Linha de Cuidados": "ti-heart-pulse",
+    "Programa de Rastreio": "ti-search",
+    "Pronto Atendimento": "ti-ambulance",
+    "Controles Internos": "ti-file-check",
+    Comunicação: "ti-message",
+    "Apoio Predial": "ti-building",
+    "Segurança do Trabalho": "ti-shield-check",
+    "Saúde Ocupacional": "ti-user-check",
   };
 
   const screeningIcons = {
@@ -69,41 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let sections = [
-    { id: 1, name: "Meus Sistemas", open: true, items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "Natcorp",] },
-  
-    {
-      id: 2,
-      name: "Administrativo",
-      open: true,
-      items: ["Controles Internos", "Comunicação", "Apoio Predial"],
-    },
-    { id: 5, name: "Indicadores", open: true, items: ["PIH"] },
-    {
-      id: 7,
-      name: "Assistencial",
-      open: true,
-      items: [
-        {
-          label: "Ambulatório",
-          children: ["Linha de Cuidados", "Programa de Rastreio"],
-        },
-        "Pronto Atendimento",
-      ],
-    },
-    {
-      id: 8,
-      name: "Ocupacional",
-      open: true,
-      items: ["Segurança do Trabalho", "Saúde Ocupacional"],
-    },
-    { id: 9, name: "Qualidade", open: true, items: [] },
-    { id: 10, name: "Dados", open: true, items: [] },
-    { id: 11, name: "Projetos", open: true, items: [] },
+    { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "Natcorp"] },
+    { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
+    { id: 5, name: "Indicadores", items: ["PIH"] },
+    { id: 7, name: "Assistencial", items: ["Linha de Cuidados", "Programa de Rastreio", "Pronto Atendimento"] },
+    { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
+    { id: 9, name: "Qualidade", items: [] },
+    { id: 10, name: "Dados", items: [] },
+    { id: 11, name: "Projetos", items: [] },
   ];
 
   let activeSection = 1;
-  let activeItem = null;
-  let activeSubItem = null;
+  let activeCard = null;
   let collapsed = false;
   let nextId = 10;
 
@@ -123,92 +108,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const hdr = document.createElement("div");
       hdr.className = "section-header";
+      hdr.classList.toggle("active", activeSection === sec.id);
       hdr.innerHTML = `
 				<div class="section-title">
 					<i class="ti ${getIcon(sec.name)}"></i>
 					<span class="section-title-text">${sec.name}</span>
 				</div>
-				<i class="ti ti-chevron-down chevron ${sec.open ? "open" : ""}"></i>
 			`;
       hdr.addEventListener("click", () => {
         activeSection = sec.id;
-        activeItem = null;
-        sec.open = !sec.open;
+        activeCard = null;
         render();
         renderCards();
       });
       wrap.appendChild(hdr);
-
-      const itemsEl = document.createElement("div");
-      itemsEl.className = "section-items" + (sec.open ? "" : " closed");
-      const totalCount = sec.items.reduce(
-        (count, item) => count + 1 + getItemChildren(item).length,
-        0
-      );
-      itemsEl.style.maxHeight = sec.open ? totalCount * 34 + 8 + "px" : "0";
-
-      if (sec.items.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "menu-item";
-        empty.style.cssText = "font-style:italic;opacity:0.45;cursor:default;";
-        empty.innerHTML = '<span class="item-label">Sem itens</span>';
-        itemsEl.appendChild(empty);
-      } else {
-        if (sec.subtitle) {
-          const subtitleItem = document.createElement("div");
-          subtitleItem.className = "section-subtitle-item";
-          subtitleItem.textContent = sec.subtitle;
-          itemsEl.appendChild(subtitleItem);
-        }
-        sec.items.forEach((it) => {
-          const label = getItemLabel(it);
-          const children = getItemChildren(it);
-          const el = document.createElement("div");
-          el.className =
-            "menu-item" +
-            (children.length ? " has-children" : "") +
-            (activeSection === sec.id && activeItem === label ? " active" : "");
-          el.innerHTML = `
-            <div class="item-content">
-              <span class="item-label">${label}</span>
-            </div>
-          `;
-          if (children.length) {
-            const childList = document.createElement("div");
-            childList.className = "item-children";
-            children.forEach((child) => {
-              const childEl = document.createElement("div");
-              childEl.className =
-                "menu-item item-child" +
-                (activeSection === sec.id && activeItem === label && activeSubItem === child
-                  ? " active"
-                  : "");
-              childEl.textContent = child;
-              childEl.addEventListener("click", (e) => {
-                e.stopPropagation();
-                activeSection = sec.id;
-                activeItem = label;
-                activeSubItem = child;
-                render();
-                renderCards();
-              });
-              childList.appendChild(childEl);
-            });
-            el.appendChild(childList);
-          }
-          el.addEventListener("click", (e) => {
-            e.stopPropagation();
-            activeSection = sec.id;
-            activeItem = label;
-            activeSubItem = null;
-            render();
-            renderCards();
-          });
-          itemsEl.appendChild(el);
-        });
-      }
-
-      wrap.appendChild(itemsEl);
       mc.appendChild(wrap);
     });
 
@@ -227,25 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    title.textContent = activeSubItem || activeItem || sec.name;
+    title.textContent = sec.name;
 
-    const selectedSectionItem = activeItem
-      ? sec.items.find((it) => getItemLabel(it) === activeItem)
-      : null;
-
-    const items = activeItem
-      ? selectedSectionItem
-        ? getItemChildren(selectedSectionItem).length
-          ? activeSubItem
-            ? [activeSubItem]
-            : []
-          : [activeItem]
-        : []
-      : sec.items.map(getItemLabel);
-
-    const cards = activeSubItem === "Programa de Rastreio"
-      ? programaRastreioCards
-      : items.map((name) => ({ name, icon: getCardIcon(name) }));
+    const items = sec.items;
+    const cards = items.map((name) => ({ name, icon: getCardIcon(name) }));
 
     if (cards.length === 0) {
       grid.innerHTML = "";
@@ -259,14 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach((cardData) => {
       const card = document.createElement("div");
       card.className = "sys-card" + (cardData.svg ? " screening-card" : "");
-
-      if (activeSubItem !== "Programa de Rastreio") {
-        const delBtn = document.createElement("button");
-        delBtn.className = "del-btn ti ti-x";
-        delBtn.title = "Remover";
-        delBtn.addEventListener("click", (e) => removeItem(e, sec.id, cardData.name));
-        card.appendChild(delBtn);
-      }
 
       const iconEl = document.createElement(cardData.svg ? "div" : "i");
       if (cardData.svg) {
@@ -288,28 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
       card.appendChild(nameEl);
       card.appendChild(catEl);
 
+      card.classList.toggle("active", activeCard === cardData.name);
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
       grid.appendChild(card);
     });
   }
   
-
-  function removeItem(e, secId, name) {
-    e.stopPropagation();
-    const sec = sections.find((s) => s.id == secId);
-    if (!sec) return;
-    sec.items = sec.items.filter((item) => {
-      const label = getItemLabel(item);
-      if (label === name) return false;
-      const children = getItemChildren(item);
-      if (children.length && children.includes(name)) {
-        item.children = children.filter((child) => child !== name);
-      }
-      return true;
-    });
-    if (activeSubItem === name) activeSubItem = null;
-    if (activeItem === name) activeItem = null;
-    render();
-  }
 
   function toggleSidebar() {
     collapsed = !collapsed;
@@ -359,7 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sec && !sec.items.includes(name)) {
       sec.items.push(name);
       activeSection = secId;
-      activeItem = null;
     }
     closeModal("modalCard");
     render();
@@ -373,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function confirmAddSection() {
     const name = document.getElementById("sectionName").value.trim();
     if (!name) return;
-    sections.push({ id: nextId++, name, open: true, items: [] });
+    sections.push({ id: nextId++, name, items: [] });
     closeModal("modalSection");
     render();
   }
@@ -423,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeLabels = {
     default: "Padrão",
     dark: "Modo Escuro",
-    "high-contrast": "Alto Contraste",
+    "high-contrast": "Alto Contraste",  
   };
 
   function clearModeClasses() {
