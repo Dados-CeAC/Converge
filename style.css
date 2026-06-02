@@ -5736,18 +5736,18 @@ textarea:focus {
 
 .brand-logo-img {
   display: block;
+  width: auto;
+  height: 48px;
+  max-width: 150px;
   object-fit: contain;
   object-position: center;
 }
 
-.brand-logo-hcfmusp {
-  width: 150px;
-  height: 48px;
-}
-
+.brand-logo-hcfmusp,
 .brand-logo-ceac {
-  width: 150px;
+  width: auto;
   height: 48px;
+  max-width: 150px;
 }
 
 .ceac-logo-box {
