@@ -3619,6 +3619,15 @@ Exemplo:
   */
   color: var(--hc);
 }
+
+.sys-card img.icon-image,
+.section-title img.icon-image {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin-right: 10px;
+}
+
 /* 
 .sys-card-name = nome/título do card
   
@@ -5153,14 +5162,30 @@ body {
   position: relative;
   flex-shrink: 0;
 }
-.sidebar.collapsed {
+..sidebar.collapsed {
   width: 52px;
   min-width: 52px;
+}
+.sidebar.collapsed .section-header {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 .sidebar.collapsed .section-title-text,
 .sidebar.collapsed .item-label,
 .sidebar.collapsed .chevron {
   display: none;
+}
+.sidebar.collapsed .section-title {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  gap: 0;
+}
+.sidebar.collapsed .section-title i,
+.sidebar.collapsed .section-title img.icon-image {
+  margin: 0;
+  display: inline-flex;
 }
 .sidebar-scroll {
   flex: 1;

@@ -1,11 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const iconMap = {
+    Home: "ti-home",
     "Meus Sistemas": "ti-apps",
     Administrativo: "ti-settings",
     Assistencial: "ti-hospital",
-    Gerenciamento: "ti-adjustments",
+    "Pronto Atendimento": "ti-ambulance",
+    Ocupacional: "ti-shield-check",
     Indicadores: "ti-chart-bar",
     Colaborador: "ti-users",
+    Qualidade: "ti-certificate",
+    Dados: "ti-database",
+    Projetos: "ti-layers",
+    Gerenciamento: "ti-adjustments",
   };
   const cardIconMap = {
     HCMED: "ti-stethoscope",
@@ -30,7 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "Compromissos Ocupacionais": "ti-calendar",
     Agenda: "ti-calendar-event",
     Exame: "ti-stethoscope",
-    "Ficha de EPI": "ti-shield-check",
+    Ambulatorio: "ti-building-hospital",
+    "Ficha de EPI": "ti-hard-hat",
+    HAS: "ti-heart-pulse",
+    DM: "ti-apple",
+    "Gestante/Lactante": "ti-baby-carriage",
+      Borboletas: "ti-butterfly",
+
+
   };
 
   const screeningIcons = {
@@ -95,6 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const compromissosOcupacionaisCards = ["Agenda", "Exame"];
 
+  const ambulatorioNestingCards = ["Linha de Cuidados", "Programa de Rastreio"];
+
   const borboletasQuestions = [
     "A violência vem aumentando de gravidade e/ou de frequência no último mês?",
     "A senhora/você está grávida ou teve bebê nos últimos 18 meses?",
@@ -130,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "Natcorp"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
-    { id: 7, name: "Assistencial", items: ["Linha de Cuidados", "Programa de Rastreio" ] },
+    { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 3, name: "Pronto Atendimento", items: ["Pronto Atendimento"] },
     { id: 4, name: "Colaborador", items: colaboradorCards },
@@ -151,6 +166,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return cardIconMap[name] || "ti-app-window";
   }
 
+  function createIconElement(icon) {
+    if (typeof icon === "string" && /^(https?:)?\/\//.test(icon)) {
+      const img = document.createElement("img");
+      img.src = icon;
+      img.alt = "ícone";
+      img.className = "icon-image";
+      return img;
+    }
+    const iconEl = document.createElement("i");
+    iconEl.className = icon.startsWith("ti-") ? "ti " + icon : icon;
+    return iconEl;
+  }
+
   function render() {
     const mc = document.getElementById("menuContainer");
     mc.innerHTML = "";
@@ -161,12 +189,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const hdr = document.createElement("div");
       hdr.className = "section-header";
       hdr.classList.toggle("active", activeSection === sec.id);
-      hdr.innerHTML = `
-				<div class="section-title">
-					<i class="ti ${getIcon(sec.name)}"></i>
-					<span class="section-title-text">${sec.name}</span>
-				</div>
-			`;
+
+      const titleBox = document.createElement("div");
+      titleBox.className = "section-title";
+      titleBox.appendChild(createIconElement(getIcon(sec.name)));
+
+      const titleText = document.createElement("span");
+      titleText.className = "section-title-text";
+      titleText.textContent = sec.name;
+      titleBox.appendChild(titleText);
+
+      hdr.appendChild(titleBox);
       hdr.addEventListener("click", () => {
         activeSection = sec.id;
         activeCard = null;
@@ -199,8 +232,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const isBorboletas = activeCard === "Borboletas";
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
     const isFichaEpi = activeCard === "Ficha de EPI";
+    const isAmbulatorio = activeCard === "Ambulatorio";
     const isColaboradorSection = sec.name === "Colaborador";
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
+    const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
 
     title.textContent = isBorboletas
       ? "Borboletas"
@@ -208,6 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ? "Programa de Rastreio"
       : isLinhaCuidados
       ? "Linha de Cuidados"
+      : isAmbulatorio
+      ? "Ambulatorio"
       : activeCard
       ? activeCard
       : sec.name;
@@ -226,6 +263,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (isAmbulatorio) {
+      renderAmbulatorioNestingCards(grid);
+      return;
+    }
+
     const cards = isScreeningProgram
       ? programaRastreioCards.map((name) => ({ name, icon: getCardIcon(name) }))
       : isLinhaCuidados
@@ -241,8 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "sys-card";
 
-      const iconEl = document.createElement("i");
-      iconEl.className = "ti " + (cardData.icon || getCardIcon(cardData.name));
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
 
       const nameEl = document.createElement("div");
       nameEl.className = "sys-card-name";
@@ -260,6 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.appendChild(nameEl);
       card.appendChild(catEl);
 
+      card.classList.toggle("epi-card", cardData.name === "Ficha de EPI");
       card.classList.toggle("active", activeCard === cardData.name);
       card.addEventListener("click", () => {
         activeCard = cardData.name;
@@ -395,6 +437,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const iconEl = document.createElement("i");
       iconEl.className = "ti " + cardData.icon;
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function renderAmbulatorioNestingCards(grid) {
+    const cards = ambulatorioNestingCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
 
       const nameEl = document.createElement("div");
       nameEl.className = "sys-card-name";
