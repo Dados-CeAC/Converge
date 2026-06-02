@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Ocupacional: "ti-shield-check",
     Indicadores: "ti-chart-bar",
     Colaborador: "ti-users",
+    Gestão: "ti-briefcase",
     Qualidade: "ti-certificate",
     Dados: "ti-database",
-    Projetos: "ti-rocket",
     Gerenciamento: "ti-adjustments",
+    "Meu Perfil": "ti-user",
   };
   const cardIconMap = {
     HCMED: "ti-stethoscope",
@@ -26,12 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     "Programa de Rastreio": "ti-search",
     "Pronto Atendimento": "ti-ambulance",
     "Controles Internos": "ti-file-check",
+    Contratos: "ti-file-text",
+    "Suprimentos e Estoque": "ti-package",
+    Faturamento: "ti-currency-dollar",
+    Custos: "ti-chart-line",
     Comunicação: "ti-message",
     "Apoio Predial": "ti-building",
     "Segurança do Trabalho": "ti-shield-check",
     "Saúde Ocupacional": "ti-user-check",
     "Minhas Doses": "ti-droplet",
     "Meu ASO": "ti-file-check",
+    "Meu Perfil": "ti-user",
     "Votação - CIPA": "ti-checklist",
     "Compromissos Ocupacionais": "ti-calendar",
     Agenda: "ti-calendar-event",
@@ -43,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Gestante/Lactante": "ti-baby-carriage",
     Borboletas: "ti-butterfly",
     "Saúde mental": "ti-brain",
-    Projetos: "ti-rocket",
+  
   };
 
   const screeningIcons = {
@@ -108,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const compromissosOcupacionaisCards = ["Agenda", "Exame"];
 
+  const controlesInternosCards = ["Contratos", "Suprimentos e Estoque", "Faturamento", "Custos"];
   const ambulatorioNestingCards = ["Linha de Cuidados", "Programa de Rastreio"];
 
   const borboletasQuestions = [
@@ -147,11 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "Indicadores", items: ["PIH"] },
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
-    { id: 3, name: "Pronto Atendimento", items: ["Pronto Atendimento"] },
+    { id: 3, name: "Pronto Atendimento", items: ["Farmácia", "Transferência", "Hiperutilizadores"] },
     { id: 4, name: "Colaborador", items: colaboradorCards },
-    { id: 9, name: "Qualidade", items: [] },
+    { id: 6, name: "Gestão", items: [] },
+    { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
     { id: 10, name: "Dados", items: [] },
-    { id: 11, name: "Projetos", items: [] },
+    { id: 12, name: "Meu Perfil", items: [] },
   ];
 
   let activeSection = 1;
@@ -233,6 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
     const isFichaEpi = activeCard === "Ficha de EPI";
     const isAmbulatorio = activeCard === "Ambulatorio";
+    const isControlesInternos = activeCard === "Controles Internos";
+    const isControlesInternosNested = controlesInternosCards.includes(activeCard);
     const isColaboradorSection = sec.name === "Colaborador";
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
@@ -260,6 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isCompromissos) {
       renderCompromissosCards(grid);
+      return;
+    }
+
+    if (isControlesInternos) {
+      renderControlesInternosCards(grid);
       return;
     }
 
@@ -438,6 +453,29 @@ document.addEventListener("DOMContentLoaded", () => {
       const iconEl = document.createElement("i");
       iconEl.className = "ti " + cardData.icon;
 
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function renderControlesInternosCards(grid) {
+    const cards = controlesInternosCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
       const nameEl = document.createElement("div");
       nameEl.className = "sys-card-name";
       nameEl.textContent = cardData.name;
