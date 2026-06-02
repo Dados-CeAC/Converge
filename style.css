@@ -3522,11 +3522,25 @@ Exemplo:
   flex-direction: column;
 
   /* 
+  align-items = alinhamento horizontal
+  
+  center = centraliza o conteúdo dentro do card
+  */
+  align-items: center;
+
+  /* 
   gap = espaço entre elementos
   
   8px = pequena distância
   */
   gap: 8px;
+
+  /* 
+  text-align = alinhamento do texto
+  
+  center = texto centralizado dentro do card
+  */
+  text-align: center;
 
   /* 
   position: relative
@@ -4959,7 +4973,55 @@ Exemplo:
   border-color: rgba(255, 255, 255, 0.15);
 }
 
-.mode-dark input::placeholder {
+.mode-dark input::placeholder,
+.mode-dark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.60);
+}
+
+.mode-dark .borboletas-form {
+  background: #0f1416;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e6eef0;
+}
+
+.mode-dark .borboletas-form .form-title {
+  color: #78c7ff;
+}
+
+.mode-dark .borboletas-form .form-description,
+.mode-dark .borboletas-form .form-group label,
+.mode-dark .borboletas-table td {
+  color: #d6e4ee;
+}
+
+.mode-dark .borboletas-table-wrap {
+  background: #111924;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.mode-dark .borboletas-table th {
+  background: #121b24;
+  color: #a8d4ff;
+}
+
+.mode-dark .borboletas-table tbody tr:nth-child(odd) td {
+  background: #0f1416;
+}
+
+.mode-dark .borboletas-table td {
+  background: #111924;
+}
+
+.mode-dark .borboletas-form input,
+.mode-dark .borboletas-form select,
+.mode-dark .borboletas-form textarea {
+  background: #111924;
+  color: #f4f7fb;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mode-dark .borboletas-form input::placeholder,
+.mode-dark .borboletas-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.60);
 }
 
@@ -5303,6 +5365,9 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 14px;
 }
+.cards-grid.borboletas-active {
+  grid-template-columns: 1fr;
+}
 .sys-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -5398,7 +5463,131 @@ textarea {
   padding: 12px;
 }
 
-/* Luz SOMENTE quando clicar no campo */
+.borboletas-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  color: var(--text);
+}
+
+.borboletas-form .form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.borboletas-form .form-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--hc);
+}
+
+.borboletas-form .form-description {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.borboletas-form .form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.borboletas-form .form-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.borboletas-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.borboletas-form .form-group label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.borboletas-form input,
+.borboletas-form select,
+.borboletas-form textarea {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.borboletas-form input::placeholder,
+.borboletas-form textarea::placeholder {
+  color: #8a9ba4;
+}
+
+.borboletas-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.borboletas-form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.borboletas-table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.borboletas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.borboletas-table th,
+.borboletas-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.borboletas-table th {
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--hc);
+}
+
+.borboletas-table td {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.borboletas-table tbody tr:nth-child(odd) td {
+  background: var(--bg);
+}
+
+.borboletas-table td input {
+  margin: 0;
+}
+
+.table-caption {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
 input:focus,
 select:focus,
 textarea:focus {
