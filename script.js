@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Colaborador: "ti-users",
     Qualidade: "ti-certificate",
     Dados: "ti-database",
-    Projetos: "ti-layers",
+    Projetos: "ti-rocket",
     Gerenciamento: "ti-adjustments",
   };
   const cardIconMap = {
@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     HAS: "ti-heart-pulse",
     DM: "ti-apple",
     "Gestante/Lactante": "ti-baby-carriage",
-      Borboletas: "ti-butterfly",
-
-
+    Borboletas: "ti-butterfly",
+    "Saúde mental": "ti-brain",
+    Projetos: "ti-rocket",
   };
 
   const screeningIcons = {
