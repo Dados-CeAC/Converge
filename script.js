@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Meu Perfil": "ti-user",
   };
   const cardIconMap = {
+    Home: "ti-home",
     HCMED: "ti-stethoscope",
     "InterRad Internados": "ti-building-hospital",
     "Painel MV": "ti-layout-dashboard",
@@ -24,7 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "Sistema de Manutenção DE-PARA - Clínicas x Setores":
       "ti-arrows-transfer-up",
     "Gerenciador de Sistemas": "ti-settings-2",
+    SoulMV: "ti-heart-rate-monitor",
+    MVPEP: "ti-file-text",
+    MVGE: "ti-chart-dots",
     PIH: "ti-chart-pie",
+    Interrad: "ti-radioactive",
+    Intercon: "ti-messages",
+    "Portal RH FFM": "ti-id-badge-2",
+    Natcorp: "ti-building-community",
     "Linha de Cuidados": "ti-heart",
     "Programa de Rastreio": "ti-search",
     "Pronto Atendimento": "ti-ambulance",
@@ -35,10 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
     Custos: "ti-chart-line",
     Comunicação: "ti-message",
     "Apoio Predial": "ti-building",
-    "CA Colo Útero": "ti-medical-cross",
-    "CA Próstata": "ti-medical-cross",
-    "CA Colorretal": "ti-medical-cross",
-    "CA Mama": "ti-medical-cross",
+    Farmácia: "ti-pill",
+    Transferência: "ti-transfer",
+    Hiperutilizadores: "ti-users-group",
+    "CA Colo Útero": "ti-gender-female",
+    "CA Próstata": "ti-gender-male",
+    "CA Colorretal": "ti-clipboard-heart",
+    "CA Mama": "ti-ribbon-health",
     "Segurança do Trabalho": "ti-shield-check",
     "Saúde Ocupacional": "ti-user-check",
     "Minhas Doses": "ti-droplet",
@@ -48,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Colaboradores": "ti-user-check",
     "Votação - CIPA": "ti-checklist",
     "Compromissos Ocupacionais": "ti-calendar",
-    "ficha de EPI": "ti-hard-hat",
+    "ficha de EPI": "ti-helmet",
     "Performance e excelência institucional": "ti-certificate",
     "Processos e melhoria contínua": "ti-adjustments",
     "Gestão de projetos": "ti-layout-grid",
@@ -57,8 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     Agenda: "ti-calendar-event",
     Exame: "ti-stethoscope",
     Ambulatorio: "ti-building-hospital",
-    "Ficha de EPI": "ti-hard-hat",
-    HAS: "ti-heart-pulse",
+    "Ficha de EPI": "ti-helmet",
+    HAS: "ti-heartbeat",
     DM: "ti-apple",
     "Gestante/Lactante": "ti-baby-carriage",
     Borboletas: "ti-butterfly",
@@ -141,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const controlesInternosCards = ["Contratos", "Suprimentos e Estoque", "Faturamento", "Custos"];
   const ambulatorioNestingCards = ["Linha de Cuidados", "Programa de Rastreio"];
+  const prontoAtendimentoCards = ["Farmácia", "Transferência", "Hiperutilizadores"];
 
   const borboletasQuestions = [
     "A violência vem aumentando de gravidade e/ou de frequência no último mês?",
@@ -179,7 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "Indicadores", items: ["PIH"] },
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
-    { id: 3, name: "Pronto Atendimento", items: ["Farmácia", "Transferência", "Hiperutilizadores"] },
     { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
     { id: 10, name: "Dados", items: [] },
     { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
@@ -267,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
     const isFichaEpi = activeCard === "Ficha de EPI";
     const isAmbulatorio = activeCard === "Ambulatorio";
+    const isProntoAtendimento = activeCard === "Pronto Atendimento";
     const isControlesInternos = activeCard === "Controles Internos";
     const isControlesInternosNested = controlesInternosCards.includes(activeCard);
     const isColaboradores = activeCard === "Colaboradores";
@@ -281,6 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ? "Linha de Cuidados"
       : isAmbulatorio
       ? "Ambulatorio"
+      : isProntoAtendimento
+      ? "Pronto Atendimento"
       : activeCard
       ? activeCard
       : sec.name;
@@ -306,6 +320,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isAmbulatorio) {
       renderAmbulatorioNestingCards(grid);
+      return;
+    }
+
+    if (isProntoAtendimento) {
+      renderProntoAtendimentoCards(grid);
       return;
     }
 
@@ -530,6 +549,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderAmbulatorioNestingCards(grid) {
     const cards = ambulatorioNestingCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function renderProntoAtendimentoCards(grid) {
+    const cards = prontoAtendimentoCards.map((name) => ({ name, icon: getCardIcon(name) }));
     cards.forEach((cardData) => {
       const card = document.createElement("div");
       card.className = "sys-card";
