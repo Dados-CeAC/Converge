@@ -457,6 +457,16 @@ Normalmente onde fica:
   z-index: 100;
 }
 
+.topbar-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+}
+
 /* 
 .logo-box = caixa onde fica a logo
   
@@ -6021,17 +6031,24 @@ textarea:focus {
     flex-direction: column;
   }
   .sidebar {
-    position: static !important;
-    left: 0 !important;
-    width: 100% !important;
+    position: fixed !important;
+    top: var(--topbar-h);
+    left: -100%;
+    width: 280px !important;
     min-width: 0 !important;
-    height: auto !important;
-    max-height: none !important;
-    border-right: none;
-    box-shadow: none;
+    height: calc(100% - var(--topbar-h));
+    max-height: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    background: var(--surface);
+    z-index: 999;
+    transition: left 0.25s ease;
+  }
+  .sidebar.mobile-open {
+    left: 0 !important;
   }
   .sidebar-scroll {
-    max-height: 300px;
+    max-height: calc(100vh - 240px);
     overflow-y: auto;
   }
   .sidebar-footer {
@@ -6043,8 +6060,20 @@ textarea:focus {
   .topbar {
     flex-wrap: wrap;
     padding: 12px 16px;
-    justify-content: center;
+    justify-content: space-between;
     gap: 12px;
+  }
+  .topbar-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    cursor: pointer;
   }
   .logo-box {
     width: auto;
@@ -6078,6 +6107,19 @@ textarea:focus {
   .sidebar-footer .toggle-btn {
     margin: 12px 0 18px;
   }
+  .mobile-overlay {
+    position: fixed;
+    inset: var(--topbar-h) 0 0 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 990;
+  }
+  .mobile-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
 @media (max-width: 640px) {
@@ -6104,6 +6146,10 @@ textarea:focus {
 @media (max-width: 480px) {
   .topbar {
     padding: 10px 12px;
+  }
+  .topbar-mobile-toggle {
+    width: 36px;
+    height: 36px;
   }
   .logo-box {
     padding: 4px 8px;

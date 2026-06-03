@@ -224,6 +224,9 @@ document.addEventListener("DOMContentLoaded", () => {
         activeCard = null;
         render();
         renderCards();
+        if (window.innerWidth <= 900) {
+          closeMobileSidebar();
+        }
       });
       wrap.appendChild(hdr);
       mc.appendChild(wrap);
@@ -561,10 +564,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 900) {
+      if (sidebar && sidebar.classList.contains("mobile-open")) {
+        closeMobileSidebar();
+      } else {
+        openMobileSidebar();
+      }
+      return;
+    }
+
     collapsed = !collapsed;
     document.getElementById("sidebar").classList.toggle("collapsed", collapsed);
     document.getElementById("toggleIcon").className =
       "ti " + (collapsed ? "ti-chevrons-right" : "ti-chevrons-left");
+  }
+
+  function openMobileSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("mobileOverlay");
+    if (sidebar) sidebar.classList.add("mobile-open");
+    if (overlay) overlay.classList.add("show");
+  }
+
+  function closeMobileSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("mobileOverlay");
+    if (sidebar) sidebar.classList.remove("mobile-open");
+    if (overlay) overlay.classList.remove("show");
   }
 
   function updateUser(val) {
@@ -642,6 +669,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const attachListeners = () => {
     const toggleBtn = document.getElementById("toggleBtn");
     if (toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
+
+    const mobileToggle = document.getElementById("mobileMenuToggle");
+    if (mobileToggle) mobileToggle.addEventListener("click", openMobileSidebar);
+
+    const mobileOverlay = document.getElementById("mobileOverlay");
+    if (mobileOverlay) mobileOverlay.addEventListener("click", closeMobileSidebar);
 
     const themeToggleBtn = document.getElementById("themeToggleBtn");
     if (themeToggleBtn)
