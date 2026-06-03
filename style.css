@@ -6003,6 +6003,129 @@ textarea:focus {
   border-color: #162022;
 }
 
+/* Responsive ajustado para telas menores */
+@media (max-width: 1024px) {
+  .page-title {
+    font-size: 20px;
+  }
+  .cards-grid {
+    gap: 12px;
+  }
+  .sys-card {
+    padding: 18px 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  .body-row {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: static !important;
+    left: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    border-right: none;
+    box-shadow: none;
+  }
+  .sidebar-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .sidebar-footer {
+    position: relative;
+  }
+  .main {
+    width: 100%;
+  }
+  .topbar {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    justify-content: center;
+    gap: 12px;
+  }
+  .logo-box {
+    width: auto;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ceac-logo-box {
+    margin-left: 0;
+  }
+  .brand-logo-img {
+    max-width: 120px;
+  }
+  .sidebar-profile {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .sidebar-profile-info,
+  .sidebar-logout,
+  .sidebar-theme-btn,
+  .sidebar-footer .toggle-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+  .sidebar-theme-btn,
+  .sidebar-logout {
+    margin: 10px 0;
+  }
+  .sidebar-footer .toggle-btn {
+    margin: 12px 0 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-title {
+    font-size: 18px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .sys-card {
+    padding: 16px;
+  }
+  .sidebar-profile-info {
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 10px 12px;
+  }
+  .logo-box {
+    padding: 4px 8px;
+  }
+  .brand-logo-img {
+    max-width: 100px;
+  }
+  .cards-grid {
+    gap: 10px;
+  }
+  .sys-card {
+    padding: 14px;
+  }
+  .page-title {
+    font-size: 16px;
+  }
+  .sidebar-logout,
+  .sidebar-theme-btn {
+    padding: 0 10px;
+  }
+}
+
 .mode-dark .sidebar-profile-name,
 .mode-dark .sidebar-logout,
 .mode-dark .sidebar-theme-btn {
