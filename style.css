@@ -4712,9 +4712,9 @@ o sistema muda para tema escuro.
   /* 
   background = cor de fundo
   
-  #0b0f12 = preto/cinza bem escuro
+  tom de cinza escuro mais suave para melhor brilho
   */
-  background: #0b0f12;
+  background: #141c24;
 
   /* 
   color = cor do texto
@@ -4740,14 +4740,9 @@ muda de cor.
   /* 
   background = cor de fundo
   
-  #07171a = tom bem escuro
-  azul/preto.
-  
-  RESULTADO:
-  topbar fica combinando
-  com o dark mode.
+  tom escuro suave para o header
   */
-  background: #07171a;
+  background: #132330;
 }
 /* 
 .mode-dark .main,
@@ -4768,9 +4763,9 @@ essas áreas mudam para tema dark:
   /* 
   background = cor de fundo
   
-  #0b0f12 = fundo bem escuro
+  tom escuro menos fechado para melhor contraste
   */
-  background: #0b0f12;
+  background: #101c26;
 
   /* 
   color = cor do texto
@@ -4795,9 +4790,9 @@ os cards do sistema mudam de aparência.
   /* 
   background = cor de fundo do card
   
-  #0f1416 = cinza/preto escuro
+  tom escuro mais equilibrado para legibilidade
   */
-  background: #0f1416;
+  background: #15222d;
 
   /* 
   border-color = cor da borda
@@ -4808,7 +4803,7 @@ os cards do sistema mudam de aparência.
   card combina com o tema dark
   sem ficar totalmente preto.
   */
-  border-color: #1b2729;
+  border-color: #1c2d3a;
 }
 /* 
 .mode-dark .edit-bar,
@@ -4826,10 +4821,9 @@ essas áreas mudam para versão dark:
   /* 
   background = cor de fundo
   
-  #071215 = fundo escuro
-  azul/preto.
+  tom escuro mais claro para melhor contraste
   */
-  background: #071215;
+  background: #0f212d;
 
   /* 
   border-color = cor da borda
@@ -4840,7 +4834,7 @@ essas áreas mudam para versão dark:
   combina com o tema dark
   sem deixar tudo preto chapado.
   */
-  border-color: #162022;
+  border-color: #1a3040;
 }
 /* 
 .mode-dark .topbar-user-info .label,
@@ -4875,8 +4869,8 @@ Exemplo:
 }
 
 .mode-dark .sidebar {
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
-  background: #07131a;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  background: #112129;
 }
 
 .mode-dark .sidebar-scroll {
@@ -4977,9 +4971,9 @@ Exemplo:
 .mode-dark input,
 .mode-dark select,
 .mode-dark textarea {
-  background: #111924;
+  background: #162a38;
   color: #f4f7fb;
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .mode-dark input::placeholder,
@@ -5032,25 +5026,6 @@ Exemplo:
 .mode-dark .borboletas-form input::placeholder,
 .mode-dark .borboletas-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.60);
-}
-
-.mode-high-contrast {
-  background: #000;
-  color: #fff;
-}
-.mode-high-contrast .sys-card {
-  background: #000;
-  border-color: #fff;
-}
-.mode-high-contrast .menu-item {
-  color: #fff;
-}
-.mode-high-contrast .page-title {
-  color: #fff;
-}
-
-.mode-high-contrast .btn {
-  border-color: #fff;
 }
 
 :root {

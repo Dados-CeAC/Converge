@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "Minhas Doses": "ti-droplet",
     "Meu ASO": "ti-file-check",
     "Meu Perfil": "ti-user",
+    "Gestores": "ti-users",
+    "Colaboradores": "ti-user-check",
     "Votação - CIPA": "ti-checklist",
     "Compromissos Ocupacionais": "ti-calendar",
     Agenda: "ti-calendar-event",
@@ -155,11 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 3, name: "Pronto Atendimento", items: ["Farmácia", "Transferência", "Hiperutilizadores"] },
-    { id: 4, name: "Colaborador", items: colaboradorCards },
-    { id: 6, name: "Gestão", items: [] },
     { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
     { id: 10, name: "Dados", items: [] },
-    { id: 12, name: "Meu Perfil", items: [] },
+    { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
   ];
 
   let activeSection = 1;
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isAmbulatorio = activeCard === "Ambulatorio";
     const isControlesInternos = activeCard === "Controles Internos";
     const isControlesInternosNested = controlesInternosCards.includes(activeCard);
-    const isColaboradorSection = sec.name === "Colaborador";
+    const isColaboradores = activeCard === "Colaboradores";
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
 
@@ -280,6 +280,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isAmbulatorio) {
       renderAmbulatorioNestingCards(grid);
+      return;
+    }
+
+    if (isColaboradores) {
+      renderColaboradoresCards(grid);
       return;
     }
 
@@ -516,6 +521,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function renderColaboradoresCards(grid) {
+    const cards = colaboradorCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      const catEl = document.createElement("div");
+      catEl.className = "sys-card-cat";
+      catEl.textContent = "Colaboradores";
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+      card.appendChild(catEl);
+
+      card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
   function toggleSidebar() {
     collapsed = !collapsed;
     document.getElementById("sidebar").classList.toggle("collapsed", collapsed);
@@ -623,15 +656,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
   const DOC = document.documentElement;
-  const themeModes = ["default", "dark", "high-contrast"];
+  const themeModes = ["default", "dark"];
   const themeLabels = {
     default: "Padrão",
     dark: "Modo Escuro",
-    "high-contrast": "Alto Contraste",  
   };
 
   function clearModeClasses() {
-    ["mode-dark", "mode-high-contrast"].forEach((c) => DOC.classList.remove(c));
+    ["mode-dark"].forEach((c) => DOC.classList.remove(c));
   }
 
   function updateThemeButton(mode) {
@@ -666,9 +698,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function applyStoredPreferences() {
-    const mode = localStorage.getItem("site:themeMode") || "default";
+    const storedMode = localStorage.getItem("site:themeMode");
+    const mode = themeModes.includes(storedMode) ? storedMode : "default";
+    if (storedMode && storedMode !== mode) {
+      localStorage.removeItem("site:themeMode");
+    }
     clearModeClasses();
-    if (mode && mode !== "default") DOC.classList.add("mode-" + mode);
+    if (mode !== "default") DOC.classList.add("mode-" + mode);
     updateThemeButton(mode);
   }
 
@@ -680,7 +716,7 @@ function resetIdentity() {
   localStorage.removeItem("site:themeMode");
  
   const DOC = document.documentElement;
-  ["mode-dark", "mode-high-contrast"].forEach((c) => DOC.classList.remove(c));
+  ["mode-dark"].forEach((c) => DOC.classList.remove(c));
   const btn = document.getElementById("themeToggleBtn");
   if (btn) {
     const textEl = btn.querySelector("span");
