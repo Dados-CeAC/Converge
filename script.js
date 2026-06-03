@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     Intercon: "ti-messages",
     "Portal RH FFM": "ti-id-badge-2",
     Natcorp: "ti-building-community",
+    NatcorpHC: "ti-heart-handshake",
+    NatcorpFZ: "ti-building-hospital",
     "Linha de Cuidados": "ti-heart",
     "Programa de Rastreio": "ti-search",
     "Pronto Atendimento": "ti-ambulance",
@@ -74,6 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Gestante/Lactante": "ti-baby-carriage",
     Borboletas: "ti-butterfly",
     "Saúde mental": "ti-brain",
+    Formulário: "ti-forms",
+    "Painel de Gestores": "ti-layout-dashboard",
+    Indicadores: "ti-chart-bar",
   };
 
   const cardUrlMap = {
@@ -85,7 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
     Intercon: "http://interconsulta.phcnet.usp.br/Conta/Login?ReturnUrl=%2f",
     Interrad: "http://sistemashc.phcnet.usp.br/Conta/Login?ReturnUrl=http://interrad.phcnet.usp.br/",
     "Portal RH FFM": "https://portalrh.ffm.br/ords/rhlgweb.show",
-    Natcorp: "https://www.natcorp.com.br/portais/saude/",
+    NatcorpHC: "https://www.natcorp.com.br/portais/saude/",
+    NatcorpFZ: "https://www.natcorp.com.br/portais/incor/",
+
   };
 
   const screeningIcons = {
@@ -148,11 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "Ficha de EPI",
   ];
 
+
   const compromissosOcupacionaisCards = ["Agenda", "Exame"];
 
   const controlesInternosCards = ["Contratos", "Suprimentos e Estoque", "Faturamento", "Custos"];
   const ambulatorioNestingCards = ["Linha de Cuidados", "Programa de Rastreio"];
   const prontoAtendimentoCards = ["Farmácia", "Transferência", "Hiperutilizadores"];
+  const careActionCards = ["Formulário", "Painel de Gestores", "Indicadores"];
 
   const borboletasQuestions = [
     "A violência vem aumentando de gravidade e/ou de frequência no último mês?",
@@ -186,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let sections = [
     { id: 0, name: "Home", items: ["Home"] },
-    { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "Natcorp"] },
+    { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "NatcorpHC", "NatcorpFZ"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
@@ -198,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeSection = 1;
   let activeCard = null;
+  let activeDetailParent = null;
   let collapsed = false;
   let nextId = 10;
 
@@ -245,6 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hdr.addEventListener("click", () => {
         activeSection = sec.id;
         activeCard = null;
+        activeDetailParent = null;
         render();
         renderCards();
         if (window.innerWidth <= 900) {
@@ -270,10 +281,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const isScreeningProgram =
-      activeCard === "Programa de Rastreio" || programaRastreioCards.includes(activeCard);
-    const isLinhaCuidados =
-      activeCard === "Linha de Cuidados" || linhaCuidadosCards.includes(activeCard);
+    const isScreeningProgram = activeCard === "Programa de Rastreio";
+    const isScreeningCard = programaRastreioCards.includes(activeCard);
+    const isLinhaCuidados = activeCard === "Linha de Cuidados";
+    const isLinhaCuidadosCard = linhaCuidadosCards.includes(activeCard);
+    const isBorboletasForm = activeCard === "Formulário" && activeDetailParent === "Borboletas";
     const isBorboletas = activeCard === "Borboletas";
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
     const isFichaEpi = activeCard === "Ficha de EPI";
@@ -285,8 +297,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
 
-    title.textContent = isBorboletas
+    title.textContent = isBorboletasForm
+      ? "Formulário - Borboletas"
+      : isBorboletas
       ? "Borboletas"
+      : isScreeningCard || isLinhaCuidadosCard
+      ? activeCard
       : isScreeningProgram
       ? "Programa de Rastreio"
       : isLinhaCuidados
@@ -299,12 +315,27 @@ document.addEventListener("DOMContentLoaded", () => {
       ? activeCard
       : sec.name;
 
-    grid.classList.toggle("borboletas-active", isBorboletas);
+    grid.classList.toggle("borboletas-active", isBorboletasForm);
     grid.innerHTML = "";
     empty.style.display = "none";
 
-    if (isBorboletas) {
+    if (isBorboletasForm) {
       renderBorboletasForm(grid);
+      return;
+    }
+
+    if (isBorboletas) {
+      renderCareActionCards(grid, "Linha de Cuidados");
+      return;
+    }
+
+    if (isScreeningCard) {
+      renderCareActionCards(grid, "Programa de Rastreio");
+      return;
+    }
+
+    if (isLinhaCuidadosCard) {
+      renderCareActionCards(grid, "Linha de Cuidados");
       return;
     }
 
@@ -374,6 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
           window.open(url, "_blank");
           return;
         }
+        activeDetailParent =
+          programaRastreioCards.includes(cardData.name) || linhaCuidadosCards.includes(cardData.name)
+            ? cardData.name
+            : null;
         activeCard = cardData.name;
         renderCards();
       });
@@ -587,6 +622,41 @@ document.addEventListener("DOMContentLoaded", () => {
       card.appendChild(nameEl);
 
       card.addEventListener("click", () => {
+        activeCard = cardData.name;
+        renderCards();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function renderCareActionCards(grid, category) {
+    const cards = careActionCards.map((name) => ({ name, icon: getCardIcon(name) }));
+    const parentName = activeDetailParent || activeCard;
+
+    cards.forEach((cardData) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+
+      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = cardData.name;
+
+      const catEl = document.createElement("div");
+      catEl.className = "sys-card-cat";
+      catEl.textContent = parentName || category;
+
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+      card.appendChild(catEl);
+
+      card.addEventListener("click", () => {
+        if (cardData.name !== "Formulário" || parentName !== "Borboletas") {
+          return;
+        }
+        activeDetailParent = parentName;
         activeCard = cardData.name;
         renderCards();
       });
