@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Colaboradores": "ti-user-check",
     "Votação - CIPA": "ti-checklist",
     "Compromissos Ocupacionais": "ti-calendar",
+    "ficha de EPI": "ti-hard-hat",
     "Performance e excelência institucional": "ti-certificate",
     "Processos e melhoria contínua": "ti-adjustments",
     "Gestão de projetos": "ti-layout-grid",
@@ -62,7 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "Gestante/Lactante": "ti-baby-carriage",
     Borboletas: "ti-butterfly",
     "Saúde mental": "ti-brain",
-  
+  };
+
+  const cardUrlMap = {
+    SoulMV: "http://bal-autentica.phcnet.usp.br/mvautenticador-cas/login?service=http%3A%2F%2Fbal-autentica.phcnet.usp.br%3A80%2Fsoul-mv%2Fcas",
+    MVPEP: "http://bal-autentica.phcnet.usp.br/mvautenticador-cas/login?service=http%3A%2F%2Fbal-pep.phcnet.usp.br%3A80%2Fmvpep%2F",
+    MVGE: "http://sehc.phcnet.usp.br/Auth/app/#/",
+    PIH: "http://sistemashc.phcnet.usp.br/Conta/Login?ReturnUrl=http://pih.phcnet.usp.br/",
+    HCMED: "http://sistemashc.phcnet.usp.br/Conta/Login?ReturnUrl=http://hcmed.phcnet.usp.br",
+    Intercon: "http://interconsulta.phcnet.usp.br/Conta/Login?ReturnUrl=%2f",
+    Interrad: "http://sistemashc.phcnet.usp.br/Conta/Login?ReturnUrl=http://interrad.phcnet.usp.br/",
+    "Portal RH FFM": "https://portalrh.ffm.br/ords/rhlgweb.show",
+    Natcorp: "https://www.natcorp.com.br/portais/saude/",
   };
 
   const screeningIcons = {
@@ -338,6 +350,11 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.toggle("epi-card", cardData.name === "Ficha de EPI");
       card.classList.toggle("active", activeCard === cardData.name);
       card.addEventListener("click", () => {
+        const url = cardUrlMap[cardData.name];
+        if (url) {
+          window.open(url, "_blank");
+          return;
+        }
         activeCard = cardData.name;
         renderCards();
       });
