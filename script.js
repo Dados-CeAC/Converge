@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const cardIconMap = {
     Home: "ti-home",
+    "Meus Sistemas": "ti-apps",
     HCMED: "ti-stethoscope",
     "InterRad Internados": "ti-building-hospital",
     "Painel MV": "ti-layout-dashboard",
@@ -131,6 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
       </svg>
     `,
   };
+  const homeCards = [
+   "Home",
+   "Meus Sistemas",
+   "Meu perfil",
+  ];
 
   const programaRastreioCards = [
     "CA Colo Útero",
@@ -194,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let sections = [
-    { id: 0, name: "Home", items: ["Home"] },
+    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadores"] },
     { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "NatcorpHC", "NatcorpFZ"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
@@ -205,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
   ];
 
-  let activeSection = 1;
+  let activeSection = 0;
   let activeCard = null;
   let activeDetailParent = null;
   let collapsed = false;
@@ -235,6 +241,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const mc = document.getElementById("menuContainer");
     mc.innerHTML = "";
     sections.forEach((sec) => {
+      if (sec.name === "Meus Sistemas" || sec.name === "Meu Perfil" || sec.name === "Indicadores") {
+        return;
+      }
       const wrap = document.createElement("div");
       wrap.className = "menu-section";
 
@@ -250,7 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
       titleText.className = "section-title-text";
       titleText.textContent = sec.name;
       titleBox.appendChild(titleText);
-
       hdr.appendChild(titleBox);
       hdr.addEventListener("click", () => {
         activeSection = sec.id;
@@ -274,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("cardsGrid");
     const empty = document.getElementById("emptyState");
     const title = document.getElementById("dispPageTitle");
+    const backBtn = document.getElementById("cardBackBtn");
 
     if (!sec) {
       grid.innerHTML = "";
@@ -318,6 +327,14 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.classList.toggle("borboletas-active", isBorboletasForm);
     grid.innerHTML = "";
     empty.style.display = "none";
+    if (backBtn) {
+      backBtn.style.display = activeCard ? "inline-flex" : "none";
+      backBtn.onclick = () => {
+        activeCard = null;
+        activeDetailParent = null;
+        renderCards();
+      };
+    }
 
     if (isBorboletasForm) {
       renderBorboletasForm(grid);
@@ -362,6 +379,90 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isColaboradores) {
       renderColaboradoresCards(grid);
       return;
+    }
+
+    if (sec.name === "Home" && activeCard) {
+      if (activeCard === "Meu Perfil") {
+        const perfilSection = sections.find((s) => s.name === "Meu Perfil");
+        if (perfilSection && perfilSection.items.length) {
+          perfilSection.items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "sys-card";
+            const iconEl = createIconElement(getCardIcon(item));
+            const nameEl = document.createElement("div");
+            nameEl.className = "sys-card-name";
+            nameEl.textContent = item;
+            card.appendChild(iconEl);
+            card.appendChild(nameEl);
+            card.addEventListener("click", () => {
+              activeCard = item;
+              renderCards();
+            });
+            grid.appendChild(card);
+          });
+          return;
+        }
+      }
+
+      if (activeCard === "Meus Sistemas") {
+        const systemsSection = sections.find((s) => s.name === "Meus Sistemas");
+        if (systemsSection && systemsSection.items.length) {
+          systemsSection.items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "sys-card";
+            const iconEl = createIconElement(getCardIcon(item));
+            const nameEl = document.createElement("div");
+            nameEl.className = "sys-card-name";
+            nameEl.textContent = item;
+            card.appendChild(iconEl);
+            card.appendChild(nameEl);
+            card.addEventListener("click", () => {
+              const url = cardUrlMap[item];
+              if (url) {
+                window.open(url, "_blank");
+              }
+            });
+            grid.appendChild(card);
+          });
+          return;
+        }
+      }
+
+      if (activeCard === "Indicadores") {
+        const indicatorsSection = sections.find((s) => s.name === "Indicadores");
+        if (indicatorsSection && indicatorsSection.items.length) {
+          indicatorsSection.items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "sys-card";
+            const iconEl = createIconElement(getCardIcon(item));
+            const nameEl = document.createElement("div");
+            nameEl.className = "sys-card-name";
+            nameEl.textContent = item;
+            const catEl = document.createElement("div");
+            catEl.className = "sys-card-cat";
+            catEl.textContent = "Indicadores";
+            card.appendChild(iconEl);
+            card.appendChild(nameEl);
+            card.appendChild(catEl);
+            card.addEventListener("click", () => {
+              const url = cardUrlMap[item];
+              if (url) {
+                window.open(url, "_blank");
+                return;
+              }
+              activeCard = item;
+              renderCards();
+            });
+            grid.appendChild(card);
+          });
+          return;
+        }
+      }
+
+      if (activeCard === "Dados") {
+        empty.style.display = "flex";
+        return;
+      }
     }
 
     const cards = isScreeningProgram
