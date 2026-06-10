@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "O(A) agressor(a) já descumpriu medida protetiva de afastamento ou proibição de contato?",
     "O(A) agressor(a) já ameaçou ou tentou se matar alguma vez?",
     "O(A) agressor(a) já obrigou a senhora/você a ter relações sexuais contra sua vontade?",
-    "O(A) agressor(a) está com dificuldades financeiras, desempregado ou tem dificuldade de se manter no emprego?",
+    "O(A) agressor(a) está com dificuldades financeiras, desempregado ou tem dificuldade de se manter em um emprego?",
   ];
 
   function getItemLabel(item) {
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let sections = [
-    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadore"] },
+    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadores"] },
     { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "NatcorpHC", "NatcorpFZ"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
