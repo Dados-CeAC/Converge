@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let sections = [
-    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadores"] },
+    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadore"] },
     { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "NatcorpHC", "NatcorpFZ"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
