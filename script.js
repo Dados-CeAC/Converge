@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
-    { id: 10, name: "Dados", items: [] },
+    { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
     { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
   ];
 
