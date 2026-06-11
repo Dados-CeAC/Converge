@@ -434,10 +434,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grid.classList.toggle("borboletas-active", isBorboletasForm);
     grid.classList.toggle("meus-chamados-active", isMeusChamados);
+    const contentWrapper = document.querySelector(".content");
+    if (contentWrapper) {
+      contentWrapper.classList.toggle("form-open", isBorboletasForm || isMeusChamados);
+      contentWrapper.classList.toggle("borboletas-form-open", isBorboletasForm);
+    }
     grid.innerHTML = "";
     empty.style.display = "none";
     if (backBtn) {
-      backBtn.style.display = activeCard ? "inline-flex" : "none";
+      backBtn.style.display = activeCard && !isBorboletasForm ? "inline-flex" : "none";
       backBtn.onclick = () => {
         activeCard = null;
         activeDetailParent = null;
@@ -633,18 +638,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderBorboletasForm(grid) {
-    const form = document.createElement("div");
-    form.className = "borboletas-form";
-    form.innerHTML = `
+    const fixedTop = document.createElement("div");
+    fixedTop.className = "borboletas-fixed-top";
+    fixedTop.innerHTML = `
       <div class="form-header">
         <div>
           <div class="form-title">Formulário FRIDA - Avaliação de Risco em Violência Doméstica</div>
           <div class="form-description">Formulário de avaliação de risco em violência doméstica e familiar contra a mulher.</div>
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row borboletas-fixed-row">
         <div class="form-group">
-          <label>Nome da usuária</label>
+          <label>Nome</label>
           <input type="text" placeholder="Digite o nome completo" />
         </div>
         <div class="form-group">
@@ -652,6 +657,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <input type="date" />
         </div>
       </div>
+    `;
+
+    const form = document.createElement("div");
+    form.className = "borboletas-form";
+    form.innerHTML = `
       <div class="borboletas-table-wrap">
         <div class="table-caption">Perguntas</div>
         <table class="borboletas-table">
@@ -727,19 +737,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="date" />
       </div>
       <div class="form-actions">
-        <button class="btn" type="button" id="borboletasBackBtn"><i class="ti ti-arrow-left"></i> Voltar</button>
         <button class="btn primary" type="button" id="borboletasSaveBtn"><i class="ti ti-check"></i> Salvar</button>
       </div>
     `;
+    grid.appendChild(fixedTop);
     grid.appendChild(form);
-
-    const backBtn = form.querySelector("#borboletasBackBtn");
-    if (backBtn) {
-      backBtn.addEventListener("click", () => {
-        activeCard = "Linha de Cuidados";
-        renderCards();
-      });
-    }
 
     const saveBtn = form.querySelector("#borboletasSaveBtn");
     if (saveBtn) {
@@ -857,7 +859,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <select class="status-select" data-id="${record.id}">
                           ${statusOptions(record.status)}
                         </select>
-                        <button class="btn small delete-chamado-btn" data-id="${record.id}"><i class="ti ti-trash"></i></button>
+                        <button class="btn small delete-chamado-btn" data-id="${record.id}"><i class="ti ti-trash"></i>Excluir</button>
                       </td>
                     </tr>
                   `,
@@ -870,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const formTemplate = `
-      <div class="card-box new-chamado-card">
+      <div class="card-box new-chamado-card meus-chamados-form">
         <div class="card-header">
           <div>
             <h2>Novo Chamado</h2>
@@ -919,8 +921,22 @@ document.addEventListener("DOMContentLoaded", () => {
               <input id="chamadoSolicitante" type="text" placeholder="Nome do solicitante" />
             </div>
             <div class="form-group">
-              <label>Setor</label>
-              <input id="chamadoSetor" type="text" placeholder="Setor" />
+              <label>Setor*</label>
+              <select id="chamadoSetor">
+                <option value="">Selecione o setor</option>
+                <option value="Ambulatório">Ambulatório</option>
+                <option value="Assessoria Jurídica">Assessoria Jurídica</option>
+                <option value="Assessoria RH">Assessoria RH</option>
+                <option value="Apoio Administrativo">Apoio Administrativo</option>
+                <option value="Controles Internos">Controles Internos</option>
+                <option value="Diretoria">Diretoria</option>
+                <option value="Medicina do Trabalho">Medicina do Trabalho</option>
+                <option value="Marketing e Mídias Sociais">Marketing e Mídias Sociais</option>
+                <option value="Ouvidoria">Ouvidoria</option>
+                <option value="Pronto Atendimento">Pronto Atendimento</option>
+                <option value="Qualidade">Qualidade</option>
+                <option value="Segurança do Trabalho">Segurança do Trabalho</option>
+              </select>
             </div>
           </div>
           <div class="form-row">
