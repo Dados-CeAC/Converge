@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Gestão: "ti-briefcase",
     Qualidade: "ti-certificate",
     Dados: "ti-database",
+    Ouvidoria: "ti-headset",
     Gerenciamento: "ti-adjustments",
     "Meu Perfil": "ti-user",
   };
@@ -314,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
     { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
+    { id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
     { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
   ];
 
@@ -578,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      if (activeCard === "Dados") {
+      if (activeCard === "Dados" || activeCard === "Ouvidoria") {
         empty.style.display = "flex";
         return;
       }
