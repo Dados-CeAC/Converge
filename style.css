@@ -6088,6 +6088,7 @@ textarea {
 .status-open { background: #2d8cff; }
 .status-progress { background: #f8b400; }
 .status-resolved { background: #2bc155; }
+.status-unresolved { background: #d93939; }
 .priority-low { background: #35a775; }
 .priority-medium { background: #f17b0d; }
 .priority-high { background: #d41a1a; }

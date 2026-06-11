@@ -803,6 +803,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (status === "Aberto") return "status-chip status-open";
       if (status === "Em andamento") return "status-chip status-progress";
       if (status === "Concluído") return "status-chip status-resolved";
+      if (status === "Não solucionado") return "status-chip status-unresolved";
       return "status-chip status-open";
     };
 
@@ -814,7 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const statusOptions = (current) => {
-      return ["Aberto", "Em andamento", "Concluído"]
+      return ["Aberto", "Em andamento", "Concluído", "Não solucionado"]
         .map((value) => `<option value="${value}" ${value === current ? "selected" : ""}>${value}</option>`)
         .join("");
     };
