@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Minhas Doses": "ti-droplet",
     "Meu ASO": "ti-file-check",
     "Meu Perfil": "ti-user",
+    "Meu Chamados": "ti-ticket",
     "Gestores": "ti-users",
     "Colaboradores": "ti-user-check",
     "Votação - CIPA": "ti-checklist",
@@ -95,6 +96,111 @@ document.addEventListener("DOMContentLoaded", () => {
     NatcorpFZ: "https://www.natcorp.com.br/portais/incor/",
 
   };
+
+  const chamadosDBName = "convergeChamadosDB";
+  const chamadosStoreName = "meusChamados";
+  const chamadosKey = "converge:meusChamados";
+
+  function openChamadosDB() {
+    return new Promise((resolve, reject) => {
+      if (!window.indexedDB) {
+        resolve(null);
+        return;
+      }
+      const request = indexedDB.open(chamadosDBName, 1);
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains(chamadosStoreName)) {
+          db.createObjectStore(chamadosStoreName, { keyPath: "id", autoIncrement: true });
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+      request.onblocked = () => reject(new Error("IndexedDB blocked"));
+    });
+  }
+
+  function loadChamadosFromStorage() {
+    const json = localStorage.getItem(chamadosKey);
+    if (!json) return [];
+    try {
+      const data = JSON.parse(json);
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveChamadosToStorage(records) {
+    localStorage.setItem(chamadosKey, JSON.stringify(records));
+  }
+
+  async function loadChamados() {
+    const db = await openChamadosDB();
+    if (!db) return loadChamadosFromStorage();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readonly");
+      const store = tx.objectStore(chamadosStoreName);
+      const request = store.getAll();
+      request.onsuccess = () => {
+        const records = Array.isArray(request.result) ? request.result : [];
+        resolve(records.sort((a, b) => b.id - a.id));
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async function addChamado(record) {
+    const db = await openChamadosDB();
+    if (!db) {
+      const records = loadChamadosFromStorage();
+      const next = { ...record, id: Date.now() };
+      records.unshift(next);
+      saveChamadosToStorage(records);
+      return records;
+    }
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readwrite");
+      const store = tx.objectStore(chamadosStoreName);
+      store.add(record);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    return loadChamados();
+  }
+
+  async function deleteChamado(id) {
+    const db = await openChamadosDB();
+    if (!db) {
+      const records = loadChamadosFromStorage().filter((item) => item.id !== id);
+      saveChamadosToStorage(records);
+      return records;
+    }
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readwrite");
+      const store = tx.objectStore(chamadosStoreName);
+      store.delete(id);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    return loadChamados();
+  }
+
+  async function clearChamados() {
+    const db = await openChamadosDB();
+    if (!db) {
+      saveChamadosToStorage([]);
+      return [];
+    }
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readwrite");
+      const store = tx.objectStore(chamadosStoreName);
+      store.clear();
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    return [];
+  }
 
   const screeningIcons = {
     cervix: `
@@ -216,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeDetailParent = null;
   let collapsed = false;
   let nextId = 10;
+  let meusChamadosView = "novo";
 
   function getIcon(name) {
     return iconMap[name] || "ti-folder";
@@ -297,6 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isBorboletasForm = activeCard === "Formulário" && activeDetailParent === "Borboletas";
     const isBorboletas = activeCard === "Borboletas";
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
+    const isMeusChamados = activeCard === "Meu Chamados";
     const isFichaEpi = activeCard === "Ficha de EPI";
     const isAmbulatorio = activeCard === "Ambulatorio";
     const isProntoAtendimento = activeCard === "Pronto Atendimento";
@@ -325,6 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : sec.name;
 
     grid.classList.toggle("borboletas-active", isBorboletasForm);
+    grid.classList.toggle("meus-chamados-active", isMeusChamados);
     grid.innerHTML = "";
     empty.style.display = "none";
     if (backBtn) {
@@ -338,6 +447,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isBorboletasForm) {
       renderBorboletasForm(grid);
+      return;
+    }
+
+    if (isMeusChamados) {
+      renderMeusChamados(grid);
       return;
     }
 
@@ -633,6 +747,359 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Dados do formulário Borboletas salvos com sucesso.");
       });
     }
+  }
+
+  function renderMeusChamados(grid) {
+    const container = document.createElement("div");
+    container.className = "meus-chamados-page";
+    container.innerHTML = `
+      <div class="meus-chamados-header">
+        <div class="meus-chamados-tabs">
+          <button id="tabNovo" class="tab-button ${meusChamadosView === "novo" ? "active" : ""}">Novo Chamado</button>
+          <button id="tabLista" class="tab-button ${meusChamadosView === "lista" ? "active" : ""}">Meus Chamados</button>
+        </div>
+      </div>
+      <div class="meus-chamados-content"></div>
+    `;
+    grid.appendChild(container);
+
+    const contentEl = container.querySelector(".meus-chamados-content");
+    const tabNovo = container.querySelector("#tabNovo");
+    const tabLista = container.querySelector("#tabLista");
+
+    const renderSummary = (items) => {
+      const total = items.length;
+      const abertos = items.filter((item) => item.status === "Aberto").length;
+      const andamento = items.filter((item) => item.status === "Em andamento").length;
+      const urgentes = items.filter((item) => item.priority === "Alta" || item.priority === "Urgente").length;
+
+      return `
+        <div class="meus-chamados-summary">
+          <div class="summary-card">
+            <div class="summary-label">TOTAL</div>
+            <div class="summary-value">${total}</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">ABERTOS</div>
+            <div class="summary-value">${abertos}</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">EM ANDAMENTO</div>
+            <div class="summary-value">${andamento}</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">URGENTES</div>
+            <div class="summary-value">${urgentes}</div>
+          </div>
+        </div>
+      `;
+    };
+
+    const statusClass = (status) => {
+      if (status === "Aberto") return "status-chip status-open";
+      if (status === "Em andamento") return "status-chip status-progress";
+      if (status === "Concluído") return "status-chip status-resolved";
+      return "status-chip status-open";
+    };
+
+    const priorityClass = (priority) => {
+      if (priority === "Baixa") return "priority-chip priority-low";
+      if (priority === "Média") return "priority-chip priority-medium";
+      if (priority === "Alta" || priority === "Urgente") return "priority-chip priority-high";
+      return "priority-chip priority-low";
+    };
+
+    const statusOptions = (current) => {
+      return ["Aberto", "Em andamento", "Concluído"]
+        .map((value) => `<option value="${value}" ${value === current ? "selected" : ""}>${value}</option>`)
+        .join("");
+    };
+
+    const renderTable = (items) => {
+      if (!items.length) {
+        return `
+          <div class="empty-state">
+            <i class="ti ti-info-circle"></i>
+            <p>Nenhum chamado cadastrado ainda.</p>
+          </div>
+        `;
+      }
+
+      return `
+        ${renderSummary(items)}
+        <div class="chamados-table-wrap">
+          <table class="chamados-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Prioridade</th>
+                <th>Solicitante</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${items
+                .map(
+                  (record, index) => `
+                    <tr>
+                      <td>${record.id}</td>
+                      <td>${record.title}</td>
+                      <td>${record.category}</td>
+                      <td><span class="${priorityClass(record.priority)}">${record.priority}</span></td>
+                      <td>${record.requester}</td>
+                      <td><span class="${statusClass(record.status)}">${record.status}</span></td>
+                      <td>${record.date || "-"}</td>
+                      <td class="table-actions-cell">
+                        <select class="status-select" data-id="${record.id}">
+                          ${statusOptions(record.status)}
+                        </select>
+                        <button class="btn small delete-chamado-btn" data-id="${record.id}"><i class="ti ti-trash"></i></button>
+                      </td>
+                    </tr>
+                  `,
+                )
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    };
+
+    const formTemplate = `
+      <div class="card-box new-chamado-card">
+        <div class="card-header">
+          <div>
+            <h2>Novo Chamado</h2>
+            <p>Abra um chamado direto pelo sistema de dados do Converge.</p>
+          </div>
+        </div>
+        <div class="meus-chamados-form-content">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Título do chamado*</label>
+              <input id="chamadoTitulo" type="text" placeholder="Título do chamado" />
+            </div>
+            <div class="form-group">
+              <label>Serviço/Órgão*</label>
+              <input id="chamadoServico" type="text" placeholder="Serviço ou órgão" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Descrição*</label>
+            <textarea id="chamadoDescricao" placeholder="Descreva o problema ou a solicitação"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Categoria*</label>
+              <select id="chamadoCategoria">
+                <option value="">Selecione</option>
+                <option value="TI">TI</option>
+                <option value="RH">RH</option>
+                <option value="Infraestrutura">Infraestrutura</option>
+                <option value="Operações">Operações</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Prioridade*</label>
+              <select id="chamadoPrioridade">
+                <option value="">Selecione</option>
+                <option value="Baixa">Baixa</option>
+                <option value="Média">Média</option>
+                <option value="Alta">Alta</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Solicitante*</label>
+              <input id="chamadoSolicitante" type="text" placeholder="Nome do solicitante" />
+            </div>
+            <div class="form-group">
+              <label>Setor</label>
+              <input id="chamadoSetor" type="text" placeholder="Setor" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Status*</label>
+              <select id="chamadoStatus">
+                <option value="Aberto">Aberto</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Concluído">Concluído</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data de preenchimento</label>
+              <input id="chamadoData" type="date" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Observações</label>
+            <textarea id="chamadoObservacoes" placeholder="Informações adicionais do chamado"></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="button" id="chamadoResetBtn"><i class="ti ti-refresh"></i> Limpar</button>
+            <button class="btn primary" type="button" id="chamadoSaveBtn"><i class="ti ti-check"></i> Salvar Chamado</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const renderContent = async (items) => {
+      if (meusChamadosView === "novo") {
+        contentEl.innerHTML = formTemplate;
+        const formFields = {
+          titulo: contentEl.querySelector("#chamadoTitulo"),
+          servico: contentEl.querySelector("#chamadoServico"),
+          descricao: contentEl.querySelector("#chamadoDescricao"),
+          solicitante: contentEl.querySelector("#chamadoSolicitante"),
+          setor: contentEl.querySelector("#chamadoSetor"),
+          categoria: contentEl.querySelector("#chamadoCategoria"),
+          prioridade: contentEl.querySelector("#chamadoPrioridade"),
+          status: contentEl.querySelector("#chamadoStatus"),
+          data: contentEl.querySelector("#chamadoData"),
+          observacoes: contentEl.querySelector("#chamadoObservacoes"),
+        };
+
+        const saveBtn = contentEl.querySelector("#chamadoSaveBtn");
+        if (saveBtn) {
+          saveBtn.addEventListener("click", async () => {
+            const title = formFields.titulo.value.trim();
+            const service = formFields.servico.value.trim();
+            const description = formFields.descricao.value.trim();
+            const requester = formFields.solicitante.value.trim();
+            const category = formFields.categoria.value;
+            const priority = formFields.prioridade.value;
+            const status = formFields.status.value;
+            const date = formFields.data.value;
+            const observations = formFields.observacoes.value.trim();
+            if (!title || !service || !description || !requester || !category || !priority) {
+              alert("Preencha todos os campos obrigatórios antes de salvar.");
+              return;
+            }
+            const record = {
+              title,
+              service,
+              description,
+              requester,
+              sector: formFields.setor.value.trim(),
+              category,
+              priority,
+              status,
+              date,
+              observations,
+            };
+            const updated = await addChamado(record);
+            alert("Chamado salvo com sucesso.");
+            formFields.titulo.value = "";
+            formFields.servico.value = "";
+            formFields.descricao.value = "";
+            formFields.solicitante.value = "";
+            formFields.setor.value = "";
+            formFields.categoria.value = "";
+            formFields.prioridade.value = "";
+            formFields.status.value = "Aberto";
+            formFields.data.value = "";
+            formFields.observacoes.value = "";
+            if (meusChamadosView === "lista") {
+              renderContent(updated);
+            }
+          });
+        }
+
+        const resetBtn = contentEl.querySelector("#chamadoResetBtn");
+        if (resetBtn) {
+          resetBtn.addEventListener("click", () => {
+            formFields.titulo.value = "";
+            formFields.servico.value = "";
+            formFields.descricao.value = "";
+            formFields.solicitante.value = "";
+            formFields.setor.value = "";
+            formFields.categoria.value = "";
+            formFields.prioridade.value = "";
+            formFields.status.value = "Aberto";
+            formFields.data.value = "";
+            formFields.observacoes.value = "";
+          });
+        }
+      } else {
+        contentEl.innerHTML = renderTable(items);
+        contentEl.querySelectorAll(".delete-chamado-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const id = Number(btn.dataset.id);
+            const updated = await deleteChamado(id);
+            renderContent(updated);
+          });
+        });
+        contentEl.querySelectorAll(".status-select").forEach((select) => {
+          select.addEventListener("change", async () => {
+            const id = Number(select.dataset.id);
+            await updateChamado(id, { status: select.value });
+            const updated = await loadChamados();
+            renderContent(updated);
+          });
+        });
+      }
+    };
+
+    if (tabNovo) {
+      tabNovo.addEventListener("click", () => {
+        if (meusChamadosView !== "novo") {
+          meusChamadosView = "novo";
+          renderCards();
+        }
+      });
+    }
+    if (tabLista) {
+      tabLista.addEventListener("click", async () => {
+        if (meusChamadosView !== "lista") {
+          meusChamadosView = "lista";
+          const items = await loadChamados();
+          renderContent(items);
+        }
+      });
+    }
+
+    loadChamados().then(renderContent).catch(() => {
+      contentEl.innerHTML = `
+        <div class="empty-state">
+          <i class="ti ti-alert-circle"></i>
+          <p>Não foi possível carregar os chamados.</p>
+        </div>
+      `;
+    });
+  }
+
+  async function updateChamado(id, updates) {
+    const db = await openChamadosDB();
+    if (!db) {
+      const records = loadChamadosFromStorage().map((item) =>
+        item.id === id ? { ...item, ...updates } : item,
+      );
+      saveChamadosToStorage(records);
+      return records;
+    }
+    const record = await new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readonly");
+      const store = tx.objectStore(chamadosStoreName);
+      const request = store.get(id);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    if (!record) return loadChamados();
+    Object.assign(record, updates);
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(chamadosStoreName, "readwrite");
+      const store = tx.objectStore(chamadosStoreName);
+      store.put(record);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    return loadChamados();
   }
 
   function renderCompromissosCards(grid) {
