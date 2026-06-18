@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Formulário: "ti-forms",
     "Painel de Gestores": "ti-layout-dashboard",
     Indicadores: "ti-chart-bar",
+    "Consultar Funcionário": "ti-search",
   };
 
   const cardUrlMap = {
@@ -100,7 +101,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const chamadosDBName = "convergeChamadosDB";
   const chamadosStoreName = "meusChamados";
+  const ouvidoriaStoreName = "ouvidoriaChamados";
   const chamadosKey = "converge:meusChamados";
+  const ouvidoriaKey = "converge:ouvidoriaChamados";
+
+  function getChamadosConfig(scope) {
+    const isOuvidoria = scope === "Ouvidoria";
+    return {
+      storeName: isOuvidoria ? ouvidoriaStoreName : chamadosStoreName,
+      storageKey: isOuvidoria ? ouvidoriaKey : chamadosKey,
+    };
+  }
 
   function openChamadosDB() {
     return new Promise((resolve, reject) => {
@@ -114,6 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!db.objectStoreNames.contains(chamadosStoreName)) {
           db.createObjectStore(chamadosStoreName, { keyPath: "id", autoIncrement: true });
         }
+        if (!db.objectStoreNames.contains(ouvidoriaStoreName)) {
+          db.createObjectStore(ouvidoriaStoreName, { keyPath: "id", autoIncrement: true });
+        }
       };
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
@@ -121,8 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function loadChamadosFromStorage() {
-    const json = localStorage.getItem(chamadosKey);
+  function loadChamadosFromStorage(scope) {
+    const { storageKey } = getChamadosConfig(scope);
+    const json = localStorage.getItem(storageKey);
     if (!json) return [];
     try {
       const data = JSON.parse(json);
@@ -132,16 +147,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function saveChamadosToStorage(records) {
-    localStorage.setItem(chamadosKey, JSON.stringify(records));
+  function saveChamadosToStorage(records, scope) {
+    const { storageKey } = getChamadosConfig(scope);
+    localStorage.setItem(storageKey, JSON.stringify(records));
   }
 
-  async function loadChamados() {
+  async function loadChamados(scope) {
+    const { storeName } = getChamadosConfig(scope);
     const db = await openChamadosDB();
-    if (!db) return loadChamadosFromStorage();
+    if (!db) return loadChamadosFromStorage(scope);
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(chamadosStoreName, "readonly");
-      const store = tx.objectStore(chamadosStoreName);
+      const tx = db.transaction(storeName, "readonly");
+      const store = tx.objectStore(storeName);
       const request = store.getAll();
       request.onsuccess = () => {
         const records = Array.isArray(request.result) ? request.result : [];
@@ -151,40 +168,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  async function addChamado(record) {
+  async function addChamado(record, scope) {
+    const { storeName } = getChamadosConfig(scope);
     const db = await openChamadosDB();
     if (!db) {
-      const records = loadChamadosFromStorage();
+      const records = loadChamadosFromStorage(scope);
       const next = { ...record, id: Date.now() };
       records.unshift(next);
-      saveChamadosToStorage(records);
+      saveChamadosToStorage(records, scope);
       return records;
     }
     await new Promise((resolve, reject) => {
-      const tx = db.transaction(chamadosStoreName, "readwrite");
-      const store = tx.objectStore(chamadosStoreName);
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
       store.add(record);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
-    return loadChamados();
+    return loadChamados(scope);
   }
 
-  async function deleteChamado(id) {
+  async function deleteChamado(id, scope) {
+    const { storeName } = getChamadosConfig(scope);
     const db = await openChamadosDB();
     if (!db) {
-      const records = loadChamadosFromStorage().filter((item) => item.id !== id);
-      saveChamadosToStorage(records);
+      const records = loadChamadosFromStorage(scope).filter((item) => item.id !== id);
+      saveChamadosToStorage(records, scope);
       return records;
     }
     await new Promise((resolve, reject) => {
-      const tx = db.transaction(chamadosStoreName, "readwrite");
-      const store = tx.objectStore(chamadosStoreName);
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
       store.delete(id);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
-    return loadChamados();
+    return loadChamados(scope);
   }
 
   async function clearChamados() {
@@ -307,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let sections = [
-    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadores"] },
+    { id: 0, name: "Home", items: ["Meus Sistemas", "Meu Perfil", "Indicadores","Consultar Funcionário"] },
     { id: 1, name: "Meus Sistemas", items: ["SoulMV", "MVPEP", "PIH", "HCMED", "Interrad", "Portal RH FFM", "NatcorpHC", "NatcorpFZ"] },
     { id: 2, name: "Administrativo", items: ["Controles Internos", "Comunicação", "Apoio Predial"] },
     { id: 5, name: "Indicadores", items: ["PIH"] },
@@ -407,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isBorboletas = activeCard === "Borboletas";
     const isCompromissos = activeCard === "Compromissos Ocupacionais";
     const isMeusChamados = activeCard === "Meu Chamados";
+    const isOperador = activeCard === "Operador";
     const isFichaEpi = activeCard === "Ficha de EPI";
     const isAmbulatorio = activeCard === "Ambulatorio";
     const isProntoAtendimento = activeCard === "Pronto Atendimento";
@@ -415,9 +435,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const isColaboradores = activeCard === "Colaboradores";
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
+    const isConsultarFuncionario = activeCard === "Consultar Funcionário";
+    const isOuvidoriaSection = sec.name === "Ouvidoria";
 
     title.textContent = isBorboletasForm
       ? "Formulário - Borboletas"
+      : isMeusChamados && isOuvidoriaSection
+      ? "Minhas Ouvidorias"
+      : isOperador && isOuvidoriaSection
+      ? "Operador de Ouvidoria"
       : isBorboletas
       ? "Borboletas"
       : isScreeningCard || isLinhaCuidadosCard
@@ -430,21 +456,24 @@ document.addEventListener("DOMContentLoaded", () => {
       ? "Ambulatorio"
       : isProntoAtendimento
       ? "Pronto Atendimento"
+      : isConsultarFuncionario
+      ? "Consultar Funcionário"
       : activeCard
       ? activeCard
       : sec.name;
 
     grid.classList.toggle("borboletas-active", isBorboletasForm);
     grid.classList.toggle("meus-chamados-active", isMeusChamados);
+    grid.classList.toggle("consultar-funcionario-active", isConsultarFuncionario);
     const contentWrapper = document.querySelector(".content");
     if (contentWrapper) {
-      contentWrapper.classList.toggle("form-open", isBorboletasForm || isMeusChamados);
+      contentWrapper.classList.toggle("form-open", isBorboletasForm || isMeusChamados || isConsultarFuncionario);
       contentWrapper.classList.toggle("borboletas-form-open", isBorboletasForm);
     }
     grid.innerHTML = "";
     empty.style.display = "none";
     if (backBtn) {
-      backBtn.style.display = activeCard && !isBorboletasForm ? "inline-flex" : "none";
+      backBtn.style.display = activeCard && !isBorboletasForm && !isConsultarFuncionario ? "inline-flex" : "none";
       backBtn.onclick = () => {
         activeCard = null;
         activeDetailParent = null;
@@ -457,8 +486,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (isConsultarFuncionario) {
+      renderConsultarFuncionario(grid);
+      return;
+    }
+
+    if (isOperador) {
+      if (typeof renderOperadorOuvidoria === 'function') {
+        renderOperadorOuvidoria(grid, sec.name);
+      } else {
+        renderOuvidoriaOperator(grid, sec.name);
+      }
+      return;
+    }
+
     if (isMeusChamados) {
-      renderMeusChamados(grid);
+      renderMeusChamados(grid, sec.name);
       return;
     }
 
@@ -581,6 +624,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (activeCard === "Dados" || activeCard === "Ouvidoria") {
+        const sectionTarget = sections.find((s) => s.name === activeCard);
+        if (sectionTarget) {
+          activeSection = sectionTarget.id;
+          activeCard = null;
+          activeDetailParent = null;
+          render();
+          return;
+        }
         empty.style.display = "flex";
         return;
       }
@@ -753,14 +804,336 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function renderMeusChamados(grid) {
+  const FUNCIONARIOS_API_URL = "http://127.0.0.1:5000/api/funcionarios";
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function normalizeSearchValue(value) {
+    return String(value ?? "").trim();
+  }
+
+  function getFuncionarioStatusClass(status) {
+    const normalized = String(status ?? "").toLowerCase();
+    if (normalized.includes("deslig") || normalized.includes("inativo")) return "status-inativo";
+    if (normalized.includes("afast")) return "status-afastado";
+    if (normalized.includes("ativo")) return "status-ativo";
+    return "status-neutro";
+  }
+
+  function renderFuncionarioEmptyState(message, icon = "ti-search-off") {
+    return `
+      <div class="card-box">
+        <div class="empty-state">
+          <i class="ti ${icon}"></i>
+          <p>${escapeHtml(message)}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderConsultarFuncionario(grid) {
+    const formContainer = document.createElement("div");
+    formContainer.className = "card-box consultar-funcionario-card";
+    formContainer.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h2><i class="ti ti-search"></i> Consultar Funcionário</h2>
+          <p>Busque informações sobre funcionários da instituição</p>
+        </div>
+      </div>
+      <div class="consultar-funcionario-form-content">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Matrícula</label>
+            <input id="funcMatricula" type="text" placeholder="Digite a matrícula" />
+          </div>
+          <div class="form-group">
+            <label>CPF</label>
+            <input id="funcCpf" type="text" placeholder="Digite o CPF" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa</label>
+            <select id="funcEmpresa">
+              <option value="">Todas as empresas</option>
+              <option value="FFM">FFM</option>
+              <option value="HC">HC</option>
+              <option value="FZ">FZ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cargo</label>
+            <input id="funcCargo" type="text" placeholder="Digite o cargo" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Setor</label>
+            <input id="funcSetor" type="text" placeholder="Digite o setor" />
+          </div>
+          <div class="form-group">
+            <label>Filial</label>
+            <input id="funcFilial" type="text" placeholder="Digite a filial" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Situação</label>
+          <select id="funcStatus">
+            <option value="">Todas as situações</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="button" id="funcLimparBtn"><i class="ti ti-eraser"></i> Limpar</button>
+          <button class="btn primary" type="button" id="funcBuscBtn"><i class="ti ti-search"></i> Buscar</button>
+        </div>
+      </div>
+    `;
+    
+    const resultContainer = document.createElement("div");
+    resultContainer.className = "consultar-funcionario-results";
+    resultContainer.id = "funcResultsContainer";
+    resultContainer.style.display = "none";
+    
+    grid.appendChild(formContainer);
+    grid.appendChild(resultContainer);
+
+    // Event listeners
+    const buscBtn = formContainer.querySelector("#funcBuscBtn");
+    const limparBtn = formContainer.querySelector("#funcLimparBtn");
+    const resultsDiv = grid.querySelector("#funcResultsContainer");
+
+    limparBtn.addEventListener("click", () => {
+      document.getElementById("funcMatricula").value = "";
+      document.getElementById("funcCpf").value = "";
+      document.getElementById("funcEmpresa").value = "";
+      document.getElementById("funcCargo").value = "";
+      document.getElementById("funcSetor").value = "";
+      document.getElementById("funcFilial").value = "";
+      document.getElementById("funcStatus").value = "";
+      resultsDiv.style.display = "none";
+      resultsDiv.innerHTML = "";
+    });
+
+    buscBtn.addEventListener("click", async () => {
+      const matricula = normalizeSearchValue(document.getElementById("funcMatricula").value);
+      const cpf = normalizeSearchValue(document.getElementById("funcCpf").value);
+      const empresa = document.getElementById("funcEmpresa").value;
+      const cargo = normalizeSearchValue(document.getElementById("funcCargo").value);
+      const setor = normalizeSearchValue(document.getElementById("funcSetor").value);
+      const filial = normalizeSearchValue(document.getElementById("funcFilial").value);
+      const status = document.getElementById("funcStatus").value;
+
+      if (!matricula && !cpf) {
+        resultsDiv.innerHTML = renderFuncionarioEmptyState("Informe a matrícula ou o CPF para consultar.", "ti-alert-circle");
+        resultsDiv.style.display = "block";
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (matricula) params.set("matricula", matricula);
+      if (cpf) params.set("cpf", cpf);
+      if (empresa) params.set("empresa", empresa);
+      if (cargo) params.set("cargo", cargo);
+      if (setor) params.set("setor", setor);
+      if (filial) params.set("filial", filial);
+      if (status) params.set("status", status);
+
+      buscBtn.disabled = true;
+      buscBtn.innerHTML = `<i class="ti ti-loader-2"></i> Buscando`;
+      resultsDiv.style.display = "block";
+      resultsDiv.innerHTML = renderFuncionarioEmptyState("Consultando funcionários...", "ti-loader-2");
+
+      try {
+        const response = await fetch(`${FUNCIONARIOS_API_URL}?${params.toString()}`);
+        if (!response.ok) {
+          throw new Error("Não foi possível consultar a base de funcionários.");
+        }
+
+        const payload = await response.json();
+        const resultados = Array.isArray(payload.results) ? payload.results : [];
+
+        if (resultados.length === 0) {
+          resultsDiv.innerHTML = renderFuncionarioEmptyState("Nenhum funcionário encontrado com os critérios informados.");
+        } else {
+        const tableHTML = `
+          <div class="card-box">
+            <div class="card-header">
+              <div>
+                <h3><i class="ti ti-list"></i> Resultados da Busca</h3>
+                <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
+              </div>
+            </div>
+            <div class="funcionarios-table-wrap">
+              <table class="funcionarios-table">
+                <thead>
+                  <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>Filial</th>
+                    <th>Situação</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${resultados.map((func, index) => `
+                    <tr>
+                      <td>${escapeHtml(func.matricula)}</td>
+                      <td>${escapeHtml(func.nome)}</td>
+                      <td>${escapeHtml(func.cargo)}</td>
+                      <td>${escapeHtml(func.filial)}</td>
+                      <td><span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span></td>
+                      <td>${escapeHtml(func.email)}</td>
+                      <td>
+                        <button class="btn small view-details" data-index="${index}"><i class="ti ti-eye"></i> Detalhes</button>
+                      </td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+        resultsDiv.innerHTML = tableHTML;
+
+        // Adicionar event listeners aos botões de detalhes
+        resultsDiv.querySelectorAll(".view-details").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const funcData = resultados[Number(btn.dataset.index)];
+            showFuncionarioDetails(funcData, resultsDiv);
+          });
+        });
+      }
+      } catch (error) {
+        resultsDiv.innerHTML = renderFuncionarioEmptyState(`${error.message} Verifique se o servidor Flask está em execução.`, "ti-plug-connected-x");
+      } finally {
+        buscBtn.disabled = false;
+        buscBtn.innerHTML = `<i class="ti ti-search"></i> Buscar`;
+      }
+
+      resultsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  function showFuncionarioDetails(funcionario, container) {
+    const detailsHTML = `
+      <div class="card-box funcionario-details">
+        <div class="card-header">
+          <div>
+            <h3><i class="ti ti-id-badge"></i> Detalhes do Funcionário</h3>
+          </div>
+          <button class="btn small" onclick="this.parentElement.parentElement.parentElement.style.display='none'"><i class="ti ti-x"></i></button>
+        </div>
+        <div class="details-grid">
+          <div class="detail-row">
+            <div class="detail-label">Matrícula:</div>
+            <div class="detail-value">${escapeHtml(funcionario.matricula)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Nome:</div>
+            <div class="detail-value">${escapeHtml(funcionario.nome)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">CPF:</div>
+            <div class="detail-value">${escapeHtml(funcionario.cpf)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Cargo:</div>
+            <div class="detail-value">${escapeHtml(funcionario.cargo)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Filial:</div>
+            <div class="detail-value">${escapeHtml(funcionario.filial)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Situação:</div>
+            <div class="detail-value"><span class="status-chip ${getFuncionarioStatusClass(funcionario.status)}">${escapeHtml(funcionario.status || "Não informado")}</span></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">${escapeHtml(funcionario.email)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Empresa:</div>
+            <div class="detail-value">${escapeHtml(funcionario.nomeEmpresa)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Vínculo:</div>
+            <div class="detail-value">${escapeHtml(funcionario.vinculo)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Data de admissão:</div>
+            <div class="detail-value">${escapeHtml(funcionario.dataAdmissao)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Local de trabalho:</div>
+            <div class="detail-value">${escapeHtml(funcionario.nomeLocalTrabalho || funcionario.localTrabalho)}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Função:</div>
+            <div class="detail-value">${escapeHtml(funcionario.funcao)}</div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" onclick="this.parentElement.parentElement.style.display='none'"><i class="ti ti-x"></i> Fechar</button>
+        </div>
+      </div>
+    `;
+    
+    const detailsDiv = document.createElement("div");
+    detailsDiv.className = "funcionario-details-modal";
+    detailsDiv.innerHTML = detailsHTML;
+    container.appendChild(detailsDiv);
+  }
+
+  function renderOperadorOuvidoria(grid, scope) {
+    const isOuvidoria = scope === "Ouvidoria";
+    grid.innerHTML = `
+      <div class="card-box">
+        <div class="card-header">
+          <div>
+            <h2>${isOuvidoria ? "Operador de Ouvidoria" : "Operador"}</h2>
+            <p>${isOuvidoria ? "Acompanhe as manifestações de Ouvidoria e gerencie as respostas do operador." : "Acompanhe as demandas do operador."}</p>
+          </div>
+        </div>
+        <div class="operador-panel">
+          <div class="operador-card">
+            <h3>Resumo do Operador</h3>
+            <p>Visualize atendimentos, responsáveis e status de manifestações de Ouvidoria.</p>
+          </div>
+          <div class="operador-card">
+            <h3>Próxima ação</h3>
+            <p>Selecione uma manifestação para atualizar o status ou consultar detalhes.</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderMeusChamados(grid, scope) {
+    const isOuvidoria = scope === "Ouvidoria";
+    const headerLabel = isOuvidoria ? "Nova Ouvidoria" : "Novo Chamado";
+    const listLabel = isOuvidoria ? "Minhas Ouvidorias" : "Meus Chamados";
+    const description = isOuvidoria
+      ? "Abra uma manifestação diretamente na Ouvidoria."
+      : "Abra um chamado direto pelo sistema de dados do Converge.";
+
     const container = document.createElement("div");
     container.className = "meus-chamados-page";
     container.innerHTML = `
       <div class="meus-chamados-header">
         <div class="meus-chamados-tabs">
-          <button id="tabNovo" class="tab-button ${meusChamadosView === "novo" ? "active" : ""}">Novo Chamado</button>
-          <button id="tabLista" class="tab-button ${meusChamadosView === "lista" ? "active" : ""}">Meus Chamados</button>
+          <button id="tabNovo" class="tab-button ${meusChamadosView === "novo" ? "active" : ""}">${headerLabel}</button>
+          <button id="tabLista" class="tab-button ${meusChamadosView === "lista" ? "active" : ""}">${listLabel}</button>
         </div>
       </div>
       <div class="meus-chamados-content"></div>
@@ -878,8 +1251,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="card-box new-chamado-card meus-chamados-form">
         <div class="card-header">
           <div>
-            <h2>Novo Chamado</h2>
-            <p>Abra um chamado direto pelo sistema de dados do Converge.</p>
+            <h2>${headerLabel}</h2>
+            <p>${description}</p>
           </div>
         </div>
         <div class="meus-chamados-form-content">
@@ -902,10 +1275,18 @@ document.addEventListener("DOMContentLoaded", () => {
               <label>Categoria*</label>
               <select id="chamadoCategoria">
                 <option value="">Selecione</option>
-                <option value="TI">TI</option>
-                <option value="RH">RH</option>
-                <option value="Infraestrutura">Infraestrutura</option>
-                <option value="Operações">Operações</option>
+                ${isOuvidoria ? `
+                  <option value="Reclamação">Reclamação</option>
+                  <option value="Denúncia">Denúncia</option>
+                  <option value="Elogio">Elogio</option>
+                  <option value="Sugestão">Sugestão</option>
+                  <option value="Solicitação">Solicitação</option>
+                ` : `
+                  <option value="TI">TI</option>
+                  <option value="RH">RH</option>
+                  <option value="Infraestrutura">Infraestrutura</option>
+                  <option value="Operações">Operações</option>
+                `}
               </select>
             </div>
             <div class="form-group">
@@ -1011,8 +1392,9 @@ document.addEventListener("DOMContentLoaded", () => {
               status,
               date,
               observations,
+              type: isOuvidoria ? "Ouvidoria" : "Chamado",
             };
-            const updated = await addChamado(record);
+            const updated = await addChamado(record, scope);
             alert("Chamado salvo com sucesso.");
             formFields.titulo.value = "";
             formFields.servico.value = "";
@@ -1050,15 +1432,15 @@ document.addEventListener("DOMContentLoaded", () => {
         contentEl.querySelectorAll(".delete-chamado-btn").forEach((btn) => {
           btn.addEventListener("click", async () => {
             const id = Number(btn.dataset.id);
-            const updated = await deleteChamado(id);
+            const updated = await deleteChamado(id, scope);
             renderContent(updated);
           });
         });
         contentEl.querySelectorAll(".status-select").forEach((select) => {
           select.addEventListener("change", async () => {
             const id = Number(select.dataset.id);
-            await updateChamado(id, { status: select.value });
-            const updated = await loadChamados();
+            await updateChamado(id, { status: select.value }, scope);
+            const updated = await loadChamados(scope);
             renderContent(updated);
           });
         });
@@ -1077,48 +1459,49 @@ document.addEventListener("DOMContentLoaded", () => {
       tabLista.addEventListener("click", async () => {
         if (meusChamadosView !== "lista") {
           meusChamadosView = "lista";
-          const items = await loadChamados();
+          const items = await loadChamados(scope);
           renderContent(items);
         }
       });
     }
 
-    loadChamados().then(renderContent).catch(() => {
+    loadChamados(scope).then(renderContent).catch(() => {
       contentEl.innerHTML = `
         <div class="empty-state">
           <i class="ti ti-alert-circle"></i>
-          <p>Não foi possível carregar os chamados.</p>
+          <p>Não foi possível carregar ${isOuvidoria ? "as ouvidorias" : "os chamados"}.</p>
         </div>
       `;
     });
   }
 
-  async function updateChamado(id, updates) {
+  async function updateChamado(id, updates, scope) {
+    const { storeName } = getChamadosConfig(scope);
     const db = await openChamadosDB();
     if (!db) {
-      const records = loadChamadosFromStorage().map((item) =>
+      const records = loadChamadosFromStorage(scope).map((item) =>
         item.id === id ? { ...item, ...updates } : item,
       );
-      saveChamadosToStorage(records);
+      saveChamadosToStorage(records, scope);
       return records;
     }
     const record = await new Promise((resolve, reject) => {
-      const tx = db.transaction(chamadosStoreName, "readonly");
-      const store = tx.objectStore(chamadosStoreName);
+      const tx = db.transaction(storeName, "readonly");
+      const store = tx.objectStore(storeName);
       const request = store.get(id);
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
     });
-    if (!record) return loadChamados();
+    if (!record) return loadChamados(scope);
     Object.assign(record, updates);
     await new Promise((resolve, reject) => {
-      const tx = db.transaction(chamadosStoreName, "readwrite");
-      const store = tx.objectStore(chamadosStoreName);
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
       store.put(record);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
-    return loadChamados();
+    return loadChamados(scope);
   }
 
   function renderCompromissosCards(grid) {

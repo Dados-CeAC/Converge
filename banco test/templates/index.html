@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Consulta PU 2026</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      label { display: block; margin: 10px 0 4px; }
+      input[type=text] { width: 100%; max-width: 500px; padding: 8px; box-sizing: border-box; }
+      button { padding: 10px 16px; margin-top: 12px; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1040px; }
+      .card { background: #fafafa; border: 1px solid #ddd; padding: 16px; border-radius: 6px; }
+      table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+      th, td { border: 1px solid #ccc; padding: 8px; }
+      th { background: #f4f4f4; text-align: left; }
+    </style>
+  </head>
+  <body>
+    <h1>Consulta PU 2026</h1>
+    <form method="post" action="/">
+      <div class="grid">
+        <div>
+          <label>Nome do paciente</label>
+          <input type="text" name="nome_paciente" placeholder="Digite o nome do paciente" value="{{ nome_paciente }}" autofocus>
+        </div>
+        <div>
+          <label>CPF</label>
+          <input type="text" name="nr_cpf" placeholder="Digite o CPF" value="{{ nr_cpf }}">
+        </div>
+      </div>
+      <div>
+        <button type="submit">Buscar</button>
+      </div>
+    </form>
+
+    {% if row %}
+    <h2>Informações da PU</h2>
+    <div class="card">
+      <table>
+        <tbody>
+          {% for key, label in display_fields %}
+          <tr>
+            <th>{{ label }}</th>
+            <td>{{ row[key] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% elif searched %}
+    <p>Nenhum resultado encontrado para o paciente informado.</p>
+    {% endif %}
+  </body>
+</html>
