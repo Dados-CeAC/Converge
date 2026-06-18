@@ -165,6 +165,121 @@ def view_pu_2026():
     return render_template('view_pu_2026.html', rows=rows, columns=columns, table_name='pu_2026')
 
 
+@app.route('/api/setores')
+def api_setores():
+    con = sqlite3.connect(DB_PATH)
+    con.row_factory = sqlite3.Row
+    try:
+        table_name = resolve_funcionarios_table(con)
+        if not table_name:
+            return jsonify([])
+        table_columns = get_table_columns(con, table_name)
+
+        def norm(s):
+            return ''.join(ch.lower() for ch in s if ch.isalnum())
+
+        col = None
+        norms = {norm(c): c for c in table_columns}
+        # heurísticas para identificar coluna de setor (local de trabalho / centro de custo)
+        for k, orig in norms.items():
+            if ('local' in k and 'trab' in k) or ('nomelocal' in k) or ('centro' in k and 'custo' in k) or ('custo' in k and 'contab' in k):
+                col = orig
+                break
+
+        if not col:
+            # fallback: try some known aliases
+            for cand in ('nome_local_trab', 'local_trab', 'centro_custo'):
+                cn = ''.join(ch for ch in cand if ch.isalnum()).lower()
+                if cn in norms:
+                    col = norms[cn]
+                    break
+
+        if not col:
+            return jsonify([])
+
+        rows = con.execute(f'SELECT DISTINCT "{col}" AS val FROM "{table_name}" WHERE "{col}" IS NOT NULL AND "{col}" <> "" ORDER BY val').fetchall()
+        values = [r['val'] for r in rows]
+        return jsonify(values)
+    finally:
+        con.close()
+
+
+@app.route('/api/filiais')
+def api_filiais():
+    con = sqlite3.connect(DB_PATH)
+    con.row_factory = sqlite3.Row
+    try:
+        table_name = resolve_funcionarios_table(con)
+        if not table_name:
+            return jsonify([])
+        table_columns = get_table_columns(con, table_name)
+
+        def norm(s):
+            return ''.join(ch.lower() for ch in s if ch.isalnum())
+
+        col = None
+        norms = {norm(c): c for c in table_columns}
+        for k, orig in norms.items():
+            if 'filial' in k:
+                col = orig
+                break
+
+        if not col:
+            for cand in ('nome_filial', 'filial'):
+                cn = ''.join(ch for ch in cand if ch.isalnum()).lower()
+                if cn in norms:
+                    col = norms[cn]
+                    break
+
+        if not col:
+            return jsonify([])
+
+        rows = con.execute(f'SELECT DISTINCT "{col}" AS val FROM "{table_name}" WHERE "{col}" IS NOT NULL AND "{col}" <> "" ORDER BY val').fetchall()
+        values = [r['val'] for r in rows]
+        return jsonify(values)
+    finally:
+        con.close()
+
+
+@app.route('/api/cargos')
+def api_cargos():
+    con = sqlite3.connect(DB_PATH)
+    con.row_factory = sqlite3.Row
+    try:
+        table_name = resolve_funcionarios_table(con)
+        if not table_name:
+            return jsonify([])
+
+        table_columns = get_table_columns(con, table_name)
+
+        def norm(s):
+            return ''.join(ch.lower() for ch in s if ch.isalnum())
+
+        col = None
+        norms = {norm(c): c for c in table_columns}
+        # escolher coluna relacionada a cargo
+        for k, orig in norms.items():
+            if 'cargo' in k and not ('cod' in k):
+                col = orig
+                break
+
+        if not col:
+            for cand in ('nome_cargo', 'nome cargo', 'cargo', 'Nome Cargo'):
+                cn = ''.join(ch for ch in cand if ch.isalnum()).lower()
+                if cn in norms:
+                    col = norms[cn]
+                    break
+
+        if not col:
+            return jsonify([])
+
+        rows = con.execute(f'SELECT DISTINCT "{col}" AS val FROM "{table_name}" WHERE "{col}" IS NOT NULL AND "{col}" <> "" ORDER BY val').fetchall()
+        values = [r['val'] for r in rows]
+        return jsonify(values)
+    finally:
+        con.close()
+
+
 @app.route('/api/funcionarios')
 def api_funcionarios():
     if request.method == 'OPTIONS':

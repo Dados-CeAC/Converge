@@ -877,17 +877,29 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="form-row">
           <div class="form-group">
             <label>Cargo</label>
-            <input id="funcCargo" type="text" placeholder="Digite o cargo" />
+            <div class="combo" style="position:relative;">
+              <input id="funcCargo" type="text" placeholder="Digite o cargo" autocomplete="off" />
+              <button type="button" class="combo-toggle" data-target="cargosDropdown" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);">▾</button>
+              <div id="cargosDropdown" class="combo-list" style="position:absolute;left:0;right:0;z-index:40;max-height:200px;overflow:auto;display:none;background:#fff;border:1px solid #ccc;"></div>
+            </div>
           </div>
           <div class="form-group">
             <label>Setor</label>
-            <input id="funcSetor" type="text" placeholder="Digite o setor" />
+            <div class="combo" style="position:relative;">
+              <input id="funcSetor" type="text" placeholder="Digite o setor" autocomplete="off" />
+              <button type="button" class="combo-toggle" data-target="setoresDropdown" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);">▾</button>
+              <div id="setoresDropdown" class="combo-list" style="position:absolute;left:0;right:0;z-index:40;max-height:200px;overflow:auto;display:none;background:#fff;border:1px solid #ccc;"></div>
+            </div>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Filial</label>
-            <input id="funcFilial" type="text" placeholder="Digite a filial" />
+            <div class="combo" style="position:relative;">
+              <input id="funcFilial" type="text" placeholder="Digite a filial" autocomplete="off" />
+              <button type="button" class="combo-toggle" data-target="filiaisDropdown" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);">▾</button>
+              <div id="filiaisDropdown" class="combo-list" style="position:absolute;left:0;right:0;z-index:40;max-height:200px;overflow:auto;display:none;background:#fff;border:1px solid #ccc;"></div>
+            </div>
           </div>
           <div class="form-group">
             <label>Situação</label>
@@ -937,6 +949,104 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     let searchTimer = null;
     let searchController = null;
+
+    const escAttr = (s) => (s || '').toString().replace(/"/g, '&quot;');
+    let setoresData = [];
+    let filiaisData = [];
+    let cargosData = [];
+
+    async function loadDatalists() {
+      try {
+        const apiBase = FUNCIONARIOS_API_URL.replace(/\/api\/.*$/,'/api');
+        const [setRes, filRes, cargoRes] = await Promise.all([
+          fetch(`${apiBase}/setores`),
+          fetch(`${apiBase}/filiais`),
+          fetch(`${apiBase}/cargos`),
+        ]);
+
+        if (setRes.ok) {
+          setoresData = await setRes.json();
+          const container = formContainer.querySelector('#setoresDropdown');
+          if (container) container.innerHTML = setoresData.map(s => `<div class="combo-item" data-value="${escAttr(s)}" style="padding:6px 8px;cursor:pointer;">${s}</div>`).join('');
+        }
+
+        if (filRes.ok) {
+          filiaisData = await filRes.json();
+          const container2 = formContainer.querySelector('#filiaisDropdown');
+          if (container2) container2.innerHTML = filiaisData.map(f => `<div class="combo-item" data-value="${escAttr(f)}" style="padding:6px 8px;cursor:pointer;">${f}</div>`).join('');
+        }
+        if (cargoRes && cargoRes.ok) {
+          cargosData = await cargoRes.json();
+          const container3 = formContainer.querySelector('#cargosDropdown');
+          if (container3) container3.innerHTML = cargosData.map(c => `<div class="combo-item" data-value="${escAttr(c)}" style="padding:6px 8px;cursor:pointer;">${c}</div>`).join('');
+        }
+      } catch (err) {
+        console.error('Erro ao carregar listas de setor/filial', err);
+      }
+    }
+
+    // carrega opções de setor/filial (não bloqueante)
+    loadDatalists();
+
+    function setupComboBehavior() {
+      function wire(inputSel, dropdownId, dataArray) {
+        const input = formContainer.querySelector(inputSel);
+        const dropdown = formContainer.querySelector(`#${dropdownId}`);
+        const toggle = formContainer.querySelector(`.combo-toggle[data-target="${dropdownId}"]`);
+        if (!input || !dropdown) return;
+
+        function showFiltered() {
+          const q = (input.value || '').toLowerCase();
+          const items = dropdown.querySelectorAll('.combo-item');
+          let any=false;
+          items.forEach(it => {
+            const text = it.textContent.toLowerCase();
+            const visible = !q || text.indexOf(q) !== -1;
+            it.style.display = visible ? '' : 'none';
+            if (visible) any = true;
+          });
+          dropdown.style.display = any ? 'block' : 'none';
+        }
+
+        input.addEventListener('input', (e) => {
+          showFiltered();
+        });
+
+        input.addEventListener('focus', (e) => {
+          showFiltered();
+        });
+
+        toggle && toggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const visible = dropdown.style.display === 'block';
+          if (visible) dropdown.style.display = 'none'; else {
+            // reset filter
+            input.focus();
+            const items = dropdown.querySelectorAll('.combo-item');
+            items.forEach(it => it.style.display = '');
+            dropdown.style.display = 'block';
+          }
+        });
+
+        dropdown.addEventListener('click', (ev) => {
+          const it = ev.target.closest('.combo-item');
+          if (!it) return;
+          input.value = it.getAttribute('data-value') || it.textContent;
+          dropdown.style.display = 'none';
+        });
+
+        document.addEventListener('click', (ev) => {
+          if (!formContainer.contains(ev.target) && dropdown) dropdown.style.display = 'none';
+        });
+      }
+
+      wire('#funcSetor', 'setoresDropdown', setoresData);
+      wire('#funcFilial', 'filiaisDropdown', filiaisData);
+      wire('#funcCargo', 'cargosDropdown', cargosData);
+    }
+
+    // small delay to allow datalists to be filled, then wire combo behavior
+    setTimeout(setupComboBehavior, 250);
 
     async function buscarFuncionariosAtivo() {
       const termo = normalizeSearchValue(buscaInput.value);
