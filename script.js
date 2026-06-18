@@ -957,7 +957,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadDatalists() {
       try {
-        const apiBase = FUNCIONARIOS_API_URL.replace(/\/api\/.*$/,'/api');
+        const apiBase = FUNCIONARIOS_API_URL.replace(/\/api\/.*/,'/api');
         const [setRes, filRes, cargoRes] = await Promise.all([
           fetch(`${apiBase}/setores`),
           fetch(`${apiBase}/filiais`),
@@ -985,8 +985,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // carrega opções de setor/filial (não bloqueante)
-    loadDatalists();
+    // carrega opções de setor/filial e depois habilita o comportamento dos combos
+    loadDatalists().then(setupComboBehavior).catch(err => {
+      console.error(err);
+      setupComboBehavior();
+    });
 
     function setupComboBehavior() {
       function wire(inputSel, dropdownId, dataArray) {
@@ -1097,56 +1100,85 @@ document.addEventListener("DOMContentLoaded", () => {
         if (resultados.length === 0) {
           resultsDiv.innerHTML = renderFuncionarioEmptyState("Nenhum funcionário encontrado com os critérios informados.");
         } else {
-        const tableHTML = `
-          <div class="card-box">
-            <div class="card-header">
-              <div>
-                <h3><i class="ti ti-list"></i> Resultados da Busca</h3>
-                <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
+          const groupedResults = resultados
+            .slice()
+            .sort((a, b) => {
+              const setorA = (a.nomeLocalTrabalho || a.localTrabalho || "").toLowerCase();
+              const setorB = (b.nomeLocalTrabalho || b.localTrabalho || "").toLowerCase();
+              if (setorA < setorB) return -1;
+              if (setorA > setorB) return 1;
+              const nomeA = (a.nome || "").toLowerCase();
+              const nomeB = (b.nome || "").toLowerCase();
+              if (nomeA < nomeB) return -1;
+              if (nomeA > nomeB) return 1;
+              return 0;
+            })
+            .reduce((groups, func) => {
+              const setor = func.nomeLocalTrabalho || func.localTrabalho || "Sem setor";
+              if (!groups[setor]) groups[setor] = [];
+              groups[setor].push(func);
+              return groups;
+            }, {});
+
+          const setoresOrdenados = Object.keys(groupedResults).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
+          const tableHTML = `
+            <div class="card-box">
+              <div class="card-header">
+                <div>
+                  <h3><i class="ti ti-list"></i> Resultados da Busca</h3>
+                  <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
+                </div>
+              </div>
+              <div class="funcionarios-table-wrap">
+                ${setoresOrdenados.map(setor => `
+                  <div class="setor-group">
+                    <h4 class="setor-title">${escapeHtml(setor)}</h4>
+                    <table class="funcionarios-table">
+                      <thead>
+                        <tr>
+                          <th>Matrícula</th>
+                          <th>Nome</th>
+                          <th>Cargo</th>
+                          <th>Filial</th>
+                          <th>Situação</th>
+                          <th>Email</th>
+                          <th>Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${groupedResults[setor].map((func, index) => `
+                          <tr>
+                            <td>${escapeHtml(func.matricula)}</td>
+                            <td>${escapeHtml(func.nome)}</td>
+                            <td>${escapeHtml(func.cargo)}</td>
+                            <td>${escapeHtml(func.filial)}</td>
+                            <td><span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span></td>
+                            <td>${escapeHtml(func.email)}</td>
+                            <td>
+                              <button class="btn small view-details" data-setor="${escapeHtml(setor)}" data-index="${index}"><i class="ti ti-eye"></i> Detalhes</button>
+                            </td>
+                          </tr>
+                        `).join("")}
+                      </tbody>
+                    </table>
+                  </div>
+                `).join("")}
               </div>
             </div>
-            <div class="funcionarios-table-wrap">
-              <table class="funcionarios-table">
-                <thead>
-                  <tr>
-                    <th>Matrícula</th>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>Filial</th>
-                    <th>Situação</th>
-                    <th>Email</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${resultados.map((func, index) => `
-                    <tr>
-                      <td>${escapeHtml(func.matricula)}</td>
-                      <td>${escapeHtml(func.nome)}</td>
-                      <td>${escapeHtml(func.cargo)}</td>
-                      <td>${escapeHtml(func.filial)}</td>
-                      <td><span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span></td>
-                      <td>${escapeHtml(func.email)}</td>
-                      <td>
-                        <button class="btn small view-details" data-index="${index}"><i class="ti ti-eye"></i> Detalhes</button>
-                      </td>
-                    </tr>
-                  `).join("")}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        `;
-        resultsDiv.innerHTML = tableHTML;
+          `;
 
-        // Adicionar event listeners aos botões de detalhes
-        resultsDiv.querySelectorAll(".view-details").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const funcData = resultados[Number(btn.dataset.index)];
-            showFuncionarioDetails(funcData, resultsDiv);
+          resultsDiv.innerHTML = tableHTML;
+
+          resultsDiv.querySelectorAll(".view-details").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const setor = btn.dataset.setor;
+              const index = Number(btn.dataset.index);
+              const funcData = groupedResults[setor][index];
+              showFuncionarioDetails(funcData, resultsDiv);
+            });
           });
-        });
-      }
+        }
       } catch (error) {
         if (error.name === "AbortError") return;
         resultsDiv.innerHTML = renderFuncionarioEmptyState(`${error.message} Verifique se o servidor Flask está em execução.`, "ti-plug-connected-x");
