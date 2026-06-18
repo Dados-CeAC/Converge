@@ -170,6 +170,7 @@ def api_funcionarios():
     if request.method == 'OPTIONS':
         return ('', 204)
 
+    query = request.args.get('q', '').strip()
     nome = request.args.get('nome', '').strip()
     matricula = request.args.get('matricula', '').strip()
     cpf = request.args.get('cpf', '').strip()
@@ -179,7 +180,7 @@ def api_funcionarios():
     filial = request.args.get('filial', '').strip()
     status = request.args.get('status', '').strip()
 
-    if not any([matricula, cpf]):
+    if not any([query, nome, matricula, cpf, empresa, cargo, setor, filial, status]):
         return jsonify({'results': [], 'total': 0})
 
     con = sqlite3.connect(DB_PATH)
@@ -213,6 +214,30 @@ def api_funcionarios():
             if column and value:
                 filters.append(f'"{column}" LIKE ?')
                 params.append(f'%{value}%')
+
+        if query:
+            searchable_fields = (
+                'nome',
+                'cpf',
+                'matricula',
+                'cargo',
+                'nome_cargo',
+                'funcao',
+                'local_trab',
+                'nome_local_trab',
+                'centro_custo',
+                'nome_filial',
+                'nome_empresa',
+                'desc_situacao',
+            )
+            query_filters = []
+            for field in searchable_fields:
+                column = selected_columns.get(field)
+                if column:
+                    query_filters.append(f'"{column}" LIKE ?')
+                    params.append(f'%{query}%')
+            if query_filters:
+                filters.append(f"({' OR '.join(query_filters)})")
 
         add_like_filter('nome', nome)
         add_like_filter('matricula', matricula)

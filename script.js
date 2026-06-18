@@ -851,15 +851,19 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="consultar-funcionario-form-content">
         <div class="form-row">
           <div class="form-group">
+            <label>Nome do usuário</label>
+            <input id="funcNome" type="text" placeholder="Digite o nome do usuário" />
+          </div>
+          <div class="form-group">
             <label>Matrícula</label>
             <input id="funcMatricula" type="text" placeholder="Digite a matrícula" />
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
             <label>CPF</label>
             <input id="funcCpf" type="text" placeholder="Digite o CPF" />
           </div>
-        </div>
-        <div class="form-row">
           <div class="form-group">
             <label>Empresa</label>
             <select id="funcEmpresa">
@@ -869,26 +873,35 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="FZ">FZ</option>
             </select>
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
             <label>Cargo</label>
             <input id="funcCargo" type="text" placeholder="Digite o cargo" />
           </div>
-        </div>
-        <div class="form-row">
           <div class="form-group">
             <label>Setor</label>
             <input id="funcSetor" type="text" placeholder="Digite o setor" />
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
             <label>Filial</label>
             <input id="funcFilial" type="text" placeholder="Digite a filial" />
           </div>
+          <div class="form-group">
+            <label>Situação</label>
+            <select id="funcStatus">
+              <option value="">Todas as situações</option>
+              <option value="Ativo">Ativo</option>
+              <option value="Desligado">Desligado</option>
+              <option value="Atestado Médico">Atestado Médico</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label>Situação</label>
-          <select id="funcStatus">
-            <option value="">Todas as situações</option>
-          </select>
+          <label>Busca ativa</label>
+          <input id="funcBusca" type="search" placeholder="Digite qualquer informação para pesquisar em todos os campos" autocomplete="off" />
         </div>
         <div class="form-actions">
           <button class="btn" type="button" id="funcLimparBtn"><i class="ti ti-eraser"></i> Limpar</button>
@@ -905,39 +918,47 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.appendChild(formContainer);
     grid.appendChild(resultContainer);
 
-    // Event listeners
+    const buscaInput = formContainer.querySelector("#funcBusca");
     const buscBtn = formContainer.querySelector("#funcBuscBtn");
     const limparBtn = formContainer.querySelector("#funcLimparBtn");
     const resultsDiv = grid.querySelector("#funcResultsContainer");
+    const searchFields = [
+      formContainer.querySelector("#funcNome"),
+      formContainer.querySelector("#funcMatricula"),
+      formContainer.querySelector("#funcCpf"),
+      formContainer.querySelector("#funcCargo"),
+      formContainer.querySelector("#funcSetor"),
+      formContainer.querySelector("#funcFilial"),
+      buscaInput,
+    ];
+    const searchSelects = [
+      formContainer.querySelector("#funcEmpresa"),
+      formContainer.querySelector("#funcStatus"),
+    ];
+    let searchTimer = null;
+    let searchController = null;
 
-    limparBtn.addEventListener("click", () => {
-      document.getElementById("funcMatricula").value = "";
-      document.getElementById("funcCpf").value = "";
-      document.getElementById("funcEmpresa").value = "";
-      document.getElementById("funcCargo").value = "";
-      document.getElementById("funcSetor").value = "";
-      document.getElementById("funcFilial").value = "";
-      document.getElementById("funcStatus").value = "";
-      resultsDiv.style.display = "none";
-      resultsDiv.innerHTML = "";
-    });
+    async function buscarFuncionariosAtivo() {
+      const termo = normalizeSearchValue(buscaInput.value);
+      const nome = normalizeSearchValue(formContainer.querySelector("#funcNome").value);
+      const matricula = normalizeSearchValue(formContainer.querySelector("#funcMatricula").value);
+      const cpf = normalizeSearchValue(formContainer.querySelector("#funcCpf").value);
+      const empresa = formContainer.querySelector("#funcEmpresa").value;
+      const cargo = normalizeSearchValue(formContainer.querySelector("#funcCargo").value);
+      const setor = normalizeSearchValue(formContainer.querySelector("#funcSetor").value);
+      const filial = normalizeSearchValue(formContainer.querySelector("#funcFilial").value);
+      const status = formContainer.querySelector("#funcStatus").value;
 
-    buscBtn.addEventListener("click", async () => {
-      const matricula = normalizeSearchValue(document.getElementById("funcMatricula").value);
-      const cpf = normalizeSearchValue(document.getElementById("funcCpf").value);
-      const empresa = document.getElementById("funcEmpresa").value;
-      const cargo = normalizeSearchValue(document.getElementById("funcCargo").value);
-      const setor = normalizeSearchValue(document.getElementById("funcSetor").value);
-      const filial = normalizeSearchValue(document.getElementById("funcFilial").value);
-      const status = document.getElementById("funcStatus").value;
-
-      if (!matricula && !cpf) {
-        resultsDiv.innerHTML = renderFuncionarioEmptyState("Informe a matrícula ou o CPF para consultar.", "ti-alert-circle");
-        resultsDiv.style.display = "block";
+      if (!termo && !nome && !matricula && !cpf && !empresa && !cargo && !setor && !filial && !status) {
+        if (searchController) searchController.abort();
+        resultsDiv.style.display = "none";
+        resultsDiv.innerHTML = "";
         return;
       }
 
       const params = new URLSearchParams();
+      if (termo) params.set("q", termo);
+      if (nome) params.set("nome", nome);
       if (matricula) params.set("matricula", matricula);
       if (cpf) params.set("cpf", cpf);
       if (empresa) params.set("empresa", empresa);
@@ -946,13 +967,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (filial) params.set("filial", filial);
       if (status) params.set("status", status);
 
-      buscBtn.disabled = true;
-      buscBtn.innerHTML = `<i class="ti ti-loader-2"></i> Buscando`;
+      if (searchController) searchController.abort();
+      searchController = new AbortController();
+
       resultsDiv.style.display = "block";
       resultsDiv.innerHTML = renderFuncionarioEmptyState("Consultando funcionários...", "ti-loader-2");
 
       try {
-        const response = await fetch(`${FUNCIONARIOS_API_URL}?${params.toString()}`);
+        const response = await fetch(`${FUNCIONARIOS_API_URL}?${params.toString()}`, {
+          signal: searchController.signal,
+        });
         if (!response.ok) {
           throw new Error("Não foi possível consultar a base de funcionários.");
         }
@@ -1014,13 +1038,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
       } catch (error) {
+        if (error.name === "AbortError") return;
         resultsDiv.innerHTML = renderFuncionarioEmptyState(`${error.message} Verifique se o servidor Flask está em execução.`, "ti-plug-connected-x");
-      } finally {
-        buscBtn.disabled = false;
-        buscBtn.innerHTML = `<i class="ti ti-search"></i> Buscar`;
       }
+    }
 
-      resultsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    function agendarBuscaAtiva() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(buscarFuncionariosAtivo, 250);
+    }
+
+    searchFields.forEach((field) => {
+      field.addEventListener("input", agendarBuscaAtiva);
+    });
+
+    searchSelects.forEach((field) => {
+      field.addEventListener("change", agendarBuscaAtiva);
+    });
+
+    buscBtn.addEventListener("click", () => {
+      clearTimeout(searchTimer);
+      buscarFuncionariosAtivo();
+    });
+
+    limparBtn.addEventListener("click", () => {
+      formContainer.querySelector("#funcNome").value = "";
+      formContainer.querySelector("#funcMatricula").value = "";
+      formContainer.querySelector("#funcCpf").value = "";
+      formContainer.querySelector("#funcEmpresa").value = "";
+      formContainer.querySelector("#funcCargo").value = "";
+      formContainer.querySelector("#funcSetor").value = "";
+      formContainer.querySelector("#funcFilial").value = "";
+      formContainer.querySelector("#funcStatus").value = "";
+      formContainer.querySelector("#funcBusca").value = "";
+      if (searchController) searchController.abort();
+      clearTimeout(searchTimer);
+      resultsDiv.style.display = "none";
+      resultsDiv.innerHTML = "";
+      formContainer.querySelector("#funcNome").focus();
     });
   }
 
