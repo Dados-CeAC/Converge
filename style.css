@@ -6083,6 +6083,55 @@ textarea {
   transition: border-color 0.2s ease;
 }
 
+.consultar-funcionario-form-content .combo {
+  position: relative;
+}
+
+.consultar-funcionario-form-content .combo input {
+  padding-right: 12px;
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.consultar-funcionario-form-content .combo input::placeholder {
+  color: var(--text-muted);
+}
+
+.consultar-funcionario-form-content .combo-toggle {
+  display: none !important;
+}
+
+.consultar-funcionario-form-content .combo-toggle:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.consultar-funcionario-form-content .combo-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 40;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 6px 0;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.consultar-funcionario-form-content .combo-item {
+  padding: 10px 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.consultar-funcionario-form-content .combo-item:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
 .consultar-funcionario-form-content input:focus,
 .consultar-funcionario-form-content select:focus {
   outline: none;

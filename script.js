@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="form-row">
         <div class="form-group">
           <label>Nível de risco</label>
-          <select>
+          <select class="custom-select">
             <option value="">Selecione</option>
             <option value="baixo">Baixo</option>
             <option value="medio">Médio</option>
@@ -831,7 +831,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
       <div class="card-box">
         <div class="empty-state">
-          <i class="ti ${icon}"></i>
           <p>${escapeHtml(message)}</p>
         </div>
       </div>
@@ -844,7 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formContainer.innerHTML = `
       <div class="card-header">
         <div>
-          <h2><i class="ti ti-search"></i> Consultar Funcionário</h2>
+          <h2>Consultar Funcionário</h2>
           <p>Busque informações sobre funcionários da instituição</p>
         </div>
       </div>
@@ -866,7 +865,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="form-group">
             <label>Empresa</label>
-            <select id="funcEmpresa">
+            <select id="funcEmpresa" class="custom-select">
               <option value="">Todas as empresas</option>
               <option value="FFM">FFM</option>
               <option value="HC">HC</option>
@@ -903,7 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="form-group">
             <label>Situação</label>
-            <select id="funcStatus">
+            <select id="funcStatus" class="custom-select">
               <option value="">Todas as situações</option>
               <option value="Ativo">Ativo</option>
               <option value="Desligado">Desligado</option>
@@ -967,18 +966,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (setRes.ok) {
           setoresData = await setRes.json();
           const container = formContainer.querySelector('#setoresDropdown');
-          if (container) container.innerHTML = setoresData.map(s => `<div class="combo-item" data-value="${escAttr(s)}" style="padding:6px 8px;cursor:pointer;">${s}</div>`).join('');
+          if (container) container.innerHTML = setoresData.map(s => `<div class="combo-item" data-value="${escAttr(s)}">${s}</div>`).join('');
         }
 
         if (filRes.ok) {
           filiaisData = await filRes.json();
           const container2 = formContainer.querySelector('#filiaisDropdown');
-          if (container2) container2.innerHTML = filiaisData.map(f => `<div class="combo-item" data-value="${escAttr(f)}" style="padding:6px 8px;cursor:pointer;">${f}</div>`).join('');
+          if (container2) container2.innerHTML = filiaisData.map(f => `<div class="combo-item" data-value="${escAttr(f)}">${f}</div>`).join('');
         }
         if (cargoRes && cargoRes.ok) {
           cargosData = await cargoRes.json();
           const container3 = formContainer.querySelector('#cargosDropdown');
-          if (container3) container3.innerHTML = cargosData.map(c => `<div class="combo-item" data-value="${escAttr(c)}" style="padding:6px 8px;cursor:pointer;">${c}</div>`).join('');
+          if (container3) container3.innerHTML = cargosData.map(c => `<div class="combo-item" data-value="${escAttr(c)}">${c}</div>`).join('');
         }
       } catch (err) {
         console.error('Erro ao carregar listas de setor/filial', err);
@@ -1021,8 +1020,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         toggle && toggle.addEventListener('click', (e) => {
           e.preventDefault();
+          e.stopPropagation();
           const visible = dropdown.style.display === 'block';
-          if (visible) dropdown.style.display = 'none'; else {
+          if (visible) {
+            dropdown.style.display = 'none';
+          } else {
             // reset filter
             input.focus();
             const items = dropdown.querySelectorAll('.combo-item');
@@ -1125,11 +1127,11 @@ document.addEventListener("DOMContentLoaded", () => {
           const tableHTML = `
             <div class="card-box">
               <div class="card-header">
-                <div>
-                  <h3><i class="ti ti-list"></i> Resultados da Busca</h3>
-                  <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
+                  <div>
+                    <h3>Resultados da Busca</h3>
+                    <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
+                  </div>
                 </div>
-              </div>
               <div class="funcionarios-table-wrap">
                 ${setoresOrdenados.map(setor => `
                   <div class="setor-group">
@@ -1226,7 +1228,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="card-box funcionario-details">
         <div class="card-header">
           <div>
-            <h3><i class="ti ti-id-badge"></i> Detalhes do Funcionário</h3>
+            <h3>Detalhes do Funcionário</h3>
           </div>
           <button class="btn small" onclick="this.parentElement.parentElement.parentElement.style.display='none'"><i class="ti ti-x"></i></button>
         </div>
@@ -1394,7 +1396,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!items.length) {
         return `
           <div class="empty-state">
-            <i class="ti ti-info-circle"></i>
             <p>Nenhum chamado cadastrado ainda.</p>
           </div>
         `;
@@ -1429,7 +1430,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <td><span class="${statusClass(record.status)}">${record.status}</span></td>
                       <td>${record.date || "-"}</td>
                       <td class="table-actions-cell">
-                        <select class="status-select" data-id="${record.id}">
+                        <select class="status-select custom-select" data-id="${record.id}">
                           ${statusOptions(record.status)}
                         </select>
                         <button class="btn small delete-chamado-btn" data-id="${record.id}"><i class="ti ti-trash"></i>Excluir</button>
@@ -1470,7 +1471,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="form-row">
             <div class="form-group">
               <label>Categoria*</label>
-              <select id="chamadoCategoria">
+              <select id="chamadoCategoria" class="custom-select">
                 <option value="">Selecione</option>
                 ${isOuvidoria ? `
                   <option value="Reclamação">Reclamação</option>
@@ -1488,7 +1489,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="form-group">
               <label>Prioridade*</label>
-              <select id="chamadoPrioridade">
+              <select id="chamadoPrioridade" class="custom-select">
                 <option value="">Selecione</option>
                 <option value="Baixa">Baixa</option>
                 <option value="Média">Média</option>
@@ -1503,7 +1504,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="form-group">
               <label>Setor*</label>
-              <select id="chamadoSetor">
+              <select id="chamadoSetor" class="custom-select">
                 <option value="">Selecione o setor</option>
                 <option value="Ambulatório">Ambulatório</option>
                 <option value="Assessoria Jurídica">Assessoria Jurídica</option>
@@ -1523,7 +1524,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="form-row">
             <div class="form-group">
               <label>Status*</label>
-              <select id="chamadoStatus">
+              <select id="chamadoStatus" class="custom-select">
                 <option value="Aberto">Aberto</option>
                 <option value="Em andamento">Em andamento</option>
                 <option value="Concluído">Concluído</option>
@@ -1665,7 +1666,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadChamados(scope).then(renderContent).catch(() => {
       contentEl.innerHTML = `
         <div class="empty-state">
-          <i class="ti ti-alert-circle"></i>
           <p>Não foi possível carregar ${isOuvidoria ? "as ouvidorias" : "os chamados"}.</p>
         </div>
       `;
