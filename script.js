@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const iconMap = {
     Home: "ti-home",
     "Meus Sistemas": "ti-apps",
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Ouvidoria: "ti-headset",
     Gerenciamento: "ti-adjustments",
     "Meu Perfil": "ti-user",
+    "Assesoria Jurídica": "ti-scale",
   };
   const cardIconMap = {
     Home: "ti-home",
@@ -83,6 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Painel de Gestores": "ti-layout-dashboard",
     Indicadores: "ti-chart-bar",
     "Consultar Funcionário": "ti-search",
+    Processos: "ti-file",
+    Profissionais: "ti-id-badge",
+    "Perícias": "ti-search",
   };
 
   const cardUrlMap = {
@@ -103,7 +107,88 @@ document.addEventListener("DOMContentLoaded", () => {
   const chamadosStoreName = "meusChamados";
   const ouvidoriaStoreName = "ouvidoriaChamados";
   const chamadosKey = "converge:meusChamados";
-  const ouvidoriaKey = "converge:ouvidoriaChamados";
+  const ouvidoriaKey = "ouvidoriaChamados";
+
+  async function initClerk() {
+    if (!window.Clerk) {
+      return false;
+    }
+
+    try {
+      await window.Clerk.load();
+      return true;
+    } catch (erro) {
+      console.warn("Erro ao carregar Clerk:", erro);
+      return false;
+    }
+  }
+
+  function displayClerkUser(user) {
+    if (!user) return;
+
+    const userNameEl = document.getElementById("sidebarUserName");
+    const userEmailEl = document.getElementById("sidebarUserEmail");
+    const userAvatarEl = document.getElementById("sidebarAvatar");
+    const profileLinkEl = document.getElementById("sidebarProfileLink");
+
+    const name = user.fullName || user.firstName || "Usuário";
+    const email = user.primaryEmailAddress || user.emailAddresses?.[0]?.emailAddress || user.email || "";
+    const displayName = name === "Usuário" && email ? email : name;
+
+    if (userNameEl) {
+      userNameEl.innerHTML = `<i class="ti ti-user"></i> ${displayName}`;
+    }
+    if (userEmailEl) {
+      userEmailEl.textContent = email;
+      userEmailEl.style.display = email ? "block" : "none";
+    }
+    if (profileLinkEl) {
+      profileLinkEl.href = "#";
+      profileLinkEl.title = "Ir para Meu Perfil";
+    }
+    if (userAvatarEl) {
+      const initials = displayName
+        .split(" ")
+        .filter(Boolean)
+        .map((part) => part[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase();
+      userAvatarEl.textContent = initials || "RB";
+    }
+  }
+
+  function initSidebarProfileLink() {
+    const profileLinkEl = document.getElementById("sidebarProfileLink");
+    if (!profileLinkEl) return;
+
+    profileLinkEl.addEventListener("click", (event) => {
+      event.preventDefault();
+      activeSection = 0;
+      activeCard = "Meu Perfil";
+      activeDetailParent = null;
+      render();
+      renderCards();
+      if (window.innerWidth <= 900) {
+        closeMobileSidebar();
+      }
+    });
+  }
+
+  function initLogoutButton() {
+    const logoutBtn = document.querySelector(".sidebar-logout");
+    if (!logoutBtn) return;
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        if (window.Clerk && window.Clerk.signOut) {
+          await window.Clerk.signOut();
+        }
+      } catch (erro) {
+        console.warn("Erro ao deslogar Clerk:", erro);
+      }
+      window.location.href = "login.html";
+    });
+  }
 
   function getChamadosConfig(scope) {
     const isOuvidoria = scope === "Ouvidoria";
@@ -336,6 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
     { id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
     { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
+    {id: 13, name: "Assesoria Jurídica", items: ["Processos","Profissionais","Perícias"]},
   ];
 
   let activeSection = 0;
@@ -1995,7 +2081,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   attachListeners();
 
-  
+  const clerkReady = await initClerk();
+  if (!clerkReady) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  const currentUser = window.Clerk?.user;
+  if (!currentUser) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  displayClerkUser(currentUser);
+  initSidebarProfileLink();
+  initLogoutButton();
+
   const DOC = document.documentElement;
   const themeModes = ["default", "dark"];
   const themeLabels = {

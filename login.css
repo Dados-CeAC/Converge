@@ -1,0 +1,270 @@
+/* ============================================
+   Login Page Styles - CONVERGE with Google OAuth
+   ============================================ */
+
+body.login-page {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--hc);
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* Topbar da página de login */
+.login-topbar {
+  background: var(--hc);
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.login-topbar .brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-topbar .brand-logo-img {
+  max-height: 38px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+.login-topbar .brand-logo-ceac {
+  max-height: 30px;
+  max-width: 150px;
+}
+
+/* Container para centralizar o card na tela */
+.login-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-wrapper::before {
+  content: "";
+  display: block;
+  height: var(--topbar-h);
+}
+
+
+/* Login Card */
+.login-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft), 0 8px 32px rgba(0, 0, 0, 0.08);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 450px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--hc-light);
+}
+
+.login-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--hc);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Form/OAuth Container */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+/* Info Text */
+.login-info {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Google Sign-In Button Customization */
+#g_id_onload {
+  margin-bottom: 16px;
+}
+
+.g_id_signin {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Override Google button width */
+div[data-type="standard"] {
+  width: 100% !important;
+}
+
+div[data-type="standard"] > div {
+  width: 100% !important;
+}
+
+/* Botão Google de Teste */
+.google-signin-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1.5px solid #dadce0;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.google-signin-btn:hover {
+  background: #f8f9fa;
+  border-color: #d2d3d4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.google-signin-btn:active {
+  background: #f3f4f5;
+  border-color: #cfd1d5;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Footer */
+.login-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+}
+
+.security-badge {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Branding */
+.login-branding {
+  text-align: center;
+  color: var(--surface);
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+.login-branding p:first-child {
+  font-weight: 600;
+  color: var(--surface);
+  margin-bottom: 4px;
+}
+
+/* Loading/Processing States */
+.login-form.processing {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading-indicator {
+  display: none;
+  text-align: center;
+  color: var(--hc);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.login-form.processing .loading-indicator {
+  display: block;
+}
+
+/* Error Message */
+.error-message {
+  padding: 12px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: var(--radius);
+  color: #c33;
+  font-size: 12px;
+  text-align: center;
+  display: none;
+  margin-bottom: 8px;
+}
+
+.error-message.show {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-wrapper {
+    gap: 32px;
+  }
+
+  .login-card {
+    padding: 32px 24px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+
+  .login-subtitle {
+    font-size: 13px;
+  }
+
+  .login-form {
+    gap: 18px;
+  }
+}
+

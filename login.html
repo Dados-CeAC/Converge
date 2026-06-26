@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONVERGE - Login</title>
+
+  <link rel="stylesheet" href="CSS/variables.css">
+  <link rel="stylesheet" href="CSS/reset-base.css">
+  <link rel="stylesheet" href="login.css">
+  <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+</head>
+<body class="login-page" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk">
+    <div class="login-topbar">
+        <div class="logo-box brand-safe-area">
+            <div class="brand-logo">
+                <img id="hcfmuspLogo" class="brand-logo-img brand-logo-hcfmusp" src="LOGO HCFMUSP.png" alt="Logo HCFMUSP" />
+            </div>
+        </div>
+        <div class="logo-box ceac-logo-box brand-safe-area">
+            <div class="brand-logo">
+                <img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
+            </div>
+        </div>
+    </div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">CONVERGE</h1>
+                <p class="login-subtitle">Sistema de Gestão de Saúde do Colaborador</p>
+            </div>
+
+            <div class="login-form">
+                <div class="error-message" style="display:none"></div>
+
+                <p class="login-info">Acesse com sua conta institucional</p>
+                <button id="loginBtn" class="google-signin-btn" type="button">Entrar com Clerk</button>
+            </div>
+
+            <div class="login-footer">
+                <p class="security-badge">Acesso seguro e protegido</p>
+            </div>
+        </div>
+
+        <div class="login-branding">
+            <p>CONVERGE | CeAC HCFMUSP</p>
+            <p>Centro de Atenção à Saúde do Colaborador - HCFMUSP</p>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

@@ -6,13 +6,11 @@
 	<title>CONVERGE</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
 	<link rel="stylesheet" href="style.css" />
-	<link rel="stylesheet" href="CSS/custom-select.css" />
-</head>
+	<link rel="stylesheet" href="CSS/custom-select.css" />	<script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script></head>
 <body>
- 
+
 <div class="layout">
- 
-	
+
 	<div class="topbar">
 		<button id="mobileMenuToggle" class="topbar-mobile-toggle" type="button" title="Abrir menu">
 			<i class="ti ti-menu"></i>
@@ -22,24 +20,24 @@
 				<img id="hcfmuspLogo" class="brand-logo-img brand-logo-hcfmusp" src="LOGO HCFMUSP.png" alt="Logo HCFMUSP" />
 			</div>
 		</div>
-			<div class="logo-box ceac-logo-box brand-safe-area">
-				<div class="brand-logo">
-					<img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
-				</div>
+		<div class="logo-box ceac-logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
 			</div>
 		</div>
- 
-	<div class="body-row">
+	</div>
 
+	<div class="body-row">
 		<div class="sidebar" id="sidebar">
 			<div class="sidebar-scroll" id="menuContainer"></div>
 			<div class="sidebar-footer">
 				<div class="sidebar-profile">
-					<div class="sidebar-avatar">RB</div>
+					<div id="sidebarAvatar" class="sidebar-avatar">RB</div>
 					<div class="sidebar-profile-info">
-						<div class="sidebar-profile-name"><i class="ti ti-user"></i> ricardo.borges</div>
-						<a class="sidebar-profile-link" href="#">
-							Ver meu perfil
+						<div id="sidebarUserName" class="sidebar-profile-name"><i class="ti ti-user"></i> ricardo.borges</div>
+						<div id="sidebarUserEmail" class="sidebar-profile-email">usuario@dominio.com</div>
+						<a id="sidebarProfileLink" class="sidebar-profile-link" href="#">
+							Ir para meu perfil
 							<i class="ti ti-external-link"></i>
 						</a>
 					</div>
@@ -57,18 +55,14 @@
 				</div>
 			</div>
 		</div>
- 
-		<div class="main">
 
+		<div class="main">
 			<div class="content">
-				<div class="page-title">
-					<i class="ti ti-world"></i>
-					<span id="dispPageTitle">Meus Sistemas</span>
-				</div>
-				<div class="page-actions">
-					<button id="cardBackBtn" class="btn" type="button" style="display:none;">
+				<div class="page-header">
+					<button id="cardBackBtn" class="btn back-btn" type="button" style="display:none;">
 						<i class="ti ti-arrow-left"></i> Voltar
 					</button>
+					<h1 class="page-title" id="dispPageTitle">Home</h1>
 				</div>
 				<div class="cards-grid" id="cardsGrid"></div>
 				<div class="empty-state" id="emptyState" style="display:none">
@@ -76,16 +70,13 @@
 					<p>Nenhum sistema nesta seção</p>
 				</div>
 			</div>
-
 			<div class="footer" id="footerEl">
 				<span class="brand">Dados</span> | CeAC HCFMUSP
 			</div>
-
 		</div>
 	</div>
 </div>
- 
-<div class="mobile-overlay" id="mobileOverlay"></div>
+
 
 <div class="modal-overlay" id="modalCard">
 	<div class="modal">

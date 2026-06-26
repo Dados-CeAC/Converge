@@ -6584,6 +6584,15 @@ textarea:focus {
   white-space: nowrap;
 }
 
+.sidebar-profile-email {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .sidebar-profile-link {
   display: inline-flex;
   align-items: center;
