@@ -110,11 +110,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const ouvidoriaKey = "ouvidoriaChamados";
 
   async function initClerk() {
-    if (!window.Clerk) {
-      return false;
-    }
-
+    // Se houver uma promise de carregamento, aguarda-a primeiro (preload)
     try {
+      if (window._clerkLoaded && typeof window._clerkLoaded.then === 'function') {
+        await window._clerkLoaded;
+      }
+      if (!window.Clerk) return false;
       await window.Clerk.load();
       return true;
     } catch (erro) {
@@ -2096,6 +2097,37 @@ document.addEventListener("DOMContentLoaded", async () => {
   displayClerkUser(currentUser);
   initSidebarProfileLink();
   initLogoutButton();
+
+  // Monitoramento da sessão: se a sessão for perdida, redireciona automaticamente para a tela de login.
+  // Isso cobre casos em que o usuário desloga em outra aba ou a sessão expira.
+  const SESSION_CHECK_INTERVAL_MS = 5000;
+  const sessionMonitor = setInterval(() => {
+    try {
+      const user = window.Clerk?.user;
+      if (!user) {
+        clearInterval(sessionMonitor);
+        window.location.href = "login.html";
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, SESSION_CHECK_INTERVAL_MS);
+
+  // Opção para deslogar automaticamente quando a aba for fechada.
+  // Por padrão, deixamos desativado para evitar deslogar usuários inesperadamente.
+  const AUTO_SIGN_OUT_ON_CLOSE = false;
+  if (AUTO_SIGN_OUT_ON_CLOSE) {
+    window.addEventListener("beforeunload", (ev) => {
+      try {
+        if (window.Clerk && typeof window.Clerk.signOut === "function") {
+          // signOut pode ser assíncrono; iniciamos a chamada sem aguardar
+          window.Clerk.signOut().catch(() => {});
+        }
+      } catch (e) {
+        // ignore
+      }
+    });
+  }
 
   const DOC = document.documentElement;
   const themeModes = ["default", "dark"];

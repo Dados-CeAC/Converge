@@ -20,12 +20,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Aguarda até que o script do Clerk esteja disponível (evita erro por carregamento assíncrono)
   async function waitForClerk(timeoutMs = 7000) {
+    // Se houver uma promise global criada no head, aguarda ela (mais rápida e confiável)
+    if (window._clerkLoaded && typeof window._clerkLoaded.then === 'function') {
+      try {
+        const res = await Promise.race([
+          window._clerkLoaded,
+          new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), timeoutMs)),
+        ]);
+        return !!res && !!window.Clerk;
+      } catch (e) {
+        return !!window.Clerk;
+      }
+    }
+
     const start = Date.now();
     while (Date.now() - start < timeoutMs) {
       if (window.Clerk) return true;
-      // espera 200ms antes de checar novamente
+      // espera 150ms antes de checar novamente
       // eslint-disable-next-line no-await-in-loop
-      await new Promise((r) => setTimeout(r, 200));
+      await new Promise((r) => setTimeout(r, 150));
     }
     return false;
   }
