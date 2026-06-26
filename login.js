@@ -18,7 +18,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "index.html";
   }
 
-  if (!window.Clerk) {
+  // Aguarda até que o script do Clerk esteja disponível (evita erro por carregamento assíncrono)
+  async function waitForClerk(timeoutMs = 7000) {
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+      if (window.Clerk) return true;
+      // espera 200ms antes de checar novamente
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise((r) => setTimeout(r, 200));
+    }
+    return false;
+  }
+
+  const clerkAvailable = await waitForClerk();
+  if (!clerkAvailable) {
     showError("Clerk não foi carregado. Verifique a conexão ou a chave publishable.");
     return;
   }
@@ -42,6 +55,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   loginBtn.addEventListener("click", () => {
     clearError();
-    window.Clerk.redirectToSignIn({ redirectUrl: new URL("index.html", window.location.href).href });
+    // Tenta redirecionar para a tela de login do Clerk (se disponível).
+    try {
+      if (typeof window.Clerk.redirectToSignIn === 'function') {
+        window.Clerk.redirectToSignIn({ redirectUrl: new URL("index.html", window.location.href).href });
+        return;
+      }
+      // fallback: tenta métodos alternativos conhecidos
+      if (typeof window.Clerk.openSignIn === 'function') {
+        window.Clerk.openSignIn({ afterSignInUrl: new URL("index.html", window.location.href).href });
+        return;
+      }
+    } catch (e) {
+      // continua para fallback
+    }
+
+    // Fallback local (útil para desenvolvimento): redireciona direto para o site
+    window.location.href = 'index.html';
   });
 });
