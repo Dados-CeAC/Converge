@@ -538,11 +538,12 @@ Normalmente onde fica:
   Faz a logo não ficar grudada.
   */
   padding: 6px 16px;
+  box-sizing: border-box;
 
   /* 
-  height = altura da caixa
+  min-height = altura mínima da caixa
   */
-  height: 58px;
+  min-height: 58px;
 
   /* 
   box-shadow = sombra
@@ -6420,15 +6421,49 @@ textarea:focus {
 
 .topbar {
   height: var(--topbar-h);
+  min-height: var(--topbar-h);
+  width: 100%;
   background:
     radial-gradient(circle at 55% -35%, rgba(0, 156, 166, 0.38), transparent 42%),
     linear-gradient(105deg, #004c68 0%, #006c77 48%, #003d57 100%);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 18px;
-  padding: 0 8px 0 0;
+  padding: 0 20px;
   overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.topbar .logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 0;
+  flex: 0 0 auto;
+}
+
+.topbar .brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  height: auto;
+  max-height: 100%;
+}
+
+.topbar .brand-logo-img {
+  max-width: 100%;
+  max-height: 42px;
+  width: auto;
+  height: auto;
 }
 
 .logo-box {
@@ -6934,6 +6969,7 @@ textarea:focus {
   .topbar {
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     padding: 12px 14px;
     gap: 12px;
   }
@@ -6948,23 +6984,28 @@ textarea:focus {
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.12);
     color: #fff;
+    margin-right: 0;
   }
-  .logo-box {
-    width: auto;
+  .topbar .logo-box {
+    flex: 1 1 120px;
     min-width: 0;
     padding: 0;
     background: transparent;
     border-radius: 0;
     box-shadow: none;
   }
+  .topbar .logo-box .brand-logo {
+    justify-content: center;
+    padding: 0 8px;
+  }
+  .topbar .brand-logo-img,
+  .topbar .brand-logo-hcfmusp,
+  .topbar .brand-logo-ceac {
+    max-width: 110px;
+    height: auto;
+  }
   .ceac-logo-box {
     margin-left: 0;
-  }
-  .brand-logo-img,
-  .brand-logo-hcfmusp,
-  .brand-logo-ceac {
-    max-width: 140px;
-    height: auto;
   }
   .sidebar {
     position: fixed !important;
