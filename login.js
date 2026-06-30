@@ -57,17 +57,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (window.Clerk.user) {
+    const email = window.Clerk.user.primaryEmailAddress?.emailAddress || "";
+
+    if (!email.endsWith("@hc.fm.usp.br")) {
+      await window.Clerk.signOut();
+      showError("Use apenas seu e-mail institucional @hc.fm.usp.br");
+      return;
+    }
+
     redirectToIndex();
-    return;
   }
 
   if (!loginBtn) {
     showError("Botão de login não foi encontrado.");
-    return;
+    return; 
   }
 
   loginBtn.addEventListener("click", () => {
     clearError();
+
     // Tenta redirecionar para a tela de login do Clerk (se disponível).
     try {
       if (typeof window.Clerk.redirectToSignIn === 'function') {
