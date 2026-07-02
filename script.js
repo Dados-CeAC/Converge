@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     Gestão: "ti-briefcase",
     Qualidade: "ti-certificate",
     Dados: "ti-database",
-    Ouvidoria: "ti-headset",
     Gerenciamento: "ti-adjustments",
     "Meu Perfil": "ti-user",
     "Assesoria Jurídica": "ti-scale",
+    "Ouvidoria": "ti-headset",
   };
   const cardIconMap = {
     Home: "ti-home",
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "Meu ASO": "ti-file-check",
     "Meu Perfil": "ti-user",
     "Meu Chamados": "ti-ticket",
+    "Ouvidoria": "ti-headset",
     "Gestores": "ti-users",
     "Colaboradores": "ti-user-check",
     "Votação - CIPA": "ti-checklist",
@@ -87,6 +88,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     Processos: "ti-file",
     Profissionais: "ti-id-badge",
     "Perícias": "ti-search",
+    "Meus Chamados": "ti-ticket",
+    "operador": "ti-headset",
+
   };
 
   const cardUrlMap = {
@@ -100,14 +104,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     "Portal RH FFM": "https://portalrh.ffm.br/ords/rhlgweb.show",
     NatcorpHC: "https://www.natcorp.com.br/portais/saude/",
     NatcorpFZ: "https://www.natcorp.com.br/portais/incor/",
-
   };
 
   const chamadosDBName = "convergeChamadosDB";
   const chamadosStoreName = "meusChamados";
-  const ouvidoriaStoreName = "ouvidoriaChamados";
   const chamadosKey = "converge:meusChamados";
-  const ouvidoriaKey = "ouvidoriaChamados";
+
+  const operadorRows = [];
+  const operadorColumns = [
+    { key: "protocolo", label: "Protocolo" },
+    { key: "data", label: "Data" },
+    { key: "anonima", label: "Anônima?" },
+    { key: "manifestante", label: "Manifestante" },
+    { key: "cpf", label: "CPF" },
+    { key: "cargo", label: "Cargo" },
+    { key: "instituto", label: "Instituto" },
+    { key: "tipo", label: "Tipo" },
+    { key: "setor", label: "Setor" },
+    { key: "profissionais", label: "Profissionais" },
+    { key: "dataResposta", label: "Data da Resposta" },
+    { key: "tempoResposta", label: "Tempo de Resposta" },
+    { key: "foraPrazo", label: "Fora do Prazo?" },
+    { key: "categoria", label: "Categoria (IA)" },
+    { key: "status", label: "Status" },
+  ];
 
   async function initClerk() {
     // Se houver uma promise de carregamento, aguarda-a primeiro (preload)
@@ -192,10 +212,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function getChamadosConfig(scope) {
-    const isOuvidoria = scope === "Ouvidoria";
-    return {
-      storeName: isOuvidoria ? ouvidoriaStoreName : chamadosStoreName,
-      storageKey: isOuvidoria ? ouvidoriaKey : chamadosKey,
+return {
+        storeName: chamadosStoreName,
+        storageKey: chamadosKey,
     };
   }
 
@@ -210,9 +229,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const db = event.target.result;
         if (!db.objectStoreNames.contains(chamadosStoreName)) {
           db.createObjectStore(chamadosStoreName, { keyPath: "id", autoIncrement: true });
-        }
-        if (!db.objectStoreNames.contains(ouvidoriaStoreName)) {
-          db.createObjectStore(ouvidoriaStoreName, { keyPath: "id", autoIncrement: true });
         }
       };
       request.onsuccess = () => resolve(request.result);
@@ -288,6 +304,36 @@ document.addEventListener("DOMContentLoaded", async () => {
       store.delete(id);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
+    });
+    return loadChamados(scope);
+  }
+
+  async function updateChamado(id, changes, scope) {
+    const { storeName } = getChamadosConfig(scope);
+    const db = await openChamadosDB();
+    if (!db) {
+      const records = loadChamadosFromStorage(scope).map((item) =>
+        item.id === id ? { ...item, ...changes } : item,
+      );
+      saveChamadosToStorage(records, scope);
+      return records;
+    }
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
+      const request = store.get(id);
+      request.onsuccess = () => {
+        const record = request.result;
+        if (!record) {
+          resolve();
+          return;
+        }
+        const updated = { ...record, ...changes };
+        const updateReq = store.put(updated);
+        updateReq.onsuccess = () => resolve();
+        updateReq.onerror = () => reject(updateReq.error);
+      };
+      request.onerror = () => reject(request.error);
     });
     return loadChamados(scope);
   }
@@ -418,11 +464,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     { id: 5, name: "Indicadores", items: ["PIH"] },
     { id: 7, name: "Assistencial", items: ["Ambulatorio", "Pronto Atendimento"] },
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
-    { id: 9, name: "Qualidade", items: ["Performance e excelência institucional", "Processos e melhoria contínua","Gestão de projetos","Gestão de riscos e segurança do paciente","Experiência do cliente"] },
+    { id: 9, name: "Qualidade", items: ["Meus Chamados","operador"] },
     { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
-    { id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
-    { id: 12, name: "Meu Perfil", items: ["Gestores", "Colaboradores"] },
-    {id: 13, name: "Assesoria Jurídica", items: ["Processos","Profissionais","Perícias"]},
+    {id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
+    { id: 13, name: "Assesoria Jurídica", items: ["Processos","Profissionais","Perícias"]},
   ];
 
   let activeSection = 0;
@@ -523,14 +568,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
     const isConsultarFuncionario = activeCard === "Consultar Funcionário";
-    const isOuvidoriaSection = sec.name === "Ouvidoria";
-
     title.textContent = isBorboletasForm
       ? "Formulário - Borboletas"
-      : isMeusChamados && isOuvidoriaSection
-      ? "Minhas Ouvidorias"
-      : isOperador && isOuvidoriaSection
-      ? "Operador de Ouvidoria"
       : isBorboletas
       ? "Borboletas"
       : isScreeningCard || isLinhaCuidadosCard
@@ -579,11 +618,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (isOperador) {
-      if (typeof renderOperadorOuvidoria === 'function') {
-        renderOperadorOuvidoria(grid, sec.name);
-      } else {
-        renderOuvidoriaOperator(grid, sec.name);
-      }
+      renderOperador(grid);
       return;
     }
 
@@ -634,25 +669,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (sec.name === "Home" && activeCard) {
       if (activeCard === "Meu Perfil") {
-        const perfilSection = sections.find((s) => s.name === "Meu Perfil");
-        if (perfilSection && perfilSection.items.length) {
-          perfilSection.items.forEach((item) => {
-            const card = document.createElement("div");
-            card.className = "sys-card";
-            const iconEl = createIconElement(getCardIcon(item));
-            const nameEl = document.createElement("div");
-            nameEl.className = "sys-card-name";
-            nameEl.textContent = item;
-            card.appendChild(iconEl);
-            card.appendChild(nameEl);
-            card.addEventListener("click", () => {
-              activeCard = item;
-              renderCards();
-            });
-            grid.appendChild(card);
-          });
-          return;
-        }
+        renderMeuPerfil(grid);
+        return;
       }
 
       if (activeCard === "Meus Sistemas") {
@@ -710,7 +728,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      if (activeCard === "Dados" || activeCard === "Ouvidoria") {
+      if (activeCard === "Dados") {
         const sectionTarget = sections.find((s) => s.name === activeCard);
         if (sectionTarget) {
           activeSection = sectionTarget.id;
@@ -1030,16 +1048,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       buscaInput,
     ];
     const searchSelects = [
-      formContainer.querySelector("#funcEmpresa"),
       formContainer.querySelector("#funcStatus"),
     ];
-    let searchTimer = null;
-    let searchController = null;
-
-    const escAttr = (s) => (s || '').toString().replace(/"/g, '&quot;');
-    let setoresData = [];
-    let filiaisData = [];
-    let cargosData = [];
 
     async function loadDatalists() {
       try {
@@ -1145,7 +1155,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const nome = normalizeSearchValue(formContainer.querySelector("#funcNome").value);
       const matricula = normalizeSearchValue(formContainer.querySelector("#funcMatricula").value);
       const cpf = normalizeSearchValue(formContainer.querySelector("#funcCpf").value);
-      const empresa = formContainer.querySelector("#funcEmpresa").value;
       const cargo = normalizeSearchValue(formContainer.querySelector("#funcCargo").value);
       const setor = normalizeSearchValue(formContainer.querySelector("#funcSetor").value);
       const filial = normalizeSearchValue(formContainer.querySelector("#funcFilial").value);
@@ -1163,7 +1172,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (nome) params.set("nome", nome);
       if (matricula) params.set("matricula", matricula);
       if (cpf) params.set("cpf", cpf);
-      if (empresa) params.set("empresa", empresa);
       if (cargo) params.set("cargo", cargo);
       if (setor) params.set("setor", setor);
       if (filial) params.set("filial", filial);
@@ -1381,37 +1389,172 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.appendChild(detailsDiv);
   }
 
-  function renderOperadorOuvidoria(grid, scope) {
-    const isOuvidoria = scope === "Ouvidoria";
+  function renderOperador(grid) {
     grid.innerHTML = `
       <div class="card-box">
         <div class="card-header">
           <div>
-            <h2>${isOuvidoria ? "Operador de Ouvidoria" : "Operador"}</h2>
-            <p>${isOuvidoria ? "Acompanhe as manifestações de Ouvidoria e gerencie as respostas do operador." : "Acompanhe as demandas do operador."}</p>
+            <h2>Operador</h2>
+            <p>Acompanhe as demandas do operador com status e próximos passos.</p>
           </div>
         </div>
         <div class="operador-panel">
           <div class="operador-card">
             <h3>Resumo do Operador</h3>
-            <p>Visualize atendimentos, responsáveis e status de manifestações de Ouvidoria.</p>
+            <p>Visualize atendimentos, responsáveis e status das demandas.</p>
           </div>
           <div class="operador-card">
             <h3>Próxima ação</h3>
-            <p>Selecione uma manifestação para atualizar o status ou consultar detalhes.</p>
+            <p>Selecione uma demanda para atualizar o status ou consultar detalhes.</p>
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderMeusChamados(grid, scope) {
-    const isOuvidoria = scope === "Ouvidoria";
-    const headerLabel = isOuvidoria ? "Nova Ouvidoria" : "Novo Chamado";
-    const listLabel = isOuvidoria ? "Minhas Ouvidorias" : "Meus Chamados";
-    const description = isOuvidoria
-      ? "Abra uma manifestação diretamente na Ouvidoria."
-      : "Abra um chamado direto pelo sistema de dados do Converge.";
+  function renderSectionCards(grid, cards, sectionName) {
+    grid.innerHTML = "";
+    const container = document.createElement("div");
+    container.className = "section-cards";
+    container.innerHTML = `
+      <div class="card-box">
+        <div class="card-header">
+          <div>
+            <h2>${escapeHtml(sectionName)}</h2>
+          </div>
+        </div>
+      </div>
+    `;
+    const cardsWrap = document.createElement("div");
+    cardsWrap.className = "cards-grid section-cards-grid";
+    cards.forEach((name) => {
+      const card = document.createElement("div");
+      card.className = "sys-card";
+      const iconEl = createIconElement(getCardIcon(name));
+      const nameEl = document.createElement("div");
+      nameEl.className = "sys-card-name";
+      nameEl.textContent = name;
+      card.appendChild(iconEl);
+      card.appendChild(nameEl);
+      card.addEventListener("click", () => {
+        const url = cardUrlMap[name];
+        if (url) {
+          window.open(url, "_blank");
+          return;
+        }
+        activeCard = name;
+        activeDetailParent = null;
+        renderCards();
+      });
+      cardsWrap.appendChild(card);
+    });
+    grid.appendChild(container);
+    grid.appendChild(cardsWrap);
+  }
+
+  function renderMeuPerfil(grid) {
+    const user = window.Clerk?.user;
+    const name = user?.fullName || user?.firstName || "Usuário";
+    const email = user?.primaryEmailAddress?.emailAddress || user?.primaryEmailAddress?.email || user?.emailAddresses?.[0]?.emailAddress || user?.email || "";
+    const identifier = user?.identifier || "";
+    grid.innerHTML = `
+      <div class="card-box">
+        <div class="card-header">
+          <div>
+            <h2>Meu Perfil</h2>
+            <p>Visualize seus dados de usuário autenticado.</p>
+          </div>
+        </div>
+        <div class="profile-details">
+          <div class="profile-row"><strong>Nome:</strong> ${escapeHtml(name)}</div>
+          <div class="profile-row"><strong>Email:</strong> ${escapeHtml(email)}</div>
+          <div class="profile-row"><strong>Identificador:</strong> ${escapeHtml(identifier)}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCareActionCards(grid, sectionName) {
+    renderSectionCards(grid, careActionCards, sectionName);
+  }
+
+  function renderCompromissosCards(grid) {
+    renderSectionCards(grid, compromissosOcupacionaisCards, "Compromissos Ocupacionais");
+  }
+
+  function renderControlesInternosCards(grid) {
+    renderSectionCards(grid, controlesInternosCards, "Controles Internos");
+  }
+
+  function renderAmbulatorioNestingCards(grid) {
+    renderSectionCards(grid, ambulatorioNestingCards, "Ambulatório");
+  }
+
+  function renderProntoAtendimentoCards(grid) {
+    renderSectionCards(grid, prontoAtendimentoCards, "Pronto Atendimento");
+  }
+
+  function renderColaboradoresCards(grid) {
+    renderSectionCards(grid, colaboradorCards, "Colaboradores");
+  }
+
+  function toggleSidebar() {
+    collapsed = !collapsed;
+    const sidebar = document.getElementById("sidebar");
+    const icon = document.getElementById("toggleIcon");
+    if (sidebar) sidebar.classList.toggle("collapsed", collapsed);
+    if (icon) icon.className = collapsed ? "ti ti-chevrons-right" : "ti ti-chevrons-left";
+  }
+
+  function openMobileSidebar() {
+    document.body.classList.add("mobile-sidebar-open");
+  }
+
+  function closeMobileSidebar() {
+    document.body.classList.remove("mobile-sidebar-open");
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = "none";
+  }
+
+  function confirmAddCard() {
+    closeModal("modalCard");
+    alert("Funcionalidade de adicionar sistema ainda não está disponível.");
+  }
+
+  function confirmAddSection() {
+    closeModal("modalSection");
+    alert("Funcionalidade de criar seção ainda não está disponível.");
+  }
+
+  function normalizeField(value) {
+    return value === undefined || value === null || value === "" ? "—" : value;
+  }
+
+  function makeCsvFromRows(rows, columns, filename) {
+    if (!rows.length) {
+      alert("Não há registros para exportar.");
+      return;
+    }
+    const header = columns.map((col) => `"${col.label}"`).join(";");
+    const lines = rows.map((row) => columns.map((col) => `"${String(row[col.key] || "").replace(/"/g, '""')}"`).join(";") );
+    const csv = [header, ...lines].join("\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
+
+
+  async function renderMeusChamados(grid, scope) {
+    const headerLabel = "Novo Chamado";
+    const listLabel = "Lista de Chamados";
+    const description = "Registre novas demandas ou acompanhe os chamados existentes.";
 
     const container = document.createElement("div");
     container.className = "meus-chamados-page";
@@ -1483,49 +1626,49 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!items.length) {
         return `
           <div class="empty-state">
-            <p>Nenhum chamado cadastrado ainda.</p>
+            <p>Nenhuma manifestação registrada ainda.</p>
+            <p>Clique em "Nova Manifestação" para registrar a primeira.</p>
           </div>
         `;
       }
 
+      const tableRows = items
+        .map((record) => {
+          const isAnonymous = record.anonymous || record.anônimo || record.anonima ? "Sim" : "Não";
+          return `
+            <tr>
+              <td>${record.id || "-"}</td>
+              <td>${record.date || "-"}</td>
+              <td>${isAnonymous}</td>
+              <td>${escapeHtml(record.requester || record.solicitante || "-")}</td>
+              <td>${escapeHtml(record.cpf || "-")}</td>
+              <td>${escapeHtml(record.service || record.instituto || "-")}</td>
+              <td>${escapeHtml(record.type || record.category || "-")}</td>
+              <td>${escapeHtml(record.sector || record.setor || "-")}</td>
+              <td><span class="${statusClass(record.status)}">${escapeHtml(record.status)}</span></td>
+            </tr>
+          `;
+        })
+        .join("");
+
       return `
-        ${renderSummary(items)}
         <div class="chamados-table-wrap">
           <table class="chamados-table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Título</th>
-                <th>Categoria</th>
-                <th>Prioridade</th>
-                <th>Solicitante</th>
-                <th>Status</th>
-                <th>Data</th>
-                <th>Ações</th>
+                <th>PROTOCOLO</th>
+                <th>DATA</th>
+                <th>ANÔNIMA?</th>
+                <th>MANIFESTANTE</th>
+                <th>CPF</th>
+                <th>INSTITUTO</th>
+                <th>TIPO</th>
+                <th>SETOR</th>
+                <th>STATUS</th>
               </tr>
             </thead>
             <tbody>
-              ${items
-                .map(
-                  (record, index) => `
-                    <tr>
-                      <td>${record.id}</td>
-                      <td>${record.title}</td>
-                      <td>${record.category}</td>
-                      <td><span class="${priorityClass(record.priority)}">${record.priority}</span></td>
-                      <td>${record.requester}</td>
-                      <td><span class="${statusClass(record.status)}">${record.status}</span></td>
-                      <td>${record.date || "-"}</td>
-                      <td class="table-actions-cell">
-                        <select class="status-select custom-select" data-id="${record.id}">
-                          ${statusOptions(record.status)}
-                        </select>
-                        <button class="btn small delete-chamado-btn" data-id="${record.id}"><i class="ti ti-trash"></i>Excluir</button>
-                      </td>
-                    </tr>
-                  `,
-                )
-                .join("")}
+              ${tableRows}
             </tbody>
           </table>
         </div>
@@ -1560,18 +1703,10 @@ document.addEventListener("DOMContentLoaded", async () => {
               <label>Categoria*</label>
               <select id="chamadoCategoria" class="custom-select">
                 <option value="">Selecione</option>
-                ${isOuvidoria ? `
-                  <option value="Reclamação">Reclamação</option>
-                  <option value="Denúncia">Denúncia</option>
-                  <option value="Elogio">Elogio</option>
-                  <option value="Sugestão">Sugestão</option>
-                  <option value="Solicitação">Solicitação</option>
-                ` : `
-                  <option value="TI">TI</option>
-                  <option value="RH">RH</option>
-                  <option value="Infraestrutura">Infraestrutura</option>
-                  <option value="Operações">Operações</option>
-                `}
+                <option value="TI">TI</option>
+                <option value="RH">RH</option>
+                <option value="Infraestrutura">Infraestrutura</option>
+                <option value="Operações">Operações</option>
               </select>
             </div>
             <div class="form-group">
@@ -1601,8 +1736,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <option value="Diretoria">Diretoria</option>
                 <option value="Medicina do Trabalho">Medicina do Trabalho</option>
                 <option value="Marketing e Mídias Sociais">Marketing e Mídias Sociais</option>
-                <option value="Ouvidoria">Ouvidoria</option>
-                <option value="Pronto Atendimento">Pronto Atendimento</option>
+                        <option value="Pronto Atendimento">Pronto Atendimento</option>
                 <option value="Qualidade">Qualidade</option>
                 <option value="Segurança do Trabalho">Segurança do Trabalho</option>
               </select>
@@ -1677,7 +1811,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               status,
               date,
               observations,
-              type: isOuvidoria ? "Ouvidoria" : "Chamado",
+              type: "Chamado",
             };
             const updated = await addChamado(record, scope);
             alert("Chamado salvo com sucesso.");
@@ -1753,302 +1887,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadChamados(scope).then(renderContent).catch(() => {
       contentEl.innerHTML = `
         <div class="empty-state">
-          <p>Não foi possível carregar ${isOuvidoria ? "as ouvidorias" : "os chamados"}.</p>
+          <p>Não foi possível carregar os chamados.</p>
         </div>
       `;
     });
   }
-
-  async function updateChamado(id, updates, scope) {
-    const { storeName } = getChamadosConfig(scope);
-    const db = await openChamadosDB();
-    if (!db) {
-      const records = loadChamadosFromStorage(scope).map((item) =>
-        item.id === id ? { ...item, ...updates } : item,
-      );
-      saveChamadosToStorage(records, scope);
-      return records;
-    }
-    const record = await new Promise((resolve, reject) => {
-      const tx = db.transaction(storeName, "readonly");
-      const store = tx.objectStore(storeName);
-      const request = store.get(id);
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
-    });
-    if (!record) return loadChamados(scope);
-    Object.assign(record, updates);
-    await new Promise((resolve, reject) => {
-      const tx = db.transaction(storeName, "readwrite");
-      const store = tx.objectStore(storeName);
-      store.put(record);
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-    });
-    return loadChamados(scope);
-  }
-
-  function renderCompromissosCards(grid) {
-    const cards = compromissosOcupacionaisCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = document.createElement("i");
-      iconEl.className = "ti " + cardData.icon;
-
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-
-      card.addEventListener("click", () => {
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderControlesInternosCards(grid) {
-    const cards = controlesInternosCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-
-      card.addEventListener("click", () => {
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderAmbulatorioNestingCards(grid) {
-    const cards = ambulatorioNestingCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
-
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-
-      card.addEventListener("click", () => {
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderProntoAtendimentoCards(grid) {
-    const cards = prontoAtendimentoCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
-
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-
-      card.addEventListener("click", () => {
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderCareActionCards(grid, category) {
-    const cards = careActionCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    const parentName = activeDetailParent || activeCard;
-
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
-
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      const catEl = document.createElement("div");
-      catEl.className = "sys-card-cat";
-      catEl.textContent = parentName || category;
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-      card.appendChild(catEl);
-
-      card.addEventListener("click", () => {
-        if (cardData.name !== "Formulário" || parentName !== "Borboletas") {
-          return;
-        }
-        activeDetailParent = parentName;
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderColaboradoresCards(grid) {
-    const cards = colaboradorCards.map((name) => ({ name, icon: getCardIcon(name) }));
-    cards.forEach((cardData) => {
-      const card = document.createElement("div");
-      card.className = "sys-card";
-
-      const iconEl = createIconElement(cardData.icon || getCardIcon(cardData.name));
-      const nameEl = document.createElement("div");
-      nameEl.className = "sys-card-name";
-      nameEl.textContent = cardData.name;
-
-      const catEl = document.createElement("div");
-      catEl.className = "sys-card-cat";
-      catEl.textContent = "Colaboradores";
-
-      card.appendChild(iconEl);
-      card.appendChild(nameEl);
-      card.appendChild(catEl);
-
-      card.addEventListener("click", () => {
-        activeCard = cardData.name;
-        renderCards();
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    if (window.innerWidth <= 900) {
-      if (sidebar && sidebar.classList.contains("mobile-open")) {
-        closeMobileSidebar();
-      } else {
-        openMobileSidebar();
-      }
-      return;
-    }
-
-    collapsed = !collapsed;
-    document.getElementById("sidebar").classList.toggle("collapsed", collapsed);
-    document.getElementById("toggleIcon").className =
-      "ti " + (collapsed ? "ti-chevrons-right" : "ti-chevrons-left");
-  }
-
-  function openMobileSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("mobileOverlay");
-    if (sidebar) sidebar.classList.add("mobile-open");
-    if (overlay) overlay.classList.add("show");
-  }
-
-  function closeMobileSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("mobileOverlay");
-    if (sidebar) sidebar.classList.remove("mobile-open");
-    if (overlay) overlay.classList.remove("show");
-  }
-
-  function updateUser(val) {
-    document.getElementById("dispUser").textContent = val;
-    const initials =
-      val
-        .split(".")
-        .map((p) => p[0] || "")
-        .join("")
-        .toUpperCase()
-        .slice(0, 2) || "HC";
-    document.getElementById("avatarEl").textContent = initials;
-  }
-
-  function updateTitle(val) {
-    document.getElementById("dispPageTitle").textContent = val;
-  }
-
-  function updateFooter(val) {
-    const parts = val.split(" ");
-    const first = parts.shift();
-    document.getElementById("footerEl").innerHTML =
-      `<span class="brand">${first}</span> ${parts.join(" ")}`;
-  }
-
-  function openAddCard() {
-    const sel = document.getElementById("cardSection");
-    sel.innerHTML = sections
-      .map((s) => `<option value="${s.id}">${s.name}</option>`)
-      .join("");
-    sel.value = activeSection;
-    document.getElementById("cardName").value = "";
-    openModal("modalCard");
-  }
-
-  function confirmAddCard() {
-    const name = document.getElementById("cardName").value.trim();
-    const secId = parseInt(document.getElementById("cardSection").value);
-    if (!name) return;
-    const sec = sections.find((s) => s.id === secId);
-    if (sec && !sec.items.includes(name)) {
-      sec.items.push(name);
-      activeSection = secId;
-    }
-    closeModal("modalCard");
-    render();
-  }
-
-  function openAddSection() {
-    document.getElementById("sectionName").value = "";
-    openModal("modalSection");
-  }
-
-  function confirmAddSection() {
-    const name = document.getElementById("sectionName").value.trim();
-    if (!name) return;
-    sections.push({ id: nextId++, name, items: [] });
-    closeModal("modalSection");
-    render();
-  }
-
-  function openModal(id) {
-    document.getElementById(id).classList.add("show");
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove("show");
-  }
-
-  document.querySelectorAll(".modal-overlay").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      if (e.target === el) el.classList.remove("show");
-    });
-  });
 
   const attachListeners = () => {
     const toggleBtn = document.getElementById("toggleBtn");
