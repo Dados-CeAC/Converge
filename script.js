@@ -476,6 +476,8 @@ return {
   let collapsed = false;
   let nextId = 10;
   let meusChamadosView = "novo";
+  let funcionariosViewMode = "list";
+  let chamadosViewMode = "list";
 
   function getIcon(name) {
     return iconMap[name] || "ti-folder";
@@ -1030,14 +1032,28 @@ return {
     resultContainer.className = "consultar-funcionario-results";
     resultContainer.id = "funcResultsContainer";
     resultContainer.style.display = "none";
+    resultContainer.innerHTML = `
+      <div class="consulta-view-toolbar">
+        <div class="consulta-view-toggle" role="group" aria-label="Alternar visualização">
+          <button type="button" class="view-toggle-btn ${funcionariosViewMode === "list" ? "active" : ""}" data-mode="list">
+            <i class="ti ti-list"></i> Lista
+          </button>
+          <button type="button" class="view-toggle-btn ${funcionariosViewMode === "grid" ? "active" : ""}" data-mode="grid">
+            <i class="ti ti-layout-grid"></i> Grade
+          </button>
+        </div>
+      </div>
+      <div id="funcResultsContent"></div>
+    `;
     
     grid.appendChild(formContainer);
     grid.appendChild(resultContainer);
 
+    const resultsContent = resultContainer.querySelector("#funcResultsContent");
+    const resultsDiv = resultContainer;
     const buscaInput = formContainer.querySelector("#funcBusca");
     const buscBtn = formContainer.querySelector("#funcBuscBtn");
     const limparBtn = formContainer.querySelector("#funcLimparBtn");
-    const resultsDiv = grid.querySelector("#funcResultsContainer");
     const searchFields = [
       formContainer.querySelector("#funcNome"),
       formContainer.querySelector("#funcMatricula"),
@@ -1150,6 +1166,128 @@ return {
     // small delay to allow datalists to be filled, then wire combo behavior
     setTimeout(setupComboBehavior, 250);
 
+    let funcionarioResults = [];
+    let funcionarioGroupedResults = {};
+    let funcionarioSetoresOrdenados = [];
+
+    function renderFuncionarioResults() {
+      if (!funcionarioResults.length) {
+        resultsDiv.style.display = "none";
+        resultsContent.innerHTML = "";
+        return;
+      }
+
+      resultsDiv.style.display = "block";
+      const isGrid = funcionariosViewMode === "grid";
+      const markup = isGrid
+        ? `
+            <div class="card-box">
+              <div class="card-header">
+                <div>
+                  <h3>Resultados da Busca</h3>
+                  <p>Total de ${funcionarioResults.length} funcionário(s) encontrado(s)</p>
+                </div>
+              </div>
+              <div class="funcionarios-grid">
+                ${funcionarioSetoresOrdenados.map((setor) => `
+                  <div class="setor-group">
+                    <h4 class="setor-title">${escapeHtml(setor)}</h4>
+                    <div class="funcionarios-grid">
+                      ${funcionarioGroupedResults[setor]
+                        .map((func) => `
+                          <div class="funcionario-card">
+                            <div class="funcionario-card-header">
+                              <div class="funcionario-name">${escapeHtml(func.nome || "Sem nome")}</div>
+                              <span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span>
+                            </div>
+                            <div class="funcionario-card-meta">
+                              <span><strong>Matrícula:</strong> ${escapeHtml(func.matricula)}</span>
+                              <span><strong>Cargo:</strong> ${escapeHtml(func.cargo)}</span>
+                              <span><strong>Filial:</strong> ${escapeHtml(func.filial)}</span>
+                              <span><strong>Email:</strong> ${escapeHtml(func.email)}</span>
+                            </div>
+                            <div class="funcionario-card-actions">
+                              <button class="btn small view-details" data-setor="${escapeHtml(setor)}" data-index="${funcionarioGroupedResults[setor].indexOf(func)}"><i class="ti ti-eye"></i> Detalhes</button>
+                            </div>
+                          </div>
+                        `)
+                        .join("")}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          `
+        : `
+            <div class="card-box">
+              <div class="card-header">
+                <div>
+                  <h3>Resultados da Busca</h3>
+                  <p>Total de ${funcionarioResults.length} funcionário(s) encontrado(s)</p>
+                </div>
+              </div>
+              <div class="funcionarios-table-wrap">
+                ${funcionarioSetoresOrdenados.map((setor) => `
+                  <div class="setor-group">
+                    <h4 class="setor-title">${escapeHtml(setor)}</h4>
+                    <table class="funcionarios-table">
+                      <thead>
+                        <tr>
+                          <th>Matrícula</th>
+                          <th>Nome</th>
+                          <th>Cargo</th>
+                          <th>Filial</th>
+                          <th>Situação</th>
+                          <th>Email</th>
+                          <th>Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${funcionarioGroupedResults[setor]
+                          .map((func, index) => `
+                            <tr>
+                              <td>${escapeHtml(func.matricula)}</td>
+                              <td>${escapeHtml(func.nome)}</td>
+                              <td>${escapeHtml(func.cargo)}</td>
+                              <td>${escapeHtml(func.filial)}</td>
+                              <td><span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span></td>
+                              <td>${escapeHtml(func.email)}</td>
+                              <td>
+                                <button class="btn small view-details" data-setor="${escapeHtml(setor)}" data-index="${index}"><i class="ti ti-eye"></i> Detalhes</button>
+                              </td>
+                            </tr>
+                          `)
+                          .join("")}
+                      </tbody>
+                    </table>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          `;
+
+      resultsContent.innerHTML = markup;
+
+      resultsContent.querySelectorAll(".view-details").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const setor = btn.dataset.setor;
+          const index = Number(btn.dataset.index);
+          const funcData = funcionarioGroupedResults[setor][index];
+          showFuncionarioDetails(funcData, resultsContent);
+        });
+      });
+    }
+
+    resultContainer.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        funcionariosViewMode = btn.dataset.mode === "grid" ? "grid" : "list";
+        resultContainer.querySelectorAll(".view-toggle-btn").forEach((item) => {
+          item.classList.toggle("active", item === btn);
+        });
+        renderFuncionarioResults();
+      });
+    });
+
     async function buscarFuncionariosAtivo() {
       const termo = normalizeSearchValue(buscaInput.value);
       const nome = normalizeSearchValue(formContainer.querySelector("#funcNome").value);
@@ -1160,10 +1298,13 @@ return {
       const filial = normalizeSearchValue(formContainer.querySelector("#funcFilial").value);
       const status = formContainer.querySelector("#funcStatus").value;
 
-      if (!termo && !nome && !matricula && !cpf && !empresa && !cargo && !setor && !filial && !status) {
+      if (!termo && !nome && !matricula && !cpf && !cargo && !setor && !filial && !status) {
         if (searchController) searchController.abort();
+        funcionarioResults = [];
+        funcionarioGroupedResults = {};
+        funcionarioSetoresOrdenados = [];
         resultsDiv.style.display = "none";
-        resultsDiv.innerHTML = "";
+        resultsContent.innerHTML = "";
         return;
       }
 
@@ -1181,7 +1322,7 @@ return {
       searchController = new AbortController();
 
       resultsDiv.style.display = "block";
-      resultsDiv.innerHTML = renderFuncionarioEmptyState("Consultando funcionários...", "ti-loader-2");
+      resultsContent.innerHTML = renderFuncionarioEmptyState("Consultando funcionários...", "ti-loader-2");
 
       try {
         const response = await fetch(`${FUNCIONARIOS_API_URL}?${params.toString()}`, {
@@ -1195,9 +1336,13 @@ return {
         const resultados = Array.isArray(payload.results) ? payload.results : [];
 
         if (resultados.length === 0) {
-          resultsDiv.innerHTML = renderFuncionarioEmptyState("Nenhum funcionário encontrado com os critérios informados.");
+          funcionarioResults = [];
+          funcionarioGroupedResults = {};
+          funcionarioSetoresOrdenados = [];
+          renderFuncionarioResults();
         } else {
-          const groupedResults = resultados
+          funcionarioResults = resultados;
+          funcionarioGroupedResults = resultados
             .slice()
             .sort((a, b) => {
               const setorA = (a.nomeLocalTrabalho || a.localTrabalho || "").toLowerCase();
@@ -1217,68 +1362,16 @@ return {
               return groups;
             }, {});
 
-          const setoresOrdenados = Object.keys(groupedResults).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-          const tableHTML = `
-            <div class="card-box">
-              <div class="card-header">
-                  <div>
-                    <h3>Resultados da Busca</h3>
-                    <p>Total de ${resultados.length} funcionário(s) encontrado(s)</p>
-                  </div>
-                </div>
-              <div class="funcionarios-table-wrap">
-                ${setoresOrdenados.map(setor => `
-                  <div class="setor-group">
-                    <h4 class="setor-title">${escapeHtml(setor)}</h4>
-                    <table class="funcionarios-table">
-                      <thead>
-                        <tr>
-                          <th>Matrícula</th>
-                          <th>Nome</th>
-                          <th>Cargo</th>
-                          <th>Filial</th>
-                          <th>Situação</th>
-                          <th>Email</th>
-                          <th>Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        ${groupedResults[setor].map((func, index) => `
-                          <tr>
-                            <td>${escapeHtml(func.matricula)}</td>
-                            <td>${escapeHtml(func.nome)}</td>
-                            <td>${escapeHtml(func.cargo)}</td>
-                            <td>${escapeHtml(func.filial)}</td>
-                            <td><span class="status-chip ${getFuncionarioStatusClass(func.status)}">${escapeHtml(func.status || "Não informado")}</span></td>
-                            <td>${escapeHtml(func.email)}</td>
-                            <td>
-                              <button class="btn small view-details" data-setor="${escapeHtml(setor)}" data-index="${index}"><i class="ti ti-eye"></i> Detalhes</button>
-                            </td>
-                          </tr>
-                        `).join("")}
-                      </tbody>
-                    </table>
-                  </div>
-                `).join("")}
-              </div>
-            </div>
-          `;
-
-          resultsDiv.innerHTML = tableHTML;
-
-          resultsDiv.querySelectorAll(".view-details").forEach(btn => {
-            btn.addEventListener("click", () => {
-              const setor = btn.dataset.setor;
-              const index = Number(btn.dataset.index);
-              const funcData = groupedResults[setor][index];
-              showFuncionarioDetails(funcData, resultsDiv);
-            });
-          });
+          funcionarioSetoresOrdenados = Object.keys(funcionarioGroupedResults).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+          renderFuncionarioResults();
         }
       } catch (error) {
         if (error.name === "AbortError") return;
-        resultsDiv.innerHTML = renderFuncionarioEmptyState(`${error.message} Verifique se o servidor Flask está em execução.`, "ti-plug-connected-x");
+        funcionarioResults = [];
+        funcionarioGroupedResults = {};
+        funcionarioSetoresOrdenados = [];
+        resultsDiv.style.display = "block";
+        resultsContent.innerHTML = renderFuncionarioEmptyState(`${error.message} Verifique se o servidor Flask está em execução.`, "ti-plug-connected-x");
       }
     }
 
@@ -1312,8 +1405,11 @@ return {
       formContainer.querySelector("#funcBusca").value = "";
       if (searchController) searchController.abort();
       clearTimeout(searchTimer);
+      funcionarioResults = [];
+      funcionarioGroupedResults = {};
+      funcionarioSetoresOrdenados = [];
       resultsDiv.style.display = "none";
-      resultsDiv.innerHTML = "";
+      resultsContent.innerHTML = "";
       formContainer.querySelector("#funcNome").focus();
     });
   }
@@ -1675,6 +1771,44 @@ return {
       `;
     };
 
+    const renderChamadosCards = (items) => {
+      if (!items.length) {
+        return `
+          <div class="empty-state">
+            <p>Nenhuma manifestação registrada ainda.</p>
+            <p>Clique em "Nova Manifestação" para registrar a primeira.</p>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="chamados-grid">
+          ${items.map((record) => {
+            const isAnonymous = record.anonymous || record.anônimo || record.anonima ? "Sim" : "Não";
+            return `
+              <div class="chamado-card">
+                <div class="chamado-card-header">
+                  <div>
+                    <div class="chamado-card-id">#${record.id || "-"}</div>
+                    <div class="chamado-card-title">${escapeHtml(record.requester || record.solicitante || "-")}</div>
+                  </div>
+                  <span class="${statusClass(record.status)}">${escapeHtml(record.status)}</span>
+                </div>
+                <div class="chamado-card-meta">
+                  <span><strong>Data:</strong> ${escapeHtml(record.date || "-")}</span>
+                  <span><strong>Tipo:</strong> ${escapeHtml(record.type || record.category || "-")}</span>
+                  <span><strong>Setor:</strong> ${escapeHtml(record.sector || record.setor || "-")}</span>
+                  <span><strong>Instituto:</strong> ${escapeHtml(record.service || record.instituto || "-")}</span>
+                  <span><strong>CPF:</strong> ${escapeHtml(record.cpf || "-")}</span>
+                  <span><strong>Anônima:</strong> ${isAnonymous}</span>
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    };
+
     const formTemplate = `
       <div class="card-box new-chamado-card meus-chamados-form">
         <div class="card-header">
@@ -1847,7 +1981,30 @@ return {
           });
         }
       } else {
-        contentEl.innerHTML = renderTable(items);
+        contentEl.innerHTML = `
+          <div class="consulta-view-toolbar">
+            <div class="consulta-view-toggle" role="group" aria-label="Alternar visualização">
+              <button type="button" class="view-toggle-btn ${chamadosViewMode === "list" ? "active" : ""}" data-mode="list">
+                <i class="ti ti-list"></i> Lista
+              </button>
+              <button type="button" class="view-toggle-btn ${chamadosViewMode === "grid" ? "active" : ""}" data-mode="grid">
+                <i class="ti ti-layout-grid"></i> Grade
+              </button>
+            </div>
+          </div>
+          <div class="consulta-view-content">
+            ${chamadosViewMode === "grid" ? renderChamadosCards(items) : renderTable(items)}
+          </div>
+        `;
+        contentEl.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            chamadosViewMode = btn.dataset.mode === "grid" ? "grid" : "list";
+            contentEl.querySelectorAll(".view-toggle-btn").forEach((item) => {
+              item.classList.toggle("active", item === btn);
+            });
+            renderContent(items);
+          });
+        });
         contentEl.querySelectorAll(".delete-chamado-btn").forEach((btn) => {
           btn.addEventListener("click", async () => {
             const id = Number(btn.dataset.id);
