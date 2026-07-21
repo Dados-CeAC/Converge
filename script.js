@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     NatcorpFZ: "https://www.natcorp.com.br/portais/incor/",
   };
 
+  const dataJudApiKey = "cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw==";
+  const dataJudApiUrl = "https://datajud-wiki.cnj.jus.br/api-publica/acesso";
   const chamadosDBName = "convergeChamadosDB";
   const chamadosStoreName = "meusChamados";
   const chamadosKey = "converge:meusChamados";
@@ -570,6 +572,7 @@ return {
     const isCompromissosNested = compromissosOcupacionaisCards.includes(activeCard);
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
     const isConsultarFuncionario = activeCard === "Consultar Funcionário";
+    const isDataJudProcessos = activeCard === "Processos";
     title.textContent = isBorboletasForm
       ? "Formulário - Borboletas"
       : isBorboletas
@@ -586,6 +589,8 @@ return {
       ? "Pronto Atendimento"
       : isConsultarFuncionario
       ? "Consultar Funcionário"
+      : isDataJudProcessos
+      ? "Processos"
       : activeCard
       ? activeCard
       : sec.name;
@@ -616,6 +621,11 @@ return {
 
     if (isConsultarFuncionario) {
       renderConsultarFuncionario(grid);
+      return;
+    }
+
+    if (isDataJudProcessos) {
+      renderDataJudProcessos(grid);
       return;
     }
 
@@ -911,7 +921,7 @@ return {
     }
   }
 
-  const FUNCIONARIOS_API_URL = "http://127.0.0.1:5000/api/funcionarios";
+  const FUNCIONARIOS_API_URL = "/api/funcionarios";
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -1064,6 +1074,7 @@ return {
       buscaInput,
     ];
     const searchSelects = [
+      formContainer.querySelector("#funcEmpresa"),
       formContainer.querySelector("#funcStatus"),
     ];
 
@@ -1296,9 +1307,10 @@ return {
       const cargo = normalizeSearchValue(formContainer.querySelector("#funcCargo").value);
       const setor = normalizeSearchValue(formContainer.querySelector("#funcSetor").value);
       const filial = normalizeSearchValue(formContainer.querySelector("#funcFilial").value);
+      const empresa = normalizeSearchValue(formContainer.querySelector("#funcEmpresa").value);
       const status = formContainer.querySelector("#funcStatus").value;
 
-      if (!termo && !nome && !matricula && !cpf && !cargo && !setor && !filial && !status) {
+      if (!termo && !nome && !matricula && !cpf && !empresa && !cargo && !setor && !filial && !status) {
         if (searchController) searchController.abort();
         funcionarioResults = [];
         funcionarioGroupedResults = {};
@@ -1313,6 +1325,7 @@ return {
       if (nome) params.set("nome", nome);
       if (matricula) params.set("matricula", matricula);
       if (cpf) params.set("cpf", cpf);
+      if (empresa) params.set("empresa", empresa);
       if (cargo) params.set("cargo", cargo);
       if (setor) params.set("setor", setor);
       if (filial) params.set("filial", filial);
@@ -1506,6 +1519,90 @@ return {
         </div>
       </div>
     `;
+  }
+
+  async function fetchDataJudAcesso() {
+    try {
+      const response = await fetch(dataJudApiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `APIKey ${dataJudApiKey}`,
+          Accept: "application/json",
+        },
+      });
+
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = text;
+      }
+
+      return {
+        ok: response.ok,
+        status: response.status,
+        statusText: response.statusText,
+        data,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        status: 0,
+        statusText: error.message,
+        data: null,
+      };
+    }
+  }
+
+  function renderDataJudProcessos(grid) {
+    grid.innerHTML = "";
+    const panel = document.createElement("div");
+    panel.className = "card-box";
+    panel.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h2>Processos</h2>
+          <p>Consulta DataJud via API pública usando chave API.</p>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex: 1; min-width: 240px;">
+          <label>Buscar</label>
+          <input id="dataJudQueryInput" type="text" placeholder="Deixe vazio para testar acesso" />
+        </div>
+        <div class="form-group" style="align-self: flex-end; margin-bottom: 0;">
+          <button id="dataJudFetchBtn" class="btn">Consultar DataJud</button>
+        </div>
+      </div>
+      <div id="dataJudResult" class="datajud-result">
+        <div class="datajud-result-placeholder">Clique em "Consultar DataJud" para testar a API.</div>
+      </div>
+    `;
+
+    grid.appendChild(panel);
+
+    const resultContainer = panel.querySelector("#dataJudResult");
+    const fetchButton = panel.querySelector("#dataJudFetchBtn");
+    const queryInput = panel.querySelector("#dataJudQueryInput");
+
+    fetchButton.addEventListener("click", async () => {
+      resultContainer.innerHTML = `<div class="loading">Consultando DataJud...</div>`;
+      const result = await fetchDataJudAcesso();
+      let html;
+      if (result.ok) {
+        html = `
+          <div class="result-status success">Status: ${result.status} ${result.statusText}</div>
+          <pre>${escapeHtml(JSON.stringify(result.data, null, 2))}</pre>
+        `;
+      } else {
+        html = `
+          <div class="result-status error">Falha: ${result.status || "?"} ${escapeHtml(result.statusText)}</div>
+          <pre>${escapeHtml(JSON.stringify(result.data, null, 2))}</pre>
+        `;
+      }
+      resultContainer.innerHTML = html;
+    });
   }
 
   function renderSectionCards(grid, cards, sectionName) {
