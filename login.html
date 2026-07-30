@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="login.css">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js" as="script">
+    <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
     <script>
         // Promise pública que resolve quando o script do Clerk carregar — usado para acelerar inicialização
         (function () {
@@ -43,7 +44,6 @@
             });
         })();
     </script>
-    <script id="clerk-sdk" async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 </head>
 <body class="login-page" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk">
     <div class="login-wrapper">

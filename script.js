@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     Dados: "ti-database",
     Gerenciamento: "ti-adjustments",
     "Meu Perfil": "ti-user",
-    "Assesoria Jurídica": "ti-scale",
+    "Assessoria Jurídica": "ti-scale",
     "Ouvidoria": "ti-headset",
   };
   const cardIconMap = {
@@ -469,7 +469,7 @@ return {
     { id: 9, name: "Qualidade", items: ["Meus Chamados","operador"] },
     { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
     {id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
-    { id: 13, name: "Assesoria Jurídica", items: ["Processos","Profissionais","Perícias"]},
+    { id: 13, name: "Assessoria Jurídica", items: ["Processos", "Profissionais", "Perícias"] },
   ];
 
   let activeSection = 0;
@@ -480,6 +480,85 @@ return {
   let meusChamadosView = "novo";
   let funcionariosViewMode = "list";
   let chamadosViewMode = "list";
+  let processosViewMode = "list";
+  let selectedProcessId = null;
+  let processos = [
+    {
+      id: 1001,
+      title: "Processo 1001 - Recurso administrativo",
+      company: "HC",
+      institute: "IMREA VILA MARIANA",
+      status: "Em análise",
+      summary: "Análise de documentação complementar e revisão da perícia inicial.",
+      createdAt: "10/07/2026",
+    },
+    {
+      id: 1002,
+      title: "Processo 1002 - Solicitação de avaliação",
+      company: "FFM",
+      institute: "INRAD",
+      status: "Aguardando análise",
+      summary: "Encaminhamento para avaliação técnica e definição do profissional responsável.",
+      createdAt: "14/07/2026",
+    },
+    {
+      id: 1003,
+      title: "Processo 1003 - Reavaliação técnica",
+      company: "FZ",
+      institute: "CEAC",
+      status: "Concluído",
+      summary: "Perícia encerrada com laudo consolidado e parecer final emitido.",
+      createdAt: "18/07/2026",
+    },
+  ];
+  let profissionais = [
+    {
+      id: 1,
+      name: "Dra. Ana Paula Souza",
+      role: "Perito Judicial",
+      company: "HC",
+      institute: "IMREA VILA MARIANA",
+      email: "ana.souza@instituicao.br",
+      phone: "(11) 99999-1111",
+      status: "Ativo",
+    },
+    {
+      id: 2,
+      name: "Bruno Martins",
+      role: "Assistente Técnico",
+      company: "FFM",
+      institute: "INRAD",
+      email: "bruno.martins@instituicao.br",
+      phone: "(11) 98888-2222",
+      status: "Ativo",
+    },
+  ];
+  let pericias = [
+    {
+      id: 1,
+      processId: 1001,
+      title: "Perícia 1001",
+      company: "HC",
+      institute: "IMREA VILA MARIANA",
+      professionalId: 1,
+      professionalName: "Dra. Ana Paula Souza",
+      status: "Em andamento",
+      createdAt: "12/07/2026",
+      notes: "Perícia iniciada com análise documental e entrevista inicial.",
+    },
+    {
+      id: 2,
+      processId: 1002,
+      title: "Perícia 1002",
+      company: "FFM",
+      institute: "INRAD",
+      professionalId: 2,
+      professionalName: "Bruno Martins",
+      status: "Pendente",
+      createdAt: "15/07/2026",
+      notes: "Aguardando definição do escopo e integração do processo.",
+    },
+  ];
 
   function getIcon(name) {
     return iconMap[name] || "ti-folder";
@@ -573,6 +652,9 @@ return {
     const isAmbulatorioNested = ambulatorioNestingCards.includes(activeCard);
     const isConsultarFuncionario = activeCard === "Consultar Funcionário";
     const isDataJudProcessos = activeCard === "Processos";
+    const isProfissionais = activeCard === "Profissionais";
+    const isPericias = activeCard === "Perícias";
+    const isAssessoriaJuridica = isDataJudProcessos || isProfissionais || isPericias;
     title.textContent = isBorboletasForm
       ? "Formulário - Borboletas"
       : isBorboletas
@@ -591,6 +673,10 @@ return {
       ? "Consultar Funcionário"
       : isDataJudProcessos
       ? "Processos"
+      : isProfissionais
+      ? "Profissionais"
+      : isPericias
+      ? "Perícias"
       : activeCard
       ? activeCard
       : sec.name;
@@ -598,6 +684,7 @@ return {
     grid.classList.toggle("borboletas-active", isBorboletasForm);
     grid.classList.toggle("meus-chamados-active", isMeusChamados);
     grid.classList.toggle("consultar-funcionario-active", isConsultarFuncionario);
+    grid.classList.toggle("legal-active", isAssessoriaJuridica);
     const contentWrapper = document.querySelector(".content");
     if (contentWrapper) {
       contentWrapper.classList.toggle("form-open", isBorboletasForm || isMeusChamados || isConsultarFuncionario);
@@ -625,7 +712,17 @@ return {
     }
 
     if (isDataJudProcessos) {
-      renderDataJudProcessos(grid);
+      renderProcessosPanel(grid);
+      return;
+    }
+
+    if (isProfissionais) {
+      renderProfissionaisPanel(grid);
+      return;
+    }
+
+    if (isPericias) {
+      renderPericiasPanel(grid);
       return;
     }
 
@@ -1555,10 +1652,908 @@ return {
     }
   }
 
+  function getProcessStatusClass(status) {
+    const normalized = String(status || "").toLowerCase();
+    if (normalized.includes("concl")) return "status-resolved";
+    if (normalized.includes("aguard") || normalized.includes("pend")) return "status-progress";
+    return "status-open";
+  }
+
+  function getPericiaStatusClass(status) {
+    const normalized = String(status || "").toLowerCase();
+    if (normalized.includes("concl")) return "status-resolved";
+    if (normalized.includes("pend")) return "status-progress";
+    return "status-open";
+  }
+
+  function buildProcessItemMarkup(processItem) {
+    const selected = selectedProcessId === processItem.id;
+    return `
+      <button class="legal-process-item ${selected ? "active" : ""}" type="button" data-process-id="${processItem.id}">
+        <div class="legal-process-main">
+          <div class="legal-process-title">${escapeHtml(processItem.title)}</div>
+          <div class="legal-process-meta">${escapeHtml(processItem.company)} • ${escapeHtml(processItem.institute)}</div>
+        </div>
+        <div class="legal-process-side">
+          <span class="status-chip ${getProcessStatusClass(processItem.status)}">${escapeHtml(processItem.status)}</span>
+          <span class="legal-process-date">${escapeHtml(processItem.createdAt)}</span>
+        </div>
+      </button>
+    `;
+  }
+
+  function renderProcessosPanel(grid) {
+    if (!selectedProcessId && processos.length) {
+      selectedProcessId = processos[0].id;
+    }
+
+    grid.innerHTML = "";
+    const panel = document.createElement("div");
+    panel.className = "card-box legal-panel";
+    panel.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h2>Processos</h2>
+          <p>Cadastre processos, visualize a linha de trabalho e abra a criação de perícias diretamente do processo selecionado.</p>
+        </div>
+        <div class="legal-actions">
+          <button type="button" class="btn small" id="processAddBtn">+ Add</button>
+          <div class="legal-view-toggle" role="group" aria-label="Alternar visualização">
+            <button type="button" class="view-toggle-btn ${processosViewMode === "list" ? "active" : ""}" data-mode="list">
+              <i class="ti ti-list"></i> Lista
+            </button>
+            <button type="button" class="view-toggle-btn ${processosViewMode === "grid" ? "active" : ""}" data-mode="grid">
+              <i class="ti ti-layout-grid"></i> Grade
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="processFormHost" class="legal-form-host" style="display:none;"></div>
+      <div id="processContentHost"></div>
+    `;
+    grid.appendChild(panel);
+
+    const formHost = panel.querySelector("#processFormHost");
+    const contentHost = panel.querySelector("#processContentHost");
+    const addBtn = panel.querySelector("#processAddBtn");
+
+    function renderProcessContent() {
+      const selectedProcess = processos.find((item) => item.id === selectedProcessId) || null;
+      const wrapper = document.createElement("div");
+      wrapper.className = "legal-process-layout";
+
+      if (selectedProcess) {
+        wrapper.innerHTML = `
+          <div class="legal-detail-card">
+            <div class="legal-detail-header">
+              <div>
+                <h3>${escapeHtml(selectedProcess.title)}</h3>
+                <p>${escapeHtml(selectedProcess.summary)}</p>
+              </div>
+              <span class="status-chip ${getProcessStatusClass(selectedProcess.status)}">${escapeHtml(selectedProcess.status)}</span>
+            </div>
+            <div class="legal-detail-grid">
+              <div>
+                <strong>Empresa</strong>
+                <p>${escapeHtml(selectedProcess.company)}</p>
+              </div>
+              <div>
+                <strong>Instituto / Unidade</strong>
+                <p>${escapeHtml(selectedProcess.institute)}</p>
+              </div>
+              <div>
+                <strong>Cadastro</strong>
+                <p>${escapeHtml(selectedProcess.createdAt)}</p>
+              </div>
+            </div>
+          </div>
+          <div class="legal-form-card">
+            <h3>Criar Perícia</h3>
+            <p>O formulário herda automaticamente o processo em destaque.</p>
+            <form id="createPericiaForm" class="legal-form-grid">
+              <input type="hidden" id="periciaProcessId" value="${selectedProcess.id}" />
+              <div class="form-group">
+                <label>Processo</label>
+                <input type="text" value="${escapeHtml(selectedProcess.title)}" disabled />
+              </div>
+              <div class="form-group">
+                <label>Empresa</label>
+                <select id="periciaCompany">
+                  <option value="HC" ${selectedProcess.company === "HC" ? "selected" : ""}>HC</option>
+                  <option value="FFM" ${selectedProcess.company === "FFM" ? "selected" : ""}>FFM</option>
+                  <option value="FZ" ${selectedProcess.company === "FZ" ? "selected" : ""}>FZ</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Instituto / Unidade</label>
+                <select id="periciaInstitute">
+                  ${["IMREA VILA MARIANA", "IMREA DA LAPA", "IMREA UMARISAL", "INRAD", "ICHC", "INCOR", "IPQ", "IOT", "ICR", "LIMs", "IGS", "CEAC", "ICESP", "HAS", "DLC"]
+                    .map((item) => `<option value="${escapeHtml(item)}" ${selectedProcess.institute === item ? "selected" : ""}>${escapeHtml(item)}</option>`)
+                    .join("")}
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Profissional</label>
+                <select id="periciaProfessional">
+                  <option value="">Selecione</option>
+                  ${profissionais
+                    .map((p) => `<option value="${p.id}" ${p.id === 1 ? "selected" : ""}>${escapeHtml(p.name)} (${escapeHtml(p.role)})</option>`)
+                    .join("")}
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="periciaStatus">
+                  <option value="Pendente">Pendente</option>
+                  <option value="Em andamento">Em andamento</option>
+                  <option value="Concluído">Concluído</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Observações</label>
+                <textarea id="periciaNotes" rows="3" placeholder="Adicione detalhes da perícia"></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Salvar perícia</button>
+              </div>
+            </form>
+          </div>
+          <div class="legal-list-card">
+            <div class="legal-list-header">
+              <h3>Lista de processos</h3>
+              <span>${processos.length} processo(s)</span>
+            </div>
+            <div class="legal-process-list ${processosViewMode === "grid" ? "grid" : ""}">
+              ${processos.map((item) => buildProcessItemMarkup(item)).join("")}
+            </div>
+          </div>
+        `;
+      } else {
+        wrapper.innerHTML = `
+          <div class="legal-empty-state">
+            <p>Nenhum processo cadastrado ainda.</p>
+          </div>
+        `;
+      }
+
+      contentHost.innerHTML = "";
+      contentHost.appendChild(wrapper);
+
+      wrapper.querySelectorAll(".legal-process-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          selectedProcessId = Number(item.dataset.processId);
+          renderProcessContent();
+        });
+      });
+
+      const form = wrapper.querySelector("#createPericiaForm");
+      if (form) {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const professionalId = Number(form.querySelector("#periciaProfessional").value);
+          const professional = profissionais.find((item) => item.id === professionalId) || null;
+          const newPericia = {
+            id: Date.now(),
+            processId: Number(form.querySelector("#periciaProcessId").value),
+            title: `Perícia ${form.querySelector("#periciaProcessId").value}`,
+            company: form.querySelector("#periciaCompany").value,
+            institute: form.querySelector("#periciaInstitute").value,
+            professionalId: professional?.id || null,
+            professionalName: professional?.name || "Sem profissional",
+            status: form.querySelector("#periciaStatus").value,
+            createdAt: new Date().toLocaleDateString("pt-BR"),
+            notes: form.querySelector("#periciaNotes").value || "Sem observações.",
+          };
+          pericias.unshift(newPericia);
+          const processMatch = processos.find((item) => item.id === newPericia.processId);
+          if (processMatch) {
+            processMatch.status = newPericia.status;
+          }
+          renderProcessContent();
+          alert("Perícia criada com sucesso.");
+        });
+      }
+    }
+
+    function renderAddProcessForm() {
+      formHost.style.display = "block";
+      formHost.innerHTML = `
+        <div class="legal-form-card">
+          <h3>Cadastro Processo</h3>
+          <form id="newProcessForm" class="legal-form-grid">
+            <div class="form-section-title">1. Dados básicos e identificação do processo</div>
+            <div class="form-group">
+              <label>Título do Processo *</label>
+              <input id="processTitle" type="text" required placeholder="Ex.: Processo 500123 - Ação trabalhista" />
+            </div>
+            <div class="form-group">
+              <label>Reclamada do Processo *</label>
+              <select id="processReclamada" required>
+                <option value="">Selecione</option>
+                <option value="HC">HC — Hospital das Clínicas</option>
+                <option value="FFM">FFM — Fundação Faculdade de Medicina</option>
+                <option value="FZ">FZ — Fundação Zerbini</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Reclamante *</label>
+              <input id="processReclamante" type="text" required placeholder="Digite o nome da parte reclamante" />
+            </div>
+            <div class="form-group">
+              <label>Link da Pasta do Processo (Drive)</label>
+              <input id="processDriveName" type="text" placeholder="Ex.: Pasta Processo 500123" />
+            </div>
+            <div class="form-group">
+              <label>URL do link</label>
+              <input id="processDriveUrl" type="url" placeholder="https://..." />
+            </div>
+
+            <div class="form-section-title">2. Classificação do processo</div>
+            <div class="form-group">
+              <label>Tipo do Processo *</label>
+              <select id="processType" required>
+                <option value="">Selecione</option>
+                <option value="Trabalhista">Trabalhista</option>
+                <option value="Cível">Cível</option>
+                <option value="Tributário">Tributário</option>
+                <option value="Previdenciário">Previdenciário</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Área Responsável pelo Processo *</label>
+              <select id="processArea" required multiple size="2" aria-describedby="processAreaHelp">
+                <option value="Segurança do Trabalho">Segurança do Trabalho</option>
+                <option value="Medicina do Trabalho">Medicina do Trabalho</option>
+              </select>
+              <small id="processAreaHelp" class="field-help">Selecione uma ou as duas áreas responsáveis.</small>
+            </div>
+            <div id="dynamicAreaFields"></div>
+
+            <div class="form-section-title">3. Prazos, documentos e valores globais</div>
+            <div class="form-group">
+              <label>Documentos Solicitados no Processo *</label>
+              <div id="documentsRequestedList" class="dynamic-list"></div>
+              <button type="button" class="btn small" id="addDocumentBtn">+ Adicionar Documento</button>
+            </div>
+            <div class="form-group">
+              <label>Data da Solicitação do Processo *</label>
+              <input id="processRequestDate" type="date" required />
+            </div>
+            <div class="form-group">
+              <label>Prazo do Processo *</label>
+              <input id="processDeadline" type="date" required />
+            </div>
+            <div class="form-group">
+              <label>Valor Total da Causa *</label>
+              <div class="currency-control">
+                <input id="processTotalValue" type="number" min="0" step="0.01" value="0" required />
+                <div class="currency-buttons">
+                  <button type="button" class="btn small" data-value-action="add">+</button>
+                  <button type="button" class="btn small" data-value-action="subtract">−</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section-title">4. Acompanhamento judicial</div>
+            <div class="form-group">
+              <label>Laudo da Perícia</label>
+              <div class="tag-list"><span class="tag-chip">Sem retorno</span></div>
+              <div id="laudoEntries" class="dynamic-list"></div>
+              <button type="button" class="btn small" id="addLaudoBtn">+ Adicionar Laudo</button>
+            </div>
+            <div class="form-group">
+              <label>Sentença</label>
+              <div class="tag-list"><span class="tag-chip">Sem retorno</span></div>
+              <div id="sentencaEntries" class="dynamic-list"></div>
+              <button type="button" class="btn small" id="addSentencaBtn">+ Adicionar Sentença</button>
+            </div>
+
+            <div class="form-section-title">5. Finalização e metadados</div>
+            <div class="form-group">
+              <label>Petição Inicial Disponibilizada? *</label>
+              <select id="processPeticaoInicial" required>
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Potencial de Risco Jurídico *</label>
+              <select id="processRiskLevel" required>
+                <option value="">Selecione</option>
+                <option value="Provável">Provável</option>
+                <option value="Possível">Possível</option>
+                <option value="Remoto">Remoto</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Observações</label>
+              <textarea id="processObservations" rows="4" placeholder="Registro de informações adicionais, comentários ou observações relevantes"></textarea>
+            </div>
+            <div class="audit-info">
+              <div><strong>Criado por:</strong> <span>dados.ceac@hc.fm.usp.br</span></div>
+              <div><strong>Criado em:</strong> <span>${escapeHtml(new Date().toLocaleString("pt-BR"))}</span></div>
+            </div>
+            <div class="form-actions">
+              <button class="btn" type="button" id="cancelProcessBtn">Cancelar</button>
+              <button class="btn primary" type="submit">Salvar processo</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      const form = formHost.querySelector("#newProcessForm");
+      const areaSelect = form.querySelector("#processArea");
+      const dynamicAreaFields = form.querySelector("#dynamicAreaFields");
+      const documentsRequestedList = form.querySelector("#documentsRequestedList");
+      const laudoEntries = form.querySelector("#laudoEntries");
+      const sentencaEntries = form.querySelector("#sentencaEntries");
+      const valueInput = form.querySelector("#processTotalValue");
+
+      areaSelect.onchange = renderAreaSpecificFields;
+
+      function appendTextRow(container, placeholder, value = "") {
+        const row = document.createElement("div");
+        row.className = "document-input-row";
+        row.innerHTML = `
+          <input type="text" placeholder="${escapeHtml(placeholder)}" value="${escapeHtml(value)}" />
+          <button type="button" class="btn small">×</button>
+        `;
+        row.querySelector("button").addEventListener("click", () => row.remove());
+        container.appendChild(row);
+      }
+
+      function renderAreaSpecificFields() {
+        const selectedAreas = Array.from(areaSelect.selectedOptions).map((option) => option.value);
+        const objectOptions = {
+          "Segurança do Trabalho": [
+            { value: "Insalubridade", label: "Insalubridade" },
+            { value: "Periculosidade", label: "Periculosidade" },
+          ],
+          "Medicina do Trabalho": [
+            { value: "Acidente de Trabalho", label: "Acidente de Trabalho" },
+            { value: "Trajeto", label: "Trajeto" },
+            { value: "Incidente", label: "Incidente" },
+            { value: "Doença Ocupacional", label: "Doença Ocupacional" },
+          ],
+        };
+
+        const optionsMarkup = selectedAreas
+          .map((area) => `
+            <optgroup label="${escapeHtml(area)}">
+              ${(objectOptions[area] || [])
+                .map((item) => `<option value="${escapeHtml(item.value)}">${escapeHtml(item.label)}</option>`)
+                .join("")}
+            </optgroup>
+          `)
+          .join("");
+
+        dynamicAreaFields.innerHTML = `
+          <fieldset class="dynamic-fieldset">
+            <legend>Objeto do Processo</legend>
+            <div class="form-group">
+              <label>Objeto *</label>
+              <div id="processObjectChoices" class="object-choice-grid" aria-describedby="processObjectHelp">
+                ${selectedAreas
+                  .map(
+                    (area) => `
+                      <div class="object-choice-area">
+                        <span class="object-choice-area-title">${escapeHtml(area)}</span>
+                        ${(objectOptions[area] || [])
+                          .map(
+                            (item) => `
+                              <label class="object-choice">
+                                <input class="process-object-choice" type="checkbox" value="${escapeHtml(item.value)}" />
+                                <span>${escapeHtml(item.label)}</span>
+                              </label>
+                            `,
+                          )
+                          .join("")}
+                      </div>
+                    `,
+                  )
+                  .join("")}
+              </div>
+              <div class="multi-select-actions">
+                <button class="btn small" type="button" id="selectAllObjectsBtn">Selecionar todos</button>
+                <button class="btn small" type="button" id="clearObjectsBtn">Limpar</button>
+              </div>
+              <small id="processObjectHelp" class="field-help">Você pode selecionar um ou mais objetos.</small>
+            </div>
+            <div id="processObjectDetails"></div>
+          </fieldset>
+        `;
+
+        const objectChoices = Array.from(dynamicAreaFields.querySelectorAll(".process-object-choice"));
+        const objectDetails = dynamicAreaFields.querySelector("#processObjectDetails");
+
+        function renderObjectDetails() {
+          const selectedObjects = objectChoices.filter((choice) => choice.checked).map((choice) => choice.value);
+          const objectValue = selectedObjects[0];
+          const area = Object.entries(objectOptions).find(([, options]) =>
+            options.some((item) => item.value === objectValue),
+          )?.[0];
+
+          if (!area) {
+            objectDetails.innerHTML = "";
+            return;
+          }
+
+          if (selectedObjects.length > 1) {
+            objectDetails.innerHTML = `
+              <div class="multi-select-notice">
+                ${selectedObjects.length} objetos selecionados. Os dados complementares podem ser preenchidos ao selecionar cada objeto individualmente.
+              </div>
+            `;
+            return;
+          }
+
+          if (area === "Segurança do Trabalho") {
+            if (objectValue === "Insalubridade") {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Riscos citados dentro do processo</label>
+                  <div class="inline-checklist">
+                    ${["Físico", "Químico", "Biológico"].map((item) => `<label><input type="checkbox" name="stRisks" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Valor da Insalubridade</label>
+                  <input type="number" min="0" step="0.01" id="processInsalubridadeValue" placeholder="0,00" />
+                </div>
+                <div class="form-group">
+                  <label>Valor Total do Objeto do SESMT</label>
+                  <input type="number" min="0" step="0.01" id="processSesmtValue" placeholder="0,00" />
+                </div>
+              `;
+            } else if (objectValue === "Periculosidade") {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Riscos citados dentro do processo</label>
+                  <div class="inline-checklist">
+                    ${["Inflamáveis", "Radiações Ionizantes", "Eletricidade"].map((item) => `<label><input type="checkbox" name="stRisks" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Valor da Periculosidade</label>
+                  <input type="number" min="0" step="0.01" id="processPericulosidadeValue" placeholder="0,00" />
+                </div>
+                <div class="form-group">
+                  <label>Valor Total do Objeto do SESMT</label>
+                  <input type="number" min="0" step="0.01" id="processSesmtValue" placeholder="0,00" />
+                </div>
+              `;
+            } else {
+              objectDetails.innerHTML = "";
+            }
+          }
+
+          if (area === "Medicina do Trabalho") {
+            if (objectValue === "Acidente de Trabalho") {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Riscos citados dentro do processo</label>
+                  <div class="inline-checklist">
+                    ${["Típico"].map((item) => `<label><input type="checkbox" name="mtRisks" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Justificativas</label>
+                  <div class="inline-checklist">
+                    ${["Perfuro com material biológico", "Perfuro sem material biológico", "Queda"].map((item) => `<label><input type="checkbox" name="mtJustifications" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Valor do Acidente de Trabalho</label>
+                  <input type="number" min="0" step="0.01" id="processAccidentValue" placeholder="0,00" />
+                </div>
+              `;
+            } else if (objectValue === "Trajeto") {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Número da CAT</label>
+                  <input type="text" id="processCatNumber" placeholder="Ex.: 000000000000000" />
+                </div>
+                <div class="form-group">
+                  <label>Justificativas</label>
+                  <div class="inline-checklist">
+                    ${["Transporte Público", "Transporte Particular", "Via Pública"].map((item) => `<label><input type="checkbox" name="mtJustifications" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+              `;
+            } else if (objectValue === "Doença Ocupacional") {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Riscos citados dentro do processo</label>
+                  <div class="inline-checklist">
+                    ${["Transtornos Mentais e Comportamentais", "Doenças do Sistema Osteomuscular e do Tecido Conjuntivo"].map((item) => `<label><input type="checkbox" name="mtRisks" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Justificativas</label>
+                  <div class="inline-checklist">
+                    ${["Demanda", "Relacionamento", "Chefia", "Colega", "Cargo", "Mudança", "Controle", "Atividade", "Posto de Trabalho"].map((item) => `<label><input type="checkbox" name="mtJustifications" value="${escapeHtml(item)}" /> ${escapeHtml(item)}</label>`).join("")}
+                  </div>
+                </div>
+              `;
+            } else {
+              objectDetails.innerHTML = `
+                <div class="form-group">
+                  <label>Foi realizada Investigação pela Segurança do Trabalho? *</label>
+                  <select id="processInvestigation" required>
+                    <option value="">Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                  </select>
+                </div>
+              `;
+            }
+          }
+
+          if (area === "Medicina do Trabalho" && objectValue !== "Doença Ocupacional") {
+            const existingInvestigation = objectDetails.querySelector("#processInvestigation");
+            if (!existingInvestigation) {
+              objectDetails.insertAdjacentHTML("beforeend", `
+                <div class="form-group">
+                  <label>Foi realizada Investigação pela Segurança do Trabalho? *</label>
+                  <select id="processInvestigation" required>
+                    <option value="">Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                  </select>
+                </div>
+              `);
+            }
+          }
+        }
+
+        objectChoices.forEach((choice) => choice.addEventListener("change", renderObjectDetails));
+        dynamicAreaFields.querySelector("#selectAllObjectsBtn")?.addEventListener("click", () => {
+          objectChoices.forEach((choice) => {
+            choice.checked = true;
+          });
+          renderObjectDetails();
+        });
+        dynamicAreaFields.querySelector("#clearObjectsBtn")?.addEventListener("click", () => {
+          objectChoices.forEach((choice) => {
+            choice.checked = false;
+          });
+          renderObjectDetails();
+        });
+        renderObjectDetails();
+      }
+
+      function gatherCheckboxValues(selector) {
+        return Array.from(form.querySelectorAll(selector)).filter((item) => item.checked).map((item) => item.value);
+      }
+
+      form.querySelector("#addDocumentBtn").addEventListener("click", () => appendTextRow(documentsRequestedList, "Nome do documento solicitado"));
+      form.querySelector("#addLaudoBtn").addEventListener("click", () => appendTextRow(laudoEntries, "Nome do laudo"));
+      form.querySelector("#addSentencaBtn").addEventListener("click", () => appendTextRow(sentencaEntries, "Nome da sentença"));
+
+      form.querySelectorAll("[data-value-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const current = Number.parseFloat(valueInput.value || "0");
+          const increment = button.dataset.valueAction === "add" ? 100 : -100;
+          valueInput.value = (current + increment).toFixed(2);
+        });
+      });
+
+      appendTextRow(documentsRequestedList, "Nome do documento solicitado");
+
+      formHost.querySelector("#cancelProcessBtn").addEventListener("click", () => {
+        formHost.style.display = "none";
+        formHost.innerHTML = "";
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const selectedAreas = Array.from(form.querySelector("#processArea").selectedOptions).map((option) => option.value);
+        const selectedObjects = Array.from(form.querySelectorAll(".process-object-choice:checked")).map((choice) => choice.value);
+        if (!selectedObjects.length) {
+          alert("Selecione pelo menos um objeto do processo.");
+          return;
+        }
+        const dynamicDetails = {
+          area: selectedAreas,
+          object: selectedObjects,
+          risks: gatherCheckboxValues('input[name="stRisks"], input[name="mtRisks"]'),
+          justifications: gatherCheckboxValues('input[name="mtJustifications"]'),
+          investigation: form.querySelector("#processInvestigation")?.value || "",
+          catNumber: form.querySelector("#processCatNumber")?.value || "",
+          values: {
+            insalubridade: form.querySelector("#processInsalubridadeValue")?.value || "",
+            periculosidade: form.querySelector("#processPericulosidadeValue")?.value || "",
+            sesmt: form.querySelector("#processSesmtValue")?.value || "",
+            acidente: form.querySelector("#processAccidentValue")?.value || "",
+          },
+        };
+
+        const documentsRequested = Array.from(documentsRequestedList.querySelectorAll('input')).map((input) => input.value.trim()).filter(Boolean);
+        const laudoDocs = Array.from(laudoEntries.querySelectorAll('input')).map((input) => input.value.trim()).filter(Boolean);
+        const sentencaDocs = Array.from(sentencaEntries.querySelectorAll('input')).map((input) => input.value.trim()).filter(Boolean);
+
+        const newProcess = {
+          id: Date.now(),
+          title: form.querySelector("#processTitle").value.trim() || `Processo ${Date.now()}`,
+          company: form.querySelector("#processReclamada").value || "HC",
+          institute: selectedAreas.join(" e ") || "Assessoria Jurídica",
+          status: form.querySelector("#processRiskLevel").value || "Em análise",
+          summary: form.querySelector("#processObservations").value.trim() || "Resumo não informado.",
+          createdAt: new Date().toLocaleDateString("pt-BR"),
+          createdBy: "dados.ceac@hc.fm.usp.br",
+          reclamada: form.querySelector("#processReclamada").value,
+          reclamante: form.querySelector("#processReclamante").value.trim(),
+          driveName: form.querySelector("#processDriveName").value.trim(),
+          driveUrl: form.querySelector("#processDriveUrl").value.trim(),
+          processType: form.querySelector("#processType").value,
+          area: selectedAreas,
+          object: selectedObjects,
+          details: dynamicDetails,
+          documents: documentsRequested.length ? documentsRequested : ["Documento não informado"],
+          requestDate: form.querySelector("#processRequestDate").value,
+          deadline: form.querySelector("#processDeadline").value,
+          totalValue: form.querySelector("#processTotalValue").value,
+          laudoDocs: laudoDocs.length ? laudoDocs : ["Sem retorno"],
+          sentencaDocs: sentencaDocs.length ? sentencaDocs : ["Sem retorno"],
+          peticaoInicial: form.querySelector("#processPeticaoInicial").value,
+          riskLevel: form.querySelector("#processRiskLevel").value,
+          observations: form.querySelector("#processObservations").value.trim(),
+        };
+        processos.unshift(newProcess);
+        selectedProcessId = newProcess.id;
+        formHost.style.display = "none";
+        formHost.innerHTML = "";
+        renderProcessContent();
+      });
+
+      renderAreaSpecificFields();
+      appendTextRow(documentsRequestedList, "Nome do documento solicitado");
+      appendTextRow(laudoEntries, "Nome do laudo");
+      appendTextRow(sentencaEntries, "Nome da sentença");
+    }
+
+    addBtn.addEventListener("click", () => {
+      const isVisible = formHost.style.display === "block";
+      if (isVisible) {
+        formHost.style.display = "none";
+        formHost.innerHTML = "";
+        return;
+      }
+      renderAddProcessForm();
+    });
+
+    panel.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        processosViewMode = btn.dataset.mode === "grid" ? "grid" : "list";
+        renderProcessContent();
+      });
+    });
+
+    renderProcessContent();
+  }
+
+  function renderProfissionaisPanel(grid) {
+    grid.innerHTML = "";
+    const panel = document.createElement("div");
+    panel.className = "card-box legal-panel";
+    panel.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h2>Profissionais</h2>
+          <p>Cadastre peritos judiciais e assistentes técnicos para alimentar as perícias do painel.</p>
+        </div>
+      </div>
+      <div class="legal-grid-two">
+        <div class="legal-form-card">
+          <h3>Novo profissional</h3>
+          <form id="newProfessionalForm" class="legal-form-grid">
+            <div class="form-group">
+              <label>Nome</label>
+              <input id="professionalName" type="text" required placeholder="Nome completo" />
+            </div>
+            <div class="form-group">
+              <label>Função</label>
+              <select id="professionalRole">
+                <option value="Perito Judicial">Perito Judicial</option>
+                <option value="Assistente Técnico">Assistente Técnico</option>
+                <option value="Assistente de Perícia">Assistente de Perícia</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Empresa</label>
+              <select id="professionalCompany">
+                <option value="HC">HC</option>
+                <option value="FFM">FFM</option>
+                <option value="FZ">FZ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Instituto / Unidade</label>
+              <select id="professionalInstitute">
+                ${["IMREA VILA MARIANA", "IMREA DA LAPA", "IMREA UMARISAL", "INRAD", "ICHC", "INCOR", "IPQ", "IOT", "ICR", "LIMs", "IGS", "CEAC", "ICESP", "HAS", "DLC"]
+                  .map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`)
+                  .join("")}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input id="professionalEmail" type="email" placeholder="email@instituicao.br" />
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <input id="professionalPhone" type="text" placeholder="(11) 99999-9999" />
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="professionalStatus">
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Salvar profissional</button>
+            </div>
+          </form>
+        </div>
+        <div class="legal-list-card">
+          <div class="legal-list-header">
+            <h3>Base de profissionais</h3>
+            <span>${profissionais.length} cadastro(s)</span>
+          </div>
+          <div class="legal-professional-list">
+            ${profissionais
+              .map(
+                (item) => `
+                  <div class="legal-professional-item">
+                    <div class="legal-process-main">
+                      <div class="legal-process-title">${escapeHtml(item.name)}</div>
+                      <div class="legal-process-meta">${escapeHtml(item.role)} • ${escapeHtml(item.company)} • ${escapeHtml(item.institute)}</div>
+                    </div>
+                    <div class="legal-process-side">
+                      <span class="status-chip ${item.status === "Ativo" ? "status-open" : "status-progress"}">${escapeHtml(item.status)}</span>
+                      <span class="legal-process-date">${escapeHtml(item.email)}</span>
+                    </div>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(panel);
+
+    const form = panel.querySelector("#newProfessionalForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const newProfessional = {
+        id: Date.now(),
+        name: form.querySelector("#professionalName").value.trim(),
+        role: form.querySelector("#professionalRole").value,
+        company: form.querySelector("#professionalCompany").value,
+        institute: form.querySelector("#professionalInstitute").value,
+        email: form.querySelector("#professionalEmail").value.trim(),
+        phone: form.querySelector("#professionalPhone").value.trim(),
+        status: form.querySelector("#professionalStatus").value,
+      };
+      profissionais.unshift(newProfessional);
+      renderProfissionaisPanel(grid);
+    });
+  }
+
+  function renderPericiasPanel(grid) {
+    grid.innerHTML = "";
+    const panel = document.createElement("div");
+    panel.className = "card-box legal-panel";
+    panel.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h2>Perícias</h2>
+          <p>Painel macro dos processos e perícias com filtros por empresa, instituto e profissional.</p>
+        </div>
+      </div>
+      <div class="legal-filters">
+        <div class="form-group">
+          <label>Empresa</label>
+          <select id="periciaFilterCompany">
+            <option value="">Todas</option>
+            <option value="HC">HC</option>
+            <option value="FFM">FFM</option>
+            <option value="FZ">FZ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Instituto / Unidade</label>
+          <select id="periciaFilterInstitute">
+            <option value="">Todos</option>
+            ${["IMREA VILA MARIANA", "IMREA DA LAPA", "IMREA UMARISAL", "INRAD", "ICHC", "INCOR", "IPQ", "IOT", "ICR", "LIMs", "IGS", "CEAC", "ICESP", "HAS", "DLC"]
+              .map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`)
+              .join("")}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Busca</label>
+          <input id="periciaSearch" type="search" placeholder="Processo, profissional ou status" />
+        </div>
+      </div>
+      <div class="legal-summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">Total de perícias</div>
+          <div class="summary-value" id="periciaSummaryTotal">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Processos vinculados</div>
+          <div class="summary-value" id="periciaSummaryProcesses">0</div>
+        </div>
+      </div>
+      <div id="periciaResults"></div>
+    `;
+    grid.appendChild(panel);
+
+    const companySelect = panel.querySelector("#periciaFilterCompany");
+    const instituteSelect = panel.querySelector("#periciaFilterInstitute");
+    const searchInput = panel.querySelector("#periciaSearch");
+    const resultsHost = panel.querySelector("#periciaResults");
+    const totalEl = panel.querySelector("#periciaSummaryTotal");
+    const processesEl = panel.querySelector("#periciaSummaryProcesses");
+
+    function renderResults() {
+      const query = searchInput.value.trim().toLowerCase();
+      const filtered = pericias.filter((item) => {
+        const companyMatch = !companySelect.value || item.company === companySelect.value;
+        const instituteMatch = !instituteSelect.value || item.institute === instituteSelect.value;
+        const searchMatch = !query || [item.title, item.professionalName, item.status, item.company, item.institute].join(" ").toLowerCase().includes(query);
+        return companyMatch && instituteMatch && searchMatch;
+      });
+
+      totalEl.textContent = filtered.length;
+      processesEl.textContent = new Set(filtered.map((item) => item.processId)).size;
+
+      if (!filtered.length) {
+        resultsHost.innerHTML = `
+          <div class="legal-empty-state">
+            <p>Nenhuma perícia encontrada para este filtro.</p>
+          </div>
+        `;
+        return;
+      }
+
+      resultsHost.innerHTML = `
+        <div class="legal-pericia-list">
+          ${filtered
+            .map(
+              (item) => `
+                <div class="legal-pericia-item">
+                  <div class="legal-process-main">
+                    <div class="legal-process-title">${escapeHtml(item.title)} · Processo #${item.processId}</div>
+                    <div class="legal-process-meta">${escapeHtml(item.company)} • ${escapeHtml(item.institute)} • ${escapeHtml(item.professionalName || "Sem profissional")}</div>
+                    <div class="legal-process-meta">${escapeHtml(item.notes)}</div>
+                  </div>
+                  <div class="legal-process-side">
+                    <span class="status-chip ${getPericiaStatusClass(item.status)}">${escapeHtml(item.status)}</span>
+                    <span class="legal-process-date">${escapeHtml(item.createdAt)}</span>
+                  </div>
+                </div>
+              `,
+            )
+            .join("")}
+        </div>
+      `;
+    }
+
+    [companySelect, instituteSelect, searchInput].forEach((element) => {
+      element.addEventListener("change", renderResults);
+      element.addEventListener("input", renderResults);
+    });
+
+    renderResults();
+  }
+
   function renderDataJudProcessos(grid) {
     grid.innerHTML = "";
     const panel = document.createElement("div");
-    panel.className = "card-box";
+    panel.className = "card-box legal-panel";
     panel.innerHTML = `
       <div class="card-header">
         <div>
@@ -1566,7 +2561,7 @@ return {
           <p>Consulta DataJud via API pública usando chave API.</p>
         </div>
       </div>
-      <div class="form-row">
+      <div class="legal-form-grid">
         <div class="form-group" style="flex: 1; min-width: 240px;">
           <label>Buscar</label>
           <input id="dataJudQueryInput" type="text" placeholder="Deixe vazio para testar acesso" />
@@ -1584,7 +2579,6 @@ return {
 
     const resultContainer = panel.querySelector("#dataJudResult");
     const fetchButton = panel.querySelector("#dataJudFetchBtn");
-    const queryInput = panel.querySelector("#dataJudQueryInput");
 
     fetchButton.addEventListener("click", async () => {
       resultContainer.innerHTML = `<div class="loading">Consultando DataJud...</div>`;
@@ -2187,6 +3181,18 @@ return {
 
   const currentUser = window.Clerk?.user;
   if (!currentUser) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  const currentEmail = currentUser.primaryEmailAddress?.emailAddress || "";
+  if (!currentEmail.endsWith("@hc.fm.usp.br")) {
+    try {
+      await window.Clerk.signOut();
+    } catch (error) {
+      console.warn("Falha ao encerrar sessão do Clerk:", error);
+    }
+    alert("Apenas usuários com e-mail institucional @hc.fm.usp.br podem acessar o sistema.");
     window.location.href = "login.html";
     return;
   }

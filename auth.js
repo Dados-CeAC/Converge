@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    await Clerk.load();
+    try {
+        await Clerk.load();
+    } catch (error) {
+        console.warn("Clerk não carregou corretamente:", error);
+        window.location.href = "login.html";
+        return;
+    }
 
     if (!Clerk.user) {
         window.location.href = "login.html";
@@ -9,11 +15,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const email = Clerk.user.primaryEmailAddress?.emailAddress || "";
 
     if (!email.endsWith("@hc.fm.usp.br")) {
-
-        await Clerk.signOut();
+        try {
+            await Clerk.signOut();
+        } catch (error) {
+            console.warn("Falha ao encerrar sessão do Clerk:", error);
+        }
 
         alert("Apenas usuários com e-mail institucional @hc.fm.usp.br podem acessar o sistema.");
-
         window.location.href = "login.html";
         return;
     }

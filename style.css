@@ -2764,8 +2764,17 @@ Normalmente onde fica:
 - formulários
 */
 
-.main {
+.main,
+.main-container {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex: 1;
+}
 
+.main {
   /* 
   flex: 1
   
@@ -3298,36 +3307,18 @@ Onde normalmente aparece:
 */
 
 .content {
-
-  /* 
-  flex: 1
-  
-  Faz essa área crescer
-  ocupando o espaço disponível.
-  */
   flex: 1;
-
-  /* 
-  padding = espaço interno
-  
-  28px = cima/baixo
-  36px = lados
-  
-  Faz o conteúdo não ficar grudado
-  nas bordas da tela.
-  */
-  padding: 28px 36px;
-
-  /* 
-  overflow-y: auto
-  
-  Ativa rolagem vertical
-  somente se precisar.
-  
-  Se o conteúdo ficar grande:
-  aparece scroll.
-  */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+  padding: 24px 28px 32px;
   overflow-y: auto;
+}
+
+/* Make content take full available height so inner grids can expand */
+.content {
+  min-height: calc(100vh - var(--topbar-h));
 }
 
 .content.form-open {
@@ -3483,43 +3474,13 @@ automaticamente na tela.
 */
 
 .cards-grid {
-
-  /* 
-  display: grid
-  
-  Ativa o sistema GRID do CSS.
-  
-  Muito usado para:
-  - cards
-  - galerias
-  - dashboards
-  */
   display: grid;
-
-  /* 
-  grid-template-columns
-  
-  Define as colunas do grid.
-  
-  repeat(...) = repete automaticamente
-  auto-fill = cria quantas colunas couberem
-  minmax(160px, 1fr):
-  
-  mínimo = 160px
-  máximo = ocupar espaço disponível
-  
-  RESUMINDO:
-  os cards se organizam automaticamente
-  conforme o tamanho da tela.
-  */
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-
-  /* 
-  gap = espaço entre os cards
-  
-  14px = distância entre eles
-  */
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 18px;
+  width: 100%;
+  align-items: stretch;
+  align-content: start;
 }
 /* 
 .sys-card = card do sistema
@@ -3530,14 +3491,10 @@ Exemplo:
 - card de estatística
 */
 
-.sys-card {
-
-  /* 
-  background = cor de fundo
-  
-  var(--surface) = fundo padrão/branco
-  */
-  background: var(--surface);
+-card {
+  b.sysackground: var(--surface);
+  min-height: 140px;
+  justify-content: center;
 
   /* 
   border = borda do card
@@ -5128,15 +5085,15 @@ Exemplo:
 }
 
 .borboletas-fixed-top {
-  position: sticky;
-  top: 0;
-  z-index: 4;
+  /* Removido comportamento sticky para não sobrepor o conteúdo */
+  position: static;
+  z-index: auto;
   background: var(--form-bg);
   padding: 22px 24px 18px;
-  margin: 0;
-  border-radius: 24px 24px 0 0;
-  box-shadow: 0 18px 40px rgba(33, 57, 72, 0.08);
-  border-bottom: 1px solid rgba(34, 49, 61, 0.08);
+  margin: 0 0 12px 0;
+  border-radius: 12px;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(34, 49, 61, 0.04);
 }
 .borboletas-fixed-top .form-header {
   display: flex;
@@ -5969,12 +5926,517 @@ textarea {
   padding: 4px;
 }
 
+.legal-panel {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  max-width: none;
+}
+
+.legal-panel > * {
+  width: 100%;
+}
+
+#processFormHost,
+#processContentHost {
+  width: 100%;
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hc);
+  margin-top: 6px;
+}
+
+.dynamic-fieldset {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-alt, var(--bg));
+}
+
+.dynamic-fieldset legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--hc);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.inline-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inline-checklist label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+.currency-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.currency-control input {
+  flex: 1;
+}
+
+.currency-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.currency-buttons .btn.small {
+  min-width: 36px;
+  justify-content: center;
+}
+
+.dynamic-list {
+  display: grid;
+  gap: 8px;
+}
+
+.document-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.document-input-row input {
+  flex: 1;
+}
+
+.document-input-row .btn.small {
+  min-width: 36px;
+  justify-content: center;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--surface-alt, var(--bg));
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.audit-info {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-alt, var(--bg));
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.legal-view-toggle,
+.legal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.legal-view-toggle .view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 7px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.legal-view-toggle .view-toggle-btn.active {
+  background: var(--hc);
+  color: #fff;
+  border-color: var(--hc);
+}
+
+.legal-process-layout,
+.legal-grid-two {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: none;
+}
+
+.legal-process-layout {
+  grid-template-columns: 1fr 1.4fr;
+  align-items: start;
+}
+
+.legal-grid-two {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .legal-process-layout,
+  .legal-grid-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+.legal-detail-card,
+.legal-form-card,
+.legal-list-card,
+.legal-empty-state {
+  background: var(--surface-alt, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.legal-detail-header,
+.legal-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.legal-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.legal-form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.legal-form-grid .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legal-form-grid input,
+.legal-form-grid select,
+.legal-form-grid textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.legal-form-grid textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.legal-form-grid .field-help {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.object-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.object-choice-area {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-alt, var(--bg));
+}
+
+.object-choice-area-title {
+  color: var(--hc);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.object-choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.object-choice:hover {
+  border-color: var(--hc);
+  background: var(--hc-lighter);
+}
+
+.object-choice input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--hc);
+  flex: 0 0 auto;
+}
+
+.object-choice:has(input:checked) {
+  border-color: var(--hc);
+  background: var(--hc-light);
+  box-shadow: inset 0 0 0 1px var(--hc);
+}
+
+.multi-select-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.multi-select-notice {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--hc-light);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.legal-process-list,
+.legal-professional-list,
+.legal-pericia-list {
+  display: grid;
+  gap: 12px;
+}
+
+.legal-process-list.grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.legal-process-item,
+.legal-professional-item,
+.legal-pericia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.legal-process-item.active {
+  border-color: var(--hc);
+  box-shadow: inset 0 0 0 1px var(--hc);
+}
+
+.legal-process-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.legal-process-title {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.legal-process-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.legal-process-side {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  text-align: right;
+}
+
+.legal-process-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.legal-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.legal-filters .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+
+/* Mantém o rodapé visível no fim da área principal. O conteúdo rola dentro
+   da coluna, sem empurrar o rodapé para fora da janela. */
+.body-row {
+  min-height: 0;
+}
+
+.main,
+.main-container {
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.main > .content {
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.main > .footer {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Assessoria Jurídica: os painéis ocupam toda a área útil, sem herdar a
+   grade compacta dos cards da página inicial. */
+.cards-grid.legal-active {
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: auto;
+}
+
+.cards-grid.legal-active > .legal-panel {
+  min-width: 0;
+}
+
+.legal-panel .card-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.legal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.legal-process-layout {
+  grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.1fr);
+}
+
+.legal-process-layout .legal-list-card {
+  grid-column: 1 / -1;
+}
+
+.legal-process-layout .legal-form-grid,
+.legal-grid-two .legal-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.legal-form-grid .form-section-title,
+.legal-form-grid .form-actions,
+.legal-form-grid .dynamic-list,
+.legal-form-grid .currency-control,
+.legal-form-grid .inline-checklist {
+  grid-column: 1 / -1;
+}
+
+.legal-process-item,
+.legal-professional-item,
+.legal-pericia-item {
+  min-height: 72px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.legal-process-item:hover {
+  border-color: var(--hc);
+  box-shadow: 0 8px 18px rgba(16, 96, 131, 0.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .legal-panel {
+    gap: 14px;
+  }
+
+  .legal-panel .card-header,
+  .legal-detail-header,
+  .legal-list-header,
+  .legal-process-item,
+  .legal-professional-item,
+  .legal-pericia-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legal-panel .card-header {
+    display: flex;
+  }
+
+  .legal-actions,
+  .legal-process-side {
+    width: 100%;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .legal-process-layout,
+  .legal-grid-two,
+  .legal-process-layout .legal-form-grid,
+  .legal-grid-two .legal-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .legal-detail-card,
+  .legal-form-card,
+  .legal-list-card,
+  .legal-empty-state {
+    padding: 14px;
+  }
+}
+
 .card-box {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 20px;
   width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
 .card-header {
@@ -6002,8 +6464,9 @@ textarea {
 }
 
 .card-box.new-chamado-card {
-  max-width: 980px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .meus-chamados-form-content {
@@ -6112,8 +6575,8 @@ textarea {
 /* Estilos para Consultar Funcionário */
 
 .consultar-funcionario-card {
-  width: min(100%, 980px);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   background: var(--surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
@@ -7049,6 +7512,42 @@ textarea:focus {
   }
   .body-row {
     flex-direction: column;
+    /* Make cards expand to fill grid cell and keep internal layout */
+    height: 100%;
+  }
+
+  /* Ensure generic card boxes stretch and maintain proportions */
+  .card-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  /* Make main content use full viewport and adapt spacing */
+  .main-container, .main {
+    min-height: 0;
+  }
+
+  /* Responsive adjustments for small screens */
+  @media (max-width: 900px) {
+    .cards-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .content {
+      padding: 12px 14px 20px;
+    }
+    .sidebar { display: none; }
+  }
+
+  /* Larger screens: give more breathing room */
+  @media (min-width: 1400px) {
+    .cards-grid {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .content { padding: 28px 36px 40px; }
   }
   .topbar {
     flex-wrap: wrap;
