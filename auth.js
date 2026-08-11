@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+
     try {
         await Clerk.load();
     } catch (error) {
