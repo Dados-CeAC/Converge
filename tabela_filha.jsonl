@@ -1,0 +1,1302 @@
+{"id":"X1046","nome_filial":"CEAC","local_trabalho":"X1046 - AMB MEDICO CEAC"}
+{"id":"X1052","nome_filial":"CEAC","local_trabalho":"X1052 - DIR EXECUTIVA - CEAC"}
+{"id":"X1053","nome_filial":"CEAC","local_trabalho":"X1053 - ALMOX GERAL - CEAC"}
+{"id":"X1054","nome_filial":"CEAC","local_trabalho":"X1054 - AMB MULTIPROFISSIONAL CEAC"}
+{"id":"X1055","nome_filial":"CEAC","local_trabalho":"X1055 - AMB MEDICO MT CEAC"}
+{"id":"X1056","nome_filial":"CEAC","local_trabalho":"X1056 - PRONTO ATENDIMENTO CEAC"}
+{"id":"X1058","nome_filial":"CEAC","local_trabalho":"X1058 - ENGENHARIA DE SEGURANÇA CEAC - EST"}
+{"id":"X1061","nome_filial":"CEAC","local_trabalho":"X1061 - ENGENHARIA PREDIAL"}
+{"id":"X6651","nome_filial":"CEAC","local_trabalho":"X6651 - AMB MULTIPROFISSIONAL MT CEAC"}
+{"id":"X6710","nome_filial":"CEAC","local_trabalho":"X6710 - RECEPCAO AMB CEAC"}
+{"id":"X8283","nome_filial":"CEAC","local_trabalho":"X8283 - CENTRO DE ATENÇÃO AO COLABORADOR - CEAC"}
+{"id":"X8626","nome_filial":"CEAC","local_trabalho":"X8626 - CCI - CENTRO DE COMUNICACAO INSTITUCIONAL"}
+{"id":"X8628","nome_filial":"CEAC","local_trabalho":"X8628 - CEF - CENTRO ECONOMICO FINANCEIRO"}
+{"id":"X8814","nome_filial":"CEAC","local_trabalho":"X8814 - CENTRO DE PESQUISA CLINICA INSTITUCIONAL - CPCI"}
+{"id":"X1","nome_filial":"DLC","local_trabalho":"X1 - CCUSTO NAO INFORMADO CADCOLAB"}
+{"id":"X144","nome_filial":"DLC","local_trabalho":"X144 - LAB HEMATOLOGIA DLC 02 PAMB"}
+{"id":"X146","nome_filial":"DLC","local_trabalho":"X146 - LAB ANALISES CLINICAS DLC 02 PAMB"}
+{"id":"X2795","nome_filial":"DLC","local_trabalho":"X2795 - DIR ENFERMAGEM"}
+{"id":"X2803","nome_filial":"DLC","local_trabalho":"X2803 - LAB ANATOMIA PATOLOGICA 09 E 10 PAMB"}
+{"id":"X2932","nome_filial":"DLC","local_trabalho":"X2932 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X2957","nome_filial":"DLC","local_trabalho":"X2957 - DIR EXECUTIVA"}
+{"id":"X2962","nome_filial":"DLC","local_trabalho":"X2962 - ANESTESIOLOGIA UATA 09 PAMB"}
+{"id":"X31","nome_filial":"DLC","local_trabalho":"X31 - AMB ENFERMAGEM PAMB"}
+{"id":"X3567","nome_filial":"DLC","local_trabalho":"X3567 - LAB IMUNOLOGIA DLC 02 PAMB"}
+{"id":"X3596","nome_filial":"DLC","local_trabalho":"X3596 - LAB HEMATOLOGIA TMO 01 PAMB"}
+{"id":"X3598","nome_filial":"DLC","local_trabalho":"X3598 - LAB IMUNOPATOLOGIA TMO 01 PAMB"}
+{"id":"X3602","nome_filial":"DLC","local_trabalho":"X3602 - LAB BIOLOGIA MOLECULAR DLC 02 PAMB"}
+{"id":"X3620","nome_filial":"DLC","local_trabalho":"X3620 - LAB ENDOCRINOLOGIA 02 PAMB"}
+{"id":"X3621","nome_filial":"DLC","local_trabalho":"X3621 - LAB EMERG DLC 02 PAMB"}
+{"id":"X3666","nome_filial":"DLC","local_trabalho":"X3666 - RECEPCAO AMOSTRAS PDA 02 PAMB"}
+{"id":"X3673","nome_filial":"DLC","local_trabalho":"X3673 - LAB BIOQUIMICA CLINICA DLC 02 PAMB"}
+{"id":"X3675","nome_filial":"DLC","local_trabalho":"X3675 - POSTO COLETA SUS 02 PAMB"}
+{"id":"X3684","nome_filial":"DLC","local_trabalho":"X3684 - DEP LABORATORIO CENTRAL 02 PAMB"}
+{"id":"X3686","nome_filial":"DLC","local_trabalho":"X3686 - LAB LIQUOR DLC 02 PAMB"}
+{"id":"X3687","nome_filial":"DLC","local_trabalho":"X3687 - LAB MICROBIOLOGIA DLC 02 PAMB"}
+{"id":"X3689","nome_filial":"DLC","local_trabalho":"X3689 - LAB PARASITOLOGIA DLC 02 PAMB"}
+{"id":"X3702","nome_filial":"DLC","local_trabalho":"X3702 - SAME"}
+{"id":"X4384","nome_filial":"DLC","local_trabalho":"X4384 - LIM03 LAB MEDICINA LABORATORIAL"}
+{"id":"X517","nome_filial":"DLC","local_trabalho":"X517 - ALMOX DLC"}
+{"id":"X7051","nome_filial":"DLC","local_trabalho":"X7051 - DIR EXECUTIVA"}
+{"id":"X7087","nome_filial":"DLC","local_trabalho":"X7087 - LAB CORELAB DLC 02 PAMB"}
+{"id":"X1059","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X1059 - CRECHE - NGP"}
+{"id":"X4484","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X4484 - DIR EXECUTIVA"}
+{"id":"X4610","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X4610 - ENGENHARIA PREDIAL"}
+{"id":"X7018","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7018 - DIR EXECUTIVA"}
+{"id":"X7265","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7265 - ADMINISTRACAO E PESSOAS"}
+{"id":"X7274","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7274 - REGULACAO"}
+{"id":"X7275","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7275 - GESTAO DE AMBS E TERAPIA - GAT"}
+{"id":"X7276","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7276 - QUALIDADE E SEGURANCA DO PACIENTE"}
+{"id":"X7860","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7860 - ALMOX GERAL"}
+{"id":"X7888","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7888 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X7891","nome_filial":"EDIFICIO CLAUDIA","local_trabalho":"X7891 - CENTRO ESPECIALIZADO EM DIREITO - CEDI"}
+{"id":"X7022","nome_filial":"FFM","local_trabalho":"X7022 - IRLM"}
+{"id":"X7023","nome_filial":"FFM","local_trabalho":"X7023 - PROJETOS"}
+{"id":"X7024","nome_filial":"FFM","local_trabalho":"X7024 - SVOC"}
+{"id":"X5113","nome_filial":"FFM-PA","local_trabalho":"X5113 - DIR EXECUTIVA"}
+{"id":"X7890","nome_filial":"FFM-PA","local_trabalho":"X7890 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X8381","nome_filial":"FM","local_trabalho":"X8381 - ASSESSORIA DE COMUNICACAO"}
+{"id":"X8384","nome_filial":"FM","local_trabalho":"X8384 - ASSESSORIA DE ENG PROJ E MANUT"}
+{"id":"X8386","nome_filial":"FM","local_trabalho":"X8386 - COMISSAO DE RESIDUOS"}
+{"id":"X8387","nome_filial":"FM","local_trabalho":"X8387 - CENTRO DE HUMANIDADES E HUMANIZACAO"}
+{"id":"X8390","nome_filial":"FM","local_trabalho":"X8390 - COMISSAO DE BENEFICIOS"}
+{"id":"X8391","nome_filial":"FM","local_trabalho":"X8391 - DIRETORIA"}
+{"id":"X8392","nome_filial":"FM","local_trabalho":"X8392 - DIVISAO DE BIBLIOTECA E DOCUMENTACAO"}
+{"id":"X8395","nome_filial":"FM","local_trabalho":"X8395 - DTAPEPI - BIOTERIO CENTRAL"}
+{"id":"X8396","nome_filial":"FM","local_trabalho":"X8396 - FINANCEIRO - ASSESSORIA FINANCEIRA"}
+{"id":"X8397","nome_filial":"FM","local_trabalho":"X8397 - GESTAO DE CONTRATOS E COMPRAS"}
+{"id":"X8398","nome_filial":"FM","local_trabalho":"X8398 - GESTAO DE DOCUMENTOS - PROTOCOLO"}
+{"id":"X8401","nome_filial":"FM","local_trabalho":"X8401 - IMT - INSTITUTO DE MEDICINA TROPICAL"}
+{"id":"X8402","nome_filial":"FM","local_trabalho":"X8402 - MUSEU HISTORICO"}
+{"id":"X8403","nome_filial":"FM","local_trabalho":"X8403 - NUCLEO DE TECNOLOGIA E INFORMACAO NTI"}
+{"id":"X8406","nome_filial":"FM","local_trabalho":"X8406 - SAD - SERVICO DE APOIO DIDATICO"}
+{"id":"X8408","nome_filial":"FM","local_trabalho":"X8408 - SECAO DE ALMOXARIFADO"}
+{"id":"X8409","nome_filial":"FM","local_trabalho":"X8409 - SECAO DE BOMBEIROS"}
+{"id":"X8410","nome_filial":"FM","local_trabalho":"X8410 - SECAO DE CONTABILIDADE"}
+{"id":"X8411","nome_filial":"FM","local_trabalho":"X8411 - SECAO DE PATRIMONIO"}
+{"id":"X8414","nome_filial":"FM","local_trabalho":"X8414 - SECAO DE VIGILANCIA"}
+{"id":"X8415","nome_filial":"FM","local_trabalho":"X8415 - SECAO DE ZELADORIA"}
+{"id":"X8427","nome_filial":"FM","local_trabalho":"X8427 - DIVISAO ACADEMICA"}
+{"id":"X8428","nome_filial":"FM","local_trabalho":"X8428 - ATENCAO PRIMARIA A SAUDE"}
+{"id":"X8430","nome_filial":"FM","local_trabalho":"X8430 - CEDEM"}
+{"id":"X8431","nome_filial":"FM","local_trabalho":"X8431 - COMISSAO DE CULTURA E EXTENSAO"}
+{"id":"X8433","nome_filial":"FM","local_trabalho":"X8433 - COMISSAO DE INCLUSAO E PERTEN - CIP"}
+{"id":"X8436","nome_filial":"FM","local_trabalho":"X8436 - COMISSAO DE PESQUISA"}
+{"id":"X8437","nome_filial":"FM","local_trabalho":"X8437 - COMISSAO DE POS-GRADUACAO"}
+{"id":"X8438","nome_filial":"FM","local_trabalho":"X8438 - COMISSAO DE RELACOES INTERNACIONAIS"}
+{"id":"X8439","nome_filial":"FM","local_trabalho":"X8439 - COMISSAO DE RESIDENCIA MEDICA - COREME"}
+{"id":"X8441","nome_filial":"FM","local_trabalho":"X8441 - GRUPO DE APOIO PSICO AO ALUNO - GRAPAL"}
+{"id":"X8442","nome_filial":"FM","local_trabalho":"X8442 - LABHAB - LABORATORIO DE HABILIDADES"}
+{"id":"X8471","nome_filial":"FM","local_trabalho":"X8471 - LIM 42 - HORMÔ E GENÉ MOLEC - PAMB"}
+{"id":"X8513","nome_filial":"FM","local_trabalho":"X8513 - DEPTO DE CIRURGIA"}
+{"id":"X8515","nome_filial":"FM","local_trabalho":"X8515 - DEPTO DE FOFITO"}
+{"id":"X8517","nome_filial":"FM","local_trabalho":"X8517 - DEPTO DE MED LEGAL ETICA SOC E TRAB"}
+{"id":"X8518","nome_filial":"FM","local_trabalho":"X8518 - DEPTO DE MEDICINA PREVENTIVA"}
+{"id":"X8524","nome_filial":"FM","local_trabalho":"X8524 - DEPTO DE PATOLOGIA"}
+{"id":"X8588","nome_filial":"FM","local_trabalho":"X8588 - IOF - INFRAESTRUTURA PREDIAL"}
+{"id":"X8730","nome_filial":"FM","local_trabalho":"X8730 - NUCLEO DE INOVACAO TECNOLOGIA E SOLUCOES - NITS"}
+{"id":"X7028","nome_filial":"FZ","local_trabalho":"X7028 - DIR EXECUTIVA"}
+{"id":"X1267","nome_filial":"HAS","local_trabalho":"X1267 - FARM INTERNACAO"}
+{"id":"X2598","nome_filial":"HAS","local_trabalho":"X2598 - AMB FONOAUDIOLOGIA"}
+{"id":"X2613","nome_filial":"HAS","local_trabalho":"X2613 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X4194","nome_filial":"HAS","local_trabalho":"X4194 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X4196","nome_filial":"HAS","local_trabalho":"X4196 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X4197","nome_filial":"HAS","local_trabalho":"X4197 - CENTRO COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X4200","nome_filial":"HAS","local_trabalho":"X4200 - CRECHE"}
+{"id":"X4201","nome_filial":"HAS","local_trabalho":"X4201 - DIR EXECUTIVA"}
+{"id":"X4205","nome_filial":"HAS","local_trabalho":"X4205 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X4207","nome_filial":"HAS","local_trabalho":"X4207 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X4211","nome_filial":"HAS","local_trabalho":"X4211 - UI MISTA UTM I"}
+{"id":"X4212","nome_filial":"HAS","local_trabalho":"X4212 - UI MISTA UTM II"}
+{"id":"X4213","nome_filial":"HAS","local_trabalho":"X4213 - SAME"}
+{"id":"X4214","nome_filial":"HAS","local_trabalho":"X4214 - ENGENHARIA PREDIAL"}
+{"id":"X4219","nome_filial":"HAS","local_trabalho":"X4219 - ASSESSORIA DIR EXECUTIVA"}
+{"id":"X4220","nome_filial":"HAS","local_trabalho":"X4220 - AMB FISIOTERAPIA"}
+{"id":"X4221","nome_filial":"HAS","local_trabalho":"X4221 - NUTRICAO E DIETETICA"}
+{"id":"X4222","nome_filial":"HAS","local_trabalho":"X4222 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X4223","nome_filial":"HAS","local_trabalho":"X4223 - AMB SERVICO SOCIAL"}
+{"id":"X4224","nome_filial":"HAS","local_trabalho":"X4224 - AMB TERAPIA OCUPACIONAL"}
+{"id":"X4233","nome_filial":"HAS","local_trabalho":"X4233 - ALMOX NUTRICAO"}
+{"id":"X4237","nome_filial":"HAS","local_trabalho":"X4237 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X4238","nome_filial":"HAS","local_trabalho":"X4238 - SEGURANCA PATRIMONIAL \/ PORTARIA - HAS"}
+{"id":"X4240","nome_filial":"HAS","local_trabalho":"X4240 - AMB PSICOLOGIA"}
+{"id":"X4243","nome_filial":"HAS","local_trabalho":"X4243 - ROUPARIA \/ LAVANDERIA - HAS"}
+{"id":"X4244","nome_filial":"HAS","local_trabalho":"X4244 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X4246","nome_filial":"HAS","local_trabalho":"X4246 - DIR ENFERMAGEM"}
+{"id":"X4250","nome_filial":"HAS","local_trabalho":"X4250 - UI SEMICRITICO ADULTO"}
+{"id":"X4257","nome_filial":"HAS","local_trabalho":"X4257 - UI MISTA ENF II"}
+{"id":"X4258","nome_filial":"HAS","local_trabalho":"X4258 - UI MISTA ENF III"}
+{"id":"X4260","nome_filial":"HAS","local_trabalho":"X4260 - FARM CENTRAL"}
+{"id":"X4261","nome_filial":"HAS","local_trabalho":"X4261 - CENTRAL GASES MEDICINAIS"}
+{"id":"X4263","nome_filial":"HAS","local_trabalho":"X4263 - CME - TERREO"}
+{"id":"X4264","nome_filial":"HAS","local_trabalho":"X4264 - AMB ODONTOLOGIA"}
+{"id":"X4266","nome_filial":"HAS","local_trabalho":"X4266 - UI SEMICRITICO INFANTIL"}
+{"id":"X4267","nome_filial":"HAS","local_trabalho":"X4267 - RAIOS X"}
+{"id":"X4271","nome_filial":"HAS","local_trabalho":"X4271 - TRANSPORTE"}
+{"id":"X8539","nome_filial":"HAS","local_trabalho":"X8539 - COMISSIONADO ASSISTENCIAL - HAS"}
+{"id":"X8540","nome_filial":"HAS","local_trabalho":"X8540 - COMISSIONADO NAO ASSISTENCIAL - HAS"}
+{"id":"X7363","nome_filial":"HCX","local_trabalho":"X7363 - DIR EXECUTIVA - HCX"}
+{"id":"X7369","nome_filial":"HCX","local_trabalho":"X7369 - CURSOS MEDICOS PRESENCIAIS - HCX"}
+{"id":"X7370","nome_filial":"HCX","local_trabalho":"X7370 - CURSOS TECNICOS PRESENCIAIS CEFACS - HCX"}
+{"id":"X7371","nome_filial":"HCX","local_trabalho":"X7371 - CURSOS MULTIPROFISSIONAIS PRESENCIAIS - HCX"}
+{"id":"X7372","nome_filial":"HCX","local_trabalho":"X7372 - CURSOS EAD - HCX"}
+{"id":"X7393","nome_filial":"HCX","local_trabalho":"X7393 - CURSOS GESTAO - HCX"}
+{"id":"X161","nome_filial":"ICESP","local_trabalho":"X161 - AMB FISIOTERAPIA 02"}
+{"id":"X7100","nome_filial":"ICESP","local_trabalho":"X7100 - UNIDADE INTERNACAO 16 ANDAR"}
+{"id":"X7101","nome_filial":"ICESP","local_trabalho":"X7101 - UNIDADE INTERNACAO 17 ANDAR"}
+{"id":"X7102","nome_filial":"ICESP","local_trabalho":"X7102 - UNIDADE INTERNACAO 18 ANDAR"}
+{"id":"X7103","nome_filial":"ICESP","local_trabalho":"X7103 - UNIDADE INTERNACAO 19 ANDAR"}
+{"id":"X7104","nome_filial":"ICESP","local_trabalho":"X7104 - UNIDADE INTERNACAO 20 ANDAR"}
+{"id":"X7105","nome_filial":"ICESP","local_trabalho":"X7105 - UNIDADE INTERNACAO 21 ANDAR"}
+{"id":"X7106","nome_filial":"ICESP","local_trabalho":"X7106 - UNIDADE INTERNACAO 22 ANDAR"}
+{"id":"X7107","nome_filial":"ICESP","local_trabalho":"X7107 - UNIDADE INTERNACAO IODOTERAPIA 20 ANDAR"}
+{"id":"X7108","nome_filial":"ICESP","local_trabalho":"X7108 - FARMACIA CLINICA UNIDADE INTERNACAO"}
+{"id":"X7109","nome_filial":"ICESP","local_trabalho":"X7109 - FISIOTERAPIA UNIDADE INTERNACAO"}
+{"id":"X7111","nome_filial":"ICESP","local_trabalho":"X7111 - UTI 10 ANDAR"}
+{"id":"X7112","nome_filial":"ICESP","local_trabalho":"X7112 - UTI 9 ANDAR"}
+{"id":"X7113","nome_filial":"ICESP","local_trabalho":"X7113 - FISIOTERAPIA UTI"}
+{"id":"X7117","nome_filial":"ICESP","local_trabalho":"X7117 - HOSPITAL DIA"}
+{"id":"X7119","nome_filial":"ICESP","local_trabalho":"X7119 - CAIO"}
+{"id":"X7121","nome_filial":"ICESP","local_trabalho":"X7121 - AMB CARDIOLOGIA"}
+{"id":"X7122","nome_filial":"ICESP","local_trabalho":"X7122 - AMB CENTRO DE TRATAMENTO DE DOR"}
+{"id":"X7123","nome_filial":"ICESP","local_trabalho":"X7123 - AMB CLINICA MÉDICA"}
+{"id":"X7124","nome_filial":"ICESP","local_trabalho":"X7124 - AMB CUIDADOS PALIATIVOS"}
+{"id":"X7125","nome_filial":"ICESP","local_trabalho":"X7125 - AMB ENDOCRINOLOGIA"}
+{"id":"X7126","nome_filial":"ICESP","local_trabalho":"X7126 - AMB FISIATRIA"}
+{"id":"X7127","nome_filial":"ICESP","local_trabalho":"X7127 - AMB GASTRO HEPATO"}
+{"id":"X7128","nome_filial":"ICESP","local_trabalho":"X7128 - AMB GERIATRIA"}
+{"id":"X7129","nome_filial":"ICESP","local_trabalho":"X7129 - AMB NEFROLOGIA"}
+{"id":"X7130","nome_filial":"ICESP","local_trabalho":"X7130 - AMB NEUROLOGIA"}
+{"id":"X7131","nome_filial":"ICESP","local_trabalho":"X7131 - AMB NUTROLOGIA"}
+{"id":"X7132","nome_filial":"ICESP","local_trabalho":"X7132 - AMB PNEUMOLOGIA"}
+{"id":"X7133","nome_filial":"ICESP","local_trabalho":"X7133 - AMB PSIQUIATRIA"}
+{"id":"X7135","nome_filial":"ICESP","local_trabalho":"X7135 - AMB HEMATOLOGIA"}
+{"id":"X7136","nome_filial":"ICESP","local_trabalho":"X7136 - AMB ONCOLOGIA CLINICA"}
+{"id":"X7137","nome_filial":"ICESP","local_trabalho":"X7137 - AMB CIRURGIA DE CABECA E PESCOCO"}
+{"id":"X7138","nome_filial":"ICESP","local_trabalho":"X7138 - AMB CIRURGIA DO APARELHO DIGESTIVO"}
+{"id":"X7139","nome_filial":"ICESP","local_trabalho":"X7139 - AMB CIRURGIA PLASTICA"}
+{"id":"X7140","nome_filial":"ICESP","local_trabalho":"X7140 - AMB CIRURGIA TORACICA"}
+{"id":"X7141","nome_filial":"ICESP","local_trabalho":"X7141 - AMB CIRURGIA VASCULAR"}
+{"id":"X7142","nome_filial":"ICESP","local_trabalho":"X7142 - AMB DERMATOLOGIA"}
+{"id":"X7143","nome_filial":"ICESP","local_trabalho":"X7143 - AMB GINECOLOGIA"}
+{"id":"X7144","nome_filial":"ICESP","local_trabalho":"X7144 - AMB COLUNA"}
+{"id":"X7145","nome_filial":"ICESP","local_trabalho":"X7145 - AMB MASTOLOGIA"}
+{"id":"X7146","nome_filial":"ICESP","local_trabalho":"X7146 - AMB NEUROCIRURGIA"}
+{"id":"X7147","nome_filial":"ICESP","local_trabalho":"X7147 - AMB ORTOPEDIA"}
+{"id":"X7148","nome_filial":"ICESP","local_trabalho":"X7148 - AMB OTORRINOLARINGOLOGIA"}
+{"id":"X7149","nome_filial":"ICESP","local_trabalho":"X7149 - AMB UROLOGIA"}
+{"id":"X7150","nome_filial":"ICESP","local_trabalho":"X7150 - AMB CIRURGICO"}
+{"id":"X7154","nome_filial":"ICESP","local_trabalho":"X7154 - AMB CLINICO ENFERMAGEM"}
+{"id":"X7155","nome_filial":"ICESP","local_trabalho":"X7155 - AMB CIRURGICO ENFERMAGEM"}
+{"id":"X7156","nome_filial":"ICESP","local_trabalho":"X7156 - AMB DE ESPECIALIDADES ENFERMAGEM"}
+{"id":"X7158","nome_filial":"ICESP","local_trabalho":"X7158 - AMB DE HEMATOLOGIA ENFERMAGEM"}
+{"id":"X7159","nome_filial":"ICESP","local_trabalho":"X7159 - AMB DE RADIOTERAPIA ENFERMAGEM"}
+{"id":"X7160","nome_filial":"ICESP","local_trabalho":"X7160 - AMB DE MEDICINA NUCLEAR ENFERMAGEM"}
+{"id":"X7161","nome_filial":"ICESP","local_trabalho":"X7161 - AMB DE NUTRICAO"}
+{"id":"X7165","nome_filial":"ICESP","local_trabalho":"X7165 - TOMOGRAFIA"}
+{"id":"X7166","nome_filial":"ICESP","local_trabalho":"X7166 - RESSONANCIA"}
+{"id":"X7167","nome_filial":"ICESP","local_trabalho":"X7167 - MAMOGRAFIA"}
+{"id":"X7169","nome_filial":"ICESP","local_trabalho":"X7169 - RAIOS X"}
+{"id":"X7170","nome_filial":"ICESP","local_trabalho":"X7170 - ULTRASONOGRAFIA"}
+{"id":"X7171","nome_filial":"ICESP","local_trabalho":"X7171 - RADIOLOGIA INTERVENCIONISTA"}
+{"id":"X7173","nome_filial":"ICESP","local_trabalho":"X7173 - ENDOSCOPIA - BRONCOSCOPIA"}
+{"id":"X7174","nome_filial":"ICESP","local_trabalho":"X7174 - HISTEROSCOPIA"}
+{"id":"X7176","nome_filial":"ICESP","local_trabalho":"X7176 - METODOS GRAFICOS"}
+{"id":"X7178","nome_filial":"ICESP","local_trabalho":"X7178 - MEDICINA NUCLEAR"}
+{"id":"X7181","nome_filial":"ICESP","local_trabalho":"X7181 - LABORATORIO DE URGENCIA 8 ANDAR"}
+{"id":"X7182","nome_filial":"ICESP","local_trabalho":"X7182 - COLETA INTERNA"}
+{"id":"X7184","nome_filial":"ICESP","local_trabalho":"X7184 - ANATOMIA PATOLOGICA"}
+{"id":"X7187","nome_filial":"ICESP","local_trabalho":"X7187 - RADIOTERAPIA MATRIZ"}
+{"id":"X7188","nome_filial":"ICESP","local_trabalho":"X7188 - RADIOTERAPIA OSASCO"}
+{"id":"X7190","nome_filial":"ICESP","local_trabalho":"X7190 - QUIMIOTERAPIA MATRIZ"}
+{"id":"X7191","nome_filial":"ICESP","local_trabalho":"X7191 - QUIMIOTERAPIA OSASCO"}
+{"id":"X7195","nome_filial":"ICESP","local_trabalho":"X7195 - HEMODIALISE"}
+{"id":"X7197","nome_filial":"ICESP","local_trabalho":"X7197 - AGENCIA TRANSFUSIONAL"}
+{"id":"X7201","nome_filial":"ICESP","local_trabalho":"X7201 - ANESTESIOLOGIA"}
+{"id":"X7202","nome_filial":"ICESP","local_trabalho":"X7202 - CENTRO CIRURGICO ASSISTENCIA"}
+{"id":"X7207","nome_filial":"ICESP","local_trabalho":"X7207 - NUTRICAO INTERNACAO"}
+{"id":"X7208","nome_filial":"ICESP","local_trabalho":"X7208 - NUTRICAO PRODUCAO"}
+{"id":"X7211","nome_filial":"ICESP","local_trabalho":"X7211 - HOTELARIA"}
+{"id":"X7213","nome_filial":"ICESP","local_trabalho":"X7213 - HOSPITALIDADE"}
+{"id":"X7214","nome_filial":"ICESP","local_trabalho":"X7214 - HOTELARIA E INFRAESTRUTURA OSASCO"}
+{"id":"X7216","nome_filial":"ICESP","local_trabalho":"X7216 - ROUPARIA"}
+{"id":"X7219","nome_filial":"ICESP","local_trabalho":"X7219 - SEGURANCA"}
+{"id":"X7221","nome_filial":"ICESP","local_trabalho":"X7221 - CAM LOGISTICA"}
+{"id":"X7222","nome_filial":"ICESP","local_trabalho":"X7222 - LOGISTICA ADMINISTRATIVO"}
+{"id":"X7223","nome_filial":"ICESP","local_trabalho":"X7223 - RECEBIMENTO"}
+{"id":"X7224","nome_filial":"ICESP","local_trabalho":"X7224 - SUPRIMENTOS"}
+{"id":"X7225","nome_filial":"ICESP","local_trabalho":"X7225 - LOGISTICA FARMACIA AMBULATORIAL CONSOLACAO"}
+{"id":"X7227","nome_filial":"ICESP","local_trabalho":"X7227 - FARMACIA ADMINISTRATIVA"}
+{"id":"X7228","nome_filial":"ICESP","local_trabalho":"X7228 - FARMACIA CAP"}
+{"id":"X7229","nome_filial":"ICESP","local_trabalho":"X7229 - FARMACIA TECNOVIGILANCIA"}
+{"id":"X7230","nome_filial":"ICESP","local_trabalho":"X7230 - FARMACIA RADIOFARMACOS"}
+{"id":"X7231","nome_filial":"ICESP","local_trabalho":"X7231 - FARMACIA CENTRAL"}
+{"id":"X7232","nome_filial":"ICESP","local_trabalho":"X7232 - FARMACIA AMBULATORIAL CONSOLACAO"}
+{"id":"X7233","nome_filial":"ICESP","local_trabalho":"X7233 - FARMACIA OSASCO"}
+{"id":"X7235","nome_filial":"ICESP","local_trabalho":"X7235 - CONTRATOS E COMPRAS"}
+{"id":"X7237","nome_filial":"ICESP","local_trabalho":"X7237 - FARMACOTECNICA FRACIONAMENTO"}
+{"id":"X7238","nome_filial":"ICESP","local_trabalho":"X7238 - FARMACOTECNICA QUIMIOTERAPIA"}
+{"id":"X7240","nome_filial":"ICESP","local_trabalho":"X7240 - ENGENHARIA PREDIAL"}
+{"id":"X7241","nome_filial":"ICESP","local_trabalho":"X7241 - ENGENHARIA CLINICA"}
+{"id":"X7242","nome_filial":"ICESP","local_trabalho":"X7242 - PROJETOS"}
+{"id":"X7244","nome_filial":"ICESP","local_trabalho":"X7244 - TI"}
+{"id":"X7247","nome_filial":"ICESP","local_trabalho":"X7247 - CENTRAL DE MATERIAIS ESTERILIZADOS - CME"}
+{"id":"X7250","nome_filial":"ICESP","local_trabalho":"X7250 - ODONTOLOGIA"}
+{"id":"X7251","nome_filial":"ICESP","local_trabalho":"X7251 - CENTRO DE REABILITACAO"}
+{"id":"X7252","nome_filial":"ICESP","local_trabalho":"X7252 - PSICOLOGIA"}
+{"id":"X7253","nome_filial":"ICESP","local_trabalho":"X7253 - SERVICO SOCIAL"}
+{"id":"X7254","nome_filial":"ICESP","local_trabalho":"X7254 - CENTRAL INTERNA DE TRANSPORTE DE PACIENTE - CITP"}
+{"id":"X7255","nome_filial":"ICESP","local_trabalho":"X7255 - MEDICINA DO TRABALHO"}
+{"id":"X7256","nome_filial":"ICESP","local_trabalho":"X7256 - SEGURANCA DO TRABALHO"}
+{"id":"X7257","nome_filial":"ICESP","local_trabalho":"X7257 - CCIH"}
+{"id":"X7258","nome_filial":"ICESP","local_trabalho":"X7258 - SAME"}
+{"id":"X7259","nome_filial":"ICESP","local_trabalho":"X7259 - PADRONIZACAO"}
+{"id":"X7260","nome_filial":"ICESP","local_trabalho":"X7260 - FATURAMENTO"}
+{"id":"X7261","nome_filial":"ICESP","local_trabalho":"X7261 - FINANCEIRO"}
+{"id":"X7262","nome_filial":"ICESP","local_trabalho":"X7262 - PLANEJAMENTO E CONTROLE"}
+{"id":"X7263","nome_filial":"ICESP","local_trabalho":"X7263 - ADMINISTRACAO DGA"}
+{"id":"X7264","nome_filial":"ICESP","local_trabalho":"X7264 - ADMINISTRACAO DOTI"}
+{"id":"X7266","nome_filial":"ICESP","local_trabalho":"X7266 - DIRETORIA CLINICA"}
+{"id":"X7267","nome_filial":"ICESP","local_trabalho":"X7267 - SECRETRARIA DE RELACIONAMENTO MEDICO"}
+{"id":"X7268","nome_filial":"ICESP","local_trabalho":"X7268 - CENTRO DE PLANEJAMENTO E GESTAO"}
+{"id":"X7269","nome_filial":"ICESP","local_trabalho":"X7269 - CUSTOS"}
+{"id":"X7270","nome_filial":"ICESP","local_trabalho":"X7270 - HUMANIZACAO"}
+{"id":"X7271","nome_filial":"ICESP","local_trabalho":"X7271 - OUVIDORIA"}
+{"id":"X7272","nome_filial":"ICESP","local_trabalho":"X7272 - RELACOES INTITUCIONAIS"}
+{"id":"X7273","nome_filial":"ICESP","local_trabalho":"X7273 - ADMINISTRACAO OSASCO"}
+{"id":"X7279","nome_filial":"ICESP","local_trabalho":"X7279 - PESQUISA ENFERMAGEM"}
+{"id":"X7280","nome_filial":"ICESP","local_trabalho":"X7280 - PESQUISA CLINICA"}
+{"id":"X7281","nome_filial":"ICESP","local_trabalho":"X7281 - FARMACIA PESQUISA"}
+{"id":"X7282","nome_filial":"ICESP","local_trabalho":"X7282 - PESQUISA CTO"}
+{"id":"X7285","nome_filial":"ICESP","local_trabalho":"X7285 - POS GRADUACAO"}
+{"id":"X7286","nome_filial":"ICESP","local_trabalho":"X7286 - CENTRO DE TREINAMENTO ONCOLOGICO - CETO"}
+{"id":"X7293","nome_filial":"ICESP","local_trabalho":"X7293 - RADIOLOGIA"}
+{"id":"X7732","nome_filial":"ICESP","local_trabalho":"X7732 - COMUNICAÇÃO"}
+{"id":"X7761","nome_filial":"ICESP","local_trabalho":"X7761 - UTI 11 EE"}
+{"id":"X7779","nome_filial":"ICESP","local_trabalho":"X7779 - UNIDADE DE INTERNAÇÃO"}
+{"id":"X7780","nome_filial":"ICESP","local_trabalho":"X7780 - UTI"}
+{"id":"X7781","nome_filial":"ICESP","local_trabalho":"X7781 - SALA DE LAUDO"}
+{"id":"X7785","nome_filial":"ICESP","local_trabalho":"X7785 - AMB ONCOLOGIA CLÍNICA - OSASCO"}
+{"id":"X8232","nome_filial":"ICESP","local_trabalho":"X8232 - FINANCEIRO PESQUISA - DFPC"}
+{"id":"X8685","nome_filial":"ICESP","local_trabalho":"X8685 - ENFERMARIA ONCO-HEMATOLOGIA - ITACI"}
+{"id":"X8687","nome_filial":"ICESP","local_trabalho":"X8687 - TRANSPLANTE MEDULA OSSEA - ITACI"}
+{"id":"X8689","nome_filial":"ICESP","local_trabalho":"X8689 - CENTRO DE TERAPIA INTENSIVA ONCOLOGICA - ITACI"}
+{"id":"X8690","nome_filial":"ICESP","local_trabalho":"X8690 - AMB ONCO-HEMATOLOGIA - ITACI"}
+{"id":"X8691","nome_filial":"ICESP","local_trabalho":"X8691 - AMB CLINICAS DE BASE- ITACI"}
+{"id":"X8692","nome_filial":"ICESP","local_trabalho":"X8692 - AMB ONCO-HEMATOLOGIA ENFERMAGEM - ITACI"}
+{"id":"X8693","nome_filial":"ICESP","local_trabalho":"X8693 - RADIOLOGIA INTERVENCIONISTA - ITACI"}
+{"id":"X8694","nome_filial":"ICESP","local_trabalho":"X8694 - RADIOLOGIA - ITACI"}
+{"id":"X8695","nome_filial":"ICESP","local_trabalho":"X8695 - NUTRICAO ENFERMARIA - ITACI"}
+{"id":"X8696","nome_filial":"ICESP","local_trabalho":"X8696 - NUTRICAO PRODUCAO - ITACI"}
+{"id":"X8697","nome_filial":"ICESP","local_trabalho":"X8697 - HOTELARIA E INFRAESTRUTURA - ITACI"}
+{"id":"X8698","nome_filial":"ICESP","local_trabalho":"X8698 - ESTOQUE CENTRAL - ITACI"}
+{"id":"X8699","nome_filial":"ICESP","local_trabalho":"X8699 - FARMACIA CENTRAL - ITACI"}
+{"id":"X8700","nome_filial":"ICESP","local_trabalho":"X8700 - FARMACOTECNICA - ITACI"}
+{"id":"X8701","nome_filial":"ICESP","local_trabalho":"X8701 - ENGENHARIA PREDIAL - ITACI"}
+{"id":"X8703","nome_filial":"ICESP","local_trabalho":"X8703 - PSICOLOGIA - ITACI"}
+{"id":"X8704","nome_filial":"ICESP","local_trabalho":"X8704 - SERVICO SOCIAL - ITACI"}
+{"id":"X8705","nome_filial":"ICESP","local_trabalho":"X8705 - REABILITACAO - ITACI"}
+{"id":"X8706","nome_filial":"ICESP","local_trabalho":"X8706 - FONOAUDIOLOGIA - ITACI"}
+{"id":"X8707","nome_filial":"ICESP","local_trabalho":"X8707 - CCIH - ITACI"}
+{"id":"X8709","nome_filial":"ICESP","local_trabalho":"X8709 - ODONTO - ITACI"}
+{"id":"X8710","nome_filial":"ICESP","local_trabalho":"X8710 - GESTAO DE AMBS E TERAPIA - GAT - ITACI"}
+{"id":"X8738","nome_filial":"ICESP","local_trabalho":"X8738 - UTI PEDIATRICA - ITACI"}
+{"id":"X102","nome_filial":"ICHC","local_trabalho":"X102 - ULTRASSONOGRAFIA NEUROLOGIA 05"}
+{"id":"X1023","nome_filial":"ICHC","local_trabalho":"X1023 - CENTRO CIRURGICO UROLOGIA 07 PAMB"}
+{"id":"X1288","nome_filial":"ICHC","local_trabalho":"X1288 - FARM UNITARIZADOS"}
+{"id":"X13","nome_filial":"ICHC","local_trabalho":"X13 - AMB CIRURGIA APARELHO DIGESTIVO - PULMONAR 06 PAMB"}
+{"id":"X141","nome_filial":"ICHC","local_trabalho":"X141 - AMB ANESTESIOLOGIA 04 PAMB"}
+{"id":"X155","nome_filial":"ICHC","local_trabalho":"X155 - GESTAO LEITOS"}
+{"id":"X156","nome_filial":"ICHC","local_trabalho":"X156 - ALMOX CENTRO CIRURGICO"}
+{"id":"X1594","nome_filial":"ICHC","local_trabalho":"X1594 - UI EPCR 02"}
+{"id":"X165","nome_filial":"ICHC","local_trabalho":"X165 - ALMOX NUTRICAO"}
+{"id":"X167","nome_filial":"ICHC","local_trabalho":"X167 - FARM CEAF"}
+{"id":"X2","nome_filial":"ICHC","local_trabalho":"X2 - CONSELHO DIRETOR"}
+{"id":"X214","nome_filial":"ICHC","local_trabalho":"X214 - AMB MOLESTIAS INFECCIOSAS 05 PAMB"}
+{"id":"X2191","nome_filial":"ICHC","local_trabalho":"X2191 - NUCLEO DE GESTAO DE PESSOAS - NGP - PA"}
+{"id":"X2192","nome_filial":"ICHC","local_trabalho":"X2192 - NUCLEO DE PLANEJAMENTO E GESTAO - NPG - PA"}
+{"id":"X2398","nome_filial":"ICHC","local_trabalho":"X2398 - DIR EXECUTIVA"}
+{"id":"X2399","nome_filial":"ICHC","local_trabalho":"X2399 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X2643","nome_filial":"ICHC","local_trabalho":"X2643 - DEP CARDIOLOGIA CLÍNICA"}
+{"id":"X2664","nome_filial":"ICHC","local_trabalho":"X2664 - REABILIATAÇÃO CARDIOVASCULAR E FISIOLOGIA DE EXERCÍCIO"}
+{"id":"X2696","nome_filial":"ICHC","local_trabalho":"X2696 - CALL CENTER"}
+{"id":"X2712","nome_filial":"ICHC","local_trabalho":"X2712 - PRONTO SOCORRO SUS TERREO"}
+{"id":"X2723","nome_filial":"ICHC","local_trabalho":"X2723 - UTI GERAL BLOCO II 04"}
+{"id":"X2724","nome_filial":"ICHC","local_trabalho":"X2724 - UTI CORONARIANA BLOCO II 04"}
+{"id":"X2726","nome_filial":"ICHC","local_trabalho":"X2726 - UTI CIRURGICA II BLOCO I 04"}
+{"id":"X2745","nome_filial":"ICHC","local_trabalho":"X2745 - LAB SIMULACAO CARDIACA 02"}
+{"id":"X2754","nome_filial":"ICHC","local_trabalho":"X2754 - BIOENGENHARIA SUBSOLO"}
+{"id":"X2774","nome_filial":"ICHC","local_trabalho":"X2774 - DIR FISIOTERAPIA"}
+{"id":"X2786","nome_filial":"ICHC","local_trabalho":"X2786 - CENTRO CIRURGICO 03"}
+{"id":"X2789","nome_filial":"ICHC","local_trabalho":"X2789 - CENTRAL DE COMPRAS - SOC"}
+{"id":"X2792","nome_filial":"ICHC","local_trabalho":"X2792 - LITOTRIPSIA 03"}
+{"id":"X2793","nome_filial":"ICHC","local_trabalho":"X2793 - CASA AIDS - EXTERNO"}
+{"id":"X2799","nome_filial":"ICHC","local_trabalho":"X2799 - FARM CENTRAL"}
+{"id":"X2807","nome_filial":"ICHC","local_trabalho":"X2807 - ENDOSCOPIA GASTROINTESTINAL 06 PAMB"}
+{"id":"X2815","nome_filial":"ICHC","local_trabalho":"X2815 - AMB TRANSPLANTE E CIRURGIA FIGADO 04 PAMB"}
+{"id":"X2821","nome_filial":"ICHC","local_trabalho":"X2821 - AMB TERAPIA OCUPACIONAL 02"}
+{"id":"X2822","nome_filial":"ICHC","local_trabalho":"X2822 - ENGENHARIA CLINICA"}
+{"id":"X2909","nome_filial":"ICHC","local_trabalho":"X2909 - AMB HEMOFILIA 01 PAMB"}
+{"id":"X2910","nome_filial":"ICHC","local_trabalho":"X2910 - AMB CLINICA MEDICA - AGD 04 PAMB"}
+{"id":"X2916","nome_filial":"ICHC","local_trabalho":"X2916 - ROUPARIA \/ LAVANDERIA - ICHC"}
+{"id":"X2919","nome_filial":"ICHC","local_trabalho":"X2919 - BANCO TECIDOS 08"}
+{"id":"X2924","nome_filial":"ICHC","local_trabalho":"X2924 - CENTRO CIRURGICO GERAL 09 PAMB"}
+{"id":"X2929","nome_filial":"ICHC","local_trabalho":"X2929 - CENTRAL EQUIPAMENTO MEDICO - CIEQ 09 PAMB"}
+{"id":"X2930","nome_filial":"ICHC","local_trabalho":"X2930 - ENDOSCOPIA GASTROINTESTINAL - CDG 02"}
+{"id":"X2931","nome_filial":"ICHC","local_trabalho":"X2931 - CENTRO IMUNIZACOES 04 PAMB"}
+{"id":"X2934","nome_filial":"ICHC","local_trabalho":"X2934 - CME 09 PAMB"}
+{"id":"X2939","nome_filial":"ICHC","local_trabalho":"X2939 - UI TRANSPLANTE E CIRURGIA FIGADO 09"}
+{"id":"X2940","nome_filial":"ICHC","local_trabalho":"X2940 - AMB CIRURGIA GERAL - VASCULAR - CAB PESCOCO - DOR 06 PAMB"}
+{"id":"X2941","nome_filial":"ICHC","local_trabalho":"X2941 - AMB GERIATRIA-HEMATO-CUIDADOS PALIATIVOS 05 PAMB"}
+{"id":"X2944","nome_filial":"ICHC","local_trabalho":"X2944 - UI CLINICA MEDICA 06"}
+{"id":"X2946","nome_filial":"ICHC","local_trabalho":"X2946 - DEP CLINICA MEDICA 04 PAMB"}
+{"id":"X2953","nome_filial":"ICHC","local_trabalho":"X2953 - UI DERMATOLOGIA 03"}
+{"id":"X2955","nome_filial":"ICHC","local_trabalho":"X2955 - DIALISE AGUDO 07"}
+{"id":"X2963","nome_filial":"ICHC","local_trabalho":"X2963 - FATURAMENTO SUS 04 PAMB"}
+{"id":"X2964","nome_filial":"ICHC","local_trabalho":"X2964 - DEP OBSTETRICIA 10"}
+{"id":"X2965","nome_filial":"ICHC","local_trabalho":"X2965 - DIR FARMACIA"}
+{"id":"X2966","nome_filial":"ICHC","local_trabalho":"X2966 - AMB NUTRICAO PAMB"}
+{"id":"X2967","nome_filial":"ICHC","local_trabalho":"X2967 - AMB ODONTOLOGIA 06 PAMB"}
+{"id":"X2969","nome_filial":"ICHC","local_trabalho":"X2969 - DIR SERVICO SOCIAL TERREO PAMB"}
+{"id":"X2976","nome_filial":"ICHC","local_trabalho":"X2976 - UI ENDOCRINOLOGIA - IMUNOLOGIA 07"}
+{"id":"X2978","nome_filial":"ICHC","local_trabalho":"X2978 - UI 09 GN"}
+{"id":"X2983","nome_filial":"ICHC","local_trabalho":"X2983 - FARM AMBULATORIAL"}
+{"id":"X2987","nome_filial":"ICHC","local_trabalho":"X2987 - FARM INTERNACAO 04"}
+{"id":"X2991","nome_filial":"ICHC","local_trabalho":"X2991 - FARM INTERNACAO 09"}
+{"id":"X2992","nome_filial":"ICHC","local_trabalho":"X2992 - FARM CENTRO CIRURGICO"}
+{"id":"X2997","nome_filial":"ICHC","local_trabalho":"X2997 - UI CIRURGIA VASCULAR 07"}
+{"id":"X2999","nome_filial":"ICHC","local_trabalho":"X2999 - UI GERIATRIA 06"}
+{"id":"X30","nome_filial":"ICHC","local_trabalho":"X30 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X3000","nome_filial":"ICHC","local_trabalho":"X3000 - AMB GINECOLOGIA 05 PAMB"}
+{"id":"X3001","nome_filial":"ICHC","local_trabalho":"X3001 - UI GINECOLOGIA 10"}
+{"id":"X3002","nome_filial":"ICHC","local_trabalho":"X3002 - UI HEMATOLOGIA - TRANSPLANTE MEDULA OSSEA 08"}
+{"id":"X3004","nome_filial":"ICHC","local_trabalho":"X3004 - DIALISE CRONICO 05 PAMB"}
+{"id":"X3005","nome_filial":"ICHC","local_trabalho":"X3005 - INATIVO, AMB AFERESE TERAPEUTICA HEMATOLOGIA 01 PAMB"}
+{"id":"X3006","nome_filial":"ICHC","local_trabalho":"X3006 - PRONTO SOCORRO ATENDIMENTO INICIAL 04CC"}
+{"id":"X3007","nome_filial":"ICHC","local_trabalho":"X3007 - HOSPITAL DIA REUMATOLOGIA - CEDMAC 06 PAMB"}
+{"id":"X3022","nome_filial":"ICHC","local_trabalho":"X3022 - AMB HEMATOLOGIA 01 PAMB"}
+{"id":"X3072","nome_filial":"ICHC","local_trabalho":"X3072 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X3081","nome_filial":"ICHC","local_trabalho":"X3081 - AMB DERMATOLOGIA 05 PAMB"}
+{"id":"X3084","nome_filial":"ICHC","local_trabalho":"X3084 - RESIDENCIA MEDICA E MULTIPROFISSIONAL"}
+{"id":"X3086","nome_filial":"ICHC","local_trabalho":"X3086 - AMB ENDOCRINOLOGIA - IMUNOLOGIA - GASTROENTEROLOGIA 05 PAMB"}
+{"id":"X3090","nome_filial":"ICHC","local_trabalho":"X3090 - VOLUNTARIADO"}
+{"id":"X3239","nome_filial":"ICHC","local_trabalho":"X3239 - UI CIRURGIA GERAL CABEÇA E PESCOÇO 08"}
+{"id":"X3292","nome_filial":"ICHC","local_trabalho":"X3292 - UI EMERG AB 04"}
+{"id":"X3432","nome_filial":"ICHC","local_trabalho":"X3432 - UI EMERG CIRURGIA 05"}
+{"id":"X3450","nome_filial":"ICHC","local_trabalho":"X3450 - PROJETOS E OBRAS"}
+{"id":"X3452","nome_filial":"ICHC","local_trabalho":"X3452 - HOSPITAL DIA CAM"}
+{"id":"X348","nome_filial":"ICHC","local_trabalho":"X348 - UI UCI 04"}
+{"id":"X3523","nome_filial":"ICHC","local_trabalho":"X3523 - CIRURGIA AMBULATORIAL OFTALMO - OTORRINO 06"}
+{"id":"X354","nome_filial":"ICHC","local_trabalho":"X354 - UTI QUEIMADOS 08"}
+{"id":"X3542","nome_filial":"ICHC","local_trabalho":"X3542 - UTI NEFROLOGIA 07"}
+{"id":"X3546","nome_filial":"ICHC","local_trabalho":"X3546 - UTI OBSTETRICIA 10"}
+{"id":"X3569","nome_filial":"ICHC","local_trabalho":"X3569 - PESQUISA LIGA HIPERTENSAO 07"}
+{"id":"X3594","nome_filial":"ICHC","local_trabalho":"X3594 - LAB BIOLOGIA TUMORAL TMO 01 PAMB"}
+{"id":"X3595","nome_filial":"ICHC","local_trabalho":"X3595 - LAB CITOGENETICA TMO 01 PAMB"}
+{"id":"X3597","nome_filial":"ICHC","local_trabalho":"X3597 - LAB HEMOSTASIA TMO 01 PAMB"}
+{"id":"X3599","nome_filial":"ICHC","local_trabalho":"X3599 - LAB IMUNOHEMATOLOGIA TMO 01 PAMB"}
+{"id":"X3616","nome_filial":"ICHC","local_trabalho":"X3616 - AMB REPRODUCAO HUMANA 04 PAMB"}
+{"id":"X3622","nome_filial":"ICHC","local_trabalho":"X3622 - AMB AVALIACAO E CONDICIONAMENTO EM REUMATOLOGIA - LACRE 04 PAMB"}
+{"id":"X3623","nome_filial":"ICHC","local_trabalho":"X3623 - UI MOLESTIAS INFECCIOSAS 04"}
+{"id":"X3624","nome_filial":"ICHC","local_trabalho":"X3624 - UI NEFROLOGIA 07"}
+{"id":"X3626","nome_filial":"ICHC","local_trabalho":"X3626 - AMB NEUROLOGIA \/ AMB NEOROCIRURGIA 06 PAMB"}
+{"id":"X3627","nome_filial":"ICHC","local_trabalho":"X3627 - UI NEUROLOGIA CLINICA"}
+{"id":"X3629","nome_filial":"ICHC","local_trabalho":"X3629 - ATENCAO DOMICILIAR - NADI 04 PAMB"}
+{"id":"X3632","nome_filial":"ICHC","local_trabalho":"X3632 - AMB OTORRINOLARINGOLOGIA 06 PAMB"}
+{"id":"X3633","nome_filial":"ICHC","local_trabalho":"X3633 - AMB OBSTETRICIA 10 PAMB"}
+{"id":"X3634","nome_filial":"ICHC","local_trabalho":"X3634 - UI OBSTETRICIA 10"}
+{"id":"X3635","nome_filial":"ICHC","local_trabalho":"X3635 - UI OFTALMOLOGIA 06"}
+{"id":"X3637","nome_filial":"ICHC","local_trabalho":"X3637 - CAPTACAO ORGAOS SPOT 05 DIR CLIN"}
+{"id":"X3640","nome_filial":"ICHC","local_trabalho":"X3640 - UI OTORRINOLARINGOLOGIA 06"}
+{"id":"X3641","nome_filial":"ICHC","local_trabalho":"X3641 - OUVIDORIA"}
+{"id":"X3642","nome_filial":"ICHC","local_trabalho":"X3642 - CIRURGIA AMBULATORIAL 06 PAMB"}
+{"id":"X3643","nome_filial":"ICHC","local_trabalho":"X3643 - UI CIRURGIA PLASTICA 08"}
+{"id":"X3655","nome_filial":"ICHC","local_trabalho":"X3655 - UI 05 DS"}
+{"id":"X3656","nome_filial":"ICHC","local_trabalho":"X3656 - CENTRO CIRURGICO QUEIMADOS 08 PAMB"}
+{"id":"X3657","nome_filial":"ICHC","local_trabalho":"X3657 - UI QUEIMADOS 08"}
+{"id":"X3659","nome_filial":"ICHC","local_trabalho":"X3659 - UTI RECUPERACAO POS ANESTESICA 09 PAMB"}
+{"id":"X3661","nome_filial":"ICHC","local_trabalho":"X3661 - UI REUMATOLOGIA 08"}
+{"id":"X3677","nome_filial":"ICHC","local_trabalho":"X3677 - AMB SAUDE SUPLEMENTAR"}
+{"id":"X3680","nome_filial":"ICHC","local_trabalho":"X3680 - DEP CIRURGIA GERAL 08"}
+{"id":"X3681","nome_filial":"ICHC","local_trabalho":"X3681 - HOTELARIA - ICHC"}
+{"id":"X3683","nome_filial":"ICHC","local_trabalho":"X3683 - DEP OFTALMOLOGIA 06"}
+{"id":"X3685","nome_filial":"ICHC","local_trabalho":"X3685 - DEP IMUNOLOGIA 08 PAMB"}
+{"id":"X3691","nome_filial":"ICHC","local_trabalho":"X3691 - NUTRICAO E DIETETICA"}
+{"id":"X3693","nome_filial":"ICHC","local_trabalho":"X3693 - PROVA FUNCIONAL GASTROENTEROLOGIA 05 PAMB"}
+{"id":"X3696","nome_filial":"ICHC","local_trabalho":"X3696 - RECEPCAO PRONTO SOCORRO 04"}
+{"id":"X3699","nome_filial":"ICHC","local_trabalho":"X3699 - ZELADORIA"}
+{"id":"X3701","nome_filial":"ICHC","local_trabalho":"X3701 - ELETRONEUROMIOGRAFIA 05"}
+{"id":"X3705","nome_filial":"ICHC","local_trabalho":"X3705 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X3706","nome_filial":"ICHC","local_trabalho":"X3706 - DEP CIRURGIA VASCULAR 06 PAMB"}
+{"id":"X3709","nome_filial":"ICHC","local_trabalho":"X3709 - DEP ENDOCRINOLOGIA 07"}
+{"id":"X3711","nome_filial":"ICHC","local_trabalho":"X3711 - DEP MOLESTIAS INFECCIOSAS 04"}
+{"id":"X3715","nome_filial":"ICHC","local_trabalho":"X3715 - DEP EMERG CLINICA MEDICA 05"}
+{"id":"X3716","nome_filial":"ICHC","local_trabalho":"X3716 - PRONTO SOCORRO GERAL 04"}
+{"id":"X3717","nome_filial":"ICHC","local_trabalho":"X3717 - DEP NEFROLOGIA 07"}
+{"id":"X3720","nome_filial":"ICHC","local_trabalho":"X3720 - DEP TRANPLANTE E CIRURGIA FIGADO 04 PAMB"}
+{"id":"X3733","nome_filial":"ICHC","local_trabalho":"X3733 - DEP PRIMEIRA CLINICA CIRURGICA 08"}
+{"id":"X3735","nome_filial":"ICHC","local_trabalho":"X3735 - DEP CIRURGIA APARELHO DIGESTIVO 09"}
+{"id":"X3738","nome_filial":"ICHC","local_trabalho":"X3738 - DEP DERMATOLOGIA 03"}
+{"id":"X3740","nome_filial":"ICHC","local_trabalho":"X3740 - DEP NEUROLOGIA 05"}
+{"id":"X3742","nome_filial":"ICHC","local_trabalho":"X3742 - DEP OTORRINOLARINGOLOGIA 06"}
+{"id":"X3743","nome_filial":"ICHC","local_trabalho":"X3743 - DEP UROLOGIA 07"}
+{"id":"X3746","nome_filial":"ICHC","local_trabalho":"X3746 - DEP NEUROCIRUGIA 05"}
+{"id":"X3753","nome_filial":"ICHC","local_trabalho":"X3753 - DEP GINECOLOGIA 10"}
+{"id":"X3760","nome_filial":"ICHC","local_trabalho":"X3760 - DEP CIRURGIA PLASTICA - QUEIMADOS 08"}
+{"id":"X3762","nome_filial":"ICHC","local_trabalho":"X3762 - DEP REUMATOLOGIA 05 PAMB"}
+{"id":"X3763","nome_filial":"ICHC","local_trabalho":"X3763 - UI CIRURGIA COLON RETO - FIGADO - VIAS BILIARES 09"}
+{"id":"X3764","nome_filial":"ICHC","local_trabalho":"X3764 - UI CIRURGIA BARIATRICA 09"}
+{"id":"X3765","nome_filial":"ICHC","local_trabalho":"X3765 - UI CIRURGIA ESTOMAGO - ESOFAGO 09"}
+{"id":"X3777","nome_filial":"ICHC","local_trabalho":"X3777 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X3791","nome_filial":"ICHC","local_trabalho":"X3791 - VIDEO ELETROENCEFALOGRAFIA 08"}
+{"id":"X3793","nome_filial":"ICHC","local_trabalho":"X3793 - AMB OFTALMOLOGIA 06 PAMB"}
+{"id":"X3797","nome_filial":"ICHC","local_trabalho":"X3797 - AMB CIRURGIA PLASTICA - QUEIMADOS 06 PAMB"}
+{"id":"X3801","nome_filial":"ICHC","local_trabalho":"X3801 - UI EMERG CIRURGIA 03"}
+{"id":"X3807","nome_filial":"ICHC","local_trabalho":"X3807 - AMB REOUVIR - EXTERNO"}
+{"id":"X3813","nome_filial":"ICHC","local_trabalho":"X3813 - ELETROCARDIOGRAFIA - ECG 04 PAMB"}
+{"id":"X3814","nome_filial":"ICHC","local_trabalho":"X3814 - ELETROENCEFALOGRAFIA - EEG 05 PAMB"}
+{"id":"X3815","nome_filial":"ICHC","local_trabalho":"X3815 - UTI NEUROLOGIA - NEUROCIRURGIA 05"}
+{"id":"X3824","nome_filial":"ICHC","local_trabalho":"X3824 - UI GASTROENTEROLOGIA 09GS"}
+{"id":"X3825","nome_filial":"ICHC","local_trabalho":"X3825 - ALMOX PRONTO SOCORRO"}
+{"id":"X3831","nome_filial":"ICHC","local_trabalho":"X3831 - LAB DERMATOLOGIA 03"}
+{"id":"X3836","nome_filial":"ICHC","local_trabalho":"X3836 - AMB NEFROLOGIA 05 PAMB"}
+{"id":"X3841","nome_filial":"ICHC","local_trabalho":"X3841 - PESQUISA CLINICA 04 PAMB"}
+{"id":"X3842","nome_filial":"ICHC","local_trabalho":"X3842 - AMB PSICOLOGIA PAMB"}
+{"id":"X3845","nome_filial":"ICHC","local_trabalho":"X3845 - UTI EMERG CIRURGIA - TRAUMA 04"}
+{"id":"X3847","nome_filial":"ICHC","local_trabalho":"X3847 - UI TRANSPLANTE RENAL 07"}
+{"id":"X3855","nome_filial":"ICHC","local_trabalho":"X3855 - HOSPITAL DIA GERAL 05 PAMB"}
+{"id":"X3856","nome_filial":"ICHC","local_trabalho":"X3856 - AMB FONOAUDIOLOGIA 02"}
+{"id":"X3857","nome_filial":"ICHC","local_trabalho":"X3857 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X3858","nome_filial":"ICHC","local_trabalho":"X3858 - AMB UROLOGIA - TRANSPLANTE RENAL 05 PAMB"}
+{"id":"X3859","nome_filial":"ICHC","local_trabalho":"X3859 - UI UROLOGIA 07"}
+{"id":"X3860","nome_filial":"ICHC","local_trabalho":"X3860 - UTI EMERG CLINICA MEDICA 04"}
+{"id":"X3862","nome_filial":"ICHC","local_trabalho":"X3862 - UFAR SETOR VENDA MEDICAMENTOS"}
+{"id":"X3864","nome_filial":"ICHC","local_trabalho":"X3864 - UFAR ACABAMENTO"}
+{"id":"X3865","nome_filial":"ICHC","local_trabalho":"X3865 - UFAR PRODUCAO"}
+{"id":"X3868","nome_filial":"ICHC","local_trabalho":"X3868 - UFAR CENTRAL"}
+{"id":"X3871","nome_filial":"ICHC","local_trabalho":"X3871 - UFAR PRODUCAO ESTEREIS"}
+{"id":"X3872","nome_filial":"ICHC","local_trabalho":"X3872 - UFAR PRODUCAO NAO ESTEREIS"}
+{"id":"X3873","nome_filial":"ICHC","local_trabalho":"X3873 - UFAR LAB CONTROLE QUALIDADE"}
+{"id":"X3874","nome_filial":"ICHC","local_trabalho":"X3874 - UFAR MANIPULACAO"}
+{"id":"X395","nome_filial":"ICHC","local_trabalho":"X395 - CENTRO EDUCACAO PERMANENTE - FARMACIA"}
+{"id":"X4","nome_filial":"ICHC","local_trabalho":"X4 - AMB SERVICO SOCIAL TERREO PAMB"}
+{"id":"X4079","nome_filial":"ICHC","local_trabalho":"X4079 - AMB NEUROCIRUGIA"}
+{"id":"X427","nome_filial":"ICHC","local_trabalho":"X427 - FARM CAF SAUDE SUPLEMENTAR"}
+{"id":"X434","nome_filial":"ICHC","local_trabalho":"X434 - DIR PSICOLOGIA TERREO PAMB"}
+{"id":"X435","nome_filial":"ICHC","local_trabalho":"X435 - DEP CIRURGIA CABECA E PESCOCO 08"}
+{"id":"X4381","nome_filial":"ICHC","local_trabalho":"X4381 - DIR EXECUTIVA"}
+{"id":"X451","nome_filial":"ICHC","local_trabalho":"X451 - DEP ANESTESIOLOGIA 08 PAMB"}
+{"id":"X47","nome_filial":"ICHC","local_trabalho":"X47 - UTI CIRURGIA APARELHO DIGESTIVO 09"}
+{"id":"X476","nome_filial":"ICHC","local_trabalho":"X476 - ALMOX MANUTENCAO"}
+{"id":"X477","nome_filial":"ICHC","local_trabalho":"X477 - ENGENHARIA PREDIAL"}
+{"id":"X489","nome_filial":"ICHC","local_trabalho":"X489 - RECEPCAO AMBULATORIO SAUDE SUPLEMENTAR"}
+{"id":"X497","nome_filial":"ICHC","local_trabalho":"X497 - DIR FISIOTERAPIA 04 PAMB"}
+{"id":"X4996","nome_filial":"ICHC","local_trabalho":"X4996 - UTI CTIN 1 NEONATAL 10 ICHC"}
+{"id":"X5001","nome_filial":"ICHC","local_trabalho":"X5001 - CIATOX"}
+{"id":"X503","nome_filial":"ICHC","local_trabalho":"X503 - REPROGRAFIA"}
+{"id":"X506","nome_filial":"ICHC","local_trabalho":"X506 - LACTARIO"}
+{"id":"X5069","nome_filial":"ICHC","local_trabalho":"X5069 - RECEPCAO AMB SUS"}
+{"id":"X5087","nome_filial":"ICHC","local_trabalho":"X5087 - AMB PSICOLOGIA 01"}
+{"id":"X51","nome_filial":"ICHC","local_trabalho":"X51 - UTI MOLESTIAS INFECCIOSAS 04"}
+{"id":"X510","nome_filial":"ICHC","local_trabalho":"X510 - NUTRICAO ENTERAL"}
+{"id":"X514","nome_filial":"ICHC","local_trabalho":"X514 - ALMOX ROUPARIA"}
+{"id":"X5164","nome_filial":"ICHC","local_trabalho":"X5164 - PESQUISA HEMATOLOGIA 01 PAMB"}
+{"id":"X5222","nome_filial":"ICHC","local_trabalho":"X5222 - DIR CORPO CLINICO"}
+{"id":"X5315","nome_filial":"ICHC","local_trabalho":"X5315 - UTI CTIO 1 SUBSOLO 01 ITACI"}
+{"id":"X5316","nome_filial":"ICHC","local_trabalho":"X5316 - UI SEMI CRITICO CTIO 2 SUBSOLO 01 ITACI"}
+{"id":"X55","nome_filial":"ICHC","local_trabalho":"X55 - CENTRO OBSTETRICO 10 PAMB"}
+{"id":"X5810","nome_filial":"ICHC","local_trabalho":"X5810 - SALA SAGUAO - SPSSA 04"}
+{"id":"X5812","nome_filial":"ICHC","local_trabalho":"X5812 - SALA EMERG CLINICA MEDICA - SPSM 04"}
+{"id":"X5813","nome_filial":"ICHC","local_trabalho":"X5813 - SALA EMERG CIRURGIA - SPSC 04"}
+{"id":"X5818","nome_filial":"ICHC","local_trabalho":"X5818 - SALA CONSULTORIOS PS CENTRAL - SPSCO 04"}
+{"id":"X5823","nome_filial":"ICHC","local_trabalho":"X5823 - PRONTO SOCORRO OFTALMO - OTORRINO 04"}
+{"id":"X5824","nome_filial":"ICHC","local_trabalho":"X5824 - PRONTO SOCORRO GINECO - OBSTETRICIA 10"}
+{"id":"X6499","nome_filial":"ICHC","local_trabalho":"X6499 - AMB FONOAUDIOLOGIA 06 PAMB"}
+{"id":"X6505","nome_filial":"ICHC","local_trabalho":"X6505 - POSTO COLETA SAUDE SUPLEMENTAR"}
+{"id":"X6511","nome_filial":"ICHC","local_trabalho":"X6511 - RESIDUOS HOSPITALARES"}
+{"id":"X6512","nome_filial":"ICHC","local_trabalho":"X6512 - GARANTIA DA QUALIDADE UFAR"}
+{"id":"X6519","nome_filial":"ICHC","local_trabalho":"X6519 - GERADORES"}
+{"id":"X6522","nome_filial":"ICHC","local_trabalho":"X6522 - ASSESSORIA DIR EXECUTIVA"}
+{"id":"X6529","nome_filial":"ICHC","local_trabalho":"X6529 - DEP HEMATOLOGIA 01 PAMB"}
+{"id":"X6530","nome_filial":"ICHC","local_trabalho":"X6530 - DEP TRANSPLANTE RENAL 07"}
+{"id":"X6532","nome_filial":"ICHC","local_trabalho":"X6532 - FARM DOSE INDIVIDUALIZADA\/UNITARIZADA"}
+{"id":"X6533","nome_filial":"ICHC","local_trabalho":"X6533 - AMB FARMACIA CLINICA 08 PAMB"}
+{"id":"X6536","nome_filial":"ICHC","local_trabalho":"X6536 - FATURAMENTO SAUDE SUPLEMENTAR"}
+{"id":"X6537","nome_filial":"ICHC","local_trabalho":"X6537 - FATURAMENTO FFM 10 PAMB"}
+{"id":"X6538","nome_filial":"ICHC","local_trabalho":"X6538 - RECEPCAO INTERNACAO SAUDE SUPLEMENTAR"}
+{"id":"X6539","nome_filial":"ICHC","local_trabalho":"X6539 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X6540","nome_filial":"ICHC","local_trabalho":"X6540 - CENTRO COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X6541","nome_filial":"ICHC","local_trabalho":"X6541 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X6542","nome_filial":"ICHC","local_trabalho":"X6542 - CENTRO ESPECIALIZADO EM DIREITO - CEDI"}
+{"id":"X6546","nome_filial":"ICHC","local_trabalho":"X6546 - INSTITUTO ORTOPEDIA - IOT"}
+{"id":"X6550","nome_filial":"ICHC","local_trabalho":"X6550 - INSTITUTO CORACAO - INCOR"}
+{"id":"X6554","nome_filial":"ICHC","local_trabalho":"X6554 - INSTITUTO MEDICINA FISICA E REABILITACAO - IMREA"}
+{"id":"X6556","nome_filial":"ICHC","local_trabalho":"X6556 - FUNDACAO PRO SANGUE 01"}
+{"id":"X6564","nome_filial":"ICHC","local_trabalho":"X6564 - ICR - UTI NEONATAL 10"}
+{"id":"X6890","nome_filial":"ICHC","local_trabalho":"X6890 - NEURO-RADIOLOGIA 03"}
+{"id":"X6954","nome_filial":"ICHC","local_trabalho":"X6954 - ALMOX SAUDE SUPLEMENTAR"}
+{"id":"X6956","nome_filial":"ICHC","local_trabalho":"X6956 - ALMOX DEMANDAS JUDICIAIS"}
+{"id":"X6959","nome_filial":"ICHC","local_trabalho":"X6959 - ALMOX CASA AIDS"}
+{"id":"X6960","nome_filial":"ICHC","local_trabalho":"X6960 - ALMOX HOTELARIA"}
+{"id":"X6976","nome_filial":"ICHC","local_trabalho":"X6976 - DIR EXECUTIVA"}
+{"id":"X7003","nome_filial":"ICHC","local_trabalho":"X7003 - PESQUISA DE TERAPIA CELULAR"}
+{"id":"X7036","nome_filial":"ICHC","local_trabalho":"X7036 - LAB CRIOPRESERVACAO 01 PAMB"}
+{"id":"X7057","nome_filial":"ICHC","local_trabalho":"X7057 - CUIDADOS PALIATIVOS EXTERNO - IOT"}
+{"id":"X7067","nome_filial":"ICHC","local_trabalho":"X7067 - ALMOX MATERIAIS ESPECIAIS - OPME"}
+{"id":"X7071","nome_filial":"ICHC","local_trabalho":"X7071 - UTI DECIMO PRIMEIRO - 11"}
+{"id":"X7093","nome_filial":"ICHC","local_trabalho":"X7093 - HOSPITAL DIA HEMATOLOGIA 01 PAMB"}
+{"id":"X7298","nome_filial":"ICHC","local_trabalho":"X7298 - AMB REUMATO-PNEUMO 05 PAMB"}
+{"id":"X7397","nome_filial":"ICHC","local_trabalho":"X7397 - SALA DE PROCEDIMENTOS - NEFRO"}
+{"id":"X7411","nome_filial":"ICHC","local_trabalho":"X7411 - HOSPITAL UNIVERSITÁRIO - HU - OBSTETRICIA"}
+{"id":"X7430","nome_filial":"ICHC","local_trabalho":"X7430 - HOSPITAL UNIVERSITÁRIO - HU - GERAL"}
+{"id":"X7433","nome_filial":"ICHC","local_trabalho":"X7433 - UTI 04 GN"}
+{"id":"X7436","nome_filial":"ICHC","local_trabalho":"X7436 - LAB URG CENTRO CIRURGICO DLC 09 PAMB"}
+{"id":"X7440","nome_filial":"ICHC","local_trabalho":"X7440 - UI 04 GN"}
+{"id":"X7511","nome_filial":"ICHC","local_trabalho":"X7511 - UI 05 GN"}
+{"id":"X7614","nome_filial":"ICHC","local_trabalho":"X7614 - UI VIDEO EEG"}
+{"id":"X7619","nome_filial":"ICHC","local_trabalho":"X7619 - CENTRO INOVAÇÃO TECNOLÓGICA - CITIC"}
+{"id":"X7639","nome_filial":"ICHC","local_trabalho":"X7639 - UI 04 DS"}
+{"id":"X7641","nome_filial":"ICHC","local_trabalho":"X7641 - UTI 04 AA"}
+{"id":"X7643","nome_filial":"ICHC","local_trabalho":"X7643 - UTI 04 AB"}
+{"id":"X7651","nome_filial":"ICHC","local_trabalho":"X7651 - UI SAÚDE SUPLEMENTAR"}
+{"id":"X7738","nome_filial":"ICHC","local_trabalho":"X7738 - CASA DE MOEMA"}
+{"id":"X7752","nome_filial":"ICHC","local_trabalho":"X7752 - AMB TELEMEDICINA 05 PAMB"}
+{"id":"X7762","nome_filial":"ICHC","local_trabalho":"X7762 - UTI 11 GN"}
+{"id":"X7763","nome_filial":"ICHC","local_trabalho":"X7763 - UTI 11 GS"}
+{"id":"X7764","nome_filial":"ICHC","local_trabalho":"X7764 - UTI 11 DN"}
+{"id":"X7765","nome_filial":"ICHC","local_trabalho":"X7765 - UTI 11 FF"}
+{"id":"X7766","nome_filial":"ICHC","local_trabalho":"X7766 - UTI 11 DS"}
+{"id":"X7768","nome_filial":"ICHC","local_trabalho":"X7768 - UI RETAG EMERG CIRURG GERAL 08"}
+{"id":"X7773","nome_filial":"ICHC","local_trabalho":"X7773 - AMB REOUVIR"}
+{"id":"X7775","nome_filial":"ICHC","local_trabalho":"X7775 - PLANTÃO CONTROLADOR 04"}
+{"id":"X8145","nome_filial":"ICHC","local_trabalho":"X8145 - ALMOX INTERNAÇÃO 11"}
+{"id":"X8146","nome_filial":"ICHC","local_trabalho":"X8146 - UI SAÚDE SUPLEMENTAR 03 - CAM"}
+{"id":"X8236","nome_filial":"ICHC","local_trabalho":"X8236 - AMB VARZEA DO CAMO - EXTERNO"}
+{"id":"X8238","nome_filial":"ICHC","local_trabalho":"X8238 - ALMOX ENFERMAGEM"}
+{"id":"X8239","nome_filial":"ICHC","local_trabalho":"X8239 - GRUPO DE GESTÃO"}
+{"id":"X8240","nome_filial":"ICHC","local_trabalho":"X8240 - PRONTO ATENDIMENTO CAM"}
+{"id":"X8243","nome_filial":"ICHC","local_trabalho":"X8243 - HOSPITAL DIA REUMATOLOGIA 08 DS"}
+{"id":"X8244","nome_filial":"ICHC","local_trabalho":"X8244 - FARM HEMATOLOGIA 01 PAMB"}
+{"id":"X8338","nome_filial":"ICHC","local_trabalho":"X8338 - RECEPÇÃO DAM 04 PAMB"}
+{"id":"X8352","nome_filial":"ICHC","local_trabalho":"X8352 - AUTORIZAÇÃO - CAM"}
+{"id":"X8361","nome_filial":"ICHC","local_trabalho":"X8361 - ICHC - SUS FATURAMENTO AIH"}
+{"id":"X8373","nome_filial":"ICHC","local_trabalho":"X8373 - APAC -DAM"}
+{"id":"X8379","nome_filial":"ICHC","local_trabalho":"X8379 - UI GASTROCIRURGIA 09CC"}
+{"id":"X8541","nome_filial":"ICHC","local_trabalho":"X8541 - COMISSIONADO ASSISTENCIAL - ICHC"}
+{"id":"X8570","nome_filial":"ICHC","local_trabalho":"X8570 - UI 03 DN"}
+{"id":"X8572","nome_filial":"ICHC","local_trabalho":"X8572 - UI EMERG GERAL DECISAO CLINICA 04AA"}
+{"id":"X8575","nome_filial":"ICHC","local_trabalho":"X8575 - UI RETAG EMERG CLINICA 04CC"}
+{"id":"X8616","nome_filial":"ICHC","local_trabalho":"X8616 - CENTRAL TRANSP INTERNO PACIENTES - CETIP"}
+{"id":"X8622","nome_filial":"ICHC","local_trabalho":"X8622 - SESMT - SERV ESPEC ENGENHARIA SEGUR MEDIC TRABALHO"}
+{"id":"X8752","nome_filial":"ICHC","local_trabalho":"X8752 - AMB CIRURGIA VASCULAR"}
+{"id":"X8998","nome_filial":"ICHC","local_trabalho":"X8998 - UTI CIRURGICA 03"}
+{"id":"X90","nome_filial":"ICHC","local_trabalho":"X90 - DEP GERIATRIA 08 PAMB"}
+{"id":"X91","nome_filial":"ICHC","local_trabalho":"X91 - DEP PNEUMOLOGIA 05 PAMB"}
+{"id":"X92","nome_filial":"ICHC","local_trabalho":"X92 - DEP GASTROENTEROLOGIA 09"}
+{"id":"X2151","nome_filial":"ICR","local_trabalho":"X2151 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X2187","nome_filial":"ICR","local_trabalho":"X2187 - UI SEMI CRITICO ENCA NEONAT CANGURU 10 ICHC"}
+{"id":"X4984","nome_filial":"ICR","local_trabalho":"X4984 - AMB ODONTOLOGIA 02 ITACI"}
+{"id":"X4985","nome_filial":"ICR","local_trabalho":"X4985 - CENTRO COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X4987","nome_filial":"ICR","local_trabalho":"X4987 - AMB CIRURGIA INFANTIL 01"}
+{"id":"X4988","nome_filial":"ICR","local_trabalho":"X4988 - AMB ESPECIALIDADES 01"}
+{"id":"X4990","nome_filial":"ICR","local_trabalho":"X4990 - AUDITORIOS\/SALAS AULA"}
+{"id":"X4992","nome_filial":"ICR","local_trabalho":"X4992 - SAME"}
+{"id":"X4993","nome_filial":"ICR","local_trabalho":"X4993 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X4994","nome_filial":"ICR","local_trabalho":"X4994 - ZELADORIA"}
+{"id":"X4997","nome_filial":"ICR","local_trabalho":"X4997 - BIBLIOTECA"}
+{"id":"X4998","nome_filial":"ICR","local_trabalho":"X4998 - LAB BIOQUIMICA"}
+{"id":"X4999","nome_filial":"ICR","local_trabalho":"X4999 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X5003","nome_filial":"ICR","local_trabalho":"X5003 - CME 05"}
+{"id":"X5004","nome_filial":"ICR","local_trabalho":"X5004 - CENTRO CIRURGICO 06"}
+{"id":"X5005","nome_filial":"ICR","local_trabalho":"X5005 - CENTRO REFERENCIA NACIONAL"}
+{"id":"X5007","nome_filial":"ICR","local_trabalho":"X5007 - POSTO COLETA"}
+{"id":"X5008","nome_filial":"ICR","local_trabalho":"X5008 - CENTRAL DE COMPRAS"}
+{"id":"X5009","nome_filial":"ICR","local_trabalho":"X5009 - DEPARTAMENTO DE PEDIATRIA - CONDEP"}
+{"id":"X5010","nome_filial":"ICR","local_trabalho":"X5010 - CONSELHO DIRETOR"}
+{"id":"X5011","nome_filial":"ICR","local_trabalho":"X5011 - NUTRICAO E DIETETICA"}
+{"id":"X5012","nome_filial":"ICR","local_trabalho":"X5012 - UTI CTIP PEDIATRICO P4"}
+{"id":"X5013","nome_filial":"ICR","local_trabalho":"X5013 - COORDENACAO CDI"}
+{"id":"X5014","nome_filial":"ICR","local_trabalho":"X5014 - UI TRS ETRS P1"}
+{"id":"X5015","nome_filial":"ICR","local_trabalho":"X5015 - DIR EXECUTIVA"}
+{"id":"X5016","nome_filial":"ICR","local_trabalho":"X5016 - ELETROCARDIOGRAFIA - ECG"}
+{"id":"X5017","nome_filial":"ICR","local_trabalho":"X5017 - ELETROENCEFALOGRAFIA - EEG"}
+{"id":"X5018","nome_filial":"ICR","local_trabalho":"X5018 - ECOCARDIOGRAFIA"}
+{"id":"X5019","nome_filial":"ICR","local_trabalho":"X5019 - ENDOSCOPIA"}
+{"id":"X5020","nome_filial":"ICR","local_trabalho":"X5020 - DIR ENFERMAGEM"}
+{"id":"X5021","nome_filial":"ICR","local_trabalho":"X5021 - UI EMERG EUPS P0"}
+{"id":"X5022","nome_filial":"ICR","local_trabalho":"X5022 - ENGENHARIA CLINICA"}
+{"id":"X5023","nome_filial":"ICR","local_trabalho":"X5023 - ENGENHARIA PREDIAL"}
+{"id":"X5025","nome_filial":"ICR","local_trabalho":"X5025 - CENTRO DE INFORMACAO EM SAUDE - CIS"}
+{"id":"X5026","nome_filial":"ICR","local_trabalho":"X5026 - DIR FARMACIA"}
+{"id":"X5027","nome_filial":"ICR","local_trabalho":"X5027 - FARM AMBULATORIAL"}
+{"id":"X5028","nome_filial":"ICR","local_trabalho":"X5028 - FARM CENTRAL"}
+{"id":"X5029","nome_filial":"ICR","local_trabalho":"X5029 - FARM UNITARIZACAO"}
+{"id":"X5030","nome_filial":"ICR","local_trabalho":"X5030 - FATURAMENTO"}
+{"id":"X5031","nome_filial":"ICR","local_trabalho":"X5031 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X5032","nome_filial":"ICR","local_trabalho":"X5032 - AMB FISIOTERAPIA 01"}
+{"id":"X5033","nome_filial":"ICR","local_trabalho":"X5033 - DIR FISIOTERAPIA"}
+{"id":"X5035","nome_filial":"ICR","local_trabalho":"X5035 - FARM PARENTERAIS"}
+{"id":"X5036","nome_filial":"ICR","local_trabalho":"X5036 - DIR SAUDE SUPLEMENTAR"}
+{"id":"X5037","nome_filial":"ICR","local_trabalho":"X5037 - CENTRO GESTAO PESSOAS - CGP E QUALIDADE DE VIDA"}
+{"id":"X5038","nome_filial":"ICR","local_trabalho":"X5038 - LAB HEMATOLOGIA"}
+{"id":"X5039","nome_filial":"ICR","local_trabalho":"X5039 - HEMODIALISE"}
+{"id":"X5040","nome_filial":"ICR","local_trabalho":"X5040 - HIGIENIZACAO \/ LIMPEZA - ICR"}
+{"id":"X5041","nome_filial":"ICR","local_trabalho":"X5041 - HOSPITAL DIA - EHD"}
+{"id":"X5042","nome_filial":"ICR","local_trabalho":"X5042 - HUMANIZACAO"}
+{"id":"X5044","nome_filial":"ICR","local_trabalho":"X5044 - UI ESP1 ESPECIALIDADES 04"}
+{"id":"X5045","nome_filial":"ICR","local_trabalho":"X5045 - UI ECI CIRURGIA INFANTIL 06"}
+{"id":"X5046","nome_filial":"ICR","local_trabalho":"X5046 - UI EPED PEDIATRIA CLINICA 03"}
+{"id":"X5047","nome_filial":"ICR","local_trabalho":"X5047 - UI ESP2 ESPECIALIDADES P3"}
+{"id":"X5048","nome_filial":"ICR","local_trabalho":"X5048 - DIR ITACI"}
+{"id":"X5049","nome_filial":"ICR","local_trabalho":"X5049 - AMB ONCO HEMATOLOGIA 02 ITACI"}
+{"id":"X5051","nome_filial":"ICR","local_trabalho":"X5051 - FARM UNITARIZACAO - ITACI"}
+{"id":"X5052","nome_filial":"ICR","local_trabalho":"X5052 - AMB FISIOTERAPIA 02 ITACI"}
+{"id":"X5053","nome_filial":"ICR","local_trabalho":"X5053 - HIGIENIZACAO \/ LIMPEZA - ITACI"}
+{"id":"X5054","nome_filial":"ICR","local_trabalho":"X5054 - HOSPITAL DIA ONCO HEMATOLOGIA ITACI"}
+{"id":"X5055","nome_filial":"ICR","local_trabalho":"X5055 - UI EOH 01 ITACI"}
+{"id":"X5056","nome_filial":"ICR","local_trabalho":"X5056 - UI CTCTH SUBSOLO 01 ITACI"}
+{"id":"X5057","nome_filial":"ICR","local_trabalho":"X5057 - LAB HEMATOLOGIA ITACI"}
+{"id":"X5058","nome_filial":"ICR","local_trabalho":"X5058 - AMB NUTRICAO 02 ITACI"}
+{"id":"X5061","nome_filial":"ICR","local_trabalho":"X5061 - AMB SERVICO SOCIAL 02 ITACI"}
+{"id":"X5063","nome_filial":"ICR","local_trabalho":"X5063 - SAME - ITACI"}
+{"id":"X5065","nome_filial":"ICR","local_trabalho":"X5065 - DIR LABORATORIO"}
+{"id":"X5066","nome_filial":"ICR","local_trabalho":"X5066 - LACTARIO"}
+{"id":"X5068","nome_filial":"ICR","local_trabalho":"X5068 - LAB PED CLINICA LIM 36"}
+{"id":"X5070","nome_filial":"ICR","local_trabalho":"X5070 - AMB NUTRICAO 01"}
+{"id":"X5072","nome_filial":"ICR","local_trabalho":"X5072 - ALMOX NUTRICAO"}
+{"id":"X5074","nome_filial":"ICR","local_trabalho":"X5074 - OUVIDORIA"}
+{"id":"X5075","nome_filial":"ICR","local_trabalho":"X5075 - PESQUISA CLINICA P1"}
+{"id":"X5077","nome_filial":"ICR","local_trabalho":"X5077 - PRONTO SOCORRO SAUDE SUPLEMENTAR"}
+{"id":"X5078","nome_filial":"ICR","local_trabalho":"X5078 - PROTOCOLO"}
+{"id":"X5079","nome_filial":"ICR","local_trabalho":"X5079 - PROVA FUNCAO PULMONAR"}
+{"id":"X5080","nome_filial":"ICR","local_trabalho":"X5080 - RAIO X"}
+{"id":"X5082","nome_filial":"ICR","local_trabalho":"X5082 - RECEPCAO PRONTO SOCORRO SUS"}
+{"id":"X5084","nome_filial":"ICR","local_trabalho":"X5084 - LAB EXAMES ESPECIAIS"}
+{"id":"X5085","nome_filial":"ICR","local_trabalho":"X5085 - ROUPARIA \/ LAVANDERIA - ICR"}
+{"id":"X5086","nome_filial":"ICR","local_trabalho":"X5086 - DIR CORPO CLINICO"}
+{"id":"X5088","nome_filial":"ICR","local_trabalho":"X5088 - AMB SERVICO SOCIAL 01"}
+{"id":"X5089","nome_filial":"ICR","local_trabalho":"X5089 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X5090","nome_filial":"ICR","local_trabalho":"X5090 - CENTRAL TELEFONIA - CETI"}
+{"id":"X5091","nome_filial":"ICR","local_trabalho":"X5091 - AMB TERAPIA OCUPACIONAL 01"}
+{"id":"X5092","nome_filial":"ICR","local_trabalho":"X5092 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X5093","nome_filial":"ICR","local_trabalho":"X5093 - INFRA ESTRUTURA - CETI"}
+{"id":"X5094","nome_filial":"ICR","local_trabalho":"X5094 - RELACIONAMENTO CLIENTE - CETI"}
+{"id":"X5095","nome_filial":"ICR","local_trabalho":"X5095 - SISTEMA INFORMACAO - CETI"}
+{"id":"X5096","nome_filial":"ICR","local_trabalho":"X5096 - TOMOGRAFIA COMPUTADORIZADA"}
+{"id":"X5097","nome_filial":"ICR","local_trabalho":"X5097 - CENTRALTRANSPORTE"}
+{"id":"X5099","nome_filial":"ICR","local_trabalho":"X5099 - PRONTO SOCORRO SUS"}
+{"id":"X5100","nome_filial":"ICR","local_trabalho":"X5100 - UTI CTIN 2 NEONATAL P4"}
+{"id":"X5101","nome_filial":"ICR","local_trabalho":"X5101 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X5102","nome_filial":"ICR","local_trabalho":"X5102 - ULTRASSONOGRAFIA"}
+{"id":"X5210","nome_filial":"ICR","local_trabalho":"X5210 - POLISSONOGRAFIA"}
+{"id":"X5314","nome_filial":"ICR","local_trabalho":"X5314 - AMB FONOAUDIOLOGIA 01"}
+{"id":"X5317","nome_filial":"ICR","local_trabalho":"X5317 - RESSONANCIA MAGNETICA"}
+{"id":"X5320","nome_filial":"ICR","local_trabalho":"X5320 - DIR NUTRICAO"}
+{"id":"X5474","nome_filial":"ICR","local_trabalho":"X5474 - HOSPITAL AUXILIAR COTOXO - HAC"}
+{"id":"X5570","nome_filial":"ICR","local_trabalho":"X5570 - SEGURANCA PATRIMONIAL \/ PORTARIA - ICR"}
+{"id":"X5576","nome_filial":"ICR","local_trabalho":"X5576 - UI SEMI CRITICO ENCO NEONAT CONVENCIONAL 10 ICHC"}
+{"id":"X5837","nome_filial":"ICR","local_trabalho":"X5837 - PROJETOS E OBRAS"}
+{"id":"X6965","nome_filial":"ICR","local_trabalho":"X6965 - DIR TERAPIA OCUPACIONAL"}
+{"id":"X7043","nome_filial":"ICR","local_trabalho":"X7043 - HOSPITAL DIA SAUDE SUPLEMENTAR"}
+{"id":"X7058","nome_filial":"ICR","local_trabalho":"X7058 - CENTRO MEDICO SAUDE SUPLEMENTAR"}
+{"id":"X7089","nome_filial":"ICR","local_trabalho":"X7089 - UI ECTSS 01 ITACI"}
+{"id":"X7297","nome_filial":"ICR","local_trabalho":"X7297 - GESTAO LEITOS"}
+{"id":"X7414","nome_filial":"ICR","local_trabalho":"X7414 - HOSPITAL UNIVERSITÁRIO - HU"}
+{"id":"X7421","nome_filial":"ICR","local_trabalho":"X7421 - UTI CTIO SUBSOLO 01 ITACI"}
+{"id":"X7620","nome_filial":"ICR","local_trabalho":"X7620 - CENTRO ESPECIALIZADO EM DIREITO - CEDI"}
+{"id":"X8229","nome_filial":"ICR","local_trabalho":"X8229 - BANCO DE LEITE"}
+{"id":"X8241","nome_filial":"ICR","local_trabalho":"X8241 - UI CTMO"}
+{"id":"X9002","nome_filial":"ICR","local_trabalho":"X9002 - DIR HOSPITALIDADE"}
+{"id":"X7933","nome_filial":"Imrea Lapa","local_trabalho":"X7933 - AMB MÉDICO - [LAPA]"}
+{"id":"X7937","nome_filial":"Imrea Lapa","local_trabalho":"X7937 - AMB ODONTOLOGIA - [LAPA]"}
+{"id":"X7938","nome_filial":"Imrea Lapa","local_trabalho":"X7938 - AMB MULTIPROFISSIONAL ADULTO - [LAPA]"}
+{"id":"X7939","nome_filial":"Imrea Lapa","local_trabalho":"X7939 - AMB MULTIPROFISSIONAL INFANTIL - [LAPA]"}
+{"id":"X7946","nome_filial":"Imrea Lapa","local_trabalho":"X7946 - GINÁSIO CONDICIONAMENTO FÍSICO ADULTO - [LAPA]"}
+{"id":"X7947","nome_filial":"Imrea Lapa","local_trabalho":"X7947 - GINÁSIO FISIOTERAPIA ADULTO - [LAPA]"}
+{"id":"X7948","nome_filial":"Imrea Lapa","local_trabalho":"X7948 - GINÁSIO TERAPIA OCUPACIONAL ADULTO - [LAPA]"}
+{"id":"X7950","nome_filial":"Imrea Lapa","local_trabalho":"X7950 - REABILITY LAB - [LAPA]"}
+{"id":"X7951","nome_filial":"Imrea Lapa","local_trabalho":"X7951 - OFICINA OPM - [LAPA]"}
+{"id":"X7968","nome_filial":"Imrea Lapa","local_trabalho":"X7968 - NUTRIÇÃO E DIÉTETICA - COPA\/REFEITÓRIO - [LAPA]"}
+{"id":"X7984","nome_filial":"Imrea Lapa","local_trabalho":"X7984 - ENGENHARIA PREDIAL - [LAPA]"}
+{"id":"X7987","nome_filial":"Imrea Lapa","local_trabalho":"X7987 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMAÇÃO - CETI - [LAPA]"}
+{"id":"X7991","nome_filial":"Imrea Lapa","local_trabalho":"X7991 - AGENDAMENTO - [LAPA]"}
+{"id":"X7992","nome_filial":"Imrea Lapa","local_trabalho":"X7992 - RECEPÇÃO - [LAPA]"}
+{"id":"X7993","nome_filial":"Imrea Lapa","local_trabalho":"X7993 - SAME - [LAPA]"}
+{"id":"X7996","nome_filial":"Imrea Lapa","local_trabalho":"X7996 - DIR ADMINISTRATIVA E MÉDICA - [LAPA]"}
+{"id":"X7997","nome_filial":"Imrea Lapa","local_trabalho":"X7997 - APOIO ADMINISTRATIVO - [LAPA]"}
+{"id":"X7998","nome_filial":"Imrea Lapa","local_trabalho":"X7998 - CENTRO GESTÃO PESSOAS - CGP - [LAPA]"}
+{"id":"X7999","nome_filial":"Imrea Lapa","local_trabalho":"X7999 - CENTRO DE COMUNICAÇÃO INSTITUCIONAL - CCI - [LAPA]"}
+{"id":"X8001","nome_filial":"Imrea Lapa","local_trabalho":"X8001 - SALA CONDIR - [LAPA]"}
+{"id":"X8038","nome_filial":"Imrea Umarizal","local_trabalho":"X8038 - AMB MÉDICO - [UMARIZAL]"}
+{"id":"X8042","nome_filial":"Imrea Umarizal","local_trabalho":"X8042 - AMB ODONTOLOGIA - [UMARIZAL]"}
+{"id":"X8043","nome_filial":"Imrea Umarizal","local_trabalho":"X8043 - AMB MULTIPROFISSIONAL ADULTO - [UMARIZAL]"}
+{"id":"X8051","nome_filial":"Imrea Umarizal","local_trabalho":"X8051 - GINÁSIO CONDICIONAMENTO FÍSICO ADULTO - [UMARIZAL]"}
+{"id":"X8052","nome_filial":"Imrea Umarizal","local_trabalho":"X8052 - GINÁSIO FISIOTERAPIA ADULTO - [UMARIZAL]"}
+{"id":"X8053","nome_filial":"Imrea Umarizal","local_trabalho":"X8053 - GINÁSIO TERAPIA OCUPACIONAL ADULTO - [UMARIZAL]"}
+{"id":"X8055","nome_filial":"Imrea Umarizal","local_trabalho":"X8055 - OFICINA OPM - [UMARIZAL]"}
+{"id":"X8071","nome_filial":"Imrea Umarizal","local_trabalho":"X8071 - NUTRIÇÃO E DIÉTETICA  - COPA\/REFEITÓRIO - [UMARIZAL]"}
+{"id":"X8087","nome_filial":"Imrea Umarizal","local_trabalho":"X8087 - ENGENHARIA PREDIAL - [UMARIZAL]"}
+{"id":"X8094","nome_filial":"Imrea Umarizal","local_trabalho":"X8094 - AGENDAMENTO - [UMARIZAL]"}
+{"id":"X8095","nome_filial":"Imrea Umarizal","local_trabalho":"X8095 - RECEPÇÃO - [UMARIZAL]"}
+{"id":"X8096","nome_filial":"Imrea Umarizal","local_trabalho":"X8096 - SAME - [UMARIZAL]"}
+{"id":"X8099","nome_filial":"Imrea Umarizal","local_trabalho":"X8099 - DIR ADMINISTRATIVA E MÉDICA - [UMARIZAL]"}
+{"id":"X8100","nome_filial":"Imrea Umarizal","local_trabalho":"X8100 - APOIO ADMINISTRATIVO  - IMREA UMARIZAL - [UMARIZAL]"}
+{"id":"X8101","nome_filial":"Imrea Umarizal","local_trabalho":"X8101 - CENTRO GESTÃO PESSOAS - CGP - [UMARIZAL]"}
+{"id":"X1270","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X1270 - FARM CENTRAL - [VILA MARIANA]"}
+{"id":"X1271","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X1271 - ALMOX GERAL - [VILA MARIANA]"}
+{"id":"X4839","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X4839 - SAME - [VILA MARIANA]"}
+{"id":"X4911","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X4911 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMAÇÃO - CETI - [VILA MARIANA]"}
+{"id":"X7446","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7446 - UI 04 BLOCO I - [VILA MARIANA]"}
+{"id":"X7449","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7449 - AMB MÉDICO - [VILA MARIANA]"}
+{"id":"X7450","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7450 - AMB ODONTOLOGIA - [VILA MARIANA]"}
+{"id":"X7456","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7456 - NUTRIÇÃO E DIÉTETICA  - IMREA - [VILA MARIANA]"}
+{"id":"X7459","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7459 - ROUPARIA\/LAVANDERIA - IMREA - [VILA MARIANA]"}
+{"id":"X7515","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7515 - AMB MÉDICO CLÍNICAS - [CLÍNICAS]"}
+{"id":"X7516","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7516 - AMB MÉDICO CLÍNICAS - [CLÍNICAS]"}
+{"id":"X7517","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7517 - AMB S SOCIAL\/PSICO\/FONO\/NUTRI\/ENF - [VILA MARIANA]"}
+{"id":"X7518","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7518 - AMB MULTIPROFISSIONAL CLÍNICAS - [CLÍNICAS]"}
+{"id":"X7520","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7520 - ULTRASSONOGRAFIA - [VILA MARIANA]"}
+{"id":"X7521","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7521 - AVALIAÇÃO CARDIOLÓGICA - [VILA MARIANA]"}
+{"id":"X7527","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7527 - GINÁSIO CONDICIONAMENTO FÍSICO ADULTO - [VILA MARIANA]"}
+{"id":"X7528","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7528 - GINÁSIO FISIOTERAPIA ADULTO - [VILA MARIANA]"}
+{"id":"X7529","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7529 - GINÁSIO REABILITAÇÃO INFANTIL - [VILA MARIANA]"}
+{"id":"X7530","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7530 - GINÁSIO REABILITAÇÃO INTERNAÇÃO - [VILA MARIANA]"}
+{"id":"X7531","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7531 - GINÁSIO TERAPIA OCUPACIONAL ADULTO - [VILA MARIANA]"}
+{"id":"X7533","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7533 - LABORATÓRIO MOVIMENTO - [VILA MARIANA]"}
+{"id":"X7534","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7534 - LABORATÓRIO ROBÓTICA - [VILA MARIANA]"}
+{"id":"X7535","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7535 - OFICINA OPM - [VILA MARIANA]"}
+{"id":"X7543","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7543 - ENGENHARIA CLÍNICA - [VILA MARIANA]"}
+{"id":"X7544","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7544 - ENGENHARIA PREDIAL - [VILA MARIANA]"}
+{"id":"X7547","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7547 - AGENDAMENTO - [VILA MARIANA]"}
+{"id":"X7549","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7549 - RECEPÇÃO - [VILA MARIANA]"}
+{"id":"X7550","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7550 - CONSELHO DIRETOR - [VILA MARIANA]"}
+{"id":"X7551","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7551 - DIR CORPO CLÍNICO - [VILA MARIANA]"}
+{"id":"X7552","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7552 - DIR MULTIPROFISSIONAL - [VILA MARIANA]"}
+{"id":"X7554","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7554 - DIR ADMINISTRATIVA - [VILA MARIANA]"}
+{"id":"X7555","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7555 - APOIO ADMINISTRATIVO CLÍNICAS - [CLÍNICAS]"}
+{"id":"X7556","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7556 - CENTRO COMUNICAÇÃO INSTITUCIONAL - CCI - [VILA MARIANA]"}
+{"id":"X7557","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7557 - CENTRO GESTÃO PESSOAS - CGP - [VILA MARIANA]"}
+{"id":"X7558","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7558 - GESTÃO DE PROJETOS - CPG - [VILA MARIANA]"}
+{"id":"X7559","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7559 - OUVIDORIA - [VILA MARIANA]"}
+{"id":"X7560","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7560 - ÁREAS COMUNS - [VILA MARIANA]"}
+{"id":"X7562","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7562 - ZELADORIA - [VILA MARIANA]"}
+{"id":"X7563","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7563 - TRANSPORTE - [VILA MARIANA]"}
+{"id":"X7565","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7565 - INOVAÇÃO - [VILA MARIANA]"}
+{"id":"X7566","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7566 - LAB BIOENGENHARIA E DESENVOLVIMENTO - [VILA MARIANA]"}
+{"id":"X7567","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7567 - PESQUISA CLÍNICA - [VILA MARIANA]"}
+{"id":"X7576","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7576 - INSTITUTO DE ORTOPEDIA E TRAUMATOLOGIA - IOT - [VILA MARIANA]"}
+{"id":"X7584","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7584 - IMREA - LAPA - [VILA MARIANA]"}
+{"id":"X7586","nome_filial":"Imrea-Divisao  De Med. De Reab","local_trabalho":"X7586 - IMREA - UMARIZAL - [VILA MARIANA]"}
+{"id":"X1276","nome_filial":"INCOR","local_trabalho":"X1276 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X1277","nome_filial":"INCOR","local_trabalho":"X1277 - ALMOX UTI"}
+{"id":"X1278","nome_filial":"INCOR","local_trabalho":"X1278 - ALMOX NUTRICAO"}
+{"id":"X1280","nome_filial":"INCOR","local_trabalho":"X1280 - FARM INTERNACAO 06"}
+{"id":"X1281","nome_filial":"INCOR","local_trabalho":"X1281 - FARM INTERNACAO 08"}
+{"id":"X1282","nome_filial":"INCOR","local_trabalho":"X1282 - FARM CENTRO CIRURGICO"}
+{"id":"X1283","nome_filial":"INCOR","local_trabalho":"X1283 - ALMOX HEMODINAMICA"}
+{"id":"X1284","nome_filial":"INCOR","local_trabalho":"X1284 - FARM CEAF"}
+{"id":"X1285","nome_filial":"INCOR","local_trabalho":"X1285 - FARM INTERNACAO 04"}
+{"id":"X1293","nome_filial":"INCOR","local_trabalho":"X1293 - ALMOX MAT ESPECIAIS"}
+{"id":"X1294","nome_filial":"INCOR","local_trabalho":"X1294 - FARM CENTRAL"}
+{"id":"X2397","nome_filial":"INCOR","local_trabalho":"X2397 - CONSELHO DIRETOR"}
+{"id":"X2415","nome_filial":"INCOR","local_trabalho":"X2415 - PROJETOS E OBRAS"}
+{"id":"X2421","nome_filial":"INCOR","local_trabalho":"X2421 - SAME"}
+{"id":"X2423","nome_filial":"INCOR","local_trabalho":"X2423 - AMB NUTRICAO  AB"}
+{"id":"X2424","nome_filial":"INCOR","local_trabalho":"X2424 - AMB SERVICO SOCIAL  AB"}
+{"id":"X2425","nome_filial":"INCOR","local_trabalho":"X2425 - AMB PSICOLOGIA  AB"}
+{"id":"X2426","nome_filial":"INCOR","local_trabalho":"X2426 - CENTRAL DE COMPRAS"}
+{"id":"X2432","nome_filial":"INCOR","local_trabalho":"X2432 - PRONTO SOCORRO SAUDE SUPLEMENTAR TERREO"}
+{"id":"X2434","nome_filial":"INCOR","local_trabalho":"X2434 - AMB FISIOTERAPIA  AB"}
+{"id":"X2442","nome_filial":"INCOR","local_trabalho":"X2442 - LAB ANATOMIA PATOLOGICA"}
+{"id":"X2457","nome_filial":"INCOR","local_trabalho":"X2457 - HOTELARIA - INCOR"}
+{"id":"X2461","nome_filial":"INCOR","local_trabalho":"X2461 - ELETROFISIOLOGIA 03"}
+{"id":"X2483","nome_filial":"INCOR","local_trabalho":"X2483 - ROUPARIA \/ LAVANDERIA - INCOR"}
+{"id":"X2506","nome_filial":"INCOR","local_trabalho":"X2506 - LAB HLA 09"}
+{"id":"X2532","nome_filial":"INCOR","local_trabalho":"X2532 - AMB VARZEA DO CARMO"}
+{"id":"X2541","nome_filial":"INCOR","local_trabalho":"X2541 - PREDIO ADMINISTRACAO - PA"}
+{"id":"X2632","nome_filial":"INCOR","local_trabalho":"X2632 - POS GRADUACAO"}
+{"id":"X2633","nome_filial":"INCOR","local_trabalho":"X2633 - COMISSAO CIENTIFICA 01"}
+{"id":"X2635","nome_filial":"INCOR","local_trabalho":"X2635 - DEP CIRURGIA CARDIOVASCULAR"}
+{"id":"X2639","nome_filial":"INCOR","local_trabalho":"X2639 - NUCLEO DE TRANSPLANTE"}
+{"id":"X2665","nome_filial":"INCOR","local_trabalho":"X2665 - DEP CIRURGIA TORACICA"}
+{"id":"X2667","nome_filial":"INCOR","local_trabalho":"X2667 - LAB PLEURA 10"}
+{"id":"X2671","nome_filial":"INCOR","local_trabalho":"X2671 - DEP PNEUMOLOGIA"}
+{"id":"X2673","nome_filial":"INCOR","local_trabalho":"X2673 - PROVA FUNCAO PULMONAR AB"}
+{"id":"X2674","nome_filial":"INCOR","local_trabalho":"X2674 - DEP ANESTESIOLOGIA 02"}
+{"id":"X2676","nome_filial":"INCOR","local_trabalho":"X2676 - OUVIDORIA"}
+{"id":"X2677","nome_filial":"INCOR","local_trabalho":"X2677 - CENTRO DE COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X2679","nome_filial":"INCOR","local_trabalho":"X2679 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X2683","nome_filial":"INCOR","local_trabalho":"X2683 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X2687","nome_filial":"INCOR","local_trabalho":"X2687 - ZELADORIA"}
+{"id":"X2688","nome_filial":"INCOR","local_trabalho":"X2688 - HIGIENIZACAO \/ LIMPEZA - INCOR"}
+{"id":"X2690","nome_filial":"INCOR","local_trabalho":"X2690 - ENGENHARIA CLINICA"}
+{"id":"X2693","nome_filial":"INCOR","local_trabalho":"X2693 - GESTAO LEITOS"}
+{"id":"X2694","nome_filial":"INCOR","local_trabalho":"X2694 - RECEPCAO SAUDE SUPLEMENTAR TERREO"}
+{"id":"X2695","nome_filial":"INCOR","local_trabalho":"X2695 - RECEPCAO INTERNACAO SUS TERREO"}
+{"id":"X2697","nome_filial":"INCOR","local_trabalho":"X2697 - AGENDAMENTO SUS AB"}
+{"id":"X2698","nome_filial":"INCOR","local_trabalho":"X2698 - CENTRO INFORMAÇOES EM SAUDE - CIS"}
+{"id":"X2699","nome_filial":"INCOR","local_trabalho":"X2699 - ADM SAUDE SUPLEMENTAR"}
+{"id":"X2700","nome_filial":"INCOR","local_trabalho":"X2700 - FARM AMBULATORIAL"}
+{"id":"X2701","nome_filial":"INCOR","local_trabalho":"X2701 - DIR ENFERMAGEM"}
+{"id":"X2703","nome_filial":"INCOR","local_trabalho":"X2703 - CME 03"}
+{"id":"X2705","nome_filial":"INCOR","local_trabalho":"X2705 - AMB ENFERMAGEM  AB"}
+{"id":"X2708","nome_filial":"INCOR","local_trabalho":"X2708 - SESMT"}
+{"id":"X2709","nome_filial":"INCOR","local_trabalho":"X2709 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X2710","nome_filial":"INCOR","local_trabalho":"X2710 - UN DE APOIO EDUCACIONAL E PRODUCAO AUDIOVISUAL"}
+{"id":"X2713","nome_filial":"INCOR","local_trabalho":"X2713 - AMB SAUDE SUPLEMENTAR 01"}
+{"id":"X2714","nome_filial":"INCOR","local_trabalho":"X2714 - UI GERAL BLOCO I 06"}
+{"id":"X2715","nome_filial":"INCOR","local_trabalho":"X2715 - UI GERAL BLOCO II 06"}
+{"id":"X2716","nome_filial":"INCOR","local_trabalho":"X2716 - UI GERAL BLOCO I 07"}
+{"id":"X2717","nome_filial":"INCOR","local_trabalho":"X2717 - UI GERAL BLOCO II 07"}
+{"id":"X2718","nome_filial":"INCOR","local_trabalho":"X2718 - UI GERAL BLOCO I 08"}
+{"id":"X2719","nome_filial":"INCOR","local_trabalho":"X2719 - UI GERAL BLOCO II 08"}
+{"id":"X2720","nome_filial":"INCOR","local_trabalho":"X2720 - HOSPITAL DIA BLOCO III 02"}
+{"id":"X2725","nome_filial":"INCOR","local_trabalho":"X2725 - UTI CIRURGICA I BLOCO I 03"}
+{"id":"X2730","nome_filial":"INCOR","local_trabalho":"X2730 - POLISSONOGRAFIA  08"}
+{"id":"X2731","nome_filial":"INCOR","local_trabalho":"X2731 - DIALISE 08"}
+{"id":"X2732","nome_filial":"INCOR","local_trabalho":"X2732 - ECOCARDIOGRAFIA TERREO"}
+{"id":"X2734","nome_filial":"INCOR","local_trabalho":"X2734 - TOMOGRAFIA COMPUTADORIZADA AB"}
+{"id":"X2735","nome_filial":"INCOR","local_trabalho":"X2735 - RAIOS X AB"}
+{"id":"X2736","nome_filial":"INCOR","local_trabalho":"X2736 - MEDICINA NUCLEAR AB"}
+{"id":"X2739","nome_filial":"INCOR","local_trabalho":"X2739 - HOLTER AB"}
+{"id":"X2741","nome_filial":"INCOR","local_trabalho":"X2741 - LAB GENETICA E CARDIOLOGIA MOLECULAR 10"}
+{"id":"X2742","nome_filial":"INCOR","local_trabalho":"X2742 - CIRURGIA EXPERIMENTAL SUBSOLO"}
+{"id":"X2744","nome_filial":"INCOR","local_trabalho":"X2744 - LAB BIOLOGIA VASCULAR 09"}
+{"id":"X2746","nome_filial":"INCOR","local_trabalho":"X2746 - LAB METABOLISMO LIPIDIOS"}
+{"id":"X2750","nome_filial":"INCOR","local_trabalho":"X2750 - LAB IMUNOLOGIA 09"}
+{"id":"X2751","nome_filial":"INCOR","local_trabalho":"X2751 - COORDENACAO CDI"}
+{"id":"X2752","nome_filial":"INCOR","local_trabalho":"X2752 - ENDOSCOPIA DIGESTIVA BLOCO III 02"}
+{"id":"X2753","nome_filial":"INCOR","local_trabalho":"X2753 - RESSONANCIA MAGNETICA AB"}
+{"id":"X2756","nome_filial":"INCOR","local_trabalho":"X2756 - ENGENHARIA PREDIAL"}
+{"id":"X2757","nome_filial":"INCOR","local_trabalho":"X2757 - BIBLIOTECA"}
+{"id":"X2758","nome_filial":"INCOR","local_trabalho":"X2758 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X2759","nome_filial":"INCOR","local_trabalho":"X2759 - FATURAMENTO SUS"}
+{"id":"X2760","nome_filial":"INCOR","local_trabalho":"X2760 - FATURAMENTO SAUDE SUPLEMENTAR"}
+{"id":"X2762","nome_filial":"INCOR","local_trabalho":"X2762 - NUTRICAO E DIETETICA"}
+{"id":"X2763","nome_filial":"INCOR","local_trabalho":"X2763 - NUTRICAO ENTERAL"}
+{"id":"X2764","nome_filial":"INCOR","local_trabalho":"X2764 - DIR SERVICO SOCIAL"}
+{"id":"X2765","nome_filial":"INCOR","local_trabalho":"X2765 - DIR PSICOLOGIA"}
+{"id":"X2768","nome_filial":"INCOR","local_trabalho":"X2768 - AMB ODONTOLOGIA AB"}
+{"id":"X2769","nome_filial":"INCOR","local_trabalho":"X2769 - CENTRO HEMODINAMICA 03"}
+{"id":"X2770","nome_filial":"INCOR","local_trabalho":"X2770 - LAB ANALISES CLINICAS"}
+{"id":"X2771","nome_filial":"INCOR","local_trabalho":"X2771 - ELETROCARDIOGRAFIA REPOUSO AB"}
+{"id":"X2772","nome_filial":"INCOR","local_trabalho":"X2772 - ELETROCARDIOGRAFIA ESFORCO AB"}
+{"id":"X2776","nome_filial":"INCOR","local_trabalho":"X2776 - ULTRASSONOGRAFIA  AB"}
+{"id":"X2777","nome_filial":"INCOR","local_trabalho":"X2777 - RADIOLOGIA INTERVENCIONISTA AB"}
+{"id":"X2778","nome_filial":"INCOR","local_trabalho":"X2778 - COMISSAO DE ENSINO"}
+{"id":"X2779","nome_filial":"INCOR","local_trabalho":"X2779 - BRONCOSCOPIA BLOCO III 02"}
+{"id":"X2781","nome_filial":"INCOR","local_trabalho":"X2781 - AMB GERAL AB"}
+{"id":"X2784","nome_filial":"INCOR","local_trabalho":"X2784 - UI PEDIATRICA 05"}
+{"id":"X5152","nome_filial":"INCOR","local_trabalho":"X5152 - UTI PEDIATRICA \/ NEONATAL BLOCO I 05"}
+{"id":"X6951","nome_filial":"INCOR","local_trabalho":"X6951 - LAB PATOLOGIA CARDIACA"}
+{"id":"X6968","nome_filial":"INCOR","local_trabalho":"X6968 - PESQUISA DEP CARDIOLOGIA CLINICA"}
+{"id":"X6969","nome_filial":"INCOR","local_trabalho":"X6969 - PESQUISA DEP CIRURGIA CARDIOVASCULAR"}
+{"id":"X6972","nome_filial":"INCOR","local_trabalho":"X6972 - ENSINO DEP CARDIOLOGIA CLINICA"}
+{"id":"X7059","nome_filial":"INCOR","local_trabalho":"X7059 - UTI RESPIRATORIA BLOCO I 08"}
+{"id":"X7060","nome_filial":"INCOR","local_trabalho":"X7060 - FARM INTERNACAO 07"}
+{"id":"X7634","nome_filial":"INCOR","local_trabalho":"X7634 - UTI CIRÚRGICA PEDIÁTRICA BLOCO I 03"}
+{"id":"X7655","nome_filial":"INCOR","local_trabalho":"X7655 - DIR CORPO CLÍNICO"}
+{"id":"X7753","nome_filial":"INCOR","local_trabalho":"X7753 - ESPECIFICAÇÃO E PADRONIZAÇÃO DE MATERIAIS"}
+{"id":"X7771","nome_filial":"INCOR","local_trabalho":"X7771 - AMB CARDIO-ONCOLOGIA"}
+{"id":"X7783","nome_filial":"INCOR","local_trabalho":"X7783 - AMB TELE CONSULTA - SAÚDE DIGITAL"}
+{"id":"X8143","nome_filial":"INCOR","local_trabalho":"X8143 - DIR FONOAUDIOLOGIA"}
+{"id":"X8228","nome_filial":"INCOR","local_trabalho":"X8228 - UI HEMODINÂMICA BLOCO III 03"}
+{"id":"X8245","nome_filial":"INCOR","local_trabalho":"X8245 - COMUNICAÇÃO E MARKETING"}
+{"id":"X8347","nome_filial":"INCOR","local_trabalho":"X8347 - DIVERSIDADE E INCLUSÃO"}
+{"id":"X8532","nome_filial":"INCOR","local_trabalho":"X8532 - ASSISTENCIA FARMACEUTICA CLINICA"}
+{"id":"X8533","nome_filial":"INCOR","local_trabalho":"X8533 - ASSISTENCIA FARMACEUTICA TECNICO-CIENTIFICA"}
+{"id":"X1071","nome_filial":"INRAD","local_trabalho":"X1071 - DIR CORPO CLINICO"}
+{"id":"X1154","nome_filial":"INRAD","local_trabalho":"X1154 - RECEPCAO \/ AGENDAMENTO CMN"}
+{"id":"X1173","nome_filial":"INRAD","local_trabalho":"X1173 - CENTRO DE TREINAMENTO"}
+{"id":"X1194","nome_filial":"INRAD","local_trabalho":"X1194 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X1203","nome_filial":"INRAD","local_trabalho":"X1203 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X1257","nome_filial":"INRAD","local_trabalho":"X1257 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X1258","nome_filial":"INRAD","local_trabalho":"X1258 - FARM CENTRAL"}
+{"id":"X1295","nome_filial":"INRAD","local_trabalho":"X1295 - ALMOX CICLOTRON"}
+{"id":"X3882","nome_filial":"INRAD","local_trabalho":"X3882 - RECEPCAO \/ AGENDAMENTO - P2 03"}
+{"id":"X3884","nome_filial":"INRAD","local_trabalho":"X3884 - BIBLIOTECA"}
+{"id":"X3886","nome_filial":"INRAD","local_trabalho":"X3886 - CENTRO DE COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X3889","nome_filial":"INRAD","local_trabalho":"X3889 - MAMOGRAFIA\/ULTRASSONOGRAFIA - CEDIM 03"}
+{"id":"X3891","nome_filial":"INRAD","local_trabalho":"X3891 - CENTRAL DE LAUDOS"}
+{"id":"X3899","nome_filial":"INRAD","local_trabalho":"X3899 - CICLOTRON"}
+{"id":"X3901","nome_filial":"INRAD","local_trabalho":"X3901 - CME 03"}
+{"id":"X3902","nome_filial":"INRAD","local_trabalho":"X3902 - CONSELHO DIRETOR"}
+{"id":"X3904","nome_filial":"INRAD","local_trabalho":"X3904 - INRAD - RECEPCAO \/ AGENDAMENTO SAUDE SUPLEMENTAR"}
+{"id":"X3905","nome_filial":"INRAD","local_trabalho":"X3905 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X3907","nome_filial":"INRAD","local_trabalho":"X3907 - DIR EXECUTIVA"}
+{"id":"X3909","nome_filial":"INRAD","local_trabalho":"X3909 - ECOCARDIOGRAMA 03"}
+{"id":"X3911","nome_filial":"INRAD","local_trabalho":"X3911 - DIR FISICO TECNICO"}
+{"id":"X3912","nome_filial":"INRAD","local_trabalho":"X3912 - INRAD -FATURAMENTO"}
+{"id":"X3913","nome_filial":"INRAD","local_trabalho":"X3913 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X3914","nome_filial":"INRAD","local_trabalho":"X3914 - CENTRAL DE COMPRAS"}
+{"id":"X3916","nome_filial":"INRAD","local_trabalho":"X3916 - ENGENHARIA CLINICA"}
+{"id":"X3917","nome_filial":"INRAD","local_trabalho":"X3917 - ENGENHARIA PREDIAL"}
+{"id":"X3919","nome_filial":"INRAD","local_trabalho":"X3919 - PROJETOS E OBRAS"}
+{"id":"X3921","nome_filial":"INRAD","local_trabalho":"X3921 - ENSINO DEP RADIOLOGIA"}
+{"id":"X3923","nome_filial":"INRAD","local_trabalho":"X3923 - QUIMIOTERAPIA 03"}
+{"id":"X3962","nome_filial":"INRAD","local_trabalho":"X3962 - DENSITOMETRIA OSSEA 03"}
+{"id":"X3985","nome_filial":"INRAD","local_trabalho":"X3985 - RECEPCAO PS 04"}
+{"id":"X3996","nome_filial":"INRAD","local_trabalho":"X3996 - DIR ENFERMAGEM"}
+{"id":"X3998","nome_filial":"INRAD","local_trabalho":"X3998 - LIM 43 - MEDICINA NUCLEAR"}
+{"id":"X3999","nome_filial":"INRAD","local_trabalho":"X3999 - LIM 44 - RESSONANCIA MAGNETICA EM NEURORRADIOLOGIA"}
+{"id":"X4000","nome_filial":"INRAD","local_trabalho":"X4000 - INRAD - PESQUISA DEP RADIOLOGIA"}
+{"id":"X4008","nome_filial":"INRAD","local_trabalho":"X4008 - MEDICINA NUCLEAR CMN TERREO"}
+{"id":"X4010","nome_filial":"INRAD","local_trabalho":"X4010 - OUVIDORIA"}
+{"id":"X4017","nome_filial":"INRAD","local_trabalho":"X4017 - RADIOLOGIA INTERVENCIONISTA 03"}
+{"id":"X4020","nome_filial":"INRAD","local_trabalho":"X4020 - RADIOTERAPIA 03"}
+{"id":"X4025","nome_filial":"INRAD","local_trabalho":"X4025 - CENTRO DE IMAGENS EM NEUROCIÊNCIAS - PISA"}
+{"id":"X4026","nome_filial":"INRAD","local_trabalho":"X4026 - RESSONANCIA MAGNETICA 02"}
+{"id":"X4030","nome_filial":"INRAD","local_trabalho":"X4030 - RAIOS X PS 04"}
+{"id":"X4031","nome_filial":"INRAD","local_trabalho":"X4031 - RAIOS X 03"}
+{"id":"X4032","nome_filial":"INRAD","local_trabalho":"X4032 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X4034","nome_filial":"INRAD","local_trabalho":"X4034 - GEDI - GERENCIAMENTO DE EXAMES DE DIAGNÓSTICO POR IMAGEM"}
+{"id":"X4038","nome_filial":"INRAD","local_trabalho":"X4038 - TOMOGRAFIA COMPUTADORIZADA 03"}
+{"id":"X4040","nome_filial":"INRAD","local_trabalho":"X4040 - TOMOGRAFIA COMPUTADORIZADA PS 04"}
+{"id":"X4041","nome_filial":"INRAD","local_trabalho":"X4041 - ULTRASONOGRAFIA 03"}
+{"id":"X4042","nome_filial":"INRAD","local_trabalho":"X4042 - ULTRASONOGRAFIA PS 04"}
+{"id":"X4047","nome_filial":"INRAD","local_trabalho":"X4047 - INSTITUTO CANCER - ICESP"}
+{"id":"X5637","nome_filial":"INRAD","local_trabalho":"X5637 - HUMANIZAÇÃO GTH"}
+{"id":"X5654","nome_filial":"INRAD","local_trabalho":"X5654 - ZELADORIA"}
+{"id":"X6889","nome_filial":"INRAD","local_trabalho":"X6889 - RADIOLOGIA INTERV PERCUTANEO 03"}
+{"id":"X7295","nome_filial":"INRAD","local_trabalho":"X7295 - INOVAÇÃO"}
+{"id":"X8597","nome_filial":"INRAD","local_trabalho":"X8597 - PROJETO OPEN RAD"}
+{"id":"X1296","nome_filial":"IOT","local_trabalho":"X1296 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X1297","nome_filial":"IOT","local_trabalho":"X1297 - FARM CEAF"}
+{"id":"X1298","nome_filial":"IOT","local_trabalho":"X1298 - ALMOX NUTRICAO"}
+{"id":"X1299","nome_filial":"IOT","local_trabalho":"X1299 - FARM CENTRAL"}
+{"id":"X1900","nome_filial":"IOT","local_trabalho":"X1900 - RECEPCAO PRONTO SOCORRO"}
+{"id":"X1909","nome_filial":"IOT","local_trabalho":"X1909 - AMB SERVICO SOCIAL"}
+{"id":"X1922","nome_filial":"IOT","local_trabalho":"X1922 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X1925","nome_filial":"IOT","local_trabalho":"X1925 - SEGURANCA PATRIMONIAL \/ PORTARIA - IOT"}
+{"id":"X1962","nome_filial":"IOT","local_trabalho":"X1962 - RAIOS X"}
+{"id":"X1963","nome_filial":"IOT","local_trabalho":"X1963 - RAIOS X EMERGENCIA"}
+{"id":"X1966","nome_filial":"IOT","local_trabalho":"X1966 - RESSONANCIA MAGNETICA"}
+{"id":"X2011","nome_filial":"IOT","local_trabalho":"X2011 - LAB ANALISES CLINICAS"}
+{"id":"X4471","nome_filial":"IOT","local_trabalho":"X4471 - BANCO DE TECIDOS"}
+{"id":"X4473","nome_filial":"IOT","local_trabalho":"X4473 - CENTRO CIRURGICO 06"}
+{"id":"X4475","nome_filial":"IOT","local_trabalho":"X4475 - RECEPCAO AMB SAUDE SUPLEMENTAR"}
+{"id":"X4477","nome_filial":"IOT","local_trabalho":"X4477 - FATURAMENTO"}
+{"id":"X4478","nome_filial":"IOT","local_trabalho":"X4478 - CME 05"}
+{"id":"X4482","nome_filial":"IOT","local_trabalho":"X4482 - CENTRO COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X4485","nome_filial":"IOT","local_trabalho":"X4485 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X4489","nome_filial":"IOT","local_trabalho":"X4489 - DEP ORTOPEDIA TRAUMATOLOGIA"}
+{"id":"X4497","nome_filial":"IOT","local_trabalho":"X4497 - AMB FONOAUDIOLOGIA"}
+{"id":"X4511","nome_filial":"IOT","local_trabalho":"X4511 - AMB PSICOLOGIA"}
+{"id":"X4520","nome_filial":"IOT","local_trabalho":"X4520 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X4525","nome_filial":"IOT","local_trabalho":"X4525 - DIR CORPO CLINICO"}
+{"id":"X4539","nome_filial":"IOT","local_trabalho":"X4539 - LAB DE PESQUISAS BIOLÓGICAS (BIOTÉRIO)"}
+{"id":"X4584","nome_filial":"IOT","local_trabalho":"X4584 - LAB ARTROSCOPIA"}
+{"id":"X4732","nome_filial":"IOT","local_trabalho":"X4732 - DIR SERVICO SOCIAL"}
+{"id":"X4751","nome_filial":"IOT","local_trabalho":"X4751 - UNIDADE DE ENSINO DOT FMUSP"}
+{"id":"X4752","nome_filial":"IOT","local_trabalho":"X4752 - CENTRO PESQUISAS"}
+{"id":"X4756","nome_filial":"IOT","local_trabalho":"X4756 - AMB LEM - ACADEMIA"}
+{"id":"X4759","nome_filial":"IOT","local_trabalho":"X4759 - UI E1B MISTA"}
+{"id":"X4761","nome_filial":"IOT","local_trabalho":"X4761 - SAME"}
+{"id":"X4762","nome_filial":"IOT","local_trabalho":"X4762 - AMB FISIATRIA"}
+{"id":"X4763","nome_filial":"IOT","local_trabalho":"X4763 - BIBLIOTECA"}
+{"id":"X4774","nome_filial":"IOT","local_trabalho":"X4774 - UI E2B COLUNA VERTEBRAL"}
+{"id":"X4776","nome_filial":"IOT","local_trabalho":"X4776 - COORDENACAO CDI"}
+{"id":"X4777","nome_filial":"IOT","local_trabalho":"X4777 - ROUPARIA \/ LAVANDERIA - IOT"}
+{"id":"X4780","nome_filial":"IOT","local_trabalho":"X4780 - AMB TERAPIA OCUPACIONAL"}
+{"id":"X4781","nome_filial":"IOT","local_trabalho":"X4781 - ZELADORIA"}
+{"id":"X4782","nome_filial":"IOT","local_trabalho":"X4782 - UI E5B TRAUMATOLOGIA"}
+{"id":"X4784","nome_filial":"IOT","local_trabalho":"X4784 - UI E2A"}
+{"id":"X4785","nome_filial":"IOT","local_trabalho":"X4785 - UI E4B SAUDE SUPLEMENTAR"}
+{"id":"X4786","nome_filial":"IOT","local_trabalho":"X4786 - UTI E1A"}
+{"id":"X4788","nome_filial":"IOT","local_trabalho":"X4788 - PRONTO SOCORRO"}
+{"id":"X4789","nome_filial":"IOT","local_trabalho":"X4789 - AMB SUS"}
+{"id":"X4796","nome_filial":"IOT","local_trabalho":"X4796 - DIR ENFERMAGEM"}
+{"id":"X4798","nome_filial":"IOT","local_trabalho":"X4798 - AMB FISIOTERAPIA"}
+{"id":"X4799","nome_filial":"IOT","local_trabalho":"X4799 - DIR DIVISAO MEDICINA FISICA"}
+{"id":"X4800","nome_filial":"IOT","local_trabalho":"X4800 - NUTRICAO E DIETETICA"}
+{"id":"X4801","nome_filial":"IOT","local_trabalho":"X4801 - OFICINA ORTOPEDICA"}
+{"id":"X4810","nome_filial":"IOT","local_trabalho":"X4810 - AMB SAUDE SUPLEMENTAR"}
+{"id":"X4811","nome_filial":"IOT","local_trabalho":"X4811 - LAB MICROCIRURGIA"}
+{"id":"X4812","nome_filial":"IOT","local_trabalho":"X4812 - LAB ANATOMIA PATOLOGICA"}
+{"id":"X4817","nome_filial":"IOT","local_trabalho":"X4817 - AGENDAMENTO SUS"}
+{"id":"X4820","nome_filial":"IOT","local_trabalho":"X4820 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X4821","nome_filial":"IOT","local_trabalho":"X4821 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X4823","nome_filial":"IOT","local_trabalho":"X4823 - HOSPITAL DIA ORTOPEDIA"}
+{"id":"X5220","nome_filial":"IOT","local_trabalho":"X5220 - AUDITORIOS\/SALAS AULA"}
+{"id":"X5245","nome_filial":"IOT","local_trabalho":"X5245 - CENTRAL GASES MEDICINAIS"}
+{"id":"X5248","nome_filial":"IOT","local_trabalho":"X5248 - GERADORES"}
+{"id":"X5249","nome_filial":"IOT","local_trabalho":"X5249 - DIR FISIOTERAPIA"}
+{"id":"X5265","nome_filial":"IOT","local_trabalho":"X5265 - ENGENHARIA CLINICA"}
+{"id":"X5269","nome_filial":"IOT","local_trabalho":"X5269 - ALMOX CENTRO CIRURGICO"}
+{"id":"X5271","nome_filial":"IOT","local_trabalho":"X5271 - ALMOX ROUPARIA"}
+{"id":"X5273","nome_filial":"IOT","local_trabalho":"X5273 - ALMOX OFICINA ORTOPEDICA"}
+{"id":"X5282","nome_filial":"IOT","local_trabalho":"X5282 - FARM CENTRO CIRURGICO"}
+{"id":"X5294","nome_filial":"IOT","local_trabalho":"X5294 - LAB ESTUDOS TRAUMATISMO RAQUIMEDULAR - LETRAN"}
+{"id":"X5303","nome_filial":"IOT","local_trabalho":"X5303 - ELETRONEUROMIOGRAFIA"}
+{"id":"X5309","nome_filial":"IOT","local_trabalho":"X5309 - ULTRASSONOGRAFIA"}
+{"id":"X5326","nome_filial":"IOT","local_trabalho":"X5326 - ASSESSORIA DIR EXECUTIVA"}
+{"id":"X5329","nome_filial":"IOT","local_trabalho":"X5329 - CENTRO PLANEJAMENTO GESTAO - CPG"}
+{"id":"X5331","nome_filial":"IOT","local_trabalho":"X5331 - CENTRAL AUTORIZACOES SAUDE SUPLEMENTAR"}
+{"id":"X5332","nome_filial":"IOT","local_trabalho":"X5332 - AGENDAMENTO SAUDE SUPLEMENTAR"}
+{"id":"X5333","nome_filial":"IOT","local_trabalho":"X5333 - POSTO COLETA"}
+{"id":"X5334","nome_filial":"IOT","local_trabalho":"X5334 - RECEPCAO AMB SUS"}
+{"id":"X5353","nome_filial":"IOT","local_trabalho":"X5353 - OUVIDORIA"}
+{"id":"X5354","nome_filial":"IOT","local_trabalho":"X5354 - AREAS COMUNS"}
+{"id":"X6489","nome_filial":"IOT","local_trabalho":"X6489 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X6492","nome_filial":"IOT","local_trabalho":"X6492 - RESIDENCIA MEDICA E MULTIPROFISSIONAL"}
+{"id":"X6565","nome_filial":"IOT","local_trabalho":"X6565 - CALDEIRA"}
+{"id":"X8536","nome_filial":"IOT","local_trabalho":"X8536 - SESMT"}
+{"id":"X8755","nome_filial":"IOT","local_trabalho":"X8755 - NUCLEO DE TERAPIA CELULAR E ORTOPEDIA REGENERATIVA - NTCOR"}
+{"id":"X7049","nome_filial":"IPER","local_trabalho":"X7049 - DIR EXECUTIVA"}
+{"id":"X7799","nome_filial":"IPER","local_trabalho":"X7799 - UI PSIQUIATRIA 6"}
+{"id":"X7800","nome_filial":"IPER","local_trabalho":"X7800 - UI RETAGUARDA 6 PAV"}
+{"id":"X7801","nome_filial":"IPER","local_trabalho":"X7801 - UI PSIQUIATRIA 5"}
+{"id":"X7802","nome_filial":"IPER","local_trabalho":"X7802 - UI RETAGUARDA 5"}
+{"id":"X7803","nome_filial":"IPER","local_trabalho":"X7803 - UI PSIQUIATRIA 4"}
+{"id":"X7804","nome_filial":"IPER","local_trabalho":"X7804 - UI RETAGUARDA 4"}
+{"id":"X7805","nome_filial":"IPER","local_trabalho":"X7805 - UI PSIQUIATRIA 3"}
+{"id":"X7806","nome_filial":"IPER","local_trabalho":"X7806 - UI RETAGUARDA 3"}
+{"id":"X7812","nome_filial":"IPER","local_trabalho":"X7812 - HOSPITAL DIA PSIQUIATRIA 1"}
+{"id":"X7815","nome_filial":"IPER","local_trabalho":"X7815 - AMB PSIQUIATRIA ADULTO 1"}
+{"id":"X7816","nome_filial":"IPER","local_trabalho":"X7816 - AMB PSIQUIATRIA PEDIATRICO 1"}
+{"id":"X7820","nome_filial":"IPER","local_trabalho":"X7820 - AMB MULTIPROFISSIONAL"}
+{"id":"X7821","nome_filial":"IPER","local_trabalho":"X7821 - AMB ODONTOLOGIA"}
+{"id":"X7825","nome_filial":"IPER","local_trabalho":"X7825 - RX"}
+{"id":"X7834","nome_filial":"IPER","local_trabalho":"X7834 - LAB ANALISES EMERGENCIAIS"}
+{"id":"X7848","nome_filial":"IPER","local_trabalho":"X7848 - NUTRICAO E DIETETICA"}
+{"id":"X7851","nome_filial":"IPER","local_trabalho":"X7851 - GESTAO DE LEITOS"}
+{"id":"X7862","nome_filial":"IPER","local_trabalho":"X7862 - FARM CENTRAL"}
+{"id":"X7863","nome_filial":"IPER","local_trabalho":"X7863 - FARM INTERNACAO"}
+{"id":"X7870","nome_filial":"IPER","local_trabalho":"X7870 - ENGENHARIA PREDIAL"}
+{"id":"X7873","nome_filial":"IPER","local_trabalho":"X7873 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X7880","nome_filial":"IPER","local_trabalho":"X7880 - SAME"}
+{"id":"X7881","nome_filial":"IPER","local_trabalho":"X7881 - ASSESSORIA DIR EXECUTIVA"}
+{"id":"X7882","nome_filial":"IPER","local_trabalho":"X7882 - GER PSIQUIATRIA"}
+{"id":"X7883","nome_filial":"IPER","local_trabalho":"X7883 - GER CORPO CLINICO"}
+{"id":"X7884","nome_filial":"IPER","local_trabalho":"X7884 - GER ENFERMAGEM"}
+{"id":"X7885","nome_filial":"IPER","local_trabalho":"X7885 - GER MULTIPROFISSIONAL"}
+{"id":"X7886","nome_filial":"IPER","local_trabalho":"X7886 - GER DE OPERACOES"}
+{"id":"X7887","nome_filial":"IPER","local_trabalho":"X7887 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X7889","nome_filial":"IPER","local_trabalho":"X7889 - FATURAMENTO"}
+{"id":"X7892","nome_filial":"IPER","local_trabalho":"X7892 - OUVIDORIA"}
+{"id":"X7895","nome_filial":"IPER","local_trabalho":"X7895 - ZELADORIA"}
+{"id":"X7902","nome_filial":"IPER","local_trabalho":"X7902 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X7905","nome_filial":"IPER","local_trabalho":"X7905 - CENTRO DE ATENCAO AO COLABORADOR - CEAC"}
+{"id":"X8130","nome_filial":"IPER","local_trabalho":"X8130 - FARM AMBULATORIAL"}
+{"id":"X8133","nome_filial":"IPER","local_trabalho":"X8133 - ENGENHARIA CLÍNICA"}
+{"id":"X8332","nome_filial":"IPER","local_trabalho":"X8332 - NUCLEO DE PESQUISAS PERDIZES"}
+{"id":"X8346","nome_filial":"IPER","local_trabalho":"X8346 - SEGURANÇA DO TRABALHO"}
+{"id":"X8363","nome_filial":"IPER","local_trabalho":"X8363 - AMB TRANSICAO DE CUIDADOS"}
+{"id":"X8566","nome_filial":"IPER","local_trabalho":"X8566 - GESTAO DA QUALIDADE"}
+{"id":"X8600","nome_filial":"IPER","local_trabalho":"X8600 - UI RETAGUARDA 6 PED"}
+{"id":"X8773","nome_filial":"IPER","local_trabalho":"X8773 - CENTRAL DE COMPRAS"}
+{"id":"X8774","nome_filial":"IPER","local_trabalho":"X8774 - GER ADMINISTRATIVA"}
+{"id":"X8776","nome_filial":"IPER","local_trabalho":"X8776 - COORD INTEGRACAO"}
+{"id":"X8778","nome_filial":"IPER","local_trabalho":"X8778 - CENTRO DE COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X1304","nome_filial":"IPQ","local_trabalho":"X1304 - FARM CENTRAL"}
+{"id":"X1305","nome_filial":"IPQ","local_trabalho":"X1305 - ALMOX NUTRICAO"}
+{"id":"X1306","nome_filial":"IPQ","local_trabalho":"X1306 - ALMOX SUPRIMENTOS - CILO"}
+{"id":"X1489","nome_filial":"IPQ","local_trabalho":"X1489 - DIR EXECUTIVA"}
+{"id":"X1491","nome_filial":"IPQ","local_trabalho":"X1491 - DIR ENFERMAGEM"}
+{"id":"X1493","nome_filial":"IPQ","local_trabalho":"X1493 - ADM PSIQUIATRIA"}
+{"id":"X1500","nome_filial":"IPQ","local_trabalho":"X1500 - HOTELARIA - IPQ"}
+{"id":"X1501","nome_filial":"IPQ","local_trabalho":"X1501 - CENTRO COMUNICACAO INSTITUCIONAL - CCI"}
+{"id":"X1502","nome_filial":"IPQ","local_trabalho":"X1502 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMACAO - CETI"}
+{"id":"X1504","nome_filial":"IPQ","local_trabalho":"X1504 - SAME"}
+{"id":"X1505","nome_filial":"IPQ","local_trabalho":"X1505 - AMB SERVICO SOCIAL"}
+{"id":"X1507","nome_filial":"IPQ","local_trabalho":"X1507 - CENTRO ECONOMICO FINANCEIRO - CEF"}
+{"id":"X1508","nome_filial":"IPQ","local_trabalho":"X1508 - AMB PSICOLOGIA"}
+{"id":"X1509","nome_filial":"IPQ","local_trabalho":"X1509 - AMB TERAPIA OCUPACIONAL"}
+{"id":"X1510","nome_filial":"IPQ","local_trabalho":"X1510 - AMB ODONTOLOGIA"}
+{"id":"X1512","nome_filial":"IPQ","local_trabalho":"X1512 - SUB COMISSAO CONTROLE INF HOSPITALAR - SCCIH"}
+{"id":"X1515","nome_filial":"IPQ","local_trabalho":"X1515 - ENGENHARIA PREDIAL"}
+{"id":"X1516","nome_filial":"IPQ","local_trabalho":"X1516 - CENTRO GESTAO PESSOAS - CGP"}
+{"id":"X1518","nome_filial":"IPQ","local_trabalho":"X1518 - CENTRO APOIO A PESQUISA CEAPESQ"}
+{"id":"X1522","nome_filial":"IPQ","local_trabalho":"X1522 - AMB PSIQUIATRIA"}
+{"id":"X1524","nome_filial":"IPQ","local_trabalho":"X1524 - DEP PSIQUIATRIA"}
+{"id":"X1527","nome_filial":"IPQ","local_trabalho":"X1527 - UI EHDI TERREO"}
+{"id":"X1589","nome_filial":"IPQ","local_trabalho":"X1589 - ELETROENCEFALOGRAFIA - EEG"}
+{"id":"X1592","nome_filial":"IPQ","local_trabalho":"X1592 - UI E1N 01"}
+{"id":"X1595","nome_filial":"IPQ","local_trabalho":"X1595 - UTI 02"}
+{"id":"X1600","nome_filial":"IPQ","local_trabalho":"X1600 - BIBLIOTECA"}
+{"id":"X1619","nome_filial":"IPQ","local_trabalho":"X1619 - NUTRICAO E DIETETICA"}
+{"id":"X1623","nome_filial":"IPQ","local_trabalho":"X1623 - REGISTRO SUS"}
+{"id":"X1650","nome_filial":"IPQ","local_trabalho":"X1650 - ZELADORIA"}
+{"id":"X1653","nome_filial":"IPQ","local_trabalho":"X1653 - PESQUISA LAB PATOLOGIA CLINICA"}
+{"id":"X1655","nome_filial":"IPQ","local_trabalho":"X1655 - PESQUISA LAB INVESTIGACAO MEDICA LIM 23"}
+{"id":"X1656","nome_filial":"IPQ","local_trabalho":"X1656 - PESQUISA LAB INVESTIGACAO MEDICA LIM 27"}
+{"id":"X1659","nome_filial":"IPQ","local_trabalho":"X1659 - ADM NEUROCIRURGIA"}
+{"id":"X1709","nome_filial":"IPQ","local_trabalho":"X1709 - SEGURANCA PATRIMONIAL \/ PORTARIA - IPQ"}
+{"id":"X1710","nome_filial":"IPQ","local_trabalho":"X1710 - HIGIENIZACAO \/ LIMPEZA - IPQ"}
+{"id":"X1720","nome_filial":"IPQ","local_trabalho":"X1720 - ROUPARIA \/ LAVANDERIA - IPQ"}
+{"id":"X4061","nome_filial":"IPQ","local_trabalho":"X4061 - ELETROCONVULSOTERAPIA - ECT"}
+{"id":"X4064","nome_filial":"IPQ","local_trabalho":"X4064 - UI ECEDT 04"}
+{"id":"X4065","nome_filial":"IPQ","local_trabalho":"X4065 - HOSPITAL DIA ADULTO"}
+{"id":"X4066","nome_filial":"IPQ","local_trabalho":"X4066 - HOSPITAL DIA PEDIATRICO"}
+{"id":"X4071","nome_filial":"IPQ","local_trabalho":"X4071 - CENTRO EDUCACAO PERMANENTE - CEP"}
+{"id":"X4073","nome_filial":"IPQ","local_trabalho":"X4073 - FARM AMBULATORIAL"}
+{"id":"X4074","nome_filial":"IPQ","local_trabalho":"X4074 - FARM CENTRAL FRACIONAMENTO - PRODUTO UNITARIZADO - IPQ"}
+{"id":"X4076","nome_filial":"IPQ","local_trabalho":"X4076 - RESSONANCIA MAGNETICA"}
+{"id":"X4080","nome_filial":"IPQ","local_trabalho":"X4080 - CENTRO CIRURGICO 02"}
+{"id":"X4089","nome_filial":"IPQ","local_trabalho":"X4089 - NUCLEO FORENSE ADMINISTRACAO - NUFOR"}
+{"id":"X4098","nome_filial":"IPQ","local_trabalho":"X4098 - ESTIMULACAO MAGNETICA TRANSCRANIANA - EMT"}
+{"id":"X4108","nome_filial":"IPQ","local_trabalho":"X4108 - UI EAND 02"}
+{"id":"X4109","nome_filial":"IPQ","local_trabalho":"X4109 - UI ECAL 02"}
+{"id":"X4110","nome_filial":"IPQ","local_trabalho":"X4110 - UI ECIM 03"}
+{"id":"X4111","nome_filial":"IPQ","local_trabalho":"X4111 - UI EGRT 02"}
+{"id":"X4112","nome_filial":"IPQ","local_trabalho":"X4112 - UI EMET 03"}
+{"id":"X4118","nome_filial":"IPQ","local_trabalho":"X4118 - OUVIDORIA"}
+{"id":"X4119","nome_filial":"IPQ","local_trabalho":"X4119 - POLISSONOGRAFIA"}
+{"id":"X4124","nome_filial":"IPQ","local_trabalho":"X4124 - RECEPCAO INTERNACAO SAUDE SUPLEMENTAR"}
+{"id":"X6055","nome_filial":"IPQ","local_trabalho":"X6055 - HOSPITAL DIA GERIATRIA"}
+{"id":"X6124","nome_filial":"IPQ","local_trabalho":"X6124 - AMB FISIOTERAPIA"}
+{"id":"X6141","nome_filial":"IPQ","local_trabalho":"X6141 - AMB ENFERMAGEM"}
+{"id":"X6147","nome_filial":"IPQ","local_trabalho":"X6147 - RAIOS X"}
+{"id":"X6171","nome_filial":"IPQ","local_trabalho":"X6171 - GESTAO LEITOS E AMBULATORIO"}
+{"id":"X6177","nome_filial":"IPQ","local_trabalho":"X6177 - FARM INTERNACAO"}
+{"id":"X6179","nome_filial":"IPQ","local_trabalho":"X6179 - ENGENHARIA CLINICA"}
+{"id":"X6186","nome_filial":"IPQ","local_trabalho":"X6186 - CME 02"}
+{"id":"X6189","nome_filial":"IPQ","local_trabalho":"X6189 - ADM AMBULIM"}
+{"id":"X6190","nome_filial":"IPQ","local_trabalho":"X6190 - RECEPCAO AMBULATORIO SAUDE SUPLEMENTAR"}
+{"id":"X6191","nome_filial":"IPQ","local_trabalho":"X6191 - RECEPCAO CENTRAL"}
+{"id":"X6200","nome_filial":"IPQ","local_trabalho":"X6200 - DIR CORPO CLINICO"}
+{"id":"X6207","nome_filial":"IPQ","local_trabalho":"X6207 - SECRETARIA RESIDENCIA POS GRADUACAO"}
+{"id":"X6229","nome_filial":"IPQ","local_trabalho":"X6229 - ADM SERVICO SOCIAL"}
+{"id":"X6490","nome_filial":"IPQ","local_trabalho":"X6490 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X6496","nome_filial":"IPQ","local_trabalho":"X6496 - NUTRICAO ENTERAL"}
+{"id":"X6982","nome_filial":"IPQ","local_trabalho":"X6982 - AMB PSICOTERAPIA"}
+{"id":"X6983","nome_filial":"IPQ","local_trabalho":"X6983 - AMB INFANTIL"}
+{"id":"X6984","nome_filial":"IPQ","local_trabalho":"X6984 - PESQUISA DEP PSIQUIATRIA"}
+{"id":"X6985","nome_filial":"IPQ","local_trabalho":"X6985 - ENSINO DEP PSIQUIATRIA"}
+{"id":"X7068","nome_filial":"IPQ","local_trabalho":"X7068 - AMB NEUROLOGIA"}
+{"id":"X7739","nome_filial":"IPQ","local_trabalho":"X7739 - ACADEMIA E SALÃO DE BELEZA"}
+{"id":"X8136","nome_filial":"IPQ","local_trabalho":"X8136 - HOSPITAL DIA CETAMINA E ESCETAMINA"}
+{"id":"X8246","nome_filial":"IPQ","local_trabalho":"X8246 - PRONTO SOCORRO"}
+{"id":"X8592","nome_filial":"IPQ","local_trabalho":"X8592 - UI ENPQ 03"}
+{"id":"X1307","nome_filial":"LIM","local_trabalho":"X1307 - ALMOX GERAL"}
+{"id":"X1795","nome_filial":"LIM","local_trabalho":"X1795 - LIM10 LAB LÍPIDES"}
+{"id":"X4300","nome_filial":"LIM","local_trabalho":"X4300 - LIM35 LAB NUTRIÇÃO E CIRURGIA METABÓLICA DO APARELHO DIGESTIVO"}
+{"id":"X4382","nome_filial":"LIM","local_trabalho":"X4382 - LIM01 LAB INFORMÁTICA MÉDICA"}
+{"id":"X4383","nome_filial":"LIM","local_trabalho":"X4383 - LIM02 LAB ANATOMIA E CIRURGIA VASCULAR"}
+{"id":"X4385","nome_filial":"LIM","local_trabalho":"X4385 - LIM04 LAB MICROCIRURGIA - CIRURGIA PLÁSTICA"}
+{"id":"X4386","nome_filial":"LIM","local_trabalho":"X4386 - LIM05 LAB PATOLOGIA AMBIENTAL E EXPERIMENTAL"}
+{"id":"X4387","nome_filial":"LIM","local_trabalho":"X4387 - LIM06 LAB IMUNOPATOLOGIA DA ESQUISTOSSOMOSE E OUTRAS PARASITOSES"}
+{"id":"X4388","nome_filial":"LIM","local_trabalho":"X4388 - LIM07 LAB GASTROENTEROLOGIA CLÍNICA E EXPERIMENTAL"}
+{"id":"X4389","nome_filial":"LIM","local_trabalho":"X4389 - LIM08 LAB ANESTESIOLOGIA"}
+{"id":"X4390","nome_filial":"LIM","local_trabalho":"X4390 - LIM09 LAB PNEUMOLOGIA"}
+{"id":"X4391","nome_filial":"LIM","local_trabalho":"X4391 - LIM11 LAB CIRURGIA CARDIOVASCULAR E FISIOPATO DA CIRCULAÇÃO"}
+{"id":"X4392","nome_filial":"LIM","local_trabalho":"X4392 - LIM12 LAB PESQUISA BÁSICA EM DOENÇAS RENAIS"}
+{"id":"X4393","nome_filial":"LIM","local_trabalho":"X4393 - LIM13 LAB GENÉTICA E CARDIOLOGIA MOLECULAR - INCOR"}
+{"id":"X4394","nome_filial":"LIM","local_trabalho":"X4394 - LIM14 LAB INVESTIG EM PATOLOGIA HEPÁTICA"}
+{"id":"X4395","nome_filial":"LIM","local_trabalho":"X4395 - LIM15 LAB INVESTIG EM NEUROLOGIA"}
+{"id":"X4396","nome_filial":"LIM","local_trabalho":"X4396 - LIM16 LAB FISIOPATOLOGIA RENAL"}
+{"id":"X4397","nome_filial":"LIM","local_trabalho":"X4397 - LIM17 LAB INVESTIG EM REUMATOLOGIA"}
+{"id":"X4398","nome_filial":"LIM","local_trabalho":"X4398 - LIM18 LAB CARBOIDRATOS E RADIOIMUNOENSAIOS"}
+{"id":"X4399","nome_filial":"LIM","local_trabalho":"X4399 - LIM19 LAB HISTOCOMPATIBILIDADE E IMUNIDADE CELULAR - INCOR"}
+{"id":"X4400","nome_filial":"LIM","local_trabalho":"X4400 - LIM20 LAB TERAPÊUTICA EXPERIMENTAL"}
+{"id":"X4401","nome_filial":"LIM","local_trabalho":"X4401 - LIM21 LAB NEURO-IMAGEM EM PSIQUIATRIA - INRAD"}
+{"id":"X4402","nome_filial":"LIM","local_trabalho":"X4402 - LIM22 LAB PATOLOGIA CARDIOVASCULAR"}
+{"id":"X4403","nome_filial":"LIM","local_trabalho":"X4403 - LIM23 LAB PSICOPATOLOGIA E TERAPÊUTICA PSIQUIÁTRICA - IPQ"}
+{"id":"X4404","nome_filial":"LIM","local_trabalho":"X4404 - LIM24 CENTRO DE INVESTIGAÇÃO TRANSLACIONAL EM ONCOLOGIA - ICESP"}
+{"id":"X4405","nome_filial":"LIM","local_trabalho":"X4405 - LIM25 LAB ENDOCRINOLOGIA CELULAR E MOLECULAR"}
+{"id":"X4406","nome_filial":"LIM","local_trabalho":"X4406 - LIM26 LAB PESQUISA EM CIRURGIA EXPERIMENTAL"}
+{"id":"X4407","nome_filial":"LIM","local_trabalho":"X4407 - LIM27 LAB NEUROCIÊNCIAS - IPQ"}
+{"id":"X4408","nome_filial":"LIM","local_trabalho":"X4408 - LIM28 LAB CIRURGIA DE CABEÇA E PESCOÇO"}
+{"id":"X4409","nome_filial":"LIM","local_trabalho":"X4409 - LIM29 LAB NEFROLOGIA CELULAR, GÉNETICA E MOLECULAR"}
+{"id":"X4410","nome_filial":"LIM","local_trabalho":"X4410 - LIM30 LAB INVESTIG EM CIRURGIA PEDIÁTRICA"}
+{"id":"X4411","nome_filial":"LIM","local_trabalho":"X4411 - LIM31 LAB INVESTIG MÉD PATOGÊN TERAP DIRIGIDA ONCO-IMUNO-HEMAT - ICHC"}
+{"id":"X4412","nome_filial":"LIM","local_trabalho":"X4412 - LIM32 LAB OTORRINOLARINGOLOGIA"}
+{"id":"X4413","nome_filial":"LIM","local_trabalho":"X4413 - LIM33 LAB OFTALMOLOGIA"}
+{"id":"X4414","nome_filial":"LIM","local_trabalho":"X4414 - LIM34 LAB CIÊNCIAS DA REABILITAÇÃO"}
+{"id":"X4415","nome_filial":"LIM","local_trabalho":"X4415 - LIM36 LAB PEDIATRIA CLÍNICA"}
+{"id":"X4416","nome_filial":"LIM","local_trabalho":"X4416 - LIM37 LAB TRANSPLANTE E CIRURGIA DO FÍGADO"}
+{"id":"X4417","nome_filial":"LIM","local_trabalho":"X4417 - LIM38 LAB EPIDEMIOLOGIA E IMUNOBIOLOGIA"}
+{"id":"X4418","nome_filial":"LIM","local_trabalho":"X4418 - LIM39 LAB PROCESSAMENTO DE DADOS BIOMÉDICOS"}
+{"id":"X4419","nome_filial":"LIM","local_trabalho":"X4419 - LIM40 LAB IMUNO-HEMATOLOGIA E HEMATOLOGIA FORENSE"}
+{"id":"X4420","nome_filial":"LIM","local_trabalho":"X4420 - LIM41 LAB INVESTIG MÉD DO SIST MÚSCUL-ESQUELET - IOT"}
+{"id":"X4421","nome_filial":"LIM","local_trabalho":"X4421 - LIM42 LAB HORMÔNIOS E GENÉTICA MOLECULAR - ICHC"}
+{"id":"X4422","nome_filial":"LIM","local_trabalho":"X4422 - LIM43 LAB MEDICINA NUCLEAR - INRAD"}
+{"id":"X4423","nome_filial":"LIM","local_trabalho":"X4423 - LIM44 LAB RESSONÂNCIA MAGNÉTICA EM NEURORRADIOLOGIA - INRAD"}
+{"id":"X4424","nome_filial":"LIM","local_trabalho":"X4424 - LIM45 LAB NEUROLOGIA TRANSLACIONAL"}
+{"id":"X4425","nome_filial":"LIM","local_trabalho":"X4425 - LIM46 LAB PARASITOLOGIA MÉDICA"}
+{"id":"X4426","nome_filial":"LIM","local_trabalho":"X4426 - LIM47 LAB HEPATOLOGIA POR VÍRUS"}
+{"id":"X4427","nome_filial":"LIM","local_trabalho":"X4427 - LIM48 LAB IMUNOLOGIA"}
+{"id":"X4428","nome_filial":"LIM","local_trabalho":"X4428 - LIM49 LAB INVESTIG MÉD EM PROTOZOOL BACTERIOL E RESISTÊNCIA ANTIMICROB"}
+{"id":"X4429","nome_filial":"LIM","local_trabalho":"X4429 - LIM50 LAB PATOLOGIA DAS MOLÉSTIAS INFECCIOSAS"}
+{"id":"X4430","nome_filial":"LIM","local_trabalho":"X4430 - LIM51 LAB EMERGÊNCIAS CLÍNICAS"}
+{"id":"X4431","nome_filial":"LIM","local_trabalho":"X4431 - LIM52 LAB VIROLOGIA"}
+{"id":"X4432","nome_filial":"LIM","local_trabalho":"X4432 - LIM53 LAB MICOLOGIA"}
+{"id":"X4434","nome_filial":"LIM","local_trabalho":"X4434 - LIM55 LAB UROLOGIA"}
+{"id":"X4435","nome_filial":"LIM","local_trabalho":"X4435 - LIM56 LAB INVESTIG EM DERMATOLOGIA E IMUNODEFICIÊNCIAS"}
+{"id":"X4436","nome_filial":"LIM","local_trabalho":"X4436 - LIM57 LAB FISIOLOGIA OBSTÉTRICA"}
+{"id":"X4437","nome_filial":"LIM","local_trabalho":"X4437 - LIM58 LAB GINECOLOGIA ESTRUTURAL E MOLECULAR"}
+{"id":"X4438","nome_filial":"LIM","local_trabalho":"X4438 - LIM59 LAB BIOLOGIA CELULAR"}
+{"id":"X4439","nome_filial":"LIM","local_trabalho":"X4439 - LIM60 LAB IMUNOLOGIA CLÍNICA E ALERGIA"}
+{"id":"X4440","nome_filial":"LIM","local_trabalho":"X4440 - LIM61 LAB PESQUISA EM CIRURGIA TORÁCICA"}
+{"id":"X4442","nome_filial":"LIM","local_trabalho":"X4442 - EXPEDIENTE"}
+{"id":"X4443","nome_filial":"LIM","local_trabalho":"X4443 - CENTRO ESPECIALIZADO TECNOLOGIA INFORMAÇÃO - CETI"}
+{"id":"X4445","nome_filial":"LIM","local_trabalho":"X4445 - CENTRO ECONÔMICO FINANCEIRO - CEF"}
+{"id":"X4446","nome_filial":"LIM","local_trabalho":"X4446 - CENTRO GESTÃO PESSOAS - CGP"}
+{"id":"X7708","nome_filial":"LIM","local_trabalho":"X7708 - RECURSOS COMPARTILHADOS"}
+{"id":"X7711","nome_filial":"LIM","local_trabalho":"X7711 - PESQUISA E INOVAÇÃO"}
+{"id":"X1309","nome_filial":"PA-ANEXOS","local_trabalho":"X1309 - SUPERINTENDENCIA - PA"}
+{"id":"X1314","nome_filial":"PA-ANEXOS","local_trabalho":"X1314 - ALMOX GERAL - NILO - PA"}
+{"id":"X2194","nome_filial":"PA-ANEXOS","local_trabalho":"X2194 - NUCLEO ESPECIALIZADO TECNOLOGIA INFORMACAO - NETI"}
+{"id":"X2196","nome_filial":"PA-ANEXOS","local_trabalho":"X2196 - ENGENHARIA CLÍNICA - DCC - PA"}
+{"id":"X2197","nome_filial":"PA-ANEXOS","local_trabalho":"X2197 - NUCLEO ESPECIALIZADO DE DIREITO - NUDI - PA"}
+{"id":"X2198","nome_filial":"PA-ANEXOS","local_trabalho":"X2198 - NUCLEO DE INFRAESTRUTURA E LOGISTICA - NILO - PA"}
+{"id":"X2202","nome_filial":"PA-ANEXOS","local_trabalho":"X2202 - PROAHSA"}
+{"id":"X2209","nome_filial":"PA-ANEXOS","local_trabalho":"X2209 - NUCLEO DE ENGENHARIA E ARQUITETURA HOSPITALAR - NEAH - PA"}
+{"id":"X2213","nome_filial":"PA-ANEXOS","local_trabalho":"X2213 - NUCLEO ECONOMICO FINANCEIRO - NEF - PA"}
+{"id":"X2216","nome_filial":"PA-ANEXOS","local_trabalho":"X2216 - DIVISÃO DE CONSTRUÇÃO E CONSERVAÇÃO - DCC"}
+{"id":"X2239","nome_filial":"PA-ANEXOS","local_trabalho":"X2239 - CALDEIRA - DCC"}
+{"id":"X2241","nome_filial":"PA-ANEXOS","local_trabalho":"X2241 - VOLUNTARIADO"}
+{"id":"X2250","nome_filial":"PA-ANEXOS","local_trabalho":"X2250 - CENTRAL DE SEGURANCA PATRIMONIAL \/ PORTARIA - NILO - PA"}
+{"id":"X2252","nome_filial":"PA-ANEXOS","local_trabalho":"X2252 - PATRIMÔNIO - DCC - PA"}
+{"id":"X2256","nome_filial":"PA-ANEXOS","local_trabalho":"X2256 - CENTRAL TRANSPORTE - NILO - ANEXO"}
+{"id":"X2281","nome_filial":"PA-ANEXOS","local_trabalho":"X2281 - NUCLEO DE COMUNICACAO INSTITUCIONAL - NCI - PA"}
+{"id":"X2299","nome_filial":"PA-ANEXOS","local_trabalho":"X2299 - CONTENCIOSO - PGE - NUDI - PA"}
+{"id":"X2334","nome_filial":"PA-ANEXOS","local_trabalho":"X2334 - SERV COMUNICAÇÕES ADMINISTRATIVAS - A2 - NCI"}
+{"id":"X2370","nome_filial":"PA-ANEXOS","local_trabalho":"X2370 - ZELADORIA - DCC - PA"}
+{"id":"X5191","nome_filial":"PA-ANEXOS","local_trabalho":"X5191 - CONSELHO DELIBERATIVO - PA"}
+{"id":"X5192","nome_filial":"PA-ANEXOS","local_trabalho":"X5192 - DIRETORIA CLINICA DO HCFMUSP - PA"}
+{"id":"X5377","nome_filial":"PA-ANEXOS","local_trabalho":"X5377 - CENTRO DE DISTRIBUICAO - CD - NILO"}
+{"id":"X5706","nome_filial":"PA-ANEXOS","local_trabalho":"X5706 - GRUPO CONTROLE INFECCAO HOSPITALAR - GCIH  - DIR CLIN - PA"}
+{"id":"X5707","nome_filial":"PA-ANEXOS","local_trabalho":"X5707 - NUCLEO VIGILANCIA EPIDEMIOLOGICA - NUVE - DIR CLIN - PA"}
+{"id":"X5708","nome_filial":"PA-ANEXOS","local_trabalho":"X5708 - HUMANIZACAO - DIR CLIN - PA"}
+{"id":"X5709","nome_filial":"PA-ANEXOS","local_trabalho":"X5709 - REVISTA CLINICS - DIR CLIN"}
+{"id":"X5710","nome_filial":"PA-ANEXOS","local_trabalho":"X5710 - CUIDADOS PALIATIVOS - DIR CLIN - PA"}
+{"id":"X5712","nome_filial":"PA-ANEXOS","local_trabalho":"X5712 - PLANTAO CONTROLADOR - DIR CLIN - PA"}
+{"id":"X5713","nome_filial":"PA-ANEXOS","local_trabalho":"X5713 - NUCLEO DE ASSISTENCIA A SAUDE SUPLEMENTAR - NASS - PA"}
+{"id":"X5730","nome_filial":"PA-ANEXOS","local_trabalho":"X5730 - PREDIO DA RESIDENCIA - MORADIA"}
+{"id":"X5731","nome_filial":"PA-ANEXOS","local_trabalho":"X5731 - ASSOCIACAO MEDICA - MORADIA"}
+{"id":"X5735","nome_filial":"PA-ANEXOS","local_trabalho":"X5735 - CENTRO DE CONVECAO REBOUCAS - CCR"}
+{"id":"X5737","nome_filial":"PA-ANEXOS","local_trabalho":"X5737 - APOSENTADOS E PENSIONISTAS"}
+{"id":"X5740","nome_filial":"PA-ANEXOS","local_trabalho":"X5740 - DIR EXECUTIVA - EEP"}
+{"id":"X6824","nome_filial":"PA-ANEXOS","local_trabalho":"X6824 - CENTRO DE ATENCAO AO COLABORADOR - CEAC"}
+{"id":"X7296","nome_filial":"PA-ANEXOS","local_trabalho":"X7296 - PROJETO CONVENIO SES - FFM"}
+{"id":"X7426","nome_filial":"PA-ANEXOS","local_trabalho":"X7426 - ESCOLA DE EDUCACAO PERMANENTE - EEP"}
+{"id":"X7587","nome_filial":"PA-ANEXOS","local_trabalho":"X7587 - GRUPO PLANEJ ORÇAMENTÁRIO - GPO\/NEF"}
+{"id":"X7588","nome_filial":"PA-ANEXOS","local_trabalho":"X7588 - GRUPO CONTROLE ATIVIDADES ADM - GCAA\/NEF"}
+{"id":"X7589","nome_filial":"PA-ANEXOS","local_trabalho":"X7589 - DIVISÃO FINANÇAS - DF\/NEF"}
+{"id":"X7590","nome_filial":"PA-ANEXOS","local_trabalho":"X7590 - DIVISÃO FINANÇAS 1 - DF1\/NEF"}
+{"id":"X7591","nome_filial":"PA-ANEXOS","local_trabalho":"X7591 - DIVISÃO FINANÇAS 2 - DF2\/NEF"}
+{"id":"X7592","nome_filial":"PA-ANEXOS","local_trabalho":"X7592 - DIVISÃO FINANÇAS 3 - DF3\/NEF"}
+{"id":"X7593","nome_filial":"PA-ANEXOS","local_trabalho":"X7593 - NEGÓCIOS - NETI"}
+{"id":"X7594","nome_filial":"PA-ANEXOS","local_trabalho":"X7594 - PESQUISA E INOVAÇÃO - NETI"}
+{"id":"X7595","nome_filial":"PA-ANEXOS","local_trabalho":"X7595 - INFRAESTRUTURA E OPERAÇÃO - NETI"}
+{"id":"X7596","nome_filial":"PA-ANEXOS","local_trabalho":"X7596 - ADMINISTRAÇÃO E GOVERNANÇA DE TI - NETI"}
+{"id":"X7598","nome_filial":"PA-ANEXOS","local_trabalho":"X7598 - GERENCIA DE DESENVOLVIMENTO DE PESSOAS - NGP"}
+{"id":"X7599","nome_filial":"PA-ANEXOS","local_trabalho":"X7599 - NÚCLEO DE GESTÃO DE PESSOAS - DIRETORIA - NGP"}
+{"id":"X7600","nome_filial":"PA-ANEXOS","local_trabalho":"X7600 - GESTÃO DE REMUNERAÇÃO E BENEFÍCIOS - NGP"}
+{"id":"X7602","nome_filial":"PA-ANEXOS","local_trabalho":"X7602 - ADMINISTRAÇÃO EM RH - NGP"}
+{"id":"X7607","nome_filial":"PA-ANEXOS","local_trabalho":"X7607 - ASSESSORIA TÉCNICA - NILO"}
+{"id":"X7608","nome_filial":"PA-ANEXOS","local_trabalho":"X7608 - DIVISÃO DE MATERIAL - NILO"}
+{"id":"X7610","nome_filial":"PA-ANEXOS","local_trabalho":"X7610 - UNIDADE DE CONTROLE DE CONTRATOS - UCC - NILO"}
+{"id":"X7611","nome_filial":"PA-ANEXOS","local_trabalho":"X7611 - NÚCLEO DE ESTRATÉGIA E OPERAÇÕES - NEO - PA"}
+{"id":"X7612","nome_filial":"PA-ANEXOS","local_trabalho":"X7612 - DEP ADM - DIV ATIVIDADES COMPLEMENTARES - DAC"}
+{"id":"X7613","nome_filial":"PA-ANEXOS","local_trabalho":"X7613 - COMISSÃO DE MATERIAL EXCEDENTE - CMEX"}
+{"id":"X7654","nome_filial":"PA-ANEXOS","local_trabalho":"X7654 - EPECLIN - ESCRITÓRIO DE PESQUISA CLÍNICA - HCFMUSP"}
+{"id":"X7731","nome_filial":"PA-ANEXOS","local_trabalho":"X7731 - LAB. ENSINO PESQ. INOV. CIRÚRGICO - LEPIC"}
+{"id":"X7734","nome_filial":"PA-ANEXOS","local_trabalho":"X7734 - COMISSÃO INTERNA DE PREVENÇÃO DE ACIDENTES - CIPA - SUPER"}
+{"id":"X7736","nome_filial":"PA-ANEXOS","local_trabalho":"X7736 - INTELIGÊNCIA E DADOS - NETI"}
+{"id":"X7750","nome_filial":"PA-ANEXOS","local_trabalho":"X7750 - OUVIDORIA GERAL"}
+{"id":"X7758","nome_filial":"PA-ANEXOS","local_trabalho":"X7758 - ARQUIVO - DF1\/NEF"}
+{"id":"X8538","nome_filial":"PA-ANEXOS","local_trabalho":"X8538 - GERENCIA DE OPERACOES DE PESSOAL - NGP"}
+{"id":"X8559","nome_filial":"PA-ANEXOS","local_trabalho":"X8559 - COMISSIONADO ASSISTENCIAL - PA"}
+{"id":"X8560","nome_filial":"PA-ANEXOS","local_trabalho":"X8560 - COMISSIONADO NAO ASSISTENCIAL - PA"}

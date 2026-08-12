@@ -1,0 +1,171 @@
+import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
+
+// 1. Cadastrar / Atualizar Colaborador (Tabela Mãe)
+export const upsertEmployee = mutation({
+  args: {
+    cpf: v.string(),
+    matricula: v.string(),
+    nome: v.string(),
+    status_pgr: v.string(), // "ativo" ou "desligado"
+    pgr_seq_id: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("employees")
+      .withIndex("by_cpf", (q) => q.eq("cpf", args.cpf))
+      .first();
+
+    if (existing) {
+      return await ctx.db.patch(existing._id, {
+        matricula: args.matricula,
+        nome: args.nome,
+        status_pgr: args.status_pgr,
+        pgr_seq_id: args.pgr_seq_id ?? existing.pgr_seq_id,
+      });
+    }
+
+    return await ctx.db.insert("employees", {
+      cpf: args.cpf,
+      matricula: args.matricula,
+      nome: args.nome,
+      status_pgr: args.status_pgr,
+      pgr_seq_id: args.pgr_seq_id,
+    });
+  },
+});
+
+// 2. Criar Local/Grupo Sequencial (Tabela Filha)
+export const addPgrGroup = mutation({
+  args: {
+    nome_empresa: v.string(),
+    nome_filial: v.string(),
+    local_trab: v.string(),
+    cargo: v.string(),
+    funcao: v.string(),
+    desc_situacao: v.string(),
+  },
+  handler: async (ctx, args) => {
+    // Incrementa o ID sequencial (1, 2, 3...)
+    const lastGroup = await ctx.db
+      .query("pgr_groups")
+      .withIndex("by_seq_id")
+      .order("desc")
+      .first();
+
+    const nextSeqId = lastGroup ? lastGroup.seq_id + 1 : 1;
+
+    return await ctx.db.insert("pgr_groups", {
+      seq_id: nextSeqId,
+      nome_empresa: args.nome_empresa,
+      nome_filial: args.nome_filial,
+      local_trab: args.local_trab,
+      cargo: args.cargo,
+      funcao: args.funcao,
+      desc_situacao: args.desc_situacao,
+    });
+  },
+});
+
+// 3. Vincular Colaborador a um Grupo PGR Específico
+export const linkEmployeeToGroup = mutation({
+  args: {
+    cpf: v.string(),
+    pgr_group_id: v.id("pgr_groups"),
+  },
+  handler: async (ctx, args) => {
+    const employee = await ctx.db
+      .query("employees")
+      .withIndex("by_cpf", (q) => q.eq("cpf", args.cpf))
+      .first();
+
+    if (!employee) {
+      throw new Error("Colaborador não encontrado!");
+    }
+
+    const group = await ctx.db.get(args.pgr_group_id);
+    if (!group) {
+      throw new Error("Grupo PGR não encontrado!");
+    }
+
+    return await ctx.db.patch(employee._id, {
+      pgr_group_id: args.pgr_group_id,
+      pgr_seq_id: group.seq_id,
+    });
+  },
+});
+
+// 4. Desligar Colaborador
+export const setEmployeeDesligado = mutation({
+  args: { cpf: v.string() },
+  handler: async (ctx, args) => {
+    const employee = await ctx.db
+      .query("employees")
+      .withIndex("by_cpf", (q) => q.eq("cpf", args.cpf))
+      .first();
+
+    if (employee) {
+      await ctx.db.patch(employee._id, { status_pgr: "desligado" });
+    }
+  },
+});
+
+// 5. Query: Buscar Colaborador com os Dados Completos do seu Grupo PGR
+export const getEmployeeWithGroup = query({
+  args: { cpf: v.string() },
+  handler: async (ctx, args) => {
+    const employee = await ctx.db
+      .query("employees")
+      .withIndex("by_cpf", (q) => q.eq("cpf", args.cpf))
+      .first();
+
+    if (!employee) return null;
+
+    let group = null;
+    if (employee.pgr_group_id) {
+      group = await ctx.db.get(employee.pgr_group_id);
+    } else if (employee.pgr_seq_id) {
+      group = await ctx.db
+        .query("pgr_groups")
+        .withIndex("by_seq_id", (q) => q.eq("seq_id", employee.pgr_seq_id!))
+        .first();
+    }
+
+    return {
+      ...employee,
+      group,
+    };
+  },
+});
+
+// 6. Vinculação em Lote: Conecta pgr_seq_id com pgr_group_id para todos os colaboradores
+export const linkAllEmployeesToGroups = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const unlinkedEmployees = await ctx.db
+      .query("employees")
+      .filter((q) => q.eq(q.field("pgr_group_id"), undefined))
+      .take(500); // Lote de 500 por execução
+
+    let updatedCount = 0;
+
+    for (const emp of unlinkedEmployees) {
+      if (emp.pgr_seq_id !== undefined) {
+        const group = await ctx.db
+          .query("pgr_groups")
+          .withIndex("by_seq_id", (q) => q.eq("seq_id", emp.pgr_seq_id!))
+          .first();
+
+        if (group) {
+          await ctx.db.patch(emp._id, { pgr_group_id: group._id });
+          updatedCount++;
+        }
+      }
+    }
+
+    return {
+      updated: updatedCount,
+      hasMore: unlinkedEmployees.length === 500,
+    };
+  },
+});
