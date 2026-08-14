@@ -626,46 +626,50 @@
                     <h1>Como Usar o CONVERGE</h1>
                 </div>
 
+                <p style="font-size: 1em; color: var(--text-muted); margin-bottom: 20px;">
+                    Siga os passos abaixo para aprender a utilizar todos os recursos do portal de forma eficiente.
+                </p>
+
                 <div class="tutorial-steps">
-                    <div class="step-card" onclick="toggleAccordion(event)">
+                    <div class="step-card">
                         <div class="step-number" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">👤</div>
                         <h3><i class="ti ti-lock"></i> Passo 1: Fazer Login</h3>
-                        <p>Acesse com seu email corporativo <strong>@hc.fm.usp.br</strong></p>
+                        <p>Acesse com seu email corporativo <strong>@hc.fm.usp.br</strong> na página de login do Converge. O sistema usa Clerk para autenticação segura.</p>
                     </div>
 
-                    <div class="step-card" onclick="toggleAccordion(event)">
+                    <div class="step-card">
                         <div class="step-number" style="background: linear-gradient(135deg, #3498db, #2980b9);">🏠</div>
-                        <h3><i class="ti ti-layout-dashboard"></i> Passo 2: Visualizar Dashboard</h3>
-                        <p>Veja o portal com todos os seus sistemas e atalhos</p>
+                        <h3><i class="ti ti-layout-dashboard"></i> Passo 2: Conhecer o Dashboard</h3>
+                        <p>Após login, você verá a interface principal com topbar (topo), sidebar (menu lateral) e grid de cards (área central)</p>
                     </div>
 
-                    <div class="step-card" onclick="toggleAccordion(event)">
+                    <div class="step-card">
                         <div class="step-number" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">📂</div>
                         <h3><i class="ti ti-menu-2"></i> Passo 3: Explorar Menu</h3>
-                        <p>Navegue pelas categorias no menu lateral esquerdo</p>
+                        <p>Clique nas categorias do menu lateral (Administrativo, Assistencial, Ocupacional, etc) para filtrar sistemas por área</p>
                     </div>
 
-                    <div class="step-card" onclick="toggleAccordion(event)">
+                    <div class="step-card">
                         <div class="step-number" style="background: linear-gradient(135deg, #f39c12, #d68910);">🔗</div>
-                        <h3><i class="ti ti-link"></i> Passo 4: Acessar Sistema</h3>
-                        <p>Clique em qualquer card para abrir o sistema desejado</p>
+                        <h3><i class="ti ti-link"></i> Passo 4: Acessar Sistemas</h3>
+                        <p>Clique em qualquer card para abrir o sistema desejado. O Converge oferece acesso a mais de 30 sistemas integrados</p>
                     </div>
 
-                    <div class="step-card" onclick="toggleAccordion(event)">
-                        <div class="step-number" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">⚙️</div>
-                        <h3><i class="ti ti-adjustments"></i> Passo 5: Personalizar</h3>
-                        <p>Configure seu perfil e preferências (em breve)</p>
+                    <div class="step-card">
+                        <div class="step-number" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">👥</div>
+                        <h3><i class="ti ti-user-circle"></i> Passo 5: Ver Seu Perfil</h3>
+                        <p>Clique no seu nome no topbar ou acesse "Meu Perfil" no menu para visualizar seus dados e informações</p>
                     </div>
 
-                    <div class="step-card" onclick="toggleAccordion(event)">
+                    <div class="step-card">
                         <div class="step-number" style="background: linear-gradient(135deg, #1abc9c, #16a085);">📞</div>
-                        <h3><i class="ti ti-help-circle"></i> Passo 6: Obter Ajuda</h3>
-                        <p>Acesse documentação e suporte técnico</p>
+                        <h3><i class="ti ti-help-circle"></i> Passo 6: Abrir Tour Guiado</h3>
+                        <p>Clique no botão "Iniciar Tour" (se disponível) para receber uma explicação interativa de cada área do portal</p>
                     </div>
                 </div>
 
                 <div class="highlight-box">
-                    <strong>💡 Dica:</strong> Use o menu lateral para encontrar sistemas por categoria. Cada categoria agrupa sistemas relacionados para facilitar sua navegação.
+                    <strong>💡 Dica Importante:</strong> O portal é totalmente responsivo! No mobile, o menu fica oculto por padrão e pode ser aberto com o botão de menu (≡) na topbar. Clique em "Iniciar Tour" no portal para receber uma explicação interativa de tudo.
                 </div>
             </div>
 
@@ -673,96 +677,184 @@
             <div class="section-container">
                 <div class="section-title">
                     <i class="ti ti-layout"></i>
-                    <h1>Conhecendo a Interface</h1>
+                    <h1>Entenda Cada Parte da Interface</h1>
                 </div>
+
+                <p style="color: var(--text-muted); margin-bottom: 25px;">
+                    O Converge é organizado em 3 áreas principais. Clique para expandir e aprender detalhes sobre cada uma.
+                </p>
 
                 <div class="accordion">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-layout-navbar-expand"></i> Topbar (Barra Superior)</span>
+                        <span><i class="ti ti-layout-navbar-expand"></i> 📍 Barra Superior (Topbar) - Identidade e Contexto</span>
                         <i class="ti ti-chevron-down accordion-icon"></i>
                     </div>
                     <div class="accordion-content">
                         <div class="accordion-body">
-                            <p><strong>O que você vê:</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>🏥 <strong>Logo do HC-FMUSP</strong> - Identidade visual</li>
-                                <li>🏢 <strong>Logo CeAC</strong> - Centro de Análise de Dados</li>
-                                <li>👤 <strong>Seu Nome/Email</strong> - Identificação do usuário</li>
-                                <li>📱 <strong>Botão Menu</strong> - No mobile, expande/colapse o menu</li>
-                                <li>🔐 <strong>Logout</strong> - Sair do portal</li>
+                            <p><strong>O que você vê aqui:</strong></p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                <li>🏥 <strong>Logo do HC-FMUSP</strong> - Identifica a instituição</li>
+                                <li>🏢 <strong>Logo CeAC</strong> - Centro de Análise de Dados do Hospital</li>
+                                <li>👤 <strong>Seu Nome/Email</strong> - Mostra quem está logado</li>
+                                <li>📱 <strong>Botão Menu (≡)</strong> - Em telas menores, expande/colapse o menu lateral</li>
+                                <li>🔐 <strong>Botão Logout</strong> - Sair de forma segura do portal</li>
                             </ul>
-                            <p style="margin-top: 15px;"><strong>Para quê serve:</strong> Identifica você, mostra informações rápidas e oferece navegação principal.</p>
+                            <p style="margin-top: 15px;"><strong>Para quê serve:</strong> A topbar fornece contexto visual, mostra sua identidade e oferece acesso rápido às funções principais de navegação e segurança.</p>
+                            <p style="margin-top: 10px;"><strong>Dica:</strong> A topbar sempre fica visível no topo, mesmo quando você rola a página para baixo.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="accordion">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-menu-2"></i> Sidebar (Menu Lateral)</span>
+                        <span><i class="ti ti-menu-2"></i> 📂 Menu Lateral - Centro da Navegação</span>
                         <i class="ti ti-chevron-down accordion-icon"></i>
                     </div>
                     <div class="accordion-content">
                         <div class="accordion-body">
-                            <p><strong>Categorias Principais:</strong></p>
+                            <p><strong>Categorias de Sistemas Disponíveis:</strong></p>
                             <table class="feature-matrix">
                                 <tr style="background: var(--hc-lighter);">
                                     <td><strong>🏠 Home</strong></td>
-                                    <td>Dashboard principal com todos os sistemas</td>
+                                    <td>Dashboard principal - Voltaraqui quando quiser ver todos os sistemas</td>
                                 </tr>
                                 <tr>
                                     <td><strong>⚙️ Meus Sistemas</strong></td>
-                                    <td>Sistemas específicos para você</td>
+                                    <td>Sistemas específicos para a sua função/cargo</td>
                                 </tr>
                                 <tr style="background: var(--hc-lighter);">
                                     <td><strong>📋 Administrativo</strong></td>
-                                    <td>Funções administrativas e gestão</td>
+                                    <td>Gestão, contratos, suprimentos, faturamento, custos</td>
                                 </tr>
                                 <tr>
                                     <td><strong>🏥 Assistencial</strong></td>
-                                    <td>Sistemas de atendimento ao paciente</td>
+                                    <td>Atendimento ao paciente, consultas, linhas de cuidado</td>
                                 </tr>
                                 <tr style="background: var(--hc-lighter);">
                                     <td><strong>🚑 Pronto Atendimento</strong></td>
-                                    <td>Sistemas específicos do PA</td>
+                                    <td>Sistemas específicos do Pronto Atendimento</td>
                                 </tr>
                                 <tr>
                                     <td><strong>🛡️ Ocupacional</strong></td>
-                                    <td>Segurança e saúde no trabalho</td>
+                                    <td>Segurança, saúde do trabalho, ASO, doses, EPI</td>
                                 </tr>
                                 <tr style="background: var(--hc-lighter);">
                                     <td><strong>📊 Indicadores</strong></td>
-                                    <td>Painéis e relatórios analíticos</td>
+                                    <td>Painéis, relatórios, analytics e gestão de performance</td>
                                 </tr>
                                 <tr>
                                     <td><strong>👥 Colaboradores</strong></td>
-                                    <td>Dados e gestão de pessoal</td>
+                                    <td>Dados de pessoal, gestores, gestão de RH</td>
+                                </tr>
+                                <tr style="background: var(--hc-lighter);">
+                                    <td><strong>💼 Gestores</strong></td>
+                                    <td>Painéis e ferramentas para gestão de equipes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>✓ Gestão da Qualidade</strong></td>
+                                    <td>Qualidade, conformidade e processos internos</td>
+                                </tr>
+                                <tr style="background: var(--hc-lighter);">
+                                    <td><strong>📁 Dados</strong></td>
+                                    <td>Acesso a dados estruturados do hospital</td>
                                 </tr>
                             </table>
+                            <p style="margin-top: 15px;"><strong>Como usar:</strong> Clique em qualquer categoria para ver apenas os sistemas daquela área. Clique novamente em "Home" para voltar a ver todos os sistemas.</p>
+                            <p style="margin-top: 10px;"><strong>Dica Mobile:</strong> Em smartphones, o menu fica oculto por padrão. Clique no botão ≡ na topbar para abri-lo.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="accordion">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-cards"></i> Cards de Sistemas</span>
+                        <span><i class="ti ti-cards"></i> 🎴 Cards de Sistemas - Acesso Rápido</span>
                         <i class="ti ti-chevron-down accordion-icon"></i>
                     </div>
                     <div class="accordion-content">
                         <div class="accordion-body">
-                            <p><strong>Cada Card Contém:</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>🎨 <strong>Ícone Visual</strong> - Identifica o tipo de sistema</li>
-                                <li>📝 <strong>Nome do Sistema</strong> - Título legível</li>
-                                <li>✨ <strong>Efeito Hover</strong> - Destacamento ao passar o mouse</li>
-                                <li>🔗 <strong>Link Clicável</strong> - Leva ao sistema quando clicado</li>
+                            <p><strong>O que há em cada Card:</strong></p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                <li>🎨 <strong>Ícone Visual</strong> - Identifica o tipo de sistema (médico, gestão, dados, etc)</li>
+                                <li>📝 <strong>Nome do Sistema</strong> - Título legível em português</li>
+                                <li>✨ <strong>Efeito Visual</strong> - O card muda ao passar o mouse, indicando que é clicável</li>
+                                <li>🔗 <strong>Link Direto</strong> - Abre o sistema em uma nova aba do navegador</li>
                             </ul>
-                            <p style="margin-top: 15px;"><strong>Como usar:</strong> Simplesmente clique no card para abrir o sistema em uma nova aba!</p>
+                            <p style="margin-top: 15px;"><strong>Sistemas Disponíveis (30+):</strong></p>
+                            <p style="color: var(--text-muted); font-size: 0.95em;">
+                                HCMED, InterRad, Painel MV, SoulMV, MVPEP, MVGE, PIH, Intercon, Portal RH FFM, 
+                                Natcorp, Linha de Cuidados, Programa de Rastreio, Controles Internos, Contratos, 
+                                Suprimentos e Estoque, Faturamento, Custos, Comunicação, Apoio Predial, Farmácia, 
+                                Hiperutilizadores, Saúde Ocupacional, Minhas Doses, Meu ASO, Meu Perfil, 
+                                Meu Chamados, Ouvidoria, Votação CIPA, Agenda, Exame, e muitos outros.
+                            </p>
+                            <p style="margin-top: 15px;"><strong>Como usar:</strong> Simplesmente <strong>clique no card</strong> para abrir o sistema. Cada sistema abre em uma <strong>nova aba</strong> do navegador, então você não sai do Converge.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-user-circle"></i> 👤 Perfil do Usuário - Suas Informações</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>Onde Encontrar:</strong> Seu nome aparece no topo direito da topbar e também na sidebar.</p>
+                            <p style="margin-top: 10px;"><strong>O que você pode fazer:</strong></p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                <li>👁️ Ver seu nome e email de login</li>
+                                <li>📧 Consultar seu email corporativo @hc.fm.usp.br</li>
+                                <li>🔑 Acessar dados de identidade do sistema</li>
+                                <li>🚪 Fazer logout de forma segura</li>
+                            </ul>
+                            <p style="margin-top: 15px;"><strong>Como acessar "Meu Perfil":</strong> Clique em "Meu Perfil" no menu lateral ou nos cards para ver seus dados pessoais registrados no sistema.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-login"></i> 🔐 Logout - Encerramento Seguro</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>O que é:</strong> Logout é o processo de sair do portal de forma segura e encerrar sua sessão.</p>
+                            <p style="margin-top: 10px;"><strong>Onde está:</strong> Botão "Logout" visível na topbar ou no menu de perfil.</p>
+                            <p style="margin-top: 10px;"><strong>Por que é importante:</strong></p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                <li>🔒 Encerra sua sessão autenticada</li>
+                                <li>🛡️ Protege seus dados pessoais e da instituição</li>
+                                <li>👥 Impede acesso não autorizado se você deixar o computador</li>
+                                <li>⏱️ Recomendado ao final do expediente</li>
+                            </ul>
+                            <p style="margin-top: 15px;"><strong>Dica de Segurança:</strong> Sempre faça logout antes de deixar seu computador, especialmente em ambientes compartilhados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-layout-grid"></i> 🖥️ Área Principal - O Painel de Trabalho</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>O que é:</strong> A área central é o coração do Converge - onde todos os cards de sistemas são exibidos.</p>
+                            <p style="margin-top: 10px;"><strong>Como funciona:</strong></p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                <li>📊 Mostra todos os sistemas quando você está na Home</li>
+                                <li>🔍 Filtra os sistemas de uma categoria quando você clica no menu lateral</li>
+                                <li>📱 Se adapta automaticamente ao tamanho da tela (responsive)</li>
+                                <li>⚡ Carrega os sistemas rapidamente</li>
+                            </ul>
+                            <p style="margin-top: 15px;"><strong>Layout em Grid:</strong> Os cards se organizam em uma grade que se ajusta conforme a largura da tela - em desktop são 3-4 cards por linha, em tablet são 2, e em mobile é 1.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="highlight-box">
-                    <strong>✨ Interface Responsiva:</strong> O CONVERGE se adapta automaticamente para smartphone, tablet e desktop. No mobile, o menu fica oculto por padrão e pode ser aberto com o botão de menu na topbar.
+                    <strong>✨ Interface Totalmente Responsiva:</strong> O CONVERGE se adapta automaticamente para smartphone, tablet e desktop. Você pode usar em qualquer dispositivo e o layout se ajustará perfeitamente!
                 </div>
             </div>
 
@@ -773,60 +865,103 @@
                     <h1>Para Que Serve o CONVERGE?</h1>
                 </div>
 
+                <p style="color: var(--text-muted); margin-bottom: 20px;">
+                    O Converge é muito mais que um portal de atalhos. É uma plataforma estratégica que centraliza o acesso e a gestão de toda a infraestrutura digital do HC-FMUSP.
+                </p>
+
                 <div class="status-grid" style="margin-bottom: 30px;">
                     <div class="status-card">
                         <div class="status-icon">🎯</div>
                         <div class="status-content">
-                            <h4>Centralização</h4>
-                            <p>Acesso único a 30+ sistemas do HC</p>
+                            <h4>Centralização Completa</h4>
+                            <p>Acesso único a 30+ sistemas integrados do HC em um só lugar</p>
                         </div>
                     </div>
                     <div class="status-card">
                         <div class="status-icon">🔐</div>
                         <div class="status-content">
-                            <h4>Segurança</h4>
-                            <p>Autenticação centralizada @hc.fm.usp.br</p>
+                            <h4>Autenticação Segura</h4>
+                            <p>Login centralizado via Clerk, validação por @hc.fm.usp.br</p>
                         </div>
                     </div>
                     <div class="status-card">
                         <div class="status-icon">⏱️</div>
                         <div class="status-content">
                             <h4>Economia de Tempo</h4>
-                            <p>Não precisa decorar URLs de 30 sistemas</p>
+                            <p>Não precisa decorar URLs - tudo ao alcance de um clique</p>
                         </div>
                     </div>
                     <div class="status-card">
                         <div class="status-icon">👥</div>
                         <div class="status-content">
-                            <h4>Dados Pessoais</h4>
-                            <p>Consulte informações de colaboradores</p>
+                            <h4>Gestão de Colaboradores</h4>
+                            <p>Consulte dados de pessoal, matrículas, vínculos e histórico</p>
                         </div>
                     </div>
                     <div class="status-card">
                         <div class="status-icon">📊</div>
                         <div class="status-content">
-                            <h4>Indicadores</h4>
-                            <p>Acesso a painéis e relatórios</p>
+                            <h4>Indicadores e Analytics</h4>
+                            <p>Acesso a painéis, dashboards e relatórios estratégicos</p>
                         </div>
                     </div>
                     <div class="status-card">
                         <div class="status-icon">📱</div>
                         <div class="status-content">
-                            <h4>Acesso em Qualquer Lugar</h4>
-                            <p>Funciona no desktop, tablet e mobile</p>
+                            <h4>Acesso Universal</h4>
+                            <p>Funciona perfeitamente em desktop, tablet e smartphone</p>
                         </div>
                     </div>
                 </div>
 
+                <h3 style="color: var(--brand-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <i class="ti ti-list"></i> Sistemas Integrados por Categoria
+                </h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                    <div class="status-card" style="border-left: 5px solid #0077c8;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">🏥</div>
+                        <h4>Assistencial</h4>
+                        <p>HCMED, Interrad, Linha de Cuidados, Programa de Rastreio, Consultas, Agenda</p>
+                    </div>
+                    <div class="status-card" style="border-left: 5px solid #e74c3c;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">📋</div>
+                        <h4>Administrativo</h4>
+                        <p>Contratos, Suprimentos, Faturamento, Custos, Apoio Predial, Gestão</p>
+                    </div>
+                    <div class="status-card" style="border-left: 5px solid #9b59b6;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">📊</div>
+                        <h4>Indicadores</h4>
+                        <p>Painel MV, PIH, MVGE, Análises, Relatórios, Performance</p>
+                    </div>
+                    <div class="status-card" style="border-left: 5px solid #f39c12;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">🛡️</div>
+                        <h4>Saúde Ocupacional</h4>
+                        <p>Minhas Doses, Meu ASO, Ficha EPI, Segurança do Trabalho, CIPA</p>
+                    </div>
+                    <div class="status-card" style="border-left: 5px solid #27ae60;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">👥</div>
+                        <h4>Recursos Humanos</h4>
+                        <p>Portal RH FFM, Dados de Colaboradores, Gestores, Perfil</p>
+                    </div>
+                    <div class="status-card" style="border-left: 5px solid #1abc9c;">
+                        <div style="font-size: 1.5em; margin-bottom: 8px;">🚑</div>
+                        <h4>Pronto Atendimento</h4>
+                        <p>Sistemas específicos para atendimento de emergência</p>
+                    </div>
+                </div>
+
                 <div class="interactive-section">
-                    <h3><i class="ti ti-star"></i> Principais Benefícios</h3>
+                    <h3><i class="ti ti-star"></i> Principais Benefícios para Você</h3>
                     <ul style="margin: 15px 0 0 20px; line-height: 2;">
-                        <li>✅ <strong>Interface Intuitiva</strong> - Fácil de usar, sem treinamento complexo</li>
-                        <li>✅ <strong>Acesso Rápido</strong> - Encontre o que precisa em segundos</li>
-                        <li>✅ <strong>Segurança Aumentada</strong> - Apenas emails institucionais têm acesso</li>
-                        <li>✅ <strong>Dados Organizados</strong> - Informações estruturadas em banco de dados</li>
-                        <li>✅ <strong>Escalabilidade</strong> - Pode crescer conforme necessidade</li>
-                        <li>✅ <strong>Modernidade</strong> - Desenvolvido com tecnologias atuais</li>
+                        <li>✅ <strong>Interface Intuitiva</strong> - Aprenda a usar em minutos, sem treinamento demorado</li>
+                        <li>✅ <strong>Acesso Rápido</strong> - Encontre qualquer sistema em menos de 2 cliques</li>
+                        <li>✅ <strong>Segurança Aumentada</strong> - Apenas emails institucionais @hc.fm.usp.br podem acessar</li>
+                        <li>✅ <strong>Dados Confiáveis</strong> - Informações estruturadas e organizadas em banco de dados robusto</li>
+                        <li>✅ <strong>Escalabilidade</strong> - Plataforma que cresce conforme as necessidades da instituição</li>
+                        <li>✅ <strong>Tecnologia Moderna</strong> - Desenvolvido com TypeScript, React e Convex backend</li>
+                        <li>✅ <strong>Sem Limites Geográficos</strong> - Acesse de qualquer lugar com internet</li>
+                        <li>✅ <strong>Documentação Completa</strong> - Manuais, tutoriais e suporte integrado</li>
                     </ul>
                 </div>
             </div>
@@ -835,31 +970,61 @@
             <div class="section-container">
                 <div class="section-title">
                     <i class="ti ti-chart-line"></i>
-                    <h1>Status do Projeto</h1>
+                    <h1>Arquitetura e Status do Projeto</h1>
                 </div>
 
                 <p style="color: var(--text-muted); margin-bottom: 20px;">
-                    Confira o andamento do desenvolvimento do CONVERGE. O projeto está em <strong>desenvolvimento contínuo</strong> com novas features sendo adicionadas regularmente.
+                    O Converge é uma plataforma moderna, construída com tecnologias de ponta. Conheça sua arquitetura, componentes e status de desenvolvimento.
                 </p>
 
+                <h3 style="color: var(--brand-blue); margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <i class="ti ti-building"></i> Arquitetura Técnica
+                </h3>
+
+                <div style="background: var(--hc-lighter); padding: 20px; border-radius: 12px; margin-bottom: 25px; font-size: 0.95em; line-height: 1.8;">
+                    <p style="font-weight: 600; margin-bottom: 12px;">📦 Stack Tecnológico:</p>
+                    <ul style="margin: 0 0 0 20px;">
+                        <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript (responsivo)</li>
+                        <li><strong>Backend:</strong> Convex (plataforma TypeScript reativa)</li>
+                        <li><strong>Banco de Dados:</strong> Convex DB (database reativo)</li>
+                        <li><strong>Autenticação:</strong> Clerk (OAuth + validação de domínio)</li>
+                        <li><strong>Ícones:</strong> Tabler Icons (CDN)</li>
+                        <li><strong>Hospedagem:</strong> Convex Cloud</li>
+                    </ul>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #f0f9fa, #e8f4f6); padding: 20px; border-radius: 12px; border-left: 4px solid #0077c8; margin-bottom: 25px;">
+                    <p style="font-weight: 600; margin-bottom: 12px; color: #0077c8;"><i class="ti ti-database"></i> Estrutura de Dados:</p>
+                    <p style="font-size: 0.95em; line-height: 1.7; color: var(--text-muted);">
+                        O Converge utiliza duas tabelas principais: <strong>Tabela Mãe</strong> (dados resumidos por CPF) e <strong>Tabela Filha</strong> (dados detalhados com múltiplos registros por colaborador). 
+                        Essa arquitetura reduz redundância, permite histórico de posições e melhora performance em buscas.
+                    </p>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-muted);">
+                        <strong>Campos principais:</strong> CPF, Matrícula, Vínculo, Situação, Cargo, Função, Local de Trabalho, Empresa, Filial
+                    </p>
+                </div>
+
                 <div class="progress-section">
                     <div class="progress-label">
-                        <strong><i class="ti ti-package"></i> Versão</strong>
-                        <span style="color: var(--text-muted);">v1.0.0</span>
+                        <strong><i class="ti ti-package"></i> Versão Atual</strong>
+                        <span style="color: var(--text-muted);">v1.0.0 - Produção</span>
                     </div>
                 </div>
 
                 <div class="progress-section">
                     <div class="progress-label">
-                        <strong><i class="ti ti-flag"></i> Progresso Geral do Projeto</strong>
-                        <span class="progress-percentage">68%</span>
+                        <strong><i class="ti ti-flag"></i> Progresso Geral</strong>
+                        <span class="progress-percentage">75%</span>
                     </div>
                     <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: 68%;"></div>
+                        <div class="progress-bar-fill" style="width: 75%;"></div>
                     </div>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px;">
+                        <strong>Significado:</strong> Portal funcional em produção, documentação completa, tour guiado integrado. Aguardando feedback de usuários para melhorias contínuas.
+                    </p>
                 </div>
 
-                <h3 style="margin-top: 30px; color: var(--brand-blue);">
+                <h3 style="margin-top: 30px; color: var(--brand-blue); display: flex; align-items: center; gap: 10px;">
                     <i class="ti ti-checklist"></i> Features Implementadas
                 </h3>
                 <table class="feature-matrix">
@@ -872,87 +1037,92 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>🔐 Autenticação</strong></td>
-                            <td>Login seguro via Clerk com validação @hc.fm.usp.br</td>
+                            <td><strong>🔐 Autenticação Segura</strong></td>
+                            <td>Login via Clerk com validação de domínio @hc.fm.usp.br</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🎨 Interface</strong></td>
-                            <td>Dashboard responsivo com sidebar e topbar</td>
+                            <td><strong>🎨 Interface Principal</strong></td>
+                            <td>Dashboard com topbar, sidebar e grid de cards</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
                             <td><strong>📱 Responsividade</strong></td>
-                            <td>Funciona em desktop, tablet e mobile</td>
+                            <td>Funciona perfeitamente em desktop, tablet e mobile</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🔗 Links de Sistemas</strong></td>
-                            <td>Acesso a 30+ sistemas do HC</td>
+                            <td><strong>🔗 30+ Links de Sistemas</strong></td>
+                            <td>Acesso direto a sistemas do HC (HCMED, SoulMV, PIH, etc)</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🗄️ Banco de Dados</strong></td>
+                            <td><strong>📂 Categorização de Menus</strong></td>
+                            <td>Navegação por áreas (Administrativo, Assistencial, etc)</td>
+                            <td><span class="badge badge-success">✅ Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>🗄️ Banco de Dados Convex</strong></td>
                             <td>Tabelas mãe e filha com dados de colaboradores</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🔧 Backend Convex</strong></td>
-                            <td>Queries e mutations para dados</td>
+                            <td><strong>🔧 Backend TypeScript</strong></td>
+                            <td>Queries, mutations e type-safety no backend</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>📚 Documentação</strong></td>
-                            <td>Manual explicativo e interativo</td>
+                            <td><strong>📚 Documentação Completa</strong></td>
+                            <td>Manual explicativo, interativo e tour guiado</td>
                             <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🧪 Testes</strong></td>
-                            <td>Testes unitários e integração (em progresso)</td>
-                            <td><span class="badge badge-warning">⏳ Em Progresso</span></td>
+                            <td><strong>🧭 Tour Guiado Integrado</strong></td>
+                            <td>Explicação passo a passo de cada seção do portal</td>
+                            <td><span class="badge badge-success">✅ Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>👤 Perfil do Usuário</strong></td>
+                            <td>Visualização de dados pessoais e de login</td>
+                            <td><span class="badge badge-success">✅ Completo</span></td>
                         </tr>
                         <tr>
                             <td><strong>🔍 Busca Avançada</strong></td>
-                            <td>Search bar com filtros</td>
-                            <td><span class="badge badge-warning">⏳ Planejado</span></td>
+                            <td>Search bar com filtros por sistema ou categoria</td>
+                            <td><span class="badge badge-warning">⏳ Em Progresso</span></td>
                         </tr>
                         <tr>
                             <td><strong>🌙 Dark Mode</strong></td>
-                            <td>Tema escuro opcional</td>
+                            <td>Tema escuro opcional para melhor experiência noturna</td>
                             <td><span class="badge badge-warning">⏳ Planejado</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🌍 Multi-idioma</strong></td>
-                            <td>Suporte a português, inglês, espanhol</td>
-                            <td><span class="badge badge-warning">⏳ Planejado</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🔔 Notificações</strong></td>
-                            <td>Avisos em tempo real</td>
+                            <td><strong>🔔 Notificações em Tempo Real</strong></td>
+                            <td>Avisos integrados para mensagens e updates</td>
                             <td><span class="badge badge-info">📋 Proposto</span></td>
                         </tr>
                         <tr>
                             <td><strong>📊 Painéis Customizáveis</strong></td>
-                            <td>Cada usuário organiza seu dashboard</td>
+                            <td>Cada usuário organiza seu dashboard conforme preferência</td>
                             <td><span class="badge badge-info">📋 Proposto</span></td>
                         </tr>
                         <tr>
-                            <td><strong>🔗 API Pública</strong></td>
-                            <td>Integração com sistemas externos</td>
+                            <td><strong>🌍 Multi-idioma</strong></td>
+                            <td>Suporte a português, inglês e espanhol</td>
                             <td><span class="badge badge-info">📋 Proposto</span></td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h3 style="margin-top: 30px; color: var(--brand-blue);">
-                    <i class="ti ti-calendar"></i> Roadmap (Cronograma)
+                <h3 style="margin-top: 30px; color: var(--brand-blue); display: flex; align-items: center; gap: 10px;">
+                    <i class="ti ti-calendar"></i> Roadmap (Cronograma de Desenvolvimento)
                 </h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-marker">✅</div>
                         <div class="timeline-content">
                             <h4>Junho - Julho 2026</h4>
-                            <p><strong>MVP Lançado:</strong> Autenticação, interface básica, links de sistemas</p>
+                            <p><strong>MVP Lançado:</strong> Autenticação com Clerk, interface responsiva, links de 30+ sistemas, sidebar com categorias</p>
                         </div>
                     </div>
 
@@ -960,7 +1130,7 @@
                         <div class="timeline-marker">✅</div>
                         <div class="timeline-content">
                             <h4>Agosto 2026</h4>
-                            <p><strong>Documentação Completa:</strong> Manual explicativo, tutorial interativo</p>
+                            <p><strong>Documentação Completa:</strong> Manual explicativo (MANUAL_EXPLICATIVO.md), tutorial interativo (MANUAL_INTERATIVO.html), tour guiado integrado na interface</p>
                         </div>
                     </div>
 
@@ -968,7 +1138,7 @@
                         <div class="timeline-marker">⏳</div>
                         <div class="timeline-content">
                             <h4>Setembro 2026</h4>
-                            <p><strong>Testes e Otimização:</strong> Testes unitários, performance, segurança</p>
+                            <p><strong>Testes e Otimização:</strong> Testes unitários com convex-test, testes de performance, auditoria de segurança, otimização de queries</p>
                         </div>
                     </div>
 
@@ -976,7 +1146,7 @@
                         <div class="timeline-marker">📋</div>
                         <div class="timeline-content">
                             <h4>Outubro 2026</h4>
-                            <p><strong>Features Avançadas:</strong> Busca, filtros, dark mode</p>
+                            <p><strong>Features Avançadas:</strong> Busca avançada com filtros, dark mode, melhorias na UX, feedback de usuários</p>
                         </div>
                     </div>
 
@@ -984,7 +1154,7 @@
                         <div class="timeline-marker">📋</div>
                         <div class="timeline-content">
                             <h4>Novembro 2026</h4>
-                            <p><strong>Customização:</strong> Painéis personalizáveis, preferências de usuário</p>
+                            <p><strong>Customização:</strong> Painéis personalizáveis, preferências de usuário, temas customizados por setor</p>
                         </div>
                     </div>
 
@@ -992,9 +1162,13 @@
                         <div class="timeline-marker">📋</div>
                         <div class="timeline-content">
                             <h4>Dezembro 2026</h4>
-                            <p><strong>Produção:</strong> Deploy final, suporte técnico, treinamento</p>
+                            <p><strong>Produção Full:</strong> Deploy em produção, suporte técnico, treinamento para usuários, documentação final</p>
                         </div>
                     </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <strong>🚀 Próximos Passos:</strong> O projeto está em fase de consolidação. Estamos coletando feedback de usuários, planejando melhorias na UX e preparando a expansão para novas features. Acompanhe as atualizações regularmente!
                 </div>
             </div>
 
