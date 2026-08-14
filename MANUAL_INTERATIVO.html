@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Manual Interativo - CONVERGE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-blue: #0077c8;
+            --brand-teal: #009ca6;
+            --hc-light: #e8f4f6;
+            --bg: #f5f7f8;
+            --surface: #ffffff;
+            --text: #1a2224;
+            --text-muted: #6b7b80;
+            --success: #2cb878;
+            --warning: #f0ad4e;
+            --danger: #d9534f;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 119, 200, 0.2);
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tabs button {
+            background: var(--surface);
+            border: 2px solid var(--brand-blue);
+            color: var(--brand-blue);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tabs button:hover {
+            background: var(--hc-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-tabs button.active {
+            background: var(--brand-blue);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 119, 200, 0.3);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--brand-blue);
+        }
+
+        .card-section h2 {
+            color: var(--brand-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8em;
+        }
+
+        .card-section h3 {
+            color: var(--text);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subsection {
+            margin-left: 20px;
+            padding: 20px;
+            background: var(--hc-light);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .accordion {
+            background: var(--surface);
+            border: 1px solid #e0e4e6;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .accordion-header {
+            padding: 18px;
+            background: var(--hc-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background: #d4e9f0;
+        }
+
+        .accordion-header.active {
+            background: var(--brand-blue);
+            color: white;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 18px;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+            padding: 18px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--hc-light), white);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e0e4e6;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 119, 200, 0.15);
+            border-color: var(--brand-blue);
+        }
+
+        .feature-card-icon {
+            font-size: 2.5em;
+            color: var(--brand-blue);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .flow-diagram {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--brand-blue);
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin: 10px;
+            font-weight: 600;
+            min-width: 200px;
+        }
+
+        .flow-arrow {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.5em;
+            color: var(--brand-blue);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .syntax-keyword {
+            color: #ff79c6;
+        }
+
+        .syntax-string {
+            color: #f1fa8c;
+        }
+
+        .syntax-function {
+            color: #50fa7b;
+        }
+
+        .syntax-comment {
+            color: #6272a4;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .todo-list li:before {
+            content: "○";
+            color: var(--warning);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+        }
+
+        th {
+            background: var(--brand-blue);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e4e6;
+        }
+
+        tr:hover {
+            background: var(--hc-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: var(--warning);
+        }
+
+        .badge-info {
+            background: var(--hc-light);
+            color: var(--brand-blue);
+        }
+
+        .highlight {
+            background: #fff9e6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: var(--text);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+
+        .interactive-demo {
+            background: var(--hc-light);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--brand-teal);
+            margin: 25px 0;
+        }
+
+        .interactive-demo h4 {
+            color: var(--brand-teal);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .button-primary {
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .button-primary:hover {
+            background: #005f9a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 119, 200, 0.3);
+        }
+
+        .button-primary:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .alert-info {
+            background: var(--hc-light);
+            border-left: 4px solid var(--brand-blue);
+            color: var(--brand-blue);
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            color: var(--warning);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .nav-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 10px 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-step {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>
+            <i class="ti ti-book"></i>
+            Manual Interativo - CONVERGE
+        </h1>
+        <p>Aprenda como funciona o portal integrado do HC-FMUSP de forma simples e interativa</p>
+    </div>
+
+    <div class="container">
+        <!-- NAVIGATION -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('inicio')">
+                <i class="ti ti-home"></i> Início
+            </button>
+            <button class="tab-btn" onclick="switchTab('como-funciona')">
+                <i class="ti ti-adjustments"></i> Como Funciona
+            </button>
+            <button class="tab-btn" onclick="switchTab('login')">
+                <i class="ti ti-lock"></i> Autenticação
+            </button>
+            <button class="tab-btn" onclick="switchTab('sistemas')">
+                <i class="ti ti-apps"></i> Sistemas
+            </button>
+            <button class="tab-btn" onclick="switchTab('dados')">
+                <i class="ti ti-database"></i> Dados
+            </button>
+            <button class="tab-btn" onclick="switchTab('faq')">
+                <i class="ti ti-help"></i> Dúvidas
+            </button>
+        </div>
+
+        <!-- SECTION: INÍCIO -->
+        <section id="inicio" class="section active">
+            <div class="card-section">
+                <h2><i class="ti ti-star"></i> O que é CONVERGE?</h2>
+                <p style="font-size: 1.1em; color: var(--text-muted); margin-bottom: 20px;">
+                    <strong>CONVERGE</strong> é um portal centralizado que reúne todos os sistemas do Hospital das Clínicas da Faculdade de Medicina da USP (HC-FMUSP) em um único lugar, facilitando o acesso e a navegação.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-lock-open"></i></div>
+                        <h4>Acesso Seguro</h4>
+                        <p>Autenticação com email corporativo @hc.fm.usp.br</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-layout-dashboard"></i></div>
+                        <h4>Dashboard Intuitivo</h4>
+                        <p>Interface visual e organizada por categorias</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-link"></i></div>
+                        <h4>Integração de Sistemas</h4>
+                        <p>Links para 30+ sistemas diferentes do HC</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-brand-responsive"></i></div>
+                        <h4>Responsivo</h4>
+                        <p>Funciona em desktop, tablet e mobile</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="ti ti-info-circle"></i>
+                <div>
+                    <strong>💡 Dica:</strong> Explore as abas acima para aprender todos os detalhes do CONVERGE!
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: COMO FUNCIONA -->
+        <section id="como-funciona" class="section">
+            <div class="card-section">
+                <h2><i class="ti ti-flow-arrows"></i> Como Funciona o Sistema</h2>
+
+                <h3><i class="ti ti-stairs"></i> Fluxo Principal</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">1️⃣ Você Acessa o Site</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">2️⃣ Faz Login</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">3️⃣ Dashboard</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">4️⃣ Escolhe Sistema</div>
+                </div>
+
+                <h3><i class="ti ti-database"></i> Arquitetura Técnica</h3>
+                <div class="subsection">
+                    <p style="margin-bottom: 15px;">O CONVERGE é construído com tecnologias modernas:</p>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-card-icon"><i class="ti ti-file-code"></i></div>
+                            <h4>Frontend</h4>
+                            <p>HTML5 + CSS3 + JavaScript</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-icon"><i class="ti ti-server"></i></div>
+                            <h4>Backend</h4>
+                            <p>Convex (TypeScript)</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-icon"><i class="ti ti-database"></i></div>
+                            <h4>Banco de Dados</h4>
+                            <p>Convex Database (NoSQL)</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-icon"><i class="ti ti-lock"></i></div>
+                            <h4>Autenticação</h4>
+                            <p>Clerk (OAuth)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="ti ti-layout-sidebar"></i> Componentes da Interface</h3>
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-layout"></i> Topbar (Barra Superior)</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>A barra superior contém:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>🏥 Logo do HC-FMUSP e CeAC</li>
+                            <li>📱 Botão de menu (mobile)</li>
+                            <li>👤 Informações do usuário logado</li>
+                            <li>🔐 Opção de logout</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-menu-2"></i> Sidebar (Menu Lateral)</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>O menu lateral organiza os sistemas em categorias:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>🏠 Home - Dashboard principal</li>
+                            <li>⚙️ Meus Sistemas - Seus acessos</li>
+                            <li>📋 Administrativo - Funções administrativas</li>
+                            <li>🏥 Assistencial - Sistemas de saúde</li>
+                            <li>🚑 Pronto Atendimento - PA</li>
+                            <li>🛡️ Ocupacional - Segurança e saúde</li>
+                            <li>📊 Indicadores - Painéis e KPIs</li>
+                            <li>👥 Colaborador - Dados de funcionários</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-cards"></i> Cards de Sistemas</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Cada sistema do HC é representado por um card com:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>🎨 Ícone visual único</li>
+                            <li>📝 Nome do sistema</li>
+                            <li>🔗 Link direto para acesso</li>
+                            <li>✨ Hover interativo</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Basta clicar no card para acessar o sistema!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: LOGIN/AUTENTICAÇÃO -->
+        <section id="login" class="section">
+            <div class="card-section">
+                <h2><i class="ti ti-shield-check"></i> Autenticação e Segurança</h2>
+
+                <h3><i class="ti ti-lock"></i> Como Fazer Login?</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">Acesse: /login.html</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">Digite seu Email</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">Autentique-se</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">Acesso Liberado!</div>
+                </div>
+
+                <h3><i class="ti ti-shield-lock"></i> Validações de Segurança</h3>
+                <div class="subsection">
+                    <div class="alert alert-success">
+                        <i class="ti ti-check"></i>
+                        <div>
+                            <strong>Validação de Domínio:</strong> Apenas emails <span class="highlight">@hc.fm.usp.br</span> são permitidos
+                        </div>
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="ti ti-check"></i>
+                        <div>
+                            <strong>Autenticação Clerk:</strong> Sistema de login seguro com OAuth
+                        </div>
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="ti ti-check"></i>
+                        <div>
+                            <strong>Redirecionamento Automático:</strong> Se não autenticado, volta para login
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="ti ti-user"></i> O que Acontece Após Login?</h3>
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-check-circle"></i> Validação do Email</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <code style="display: block; background: #f0f0f0; padding: 10px; border-radius: 4px;">
+                        if (!email.endsWith("@hc.fm.usp.br")) {<br>
+                        &nbsp;&nbsp;// Usuário não autorizado<br>
+                        &nbsp;&nbsp;await Clerk.signOut();<br>
+                        &nbsp;&nbsp;alert("Email não autorizado");<br>
+                        }
+                        </code>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-door-enter"></i> Acesso ao Dashboard</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Se o email for válido:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>✅ Usuário é redirecionado para <code>/index.html</code></li>
+                            <li>✅ Dashboard carrega com seus dados</li>
+                            <li>✅ Sistemas aparecem baseado em sua categoria</li>
+                            <li>✅ Você pode agora navegar livremente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4><i class="ti ti-bulb"></i> Dica de Segurança</h4>
+                    <p>Sempre use sua senha segura e <span class="highlight">nunca compartilhe suas credenciais</span>. Se suspeitar de acesso não autorizado, entre em contato com o suporte.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: SISTEMAS -->
+        <section id="sistemas" class="section">
+            <div class="card-section">
+                <h2><i class="ti ti-apps"></i> Sistemas Disponíveis</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">
+                    O CONVERGE integra mais de 30 sistemas diferentes. Aqui estão os principais:
+                </p>
+
+                <h3><i class="ti ti-stethoscope"></i> Sistemas Assistenciais</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sistema</th>
+                                <th>Descrição</th>
+                                <th>Acesso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>HCMED</strong></td>
+                                <td>Sistema médico integrado</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>InterRad Internados</strong></td>
+                                <td>Radiologia para pacientes internados</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SoulMV</strong></td>
+                                <td>Monitoramento de pacientes</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MVPEP</strong></td>
+                                <td>Gestão de prontuário eletrônico</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3><i class="ti ti-users"></i> Sistemas de RH e Colaboradores</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sistema</th>
+                                <th>Descrição</th>
+                                <th>Acesso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Portal RH FFM</strong></td>
+                                <td>Portal de recursos humanos</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meu Perfil</strong></td>
+                                <td>Dados pessoais e profissionais</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meu ASO</strong></td>
+                                <td>Atestado de Saúde Ocupacional</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Minhas Doses</strong></td>
+                                <td>Registro de vacinações</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3><i class="ti ti-chart-line"></i> Sistemas de Gestão</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sistema</th>
+                                <th>Descrição</th>
+                                <th>Acesso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>MVGE</strong></td>
+                                <td>Gestão executiva</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PIH</strong></td>
+                                <td>Painel integrado hospitalar</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Painel MV</strong></td>
+                                <td>Dashboard de métricas</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Faturamento</strong></td>
+                                <td>Sistemas de faturamento</td>
+                                <td><span class="badge badge-success">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4><i class="ti ti-bulb"></i> Como Acessar um Sistema?</h4>
+                    <ol style="margin: 15px 0 0 20px;">
+                        <li>Navegue pela <strong>sidebar</strong> e escolha uma categoria</li>
+                        <li>Os <strong>cards</strong> dos sistemas aparecerão</li>
+                        <li><strong>Clique</strong> no card desejado</li>
+                        <li>Você será <strong>redirecionado</strong> para o sistema</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: DADOS -->
+        <section id="dados" class="section">
+            <div class="card-section">
+                <h2><i class="ti ti-database"></i> Banco de Dados e Estrutura</h2>
+
+                <h3><i class="ti ti-layers"></i> Tabela Mãe vs Tabela Filha</h3>
+                <div class="subsection">
+                    <p>Os dados são organizados em duas tabelas relacionadas:</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <strong style="font-size: 1.1em;">📋 Tabela Mãe (tabela_mae)</strong>
+                        <p style="margin-top: 10px; color: var(--text-muted);">
+                            Armazena 1 registro por CPF com dados resumidos:
+                        </p>
+                        <div class="code-block">
+<span class="syntax-keyword">cpf</span>: "123.456.789-10"<br>
+<span class="syntax-keyword">matricula</span>: "12345"<br>
+<span class="syntax-keyword">vinculo</span>: "CLT"<br>
+<span class="syntax-keyword">situacao</span>: "Ativo"
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <strong style="font-size: 1.1em;">📚 Tabela Filha (tabela_filha)</strong>
+                        <p style="margin-top: 10px; color: var(--text-muted);">
+                            Armazena múltiplos registros por CPF com dados detalhados:
+                        </p>
+                        <div class="code-block">
+<span class="syntax-keyword">seq_id</span>: 1<br>
+<span class="syntax-keyword">cpf</span>: "123.456.789-10"<br>
+<span class="syntax-keyword">grupo_generico</span>: "Médico"<br>
+<span class="syntax-keyword">empresa</span>: "HC-FMUSP"<br>
+<span class="syntax-keyword">filial</span>: "Prédio A"<br>
+<span class="syntax-keyword">local_trab</span>: "Clínica Médica"<br>
+<span class="syntax-keyword">cargo</span>: "Médico Assistente"<br>
+<span class="syntax-keyword">funcao</span>: "Clínico"
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="ti ti-arrows-join"></i> Por que Essa Estrutura?</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-minimize"></i></div>
+                        <h4>Reduz Redundância</h4>
+                        <p>Dados comuns (CPF, matrícula) ficam na mãe</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-history"></i></div>
+                        <h4>Histórico</h4>
+                        <p>Múltiplas posições/setores por pessoa</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-rocket"></i></div>
+                        <h4>Performance</h4>
+                        <p>Buscas mais rápidas com índices</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="ti ti-search"></i></div>
+                        <h4>Flexibilidade</h4>
+                        <p>Buscar por CPF, situação, empresa</p>
+                    </div>
+                </div>
+
+                <h3><i class="ti ti-key"></i> Índices de Busca</h3>
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-search"></i> Buscar por CPF</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Todos os colaboradores podem ser encontrados rapidamente pelo CPF:</p>
+                        <div class="code-block">
+<span class="syntax-comment">// Busca rápida na tabela</span><br>
+ctx.db.<span class="syntax-function">query</span>(<span class="syntax-string">"tabela_mae"</span>).<span class="syntax-function">withIndex</span>(<span class="syntax-string">"by_cpf"</span>)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-filter"></i> Filtrar por Situação</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Buscar todos os colaboradores com status "Ativo", "Inativo", etc:</p>
+                        <div class="code-block">
+<span class="syntax-comment">// Filtro por situação</span><br>
+ctx.db.<span class="syntax-function">query</span>(<span class="syntax-string">"tabela_filha"</span>).<span class="syntax-function">withIndex</span>(<span class="syntax-string">"by_situacao"</span>)
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="ti ti-function"></i> Query de Teste</h3>
+                <div class="subsection">
+                    <p style="margin-bottom: 15px;">A função <code>buscarPrimeirosRegistros</code> permite testar a conexão:</p>
+                    <div class="code-block">
+<span class="syntax-keyword">export const</span> <span class="syntax-function">buscarPrimeirosRegistros</span> = <span class="syntax-function">query</span>({<br>
+&nbsp;&nbsp;handler: <span class="syntax-keyword">async</span> (ctx) => {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntax-keyword">const</span> mae = <span class="syntax-keyword">await</span> ctx.db.<span class="syntax-function">query</span>(<span class="syntax-string">"tabela_mae"</span>).<span class="syntax-function">take</span>(5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntax-keyword">const</span> filha = <span class="syntax-keyword">await</span> ctx.db.<span class="syntax-function">query</span>(<span class="syntax-string">"tabela_filha"</span>).<span class="syntax-function">take</span>(5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntax-keyword">return</span> { mae, filha };<br>
+&nbsp;&nbsp;}<br>
+})
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: FAQ -->
+        <section id="faq" class="section">
+            <div class="card-section">
+                <h2><i class="ti ti-help-circle"></i> Perguntas Frequentes</h2>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> Como fazer login se esquecer a senha?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>O CONVERGE usa autenticação via <strong>Clerk</strong>, que suporta:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li><strong>OAuth com Google:</strong> Use sua conta Google corporativa</li>
+                            <li><strong>OAuth com Microsoft:</strong> Use sua conta Microsoft/Office365</li>
+                            <li><strong>Passkey:</strong> Biometria do seu dispositivo</li>
+                        </ul>
+                        <p style="margin-top: 15px;">Se esquecer a senha, clique em "Forgot password?" na tela de login para reset.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> Posso acessar de celular?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Sim!</strong> O CONVERGE é totalmente responsivo. Funciona em:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>📱 Smartphones (iPhone, Android)</li>
+                            <li>📱 Tablets</li>
+                            <li>💻 Desktop</li>
+                        </ul>
+                        <p style="margin-top: 15px;">A interface se adapta automaticamente ao tamanho da tela. No mobile, o menu fica no topo como toggle.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> O que fazer se um sistema não abrir?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Tente estas soluções:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li><strong>Recarregar a página:</strong> F5 ou Ctrl+R</li>
+                            <li><strong>Limpar cache:</strong> Ctrl+Shift+Delete</li>
+                            <li><strong>Tentar outro navegador:</strong> Chrome, Firefox, Safari</li>
+                            <li><strong>Verificar conexão:</strong> Internet deve estar estável</li>
+                            <li><strong>Aguardar:</strong> O sistema pode estar em manutenção</li>
+                        </ul>
+                        <p style="margin-top: 15px;">Se o problema persistir, <strong>contate o suporte técnico</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> Meus dados estão seguros?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Sim!</strong> O CONVERGE implementa várias camadas de segurança:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>🔒 <strong>Validação de Domínio:</strong> Apenas @hc.fm.usp.br</li>
+                            <li>🔐 <strong>Autenticação Clerk:</strong> Segurança de nível empresarial</li>
+                            <li>🛡️ <strong>Conexão HTTPS:</strong> Criptografia de dados em trânsito</li>
+                            <li>💾 <strong>Convex Database:</strong> Backup automático</li>
+                            <li>👁️ <strong>Acesso Controlado:</strong> Apenas quem pode, acessa</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> Posso personalizar meu perfil?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Atualmente, o CONVERGE exibe seus dados básicos do HC:</p>
+                        <ul style="margin: 15px 0 0 20px;">
+                            <li>👤 Nome completo</li>
+                            <li>📧 Email corporativo</li>
+                            <li>🏢 Departamento</li>
+                            <li>🎯 Função</li>
+                        </ul>
+                        <p style="margin-top: 15px;">Os dados vêm do banco de dados central do HC. Para atualizações, contacte RH.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span><i class="ti ti-question-mark"></i> Como funciona a Tabela Mãe e Filha?</span>
+                        <i class="ti ti-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Tabela Mãe:</strong> 1 registro com resumo de cada colaborador</p>
+                        <div class="code-block">
+CPF: 123.456.789-10<br>
+Matrícula: 12345<br>
+Situação: Ativo
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Tabela Filha:</strong> Múltiplos registros com detalhes (cargo, setor, local)</p>
+                        <div class="code-block">
+CPF: 123.456.789-10 → Cargo: Médico (Prédio A)<br>
+CPF: 123.456.789-10 → Cargo: Supervisor (Prédio B)<br>
+CPF: 123.456.789-10 → Cargo: Pesquisador (Prédio C)
+                        </div>
+                        <p style="margin-top: 15px;">Isso permite histórico e múltiplas posições da mesma pessoa.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning" style="margin-top: 30px;">
+                    <i class="ti ti-alert-triangle"></i>
+                    <div>
+                        <strong>Não encontrou sua resposta?</strong> Entre em contato com o suporte técnico do HC através do email ou do sistema de tickets.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer" style="margin: 60px -20px -20px -20px;">
+        <p><strong>📚 Manual Interativo - CONVERGE</strong></p>
+        <p>Portal Integrado do HC-FMUSP</p>
+        <p style="font-size: 0.9em; opacity: 0.8;">© 2026 Dados-CeAC. Todos os direitos reservados.</p>
+        <p style="font-size: 0.85em; margin-top: 15px; opacity: 0.7;">
+            <i class="ti ti-heart-handshake"></i> Desenvolvido com ❤️ para o HC-FMUSP
+        </p>
+    </div>
+
+    <script>
+        // Trocar de abas
+        function switchTab(tabId) {
+            // Remover active de todas as sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Remover active de todos os botões
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            // Adicionar active ao selecionado
+            document.getElementById(tabId).classList.add('active');
+            event.target.closest('.tab-btn').classList.add('active');
+
+            // Scroll para top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Fechar accordion ao clicar fora
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.accordion-header')) {
+                // Pode deixar abertos ou fechar - deixei abertos para flexibilidade
+            }
+        });
+
+        // Inicializar
+        console.log('✅ Manual Interativo Carregado!');
+    </script>
+</body>
+</html>
