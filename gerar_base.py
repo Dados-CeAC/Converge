@@ -1,62 +1,73 @@
+import os
 import pandas as pd
-import glob
 
-# Localiza arquivo Excel
-excel_files = glob.glob("*.xlsx")
-if not excel_files:
-    raise FileNotFoundError("Nenhum arquivo .xlsx foi encontrado na pasta atual!")
+# 1. Localizar a planilha no diretório
+arquivos_excel = [f for f in os.listdir('.') if f.endswith('.xlsx') and not f.startswith('~$')]
 
-excel_file = excel_files[0]
-print(f"⚡ Lendo a planilha Excel: {excel_file}...")
-xls = pd.ExcelFile(excel_file)
+if not arquivos_excel:
+    raise FileNotFoundError("❌ Nenhum arquivo .xlsx encontrado no projeto!")
 
-# 1. Tabela Mãe (employees)
-sheet_mae = "Sheet1" if "Sheet1" in xls.sheet_names else xls.sheet_names[0]
-df_s1 = pd.read_excel(xls, sheet_name=sheet_mae)
+nome_arquivo = arquivos_excel[0]
+print(f"📄 Lendo base de dados: '{nome_arquivo}'...")
 
-df_s1["cpf"] = df_s1["Número de CPF"].astype(str).str.strip().fillna("") if "Número de CPF" in df_s1.columns else ""
-df_s1["matricula"] = df_s1["Matrícula"].astype(str).str.strip().fillna("") if "Matrícula" in df_s1.columns else ""
-df_s1["nome"] = df_s1["Nome"].fillna("").astype(str).str.strip() if "Nome" in df_s1.columns else ""
+xls = pd.ExcelFile(nome_arquivo)
 
-if "Desc. Situação" in df_s1.columns:
-    df_s1["desc_situacao"] = df_s1["Desc. Situação"].apply(
-        lambda x: "ativo" if str(x).strip().lower() == "ativo" else "desligado"
-    )
+# Seleciona a aba correta
+if "tb_mae" in xls.sheet_names:
+    sheet_nome = "tb_mae"
+elif "Tabela_Filha_N_Grupos" in xls.sheet_names:
+    sheet_nome = "Tabela_Filha_N_Grupos"
 else:
-    df_s1["desc_situacao"] = "ativo"
+    sheet_nome = xls.sheet_names[0]
 
-cols_mae = ["cpf", "matricula", "nome", "desc_situacao"]
-df_mae_clean = df_s1[df_s1["cpf"] != ""].drop_duplicates(subset=["cpf"])
-df_mae_clean[cols_mae].to_json("employees.jsonl", orient="records", lines=True, force_ascii=False)
+df_raw = pd.read_excel(xls, sheet_name=sheet_nome)
 
-# 2. Tabela Filha (pgr_groups)
-sheet_filha = "Página3" if "Página3" in xls.sheet_names else (xls.sheet_names[1] if len(xls.sheet_names) > 1 else xls.sheet_names[0])
-df_p3 = pd.read_excel(xls, sheet_name=sheet_filha)
+# Mapeamento e Higienização das Colunas
+col_cpf = "id" if "id" in df_raw.columns else ("cpf" if "cpf" in df_raw.columns else df_raw.columns[0])
+col_matricula = "Matrícula" if "Matrícula" in df_raw.columns else ("matricula" if "matricula" in df_raw.columns else col_cpf)
 
-df_p3["seq_id"] = range(1, len(df_p3) + 1)
-df_p3["instituto"] = df_p3["Nome Filial"].fillna("").astype(str).str.strip() if "Nome Filial" in df_p3.columns else ""
-df_p3["cargo"] = df_p3["Cargo"].fillna("").astype(str).str.strip() if "Cargo" in df_p3.columns else ""
-df_p3["setor"] = df_p3["Nome Empresa"].fillna("").astype(str).str.strip() if "Nome Empresa" in df_p3.columns else ""
-df_p3["funcao"] = df_p3["Função"].fillna("").astype(str).str.strip() if "Função" in df_p3.columns else ""
-df_p3["local"] = df_p3["Local Trab."].fillna("").astype(str).str.strip() if "Local Trab." in df_p3.columns else ""
-df_p3["employee_cpf"] = df_p3["Número de CPF"].astype(str).str.strip().fillna("") if "Número de CPF" in df_p3.columns else ""
+df_raw["cpf"] = df_raw[col_cpf].astype(str).str.strip()
+df_raw["matricula"] = df_raw[col_matricula].astype(str).str.strip()
 
-df_p3["codigo_composto"] = (
-    df_p3["instituto"] + "-" +
-    df_p3["cargo"] + "-" +
-    df_p3["setor"] + "-" +
-    df_p3["funcao"] + "-" +
-    df_p3["local"]
-)
+# Tratar campos textuais
+empresa = df_raw["Nome Empresa"].fillna("Não Informado").astype(str).str.strip() if "Nome Empresa" in df_raw.columns else df_raw.get("empresa", pd.Series(["Não Informado"]*len(df_raw))).astype(str).str.strip()
+filial = df_raw["Nome Filial"].fillna("Não Informado").astype(str).str.strip() if "Nome Filial" in df_raw.columns else df_raw.get("filial", pd.Series(["Não Informado"]*len(df_raw))).astype(str).str.strip()
+local_trab = df_raw["Local Trab."].fillna("Não Informado").astype(str).str.strip() if "Local Trab." in df_raw.columns else df_raw.get("local_trab", pd.Series(["Não Informado"]*len(df_raw))).astype(str).str.strip()
+cargo = df_raw["Cargo"].fillna("Não Informado").astype(str).str.strip() if "Cargo" in df_raw.columns else df_raw.get("cargo", pd.Series(["Não Informado"]*len(df_raw))).astype(str).str.strip()
+funcao = df_raw["Função"].fillna("Não Informado").astype(str).str.strip() if "Função" in df_raw.columns else df_raw.get("funcao", pd.Series(["Não Informado"]*len(df_raw))).astype(str).str.strip()
 
-if "Desc. Situação" in df_p3.columns:
-    df_p3["desc_situacao"] = df_p3["Desc. Situação"].apply(
-        lambda x: "ativo" if str(x).strip().lower() == "ativo" else "desligado"
-    )
+if "Desc. Situação" in df_raw.columns:
+    df_raw["situacao"] = df_raw["Desc. Situação"].fillna("Ativo").astype(str).str.strip()
+elif "situacao" in df_raw.columns:
+    df_raw["situacao"] = df_raw["situacao"].fillna("Ativo").astype(str).str.strip()
 else:
-    df_p3["desc_situacao"] = "ativo"
+    df_raw["situacao"] = "Ativo"
 
-cols_filha = ["seq_id", "codigo_composto", "employee_cpf", "instituto", "cargo", "setor", "funcao", "local", "desc_situacao"]
-df_p3[cols_filha].to_json("pgr_groups.jsonl", orient="records", lines=True, force_ascii=False)
+# Vínculo Empregatício
+df_raw["vinculo"] = empresa + " - " + cargo
 
-print("\n✅ Arquivos 'employees.jsonl' e 'pgr_groups.jsonl' gerados com sucesso!")
+# Grupo Genérico Composto
+df_raw["grupo_generico"] = empresa + " | " + filial + " | " + local_trab + " | " + cargo + " | " + funcao
+
+# --- 2. GERAR TABELA MÃE (employees_mae.jsonl) ---
+cols_mae = ["cpf", "matricula", "vinculo", "situacao"]
+df_mae_clean = df_raw.drop_duplicates(subset=["cpf"])[cols_mae].reset_index(drop=True)
+df_mae_clean.to_json("employees_mae.jsonl", orient="records", lines=True, force_ascii=False)
+
+# --- 3. GERAR TABELA FILHA (pgr_groups.jsonl) ---
+df_filha_clean = df_raw.copy()
+df_filha_clean["seq_id"] = range(1, len(df_filha_clean) + 1)
+df_filha_clean["empresa"] = empresa
+df_filha_clean["filial"] = filial
+df_filha_clean["local_trab"] = local_trab
+df_filha_clean["cargo"] = cargo
+df_filha_clean["funcao"] = funcao
+
+cols_filha = ["seq_id", "cpf", "matricula", "vinculo", "situacao", "grupo_generico", "empresa", "filial", "local_trab", "cargo", "funcao"]
+df_filha_clean = df_filha_clean[cols_filha]
+df_filha_clean.to_json("pgr_groups.jsonl", orient="records", lines=True, force_ascii=False)
+
+print("\n" + "="*50)
+print(f"✅ Tabela Mãe tratada: {len(df_mae_clean)} registros de CPFs únicos")
+print(f"✅ Tabela Filha tratada: {len(df_filha_clean)} registros de Vínculos")
+print("="*50)

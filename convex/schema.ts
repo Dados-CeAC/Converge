@@ -2,19 +2,28 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  // Tabela Mãe (1 registro por CPF: cpf, matricula, vinculo, situacao)
   tabela_mae: defineTable({
-    id: v.string(),
-    nome_empresa: v.string(),
-    nome_filial: v.string(),
-    local_trabalho: v.string(),
+    cpf: v.string(),
+    matricula: v.string(),
+    vinculo: v.string(),
+    situacao: v.string(),
+  }).index("by_cpf", ["cpf"]),
+
+  // Tabela Filha (Estrutura completa com N registros por CPF)
+  tabela_filha: defineTable({
+    seq_id: v.number(),
+    cpf: v.string(),
+    matricula: v.string(),
+    vinculo: v.string(),
+    situacao: v.string(),
+    grupo_generico: v.string(),
+    empresa: v.string(),
+    filial: v.string(),
+    local_trab: v.string(),
     cargo: v.string(),
     funcao: v.string(),
-    descricao_situacao: v.string(),
-    data_situacao: v.optional(v.string()), // <- Permite receber a data sem travar
-  }),
-  tabela_filha: defineTable({
-    id: v.string(),
-    nome_filial: v.string(),
-    local_trabalho: v.string(),
-  }),
+  })
+    .index("by_cpf", ["cpf"])
+    .index("by_situacao", ["situacao"]),
 });
