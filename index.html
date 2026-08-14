@@ -8,6 +8,377 @@
 	<link rel="stylesheet" href="style.css" />
 	<link rel="stylesheet" href="CSS/custom-select.css" />
 	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<style>
+		/* Tour Guiado - Estilos Integrados */
+		.tour-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.7);
+			z-index: 9998;
+			display: none;
+		}
+
+		.tour-overlay.active {
+			display: block;
+		}
+
+		.tour-spotlight {
+			position: fixed;
+			border: 2px solid var(--brand-blue);
+			box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7),
+						inset 0 0 20px rgba(0, 119, 200, 0.3);
+			z-index: 9999;
+			border-radius: 8px;
+			transition: all 0.4s ease;
+			pointer-events: none;
+		}
+
+		.tour-popover {
+			position: fixed;
+			background: var(--surface);
+			border-radius: 12px;
+			padding: 25px;
+			z-index: 10000;
+			max-width: 400px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.3s ease;
+		}
+
+		@keyframes popoverIn {
+			from {
+				opacity: 0;
+				transform: scale(0.9);
+			}
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		.tour-popover h3 {
+			color: var(--brand-blue);
+			margin-bottom: 10px;
+			font-size: 1.3em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.tour-popover p {
+			color: var(--text-muted);
+			line-height: 1.6;
+			margin-bottom: 20px;
+			font-size: 0.95em;
+		}
+
+		.tour-popover .tour-step-info {
+			background: var(--hc-light);
+			padding: 10px;
+			border-radius: 6px;
+			margin-bottom: 15px;
+			font-size: 0.9em;
+			color: var(--text-muted);
+		}
+
+		.tour-popover .tour-buttons {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 15px;
+		}
+
+		.tour-popover .tour-btn {
+			flex: 1;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.9em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			transition: all 0.3s ease;
+		}
+
+		.tour-btn-primary {
+			background: var(--brand-blue);
+			color: white;
+		}
+
+		.tour-btn-primary:hover {
+			background: var(--hc-dark);
+			transform: translateY(-2px);
+		}
+
+		.tour-btn-secondary {
+			background: var(--hc-light);
+			color: var(--text);
+		}
+
+		.tour-btn-secondary:hover {
+			background: #d1e8f1;
+		}
+
+		.tour-skip {
+			width: 100%;
+			padding: 8px;
+			background: transparent;
+			color: var(--text-muted);
+			border: 1px solid var(--hc-light);
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.85em;
+			transition: all 0.3s ease;
+		}
+
+		.tour-skip:hover {
+			border-color: var(--text-muted);
+			color: var(--text);
+		}
+
+		.tour-popover .arrow-top::before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-bottom::before {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-left::before {
+			content: '';
+			position: absolute;
+			left: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-right: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-right::before {
+			content: '';
+			position: absolute;
+			right: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-left: 10px solid var(--surface);
+		}
+
+		.tour-popover {
+			position: relative;
+		}
+
+		.tour-welcome {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 500px;
+			text-align: center;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.4s ease;
+		}
+
+		.tour-welcome h2 {
+			color: var(--brand-blue);
+			margin-bottom: 15px;
+			font-size: 2em;
+		}
+
+		.tour-welcome p {
+			color: var(--text-muted);
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 1em;
+		}
+
+		.tour-welcome-icon {
+			font-size: 4em;
+			margin-bottom: 20px;
+			color: var(--brand-teal);
+		}
+
+		.tour-welcome .tour-buttons {
+			margin-top: 30px;
+			flex-direction: column;
+		}
+
+		.tour-welcome .tour-btn {
+			width: 100%;
+			justify-content: center;
+			padding: 12px 24px;
+		}
+
+		.tour-start-page {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 600px;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			max-height: 80vh;
+			overflow-y: auto;
+			animation: popoverIn 0.4s ease;
+		}
+
+		.tour-start-page h2 {
+			color: var(--brand-blue);
+			margin-bottom: 25px;
+			font-size: 1.8em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.tour-option {
+			background: var(--hc-light);
+			border: 2px solid transparent;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 15px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: flex-start;
+			gap: 15px;
+		}
+
+		.tour-option:hover {
+			border-color: var(--brand-blue);
+			transform: translateX(5px);
+			box-shadow: 0 8px 20px rgba(0, 119, 200, 0.15);
+		}
+
+		.tour-option-icon {
+			font-size: 2em;
+			color: var(--brand-blue);
+			flex-shrink: 0;
+		}
+
+		.tour-option h3 {
+			color: var(--text);
+			margin-bottom: 5px;
+			font-size: 1.1em;
+		}
+
+		.tour-option p {
+			color: var(--text-muted);
+			font-size: 0.9em;
+			line-height: 1.5;
+		}
+
+		body.tour-active {
+			overflow: hidden;
+		}
+
+		.tour-trigger-btn {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			width: 60px;
+			height: 60px;
+			background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
+			color: white;
+			border: none;
+			border-radius: 50%;
+			font-size: 1.5em;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 8px 25px rgba(0, 119, 200, 0.3);
+			transition: all 0.3s ease;
+			z-index: 1000;
+		}
+
+		.tour-trigger-btn:hover {
+			transform: scale(1.1);
+			box-shadow: 0 12px 35px rgba(0, 119, 200, 0.4);
+		}
+
+		.tour-trigger-btn.hidden {
+			display: none;
+		}
+
+		.tour-progress {
+			display: flex;
+			gap: 6px;
+			margin-top: 15px;
+			justify-content: center;
+		}
+
+		.tour-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--hc-light);
+			transition: all 0.3s ease;
+		}
+
+		.tour-dot.active {
+			background: var(--brand-blue);
+			width: 24px;
+			border-radius: 4px;
+		}
+
+		@media (max-width: 768px) {
+			.tour-popover {
+				max-width: 90vw;
+				padding: 20px;
+			}
+
+			.tour-welcome,
+			.tour-start-page {
+				max-width: 90vw;
+				padding: 25px;
+			}
+
+			.tour-welcome h2 {
+				font-size: 1.5em;
+			}
+
+			.tour-trigger-btn {
+				width: 50px;
+				height: 50px;
+				font-size: 1.2em;
+				bottom: 20px;
+				right: 20px;
+			}
+		}
+	</style>
 	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js" as="script">
 	<script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 	<script>
@@ -135,7 +506,359 @@
 		</div>
 	</div>
 </div>
- 
+
+<!-- Tour Guiado - Elementos -->
+<div class="tour-overlay" id="tourOverlay"></div>
+<div class="tour-spotlight" id="tourSpotlight"></div>
+<div class="tour-popover" id="tourPopover">
+	<div id="tourPopoverContent"></div>
+</div>
+<button class="tour-trigger-btn" id="tourTriggerBtn" title="Iniciar tour guiado">
+	<i class="ti ti-player-play"></i>
+</button>
+
 <script src="script.js"></script>
-</body>
-</html>
+<script>
+	class TourGuide {
+		constructor() {
+			this.currentStep = 0;
+			this.isActive = false;
+			this.steps = this.defineSteps();
+			this.init();
+		}
+
+		init() {
+			document.getElementById('tourTriggerBtn').addEventListener('click', () => this.start());
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && this.isActive) this.end();
+			});
+		}
+
+		defineSteps() {
+			return [
+				{
+					type: 'welcome',
+					title: '🎓 Bem-vindo ao Tour Guiado!',
+					description: 'Vamos explorar o CONVERGE juntos. Você aprenderá como usar o sistema passo a passo.',
+					subtext: 'Clique em "Começar" para iniciar.'
+				},
+				{
+					type: 'element',
+					selector: '.topbar',
+					title: '📍 Barra Superior (Topbar)',
+					description: 'Aqui você vê as logos do HC-FMUSP e CeAC. Esta barra fica fixa no topo e contém informações importantes.',
+					fields: [
+						'🏥 Logo HC-FMUSP',
+						'🏢 Logo CeAC',
+						'📱 Botão de menu (mobile)'
+					]
+				},
+				{
+					type: 'element',
+					selector: '.sidebar',
+					title: '📂 Menu Lateral (Sidebar)',
+					description: 'O menu lateral é sua navegação principal. Aqui você encontra todas as categorias de sistemas.',
+					fields: [
+						'🏠 Home - Dashboard principal',
+						'⚙️ Meus Sistemas - Seus acessos',
+						'📋 Administrativo',
+						'🏥 Assistencial',
+						'👥 Colaboradores'
+					]
+				},
+				{
+					type: 'element',
+					selector: '.cards-grid',
+					title: '🎴 Cards de Sistemas',
+					description: 'Cada card representa um sistema. Clique em qualquer card para abrir o sistema correspondente.',
+					fields: [
+						'🎨 Ícone visual único',
+						'📝 Nome do sistema',
+						'✨ Efeito hover (destacamento)',
+						'🔗 Link direto ao sistema'
+					]
+				},
+				{
+					type: 'element',
+					selector: '.sidebar-profile',
+					title: '👤 Perfil do Usuário',
+					description: 'Aqui você vê seus dados de usuário: nome, email e acesso rápido ao seu perfil.',
+					fields: [
+						'👤 Avatar com iniciais',
+						'📧 Seu email corporativo',
+						'🔗 Link para perfil',
+						'🔐 Botão de logout'
+					]
+				},
+				{
+					type: 'element',
+					selector: '.sidebar-logout',
+					title: '🔐 Logout',
+					description: 'Clique aqui para sair do portal de forma segura.',
+					fields: [
+						'✅ Encerra sua sessão',
+						'🔒 Dados permanecem protegidos',
+						'↪️ Retorna ao login'
+					]
+				},
+				{
+					type: 'complete',
+					title: '🎉 Parabéns!',
+					description: 'Você completou o tour guiado! Agora você sabe como navegar pelo CONVERGE.',
+					subtext: 'Explore o portal e aproveite todos os sistemas disponíveis.',
+					nextText: 'Fechar'
+				}
+			];
+		}
+
+		start() {
+			this.isActive = true;
+			this.currentStep = 0;
+			document.body.classList.add('tour-active');
+			document.getElementById('tourTriggerBtn').classList.add('hidden');
+			this.showWelcome();
+		}
+
+		showWelcome() {
+			const overlay = document.getElementById('tourOverlay');
+			overlay.classList.add('active');
+
+			const startPage = document.createElement('div');
+			startPage.className = 'tour-start-page';
+			startPage.innerHTML = `
+				<h2><i class="ti ti-book"></i> Escolha seu Tour</h2>
+				<div class="tour-option" onclick="tourGuide.startTour('quick')">
+					<div class="tour-option-icon"><i class="ti ti-bolt"></i></div>
+					<div>
+						<h3>⚡ Tour Rápido (2 min)</h3>
+						<p>Visão geral da interface principal e navegação básica.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.startTour('complete')">
+					<div class="tour-option-icon"><i class="ti ti-route"></i></div>
+					<div>
+						<h3>🗺️ Tour Completo (5 min)</h3>
+						<p>Explore tudo em detalhes: interface, sistemas, dados e funcionalidades.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.startTour('features')">
+					<div class="tour-option-icon"><i class="ti ti-star"></i></div>
+					<div>
+						<h3>✨ Funcionalidades Principais</h3>
+						<p>Descubra os recursos mais úteis do CONVERGE.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.end()">
+					<div class="tour-option-icon"><i class="ti ti-x"></i></div>
+					<div>
+						<h3>❌ Cancelar</h3>
+						<p>Voltar ao portal normal.</p>
+					</div>
+				</div>
+			`;
+			document.body.appendChild(startPage);
+			startPage.id = 'tourStartPage';
+		}
+
+		startTour(type) {
+			const page = document.getElementById('tourStartPage');
+			if (page) page.remove();
+
+			this.showStep(0);
+		}
+
+		showStep(index) {
+			const step = this.steps[index];
+			if (!step) return;
+
+			const overlay = document.getElementById('tourOverlay');
+			const spotlight = document.getElementById('tourSpotlight');
+			const popover = document.getElementById('tourPopover');
+
+			if (step.type === 'welcome') {
+				this.showWelcomeStep(step);
+			} else if (step.type === 'element') {
+				overlay.classList.add('active');
+				this.highlightElement(step.selector, spotlight);
+				this.showPopover(step, popover);
+			} else if (step.type === 'complete') {
+				this.showCompleteStep(step);
+			}
+		}
+
+		showWelcomeStep(step) {
+			const overlay = document.getElementById('tourOverlay');
+			overlay.classList.add('active');
+
+			const welcome = document.createElement('div');
+			welcome.className = 'tour-welcome';
+			welcome.innerHTML = `
+				<div class="tour-welcome-icon"><i class="ti ti-bulb"></i></div>
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
+						<i class="ti ti-arrow-right"></i>
+						Começar
+					</button>
+					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.end()">
+						<i class="ti ti-x"></i>
+						Cancelar
+					</button>
+				</div>
+			`;
+			document.body.appendChild(welcome);
+			welcome.id = 'tourWelcome';
+		}
+
+		showCompleteStep(step) {
+			const complete = document.createElement('div');
+			complete.className = 'tour-welcome';
+			complete.innerHTML = `
+				<div class="tour-welcome-icon"><i class="ti ti-confetti"></i></div>
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.end()">
+						<i class="ti ti-check"></i>
+						${step.nextText}
+					</button>
+				</div>
+			`;
+			document.body.appendChild(complete);
+			complete.id = 'tourComplete';
+		}
+
+		highlightElement(selector, spotlight) {
+			const element = document.querySelector(selector);
+			if (!element) return;
+
+			const rect = element.getBoundingClientRect();
+			const padding = 10;
+
+			spotlight.style.top = (rect.top - padding) + 'px';
+			spotlight.style.left = (rect.left - padding) + 'px';
+			spotlight.style.width = (rect.width + padding * 2) + 'px';
+			spotlight.style.height = (rect.height + padding * 2) + 'px';
+		}
+
+		showPopover(step, popover) {
+			const element = document.querySelector(step.selector);
+			if (!element) return;
+
+			const fieldsHtml = step.fields
+				.map(field => `<li style="margin-bottom: 8px;">${field}</li>`)
+				.join('');
+
+			popover.innerHTML = `
+				<h3><i class="ti ti-info-circle"></i> ${step.title}</h3>
+				<p>${step.description}</p>
+				<div class="tour-step-info">
+					Passo ${this.currentStep + 1} de ${this.steps.length}
+				</div>
+				<div style="background: var(--hc-lighter); padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+					<strong style="color: var(--brand-blue);">📌 Elementos nesta seção:</strong>
+					<ul style="margin: 10px 0 0 20px; color: var(--text-muted); font-size: 0.9em;">
+						${fieldsHtml}
+					</ul>
+				</div>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.previousStep()">
+						<i class="ti ti-arrow-left"></i>
+						Anterior
+					</button>
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
+						Próximo
+						<i class="ti ti-arrow-right"></i>
+					</button>
+				</div>
+				<button class="tour-skip" onclick="tourGuide.end()">
+					Pular tour
+				</button>
+				<div class="tour-progress">
+					${this.steps.map((_, i) => `
+						<div class="tour-dot ${i === this.currentStep ? 'active' : ''}"></div>
+					`).join('')}
+				</div>
+			`;
+
+			this.positionPopover(element, popover);
+		}
+
+		positionPopover(element, popover) {
+			const rect = element.getBoundingClientRect();
+			const popoverRect = { width: 400, height: 400 };
+
+			let top, left, arrowClass = 'arrow-bottom';
+
+			if (rect.bottom + 320 < window.innerHeight) {
+				top = rect.bottom + 15;
+				arrowClass = 'arrow-top';
+			} else if (rect.top - 320 > 0) {
+				top = rect.top - 320;
+				arrowClass = 'arrow-bottom';
+			} else {
+				top = window.innerHeight - 420;
+				arrowClass = 'arrow-top';
+			}
+
+			if (rect.left + 200 > window.innerWidth - 20) {
+				left = window.innerWidth - 420;
+				arrowClass = 'arrow-right';
+			} else {
+				left = rect.left + 50;
+				arrowClass = 'arrow-left';
+			}
+
+			popover.style.top = top + 'px';
+			popover.style.left = Math.max(10, left) + 'px';
+			popover.className = `tour-popover ${arrowClass}`;
+		}
+
+		nextStep() {
+			if (this.currentStep < this.steps.length - 1) {
+				this.currentStep++;
+				this.clearStepElements();
+				this.showStep(this.currentStep);
+			} else {
+				this.end();
+			}
+		}
+
+		previousStep() {
+			if (this.currentStep > 0) {
+				this.currentStep--;
+				this.clearStepElements();
+				this.showStep(this.currentStep);
+			}
+		}
+
+		clearStepElements() {
+			const welcome = document.getElementById('tourWelcome');
+			if (welcome) welcome.remove();
+			const complete = document.getElementById('tourComplete');
+			if (complete) complete.remove();
+		}
+
+		end() {
+			this.isActive = false;
+			document.body.classList.remove('tour-active');
+			document.getElementById('tourOverlay').classList.remove('active');
+			document.getElementById('tourSpotlight').style.display = 'none';
+			document.getElementById('tourPopover').style.display = 'none';
+			document.getElementById('tourTriggerBtn').classList.remove('hidden');
+
+			const welcome = document.getElementById('tourWelcome');
+			if (welcome) welcome.remove();
+			const complete = document.getElementById('tourComplete');
+			if (complete) complete.remove();
+			const startPage = document.getElementById('tourStartPage');
+			if (startPage) startPage.remove();
+		}
+	}
+
+	const tourGuide = new TourGuide();
+	console.log('✅ Tour Guiado Integrado!');
+</script>
