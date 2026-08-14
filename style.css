@@ -7657,41 +7657,6 @@ textarea:focus {
   }
 }
 
-/* Botões de Tutorial e Ajuda na Topbar */
-.topbar-tutorial-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: white;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
-  margin-left: auto;
-}
-
-.topbar-tutorial-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.topbar-tutorial-btn span {
-  display: inline;
-}
-
-@media (max-width: 768px) {
-  .topbar-tutorial-btn span {
-    display: none;
-  }
-
-  .topbar-tutorial-btn {
-    padding: 8px 10px;
-  }
-}
-
 @media (max-width: 640px) {
   .page-title {
     font-size: 18px;
