@@ -3491,9 +3491,10 @@ Exemplo:
 - card de estatística
 */
 
--card {
-  b.sysackground: var(--surface);
+.sys-card {
+  background: var(--surface);
   min-height: 140px;
+  display: flex;
   justify-content: center;
 
   /* 
