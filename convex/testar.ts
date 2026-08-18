@@ -10,7 +10,7 @@ export const buscarPrimeirosRegistros = query({
     const filha = await ctx.db.query("tabela_filha").take(5);
 
     return {
-      status: "✅ BANCO DE DADOS OPERACIONAL E CONECTADO!",
+      status: " BANCO DE DADOS OPERACIONAL E CONECTADO!",
       amostra_tabela_mae: mae,
       amostra_tabela_filha: filha,
     };

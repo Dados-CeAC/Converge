@@ -16,7 +16,7 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background: rgba(0, 0, 0, 0.7);
+			background: rgba(0, 0, 0, 0.68);
 			z-index: 9998;
 			display: none;
 		}
@@ -32,8 +32,9 @@
 						inset 0 0 20px rgba(0, 119, 200, 0.3);
 			z-index: 9999;
 			border-radius: 8px;
-			transition: all 0.4s ease;
+			transition: all 0.35s ease;
 			pointer-events: none;
+			display: none;
 		}
 
 		.tour-popover {
@@ -45,6 +46,98 @@
 			max-width: 400px;
 			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 			animation: popoverIn 0.3s ease;
+			display: none;
+		}
+
+		.tour-modal {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 18px;
+			padding: 30px 28px 22px;
+			max-width: 520px;
+			width: min(90vw, 520px);
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+			z-index: 10001;
+			display: none;
+			color: var(--text);
+		}
+
+		.tour-modal.active {
+			display: block;
+		}
+
+		.tour-modal h2 {
+			color: var(--brand-blue);
+			margin-bottom: 12px;
+			font-size: clamp(1.4rem, 2vw, 2rem);
+		}
+
+		.tour-modal p {
+			color: var(--text-muted);
+			line-height: 1.6;
+			margin-bottom: 16px;
+		}
+
+		.tour-step-info {
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: var(--brand-blue);
+			background: rgba(0, 119, 200, 0.08);
+			padding: 8px 10px;
+			border-radius: 8px;
+			margin-bottom: 12px;
+		}
+
+		.tour-items {
+			margin: 0 0 18px 18px;
+			padding: 0;
+			color: var(--text-muted);
+			line-height: 1.7;
+		}
+
+		.tour-actions {
+			display: flex;
+			justify-content: space-between;
+			gap: 12px;
+			margin-top: 10px;
+		}
+
+		.tour-btn {
+			border: none;
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-weight: 600;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			transition: all 0.2s ease;
+		}
+
+		.tour-btn.primary {
+			background: var(--brand-blue);
+			color: white;
+		}
+
+		.tour-btn.secondary {
+			background: var(--hc-light);
+			color: var(--text);
+		}
+
+		.tour-btn:disabled {
+			opacity: 0.45;
+			cursor: not-allowed;
+		}
+
+		.tour-highlight {
+			outline: 3px solid var(--brand-blue);
+			outline-offset: 4px;
+			box-shadow: 0 0 0 6px rgba(0, 119, 200, 0.18);
+			border-radius: 10px;
 		}
 
 		@keyframes popoverIn {
@@ -513,6 +606,7 @@
 <div class="tour-popover" id="tourPopover">
 	<div id="tourPopoverContent"></div>
 </div>
+<div class="tour-modal" id="tourModal"></div>
 <button class="tour-trigger-btn" id="tourTriggerBtn" title="Iniciar tour guiado">
 	<i class="ti ti-player-play"></i>
 </button>
@@ -528,7 +622,10 @@
 		}
 
 		init() {
-			document.getElementById('tourTriggerBtn').addEventListener('click', () => this.start());
+			const trigger = document.getElementById('tourTriggerBtn');
+			if (trigger) {
+				trigger.addEventListener('click', () => this.start());
+			}
 			document.addEventListener('keydown', (e) => {
 				if (e.key === 'Escape' && this.isActive) this.end();
 			});
@@ -537,76 +634,46 @@
 		defineSteps() {
 			return [
 				{
-					type: 'welcome',
-					title: '🎓 Bem-vindo ao Tour Guiado!',
-					description: 'Vamos explorar o CONVERGE juntos. Você aprenderá como usar o sistema passo a passo.',
-					subtext: 'Clique em "Começar" para iniciar.'
-				},
-				{
-					type: 'element',
 					selector: '.topbar',
-					title: '📍 Barra Superior (Topbar)',
-					description: 'Aqui você vê as logos do HC-FMUSP e CeAC. Esta barra fica fixa no topo e contém informações importantes.',
-					fields: [
-						'🏥 Logo HC-FMUSP',
-						'🏢 Logo CeAC',
-						'📱 Botão de menu (mobile)'
-					]
+					title: '📍 Barra superior: identidade e contexto',
+					description: 'Essa área fica no topo da tela e mostra quem está usando o sistema, a marca da instituição e o acesso rápido ao menu em dispositivos menores. Ela dá contexto visual e ajuda a manter a navegação organizada.',
+					items: ['Logo do HC-FMUSP e do CeAC para identificação institucional', 'Menu responsivo para telas menores', 'Estrutura fixa que acompanha a navegação da página']
 				},
 				{
-					type: 'element',
 					selector: '.sidebar',
-					title: '📂 Menu Lateral (Sidebar)',
-					description: 'O menu lateral é sua navegação principal. Aqui você encontra todas as categorias de sistemas.',
-					fields: [
-						'🏠 Home - Dashboard principal',
-						'⚙️ Meus Sistemas - Seus acessos',
-						'📋 Administrativo',
-						'🏥 Assistencial',
-						'👥 Colaboradores'
-					]
+					title: '📂 Menu lateral: centro da navegação',
+					description: 'A sidebar é o mapa do portal. Ela organiza as seções principais e direciona o usuário para as áreas de trabalho. Em vez de procurar manualmente, o usuário consegue acessar rapidamente o que precisa.',
+					items: ['Home para voltar ao início', 'Meus Sistemas para acessar ferramentas do usuário', 'Assistencial, Ocupacional, Qualidade e Dados como áreas de negócio', 'Navegação simples e consistente em toda a aplicação']
 				},
 				{
-					type: 'element',
 					selector: '.cards-grid',
-					title: '🎴 Cards de Sistemas',
-					description: 'Cada card representa um sistema. Clique em qualquer card para abrir o sistema correspondente.',
-					fields: [
-						'🎨 Ícone visual único',
-						'📝 Nome do sistema',
-						'✨ Efeito hover (destacamento)',
-						'🔗 Link direto ao sistema'
-					]
+					title: '🎴 Cards: acesso rápido aos sistemas',
+					description: 'Cada card representa uma funcionalidade ou sistema disponível. Esse bloco é a parte mais prática do portal porque reúne tudo em um único lugar. Quando você clica, entra diretamente na ferramenta correta.',
+					items: ['Ícone visual para reconhecer rapidamente o sistema', 'Nome do sistema para identificar a funcionalidade', 'Abertura direta ao clicar no card', 'Organização por categoria e contexto']
 				},
 				{
-					type: 'element',
+					selector: '.page-header',
+					title: '🧭 Cabeçalho da página: onde você está',
+					description: 'O cabeçalho mostra em qual seção você está navegando e ajuda a manter o contexto. Ele é importante para orientar o usuário e evitar que ele se perca dentro do portal.',
+					items: ['Título da página atual', 'Botão de voltar para páginas anteriores', 'Noção clara do contexto do usuário']
+				},
+				{
 					selector: '.sidebar-profile',
-					title: '👤 Perfil do Usuário',
-					description: 'Aqui você vê seus dados de usuário: nome, email e acesso rápido ao seu perfil.',
-					fields: [
-						'👤 Avatar com iniciais',
-						'📧 Seu email corporativo',
-						'🔗 Link para perfil',
-						'🔐 Botão de logout'
-					]
+					title: '👤 Perfil do usuário: identidade e acesso ao usuário',
+					description: 'Este bloco exibe quem está logado, seu e-mail e o caminho para o perfil. Ele serve para confirmar que a sessão está correta e para facilitar a personalização da experiência.',
+					items: ['Avatar com iniciais do usuário', 'Nome e e-mail corporativo', 'Link para perfil ou dados pessoais', 'Identificação segura da sessão atual']
 				},
 				{
-					type: 'element',
 					selector: '.sidebar-logout',
-					title: '🔐 Logout',
-					description: 'Clique aqui para sair do portal de forma segura.',
-					fields: [
-						'✅ Encerra sua sessão',
-						'🔒 Dados permanecem protegidos',
-						'↪️ Retorna ao login'
-					]
+					title: '🔐 Logout: encerramento seguro da sessão',
+					description: 'Esse botão encerra a sessão do usuário de maneira segura. É a forma de sair do portal e retornar ao login sem perder a organização do ambiente de trabalho.',
+					items: ['Finaliza a sessão ativa', 'Protege o uso na máquina atual', 'Retorna à tela de acesso do sistema']
 				},
 				{
-					type: 'complete',
-					title: '🎉 Parabéns!',
-					description: 'Você completou o tour guiado! Agora você sabe como navegar pelo CONVERGE.',
-					subtext: 'Explore o portal e aproveite todos os sistemas disponíveis.',
-					nextText: 'Fechar'
+					selector: '.main',
+					title: '🖥️ Área principal: o painel de trabalho',
+					description: 'É a parte central da aplicação, onde ficam os sistemas, os cards e o conteúdo principal. Aqui o usuário perfaz a jornada de trabalho: identifica a área, escolhe a funcionalidade e entra no sistema correto.',
+					items: ['Espaço principal do portal', 'Acompanhamento da seção ativa', 'Controle visual da navegação e do conteúdo']
 				}
 			];
 		}
@@ -615,250 +682,75 @@
 			this.isActive = true;
 			this.currentStep = 0;
 			document.body.classList.add('tour-active');
+			document.getElementById('tourOverlay').classList.add('active');
 			document.getElementById('tourTriggerBtn').classList.add('hidden');
-			this.showWelcome();
+			this.showStep();
 		}
 
-		showWelcome() {
-			const overlay = document.getElementById('tourOverlay');
-			overlay.classList.add('active');
+		showStep() {
+			const modal = document.getElementById('tourModal');
+			const step = this.steps[this.currentStep];
+			if (!modal || !step) return;
 
-			const startPage = document.createElement('div');
-			startPage.className = 'tour-start-page';
-			startPage.innerHTML = `
-				<h2><i class="ti ti-book"></i> Escolha seu Tour</h2>
-				<div class="tour-option" onclick="tourGuide.startTour('quick')">
-					<div class="tour-option-icon"><i class="ti ti-bolt"></i></div>
-					<div>
-						<h3>⚡ Tour Rápido (2 min)</h3>
-						<p>Visão geral da interface principal e navegação básica.</p>
-					</div>
-				</div>
-				<div class="tour-option" onclick="tourGuide.startTour('complete')">
-					<div class="tour-option-icon"><i class="ti ti-route"></i></div>
-					<div>
-						<h3>🗺️ Tour Completo (5 min)</h3>
-						<p>Explore tudo em detalhes: interface, sistemas, dados e funcionalidades.</p>
-					</div>
-				</div>
-				<div class="tour-option" onclick="tourGuide.startTour('features')">
-					<div class="tour-option-icon"><i class="ti ti-star"></i></div>
-					<div>
-						<h3>✨ Funcionalidades Principais</h3>
-						<p>Descubra os recursos mais úteis do CONVERGE.</p>
-					</div>
-				</div>
-				<div class="tour-option" onclick="tourGuide.end()">
-					<div class="tour-option-icon"><i class="ti ti-x"></i></div>
-					<div>
-						<h3>❌ Cancelar</h3>
-						<p>Voltar ao portal normal.</p>
-					</div>
-				</div>
-			`;
-			document.body.appendChild(startPage);
-			startPage.id = 'tourStartPage';
-		}
-
-		startTour(type) {
-			const page = document.getElementById('tourStartPage');
-			if (page) page.remove();
-
-			this.showStep(0);
-		}
-
-		showStep(index) {
-			const step = this.steps[index];
-			if (!step) return;
-
-			const overlay = document.getElementById('tourOverlay');
-			const spotlight = document.getElementById('tourSpotlight');
-			const popover = document.getElementById('tourPopover');
-
-			if (step.type === 'welcome') {
-				this.showWelcomeStep(step);
-			} else if (step.type === 'element') {
-				overlay.classList.add('active');
-				this.highlightElement(step.selector, spotlight);
-				this.showPopover(step, popover);
-			} else if (step.type === 'complete') {
-				this.showCompleteStep(step);
+			this.clearHighlights();
+			const target = document.querySelector(step.selector);
+			if (target) {
+				target.classList.add('tour-highlight');
+				target.scrollIntoView({ block: 'center', behavior: 'smooth' });
 			}
-		}
 
-		showWelcomeStep(step) {
-			const overlay = document.getElementById('tourOverlay');
-			overlay.classList.add('active');
-
-			const welcome = document.createElement('div');
-			welcome.className = 'tour-welcome';
-			welcome.innerHTML = `
-				<div class="tour-welcome-icon"><i class="ti ti-bulb"></i></div>
+			const itemsHtml = step.items.map(item => `<li>${item}</li>`).join('');
+			modal.classList.add('active');
+			modal.innerHTML = `
 				<h2>${step.title}</h2>
 				<p>${step.description}</p>
-				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
-				<div class="tour-buttons">
-					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
-						<i class="ti ti-arrow-right"></i>
-						Começar
+				<div class="tour-step-info">Passo ${this.currentStep + 1} de ${this.steps.length}</div>
+				<ul class="tour-items">
+					${itemsHtml}
+				</ul>
+				<div class="tour-actions">
+					<button class="tour-btn secondary" type="button" ${this.currentStep === 0 ? 'disabled' : ''} onclick="window.tourGuide.previousStep()">
+						<i class="ti ti-arrow-left"></i> Anterior
 					</button>
-					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.end()">
-						<i class="ti ti-x"></i>
-						Cancelar
-					</button>
-				</div>
-			`;
-			document.body.appendChild(welcome);
-			welcome.id = 'tourWelcome';
-		}
-
-		showCompleteStep(step) {
-			const complete = document.createElement('div');
-			complete.className = 'tour-welcome';
-			complete.innerHTML = `
-				<div class="tour-welcome-icon"><i class="ti ti-confetti"></i></div>
-				<h2>${step.title}</h2>
-				<p>${step.description}</p>
-				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
-				<div class="tour-buttons">
-					<button class="tour-btn tour-btn-primary" onclick="tourGuide.end()">
-						<i class="ti ti-check"></i>
-						${step.nextText}
-					</button>
-				</div>
-			`;
-			document.body.appendChild(complete);
-			complete.id = 'tourComplete';
-		}
-
-		highlightElement(selector, spotlight) {
-			const element = document.querySelector(selector);
-			if (!element) return;
-
-			const rect = element.getBoundingClientRect();
-			const padding = 10;
-
-			spotlight.style.top = (rect.top - padding) + 'px';
-			spotlight.style.left = (rect.left - padding) + 'px';
-			spotlight.style.width = (rect.width + padding * 2) + 'px';
-			spotlight.style.height = (rect.height + padding * 2) + 'px';
-		}
-
-		showPopover(step, popover) {
-			const element = document.querySelector(step.selector);
-			if (!element) return;
-
-			const fieldsHtml = step.fields
-				.map(field => `<li style="margin-bottom: 8px;">${field}</li>`)
-				.join('');
-
-			popover.innerHTML = `
-				<h3><i class="ti ti-info-circle"></i> ${step.title}</h3>
-				<p>${step.description}</p>
-				<div class="tour-step-info">
-					Passo ${this.currentStep + 1} de ${this.steps.length}
-				</div>
-				<div style="background: var(--hc-lighter); padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-					<strong style="color: var(--brand-blue);">📌 Elementos nesta seção:</strong>
-					<ul style="margin: 10px 0 0 20px; color: var(--text-muted); font-size: 0.9em;">
-						${fieldsHtml}
-					</ul>
-				</div>
-				<div class="tour-buttons">
-					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.previousStep()">
-						<i class="ti ti-arrow-left"></i>
-						Anterior
-					</button>
-					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
-						Próximo
+					<button class="tour-btn primary" type="button" onclick="window.tourGuide.nextStep()">
+						${this.currentStep === this.steps.length - 1 ? 'Finalizar' : 'Próximo'}
 						<i class="ti ti-arrow-right"></i>
 					</button>
 				</div>
-				<button class="tour-skip" onclick="tourGuide.end()">
-					Pular tour
-				</button>
-				<div class="tour-progress">
-					${this.steps.map((_, i) => `
-						<div class="tour-dot ${i === this.currentStep ? 'active' : ''}"></div>
-					`).join('')}
-				</div>
+				<button class="tour-skip" type="button" onclick="window.tourGuide.end()">Pular tour</button>
 			`;
-
-			this.positionPopover(element, popover);
-		}
-
-		positionPopover(element, popover) {
-			const rect = element.getBoundingClientRect();
-			const popoverRect = { width: 400, height: 400 };
-
-			let top, left, arrowClass = 'arrow-bottom';
-
-			if (rect.bottom + 320 < window.innerHeight) {
-				top = rect.bottom + 15;
-				arrowClass = 'arrow-top';
-			} else if (rect.top - 320 > 0) {
-				top = rect.top - 320;
-				arrowClass = 'arrow-bottom';
-			} else {
-				top = window.innerHeight - 420;
-				arrowClass = 'arrow-top';
-			}
-
-			if (rect.left + 200 > window.innerWidth - 20) {
-				left = window.innerWidth - 420;
-				arrowClass = 'arrow-right';
-			} else {
-				left = rect.left + 50;
-				arrowClass = 'arrow-left';
-			}
-
-			popover.style.top = top + 'px';
-			popover.style.left = Math.max(10, left) + 'px';
-			popover.className = `tour-popover ${arrowClass}`;
 		}
 
 		nextStep() {
 			if (this.currentStep < this.steps.length - 1) {
-				this.currentStep++;
-				this.clearStepElements();
-				this.showStep(this.currentStep);
-			} else {
-				this.end();
+				this.currentStep += 1;
+				this.showStep();
+				return;
 			}
+			this.end();
 		}
 
 		previousStep() {
 			if (this.currentStep > 0) {
-				this.currentStep--;
-				this.clearStepElements();
-				this.showStep(this.currentStep);
+				this.currentStep -= 1;
+				this.showStep();
 			}
 		}
 
-		clearStepElements() {
-			const welcome = document.getElementById('tourWelcome');
-			if (welcome) welcome.remove();
-			const complete = document.getElementById('tourComplete');
-			if (complete) complete.remove();
+		clearHighlights() {
+			document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
 		}
 
 		end() {
 			this.isActive = false;
 			document.body.classList.remove('tour-active');
 			document.getElementById('tourOverlay').classList.remove('active');
-			document.getElementById('tourSpotlight').style.display = 'none';
-			document.getElementById('tourPopover').style.display = 'none';
+			document.getElementById('tourModal').classList.remove('active');
 			document.getElementById('tourTriggerBtn').classList.remove('hidden');
-
-			const welcome = document.getElementById('tourWelcome');
-			if (welcome) welcome.remove();
-			const complete = document.getElementById('tourComplete');
-			if (complete) complete.remove();
-			const startPage = document.getElementById('tourStartPage');
-			if (startPage) startPage.remove();
+			this.clearHighlights();
 		}
 	}
 
-	const tourGuide = new TourGuide();
-	console.log('✅ Tour Guiado Integrado!');
+	window.tourGuide = new TourGuide();
+	console.log('✅ Tour Guiado carregado');
 </script>

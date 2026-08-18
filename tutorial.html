@@ -1,1377 +1,1022 @@
+<
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Tutorial - CONVERGE</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
-    <link rel="stylesheet" href="CSS/variables.css">
-    <link rel="stylesheet" href="CSS/reset-base.css">
-    <style>
-        /* Importar variáveis globais */
-        :root {
-            --brand-blue: #0077c8;
-            --brand-teal: #009ca6;
-            --hc-dark: #005f9a;
-            --hc-light: #e8f4f6;
-            --hc-lighter: #f0f9fa;
-            --bg: #f5f7f8;
-            --surface: #ffffff;
-            --border: #e0e4e6;
-            --text: #1a2224;
-            --text-muted: #6b7b80;
-            --radius: 8px;
-            --radius-lg: 12px;
-            --shadow-soft: 0 5px 20px rgba(0, 0, 0, 0.08);
-            --sidebar-w: 260px;
-            --topbar-h: 58px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--topbar-h);
-            background: white;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            gap: 20px;
-            z-index: 100;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .topbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.2em;
-            color: var(--brand-blue);
-        }
-
-        .topbar-logo i {
-            font-size: 1.5em;
-        }
-
-        .topbar-title {
-            flex: 1;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .topbar-button {
-            background: var(--brand-blue);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .topbar-button:hover {
-            background: var(--hc-dark);
-            transform: translateY(-2px);
-        }
-
-        .main-content {
-            margin-top: var(--topbar-h);
-            flex: 1;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-
-        .section-container {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-soft);
-            animation: slideInUp 0.5s ease;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--brand-blue);
-        }
-
-        .section-title i {
-            font-size: 2em;
-            color: var(--brand-blue);
-        }
-
-        .section-title h1 {
-            font-size: 2em;
-            color: var(--text);
-            margin: 0;
-        }
-
-        .tutorial-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .step-card {
-            background: linear-gradient(135deg, var(--hc-lighter), var(--surface));
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 25px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--brand-blue), var(--brand-teal));
-        }
-
-        .step-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 119, 200, 0.15);
-            border-color: var(--brand-blue);
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
-            color: white;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-
-        .step-card h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: var(--text);
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .status-card {
-            background: var(--hc-lighter);
-            border-left: 5px solid var(--brand-blue);
-            padding: 20px;
-            border-radius: var(--radius);
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .status-card.completed {
-            border-left-color: #27ae60;
-            background: #ecf8f1;
-        }
-
-        .status-card.in-progress {
-            border-left-color: #f39c12;
-            background: #fef5e7;
-        }
-
-        .status-card.planned {
-            border-left-color: #95a5a6;
-            background: #ecf0f1;
-        }
-
-        .status-icon {
-            font-size: 1.8em;
-            flex-shrink: 0;
-        }
-
-        .status-content h4 {
-            margin: 0 0 5px 0;
-            font-size: 1em;
-            color: var(--text);
-        }
-
-        .status-content p {
-            margin: 0;
-            font-size: 0.9em;
-            color: var(--text-muted);
-        }
-
-        .progress-section {
-            background: var(--hc-lighter);
-            padding: 25px;
-            border-radius: var(--radius-lg);
-            margin-bottom: 30px;
-        }
-
-        .progress-bar-container {
-            background: var(--border);
-            border-radius: 50px;
-            height: 12px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .progress-bar-fill {
-            background: linear-gradient(90deg, var(--brand-blue), var(--brand-teal));
-            height: 100%;
-            transition: width 0.5s ease;
-            border-radius: 50px;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .progress-label strong {
-            color: var(--text);
-            font-size: 1.1em;
-        }
-
-        .progress-percentage {
-            background: var(--brand-blue);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-        }
-
-        .feature-matrix {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .feature-matrix thead {
-            background: var(--brand-blue);
-            color: white;
-        }
-
-        .feature-matrix th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .feature-matrix td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .feature-matrix tbody tr:hover {
-            background: var(--hc-lighter);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            text-align: center;
-            min-width: 100px;
-        }
-
-        .badge-success {
-            background: #d4edda;
-            color: #27ae60;
-        }
-
-        .badge-warning {
-            background: #fff3cd;
-            color: #f39c12;
-        }
-
-        .badge-info {
-            background: var(--hc-light);
-            color: var(--brand-blue);
-        }
-
-        .badge-secondary {
-            background: #e9ecef;
-            color: #6c757d;
-        }
-
-        .interactive-section {
-            background: linear-gradient(135deg, var(--hc-lighter), var(--hc-light));
-            border: 2px solid var(--brand-teal);
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        .interactive-section h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--brand-teal);
-            margin-bottom: 20px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: var(--radius);
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
-        }
-
-        .btn-primary {
-            background: var(--brand-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--hc-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 119, 200, 0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--brand-blue);
-            border: 2px solid var(--brand-blue);
-        }
-
-        .btn-secondary:hover {
-            background: var(--hc-lighter);
-        }
-
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            position: relative;
-            padding-left: 50px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 14px;
-            top: 0;
-            bottom: -30px;
-            width: 2px;
-            background: var(--border);
-        }
-
-        .timeline-item:last-child::before {
-            display: none;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 30px;
-            height: 30px;
-            background: white;
-            border: 3px solid var(--brand-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-        }
-
-        .timeline-content h4 {
-            margin: 0 0 5px 0;
-            color: var(--text);
-        }
-
-        .timeline-content p {
-            margin: 0;
-            color: var(--text-muted);
-            font-size: 0.9em;
-        }
-
-        .accordion {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .accordion-header {
-            background: var(--hc-lighter);
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: var(--text);
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .accordion-header:hover {
-            background: var(--hc-light);
-        }
-
-        .accordion-header.active {
-            background: var(--brand-blue);
-            color: white;
-        }
-
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-header.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-content.active {
-            max-height: 500px;
-        }
-
-        .accordion-body {
-            padding: 20px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .highlight-box {
-            background: #fff9e6;
-            border-left: 4px solid var(--brand-blue);
-            padding: 15px 20px;
-            border-radius: var(--radius);
-            margin: 20px 0;
-        }
-
-        .highlight-box strong {
-            color: var(--brand-blue);
-        }
-
-        footer {
-            background: var(--text);
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 60px;
-        }
-
-        footer p {
-            margin: 8px 0;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 20px 15px;
-            }
-
-            .section-container {
-                padding: 20px;
-            }
-
-            .section-title h1 {
-                font-size: 1.5em;
-            }
-
-            .tutorial-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar {
-                flex-wrap: wrap;
-            }
-
-            .topbar-title {
-                display: none;
-            }
-        }
-    </style>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CONVERGE</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="CSS/custom-select.css" />
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<style>
+		/* Tour Guiado - Estilos Integrados */
+		.tour-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.7);
+			z-index: 9998;
+			display: none;
+		}
+ 
+		.tour-overlay.active {
+			display: block;
+		}
+ 
+		.tour-spotlight {
+			position: fixed;
+			border: 2px solid var(--brand-blue);
+			box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7),
+						inset 0 0 20px rgba(0, 119, 200, 0.3);
+			z-index: 9999;
+			border-radius: 8px;
+			transition: all 0.4s ease;
+			pointer-events: none;
+		}
+ 
+		.tour-popover {
+			position: fixed;
+			background: var(--surface);
+			border-radius: 12px;
+			padding: 25px;
+			z-index: 10000;
+			max-width: 400px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.3s ease;
+		}
+ 
+		@keyframes popoverIn {
+			from {
+				opacity: 0;
+				transform: scale(0.9);
+			}
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+ 
+		.tour-popover h3 {
+			color: var(--brand-blue);
+			margin-bottom: 10px;
+			font-size: 1.3em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+ 
+		.tour-popover p {
+			color: var(--text-muted);
+			line-height: 1.6;
+			margin-bottom: 20px;
+			font-size: 0.95em;
+		}
+ 
+		.tour-popover .tour-step-info {
+			background: var(--hc-light);
+			padding: 10px;
+			border-radius: 6px;
+			margin-bottom: 15px;
+			font-size: 0.9em;
+			color: var(--text-muted);
+		}
+ 
+		.tour-popover .tour-buttons {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 15px;
+		}
+ 
+		.tour-popover .tour-btn {
+			flex: 1;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.9em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			transition: all 0.3s ease;
+		}
+ 
+		.tour-btn-primary {
+			background: var(--brand-blue);
+			color: white;
+		}
+ 
+		.tour-btn-primary:hover {
+			background: var(--hc-dark);
+			transform: translateY(-2px);
+		}
+ 
+		.tour-btn-secondary {
+			background: var(--hc-light);
+			color: var(--text);
+		}
+ 
+		.tour-btn-secondary:hover {
+			background: #d1e8f1;
+		}
+ 
+		.tour-skip {
+			width: 100%;
+			padding: 8px;
+			background: transparent;
+			color: var(--text-muted);
+			border: 1px solid var(--hc-light);
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.85em;
+			transition: all 0.3s ease;
+		}
+ 
+		.tour-skip:hover {
+			border-color: var(--text-muted);
+			color: var(--text);
+		}
+ 
+		.tour-popover .arrow-top::before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid var(--surface);
+		}
+ 
+		.tour-popover .arrow-bottom::before {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top: 10px solid var(--surface);
+		}
+ 
+		.tour-popover .arrow-left::before {
+			content: '';
+			position: absolute;
+			left: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-right: 10px solid var(--surface);
+		}
+ 
+		.tour-popover .arrow-right::before {
+			content: '';
+			position: absolute;
+			right: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-left: 10px solid var(--surface);
+		}
+ 
+		.tour-popover {
+			position: relative;
+		}
+ 
+		.tour-welcome {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 500px;
+			text-align: center;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.4s ease;
+		}
+ 
+		.tour-welcome h2 {
+			color: var(--brand-blue);
+			margin-bottom: 15px;
+			font-size: 2em;
+		}
+ 
+		.tour-welcome p {
+			color: var(--text-muted);
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 1em;
+		}
+ 
+		.tour-welcome-icon {
+			font-size: 4em;
+			margin-bottom: 20px;
+			color: var(--brand-teal);
+		}
+ 
+		.tour-welcome .tour-buttons {
+			margin-top: 30px;
+			flex-direction: column;
+		}
+ 
+		.tour-welcome .tour-btn {
+			width: 100%;
+			justify-content: center;
+			padding: 12px 24px;
+		}
+ 
+		.tour-start-page {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 600px;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			max-height: 80vh;
+			overflow-y: auto;
+			animation: popoverIn 0.4s ease;
+		}
+ 
+		.tour-start-page h2 {
+			color: var(--brand-blue);
+			margin-bottom: 25px;
+			font-size: 1.8em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+ 
+		.tour-option {
+			background: var(--hc-light);
+			border: 2px solid transparent;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 15px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: flex-start;
+			gap: 15px;
+		}
+ 
+		.tour-option:hover {
+			border-color: var(--brand-blue);
+			transform: translateX(5px);
+			box-shadow: 0 8px 20px rgba(0, 119, 200, 0.15);
+		}
+ 
+		.tour-option-icon {
+			font-size: 2em;
+			color: var(--brand-blue);
+			flex-shrink: 0;
+		}
+ 
+		.tour-option h3 {
+			color: var(--text);
+			margin-bottom: 5px;
+			font-size: 1.1em;
+		}
+ 
+		.tour-option p {
+			color: var(--text-muted);
+			font-size: 0.9em;
+			line-height: 1.5;
+		}
+ 
+		body.tour-active {
+			overflow: hidden;
+		}
+ 
+		.tour-trigger-btn {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			width: 60px;
+			height: 60px;
+			background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
+			color: white;
+			border: none;
+			border-radius: 50%;
+			font-size: 1.5em;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 8px 25px rgba(0, 119, 200, 0.3);
+			transition: all 0.3s ease;
+			z-index: 1000;
+		}
+ 
+		.tour-trigger-btn:hover {
+			transform: scale(1.1);
+			box-shadow: 0 12px 35px rgba(0, 119, 200, 0.4);
+		}
+ 
+		.tour-trigger-btn.hidden {
+			display: none;
+		}
+ 
+		.tour-progress {
+			display: flex;
+			gap: 6px;
+			margin-top: 15px;
+			justify-content: center;
+		}
+ 
+		.tour-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--hc-light);
+			transition: all 0.3s ease;
+		}
+ 
+		.tour-dot.active {
+			background: var(--brand-blue);
+			width: 24px;
+			border-radius: 4px;
+		}
+ 
+		@media (max-width: 768px) {
+			.tour-popover {
+				max-width: 90vw;
+				padding: 20px;
+			}
+ 
+			.tour-welcome,
+			.tour-start-page {
+				max-width: 90vw;
+				padding: 25px;
+			}
+ 
+			.tour-welcome h2 {
+				font-size: 1.5em;
+			}
+ 
+			.tour-trigger-btn {
+				width: 50px;
+				height: 50px;
+				font-size: 1.2em;
+				bottom: 20px;
+				right: 20px;
+			}
+		}
+	</style>
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js" as="script">
+	<script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+	<script>
+	  if (!window._clerkLoaded) {
+	    window._clerkLoaded = new Promise((resolve, reject) => {
+	      const existing = document.querySelector('script[src*="clerk.browser.js"]');
+	      function attach(s) {
+	        if (!s) return;
+	        if (s.__clerkListenerAttached) return;
+	        s.__clerkListenerAttached = true;
+	        s.addEventListener('load', () => resolve(true));
+	        s.addEventListener('error', () => reject(new Error('Falha ao carregar Clerk')));
+	        if (s.readyState === 'complete') resolve(true);
+	      }
+	      if (existing) attach(existing);
+	      else {
+	        const s = document.createElement('script');
+	        s.async = true;
+	        s.crossOrigin = 'anonymous';
+	        s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
+	        const key = document.body?.getAttribute('data-clerk-publishable-key');
+	        if (key) s.setAttribute('data-clerk-publishable-key', key);
+	        attach(s);
+	        document.head.appendChild(s);
+	      }
+	      setTimeout(() => resolve(false), 8000);
+	    });
+	  }
+	</script>
 </head>
 <body>
-    <!-- TOPBAR -->
-    <div class="topbar">
-        <div class="topbar-logo">
-            <i class="ti ti-book"></i>
-            <span>CONVERGE</span>
-        </div>
-        <div class="topbar-title">Tutorial Completo</div>
-        <a href="index.html" class="topbar-button">
-            <i class="ti ti-arrow-left"></i>
-            Voltar ao Portal
-        </a>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="layout">
-        <div class="main-content">
-            <!-- SECTION 1: BOAS-VINDAS -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-wave-square"></i>
-                    <h1>Bem-vindo ao CONVERGE!</h1>
-                </div>
-
-                <p style="font-size: 1.1em; color: var(--text-muted); margin-bottom: 30px;">
-                    Este é o portal integrado do <strong>Hospital das Clínicas da Faculdade de Medicina da USP</strong>. Aqui você encontra acesso centralizado a todos os sistemas, dados e ferramentas do HC em um único lugar.
-                </p>
-
-                <div class="tutorial-steps">
-                    <div class="step-card">
-                        <div class="step-number">1️⃣</div>
-                        <h3>Entender a Interface</h3>
-                        <p>Conheça a barra superior, menu lateral e como navegar pelo portal.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">2️⃣</div>
-                        <h3>Acessar Sistemas</h3>
-                        <p>Aprenda como encontrar e acessar mais de 30 sistemas diferentes.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">3️⃣</div>
-                        <h3>Explorar Funcionalidades</h3>
-                        <p>Descubra tudo que o CONVERGE pode fazer por você.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 2: COMO USAR -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-player-play"></i>
-                    <h1>Como Usar o CONVERGE</h1>
-                </div>
-
-                <p style="font-size: 1em; color: var(--text-muted); margin-bottom: 20px;">
-                    Siga os passos abaixo para aprender a utilizar todos os recursos do portal de forma eficiente.
-                </p>
-
-                <div class="tutorial-steps">
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">👤</div>
-                        <h3><i class="ti ti-lock"></i> Passo 1: Fazer Login</h3>
-                        <p>Acesse com seu email corporativo <strong>@hc.fm.usp.br</strong> na página de login do Converge. O sistema usa Clerk para autenticação segura.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #3498db, #2980b9);">🏠</div>
-                        <h3><i class="ti ti-layout-dashboard"></i> Passo 2: Conhecer o Dashboard</h3>
-                        <p>Após login, você verá a interface principal com topbar (topo), sidebar (menu lateral) e grid de cards (área central)</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">📂</div>
-                        <h3><i class="ti ti-menu-2"></i> Passo 3: Explorar Menu</h3>
-                        <p>Clique nas categorias do menu lateral (Administrativo, Assistencial, Ocupacional, etc) para filtrar sistemas por área</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #f39c12, #d68910);">🔗</div>
-                        <h3><i class="ti ti-link"></i> Passo 4: Acessar Sistemas</h3>
-                        <p>Clique em qualquer card para abrir o sistema desejado. O Converge oferece acesso a mais de 30 sistemas integrados</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">👥</div>
-                        <h3><i class="ti ti-user-circle"></i> Passo 5: Ver Seu Perfil</h3>
-                        <p>Clique no seu nome no topbar ou acesse "Meu Perfil" no menu para visualizar seus dados e informações</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #1abc9c, #16a085);">📞</div>
-                        <h3><i class="ti ti-help-circle"></i> Passo 6: Abrir Tour Guiado</h3>
-                        <p>Clique no botão "Iniciar Tour" (se disponível) para receber uma explicação interativa de cada área do portal</p>
-                    </div>
-                </div>
-
-                <div class="highlight-box">
-                    <strong>💡 Dica Importante:</strong> O portal é totalmente responsivo! No mobile, o menu fica oculto por padrão e pode ser aberto com o botão de menu (≡) na topbar. Clique em "Iniciar Tour" no portal para receber uma explicação interativa de tudo.
-                </div>
-            </div>
-
-            <!-- SECTION 3: INTERFACE -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-layout"></i>
-                    <h1>Entenda Cada Parte da Interface</h1>
-                </div>
-
-                <p style="color: var(--text-muted); margin-bottom: 25px;">
-                    O Converge é organizado em 3 áreas principais. Clique para expandir e aprender detalhes sobre cada uma.
-                </p>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-layout-navbar-expand"></i> 📍 Barra Superior (Topbar) - Identidade e Contexto</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>O que você vê aqui:</strong></p>
-                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                                <li>🏥 <strong>Logo do HC-FMUSP</strong> - Identifica a instituição</li>
-                                <li>🏢 <strong>Logo CeAC</strong> - Centro de Análise de Dados do Hospital</li>
-                                <li>👤 <strong>Seu Nome/Email</strong> - Mostra quem está logado</li>
-                                <li>📱 <strong>Botão Menu (≡)</strong> - Em telas menores, expande/colapse o menu lateral</li>
-                                <li>🔐 <strong>Botão Logout</strong> - Sair de forma segura do portal</li>
-                            </ul>
-                            <p style="margin-top: 15px;"><strong>Para quê serve:</strong> A topbar fornece contexto visual, mostra sua identidade e oferece acesso rápido às funções principais de navegação e segurança.</p>
-                            <p style="margin-top: 10px;"><strong>Dica:</strong> A topbar sempre fica visível no topo, mesmo quando você rola a página para baixo.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-menu-2"></i> 📂 Menu Lateral - Centro da Navegação</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>Categorias de Sistemas Disponíveis:</strong></p>
-                            <table class="feature-matrix">
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>🏠 Home</strong></td>
-                                    <td>Dashboard principal - Voltaraqui quando quiser ver todos os sistemas</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>⚙️ Meus Sistemas</strong></td>
-                                    <td>Sistemas específicos para a sua função/cargo</td>
-                                </tr>
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>📋 Administrativo</strong></td>
-                                    <td>Gestão, contratos, suprimentos, faturamento, custos</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>🏥 Assistencial</strong></td>
-                                    <td>Atendimento ao paciente, consultas, linhas de cuidado</td>
-                                </tr>
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>🚑 Pronto Atendimento</strong></td>
-                                    <td>Sistemas específicos do Pronto Atendimento</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>🛡️ Ocupacional</strong></td>
-                                    <td>Segurança, saúde do trabalho, ASO, doses, EPI</td>
-                                </tr>
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>📊 Indicadores</strong></td>
-                                    <td>Painéis, relatórios, analytics e gestão de performance</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>👥 Colaboradores</strong></td>
-                                    <td>Dados de pessoal, gestores, gestão de RH</td>
-                                </tr>
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>💼 Gestores</strong></td>
-                                    <td>Painéis e ferramentas para gestão de equipes</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>✓ Gestão da Qualidade</strong></td>
-                                    <td>Qualidade, conformidade e processos internos</td>
-                                </tr>
-                                <tr style="background: var(--hc-lighter);">
-                                    <td><strong>📁 Dados</strong></td>
-                                    <td>Acesso a dados estruturados do hospital</td>
-                                </tr>
-                            </table>
-                            <p style="margin-top: 15px;"><strong>Como usar:</strong> Clique em qualquer categoria para ver apenas os sistemas daquela área. Clique novamente em "Home" para voltar a ver todos os sistemas.</p>
-                            <p style="margin-top: 10px;"><strong>Dica Mobile:</strong> Em smartphones, o menu fica oculto por padrão. Clique no botão ≡ na topbar para abri-lo.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-cards"></i> 🎴 Cards de Sistemas - Acesso Rápido</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>O que há em cada Card:</strong></p>
-                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                                <li>🎨 <strong>Ícone Visual</strong> - Identifica o tipo de sistema (médico, gestão, dados, etc)</li>
-                                <li>📝 <strong>Nome do Sistema</strong> - Título legível em português</li>
-                                <li>✨ <strong>Efeito Visual</strong> - O card muda ao passar o mouse, indicando que é clicável</li>
-                                <li>🔗 <strong>Link Direto</strong> - Abre o sistema em uma nova aba do navegador</li>
-                            </ul>
-                            <p style="margin-top: 15px;"><strong>Sistemas Disponíveis (30+):</strong></p>
-                            <p style="color: var(--text-muted); font-size: 0.95em;">
-                                HCMED, InterRad, Painel MV, SoulMV, MVPEP, MVGE, PIH, Intercon, Portal RH FFM, 
-                                Natcorp, Linha de Cuidados, Programa de Rastreio, Controles Internos, Contratos, 
-                                Suprimentos e Estoque, Faturamento, Custos, Comunicação, Apoio Predial, Farmácia, 
-                                Hiperutilizadores, Saúde Ocupacional, Minhas Doses, Meu ASO, Meu Perfil, 
-                                Meu Chamados, Ouvidoria, Votação CIPA, Agenda, Exame, e muitos outros.
-                            </p>
-                            <p style="margin-top: 15px;"><strong>Como usar:</strong> Simplesmente <strong>clique no card</strong> para abrir o sistema. Cada sistema abre em uma <strong>nova aba</strong> do navegador, então você não sai do Converge.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-user-circle"></i> 👤 Perfil do Usuário - Suas Informações</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>Onde Encontrar:</strong> Seu nome aparece no topo direito da topbar e também na sidebar.</p>
-                            <p style="margin-top: 10px;"><strong>O que você pode fazer:</strong></p>
-                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                                <li>👁️ Ver seu nome e email de login</li>
-                                <li>📧 Consultar seu email corporativo @hc.fm.usp.br</li>
-                                <li>🔑 Acessar dados de identidade do sistema</li>
-                                <li>🚪 Fazer logout de forma segura</li>
-                            </ul>
-                            <p style="margin-top: 15px;"><strong>Como acessar "Meu Perfil":</strong> Clique em "Meu Perfil" no menu lateral ou nos cards para ver seus dados pessoais registrados no sistema.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-login"></i> 🔐 Logout - Encerramento Seguro</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>O que é:</strong> Logout é o processo de sair do portal de forma segura e encerrar sua sessão.</p>
-                            <p style="margin-top: 10px;"><strong>Onde está:</strong> Botão "Logout" visível na topbar ou no menu de perfil.</p>
-                            <p style="margin-top: 10px;"><strong>Por que é importante:</strong></p>
-                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                                <li>🔒 Encerra sua sessão autenticada</li>
-                                <li>🛡️ Protege seus dados pessoais e da instituição</li>
-                                <li>👥 Impede acesso não autorizado se você deixar o computador</li>
-                                <li>⏱️ Recomendado ao final do expediente</li>
-                            </ul>
-                            <p style="margin-top: 15px;"><strong>Dica de Segurança:</strong> Sempre faça logout antes de deixar seu computador, especialmente em ambientes compartilhados.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span><i class="ti ti-layout-grid"></i> 🖥️ Área Principal - O Painel de Trabalho</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p><strong>O que é:</strong> A área central é o coração do Converge - onde todos os cards de sistemas são exibidos.</p>
-                            <p style="margin-top: 10px;"><strong>Como funciona:</strong></p>
-                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                                <li>📊 Mostra todos os sistemas quando você está na Home</li>
-                                <li>🔍 Filtra os sistemas de uma categoria quando você clica no menu lateral</li>
-                                <li>📱 Se adapta automaticamente ao tamanho da tela (responsive)</li>
-                                <li>⚡ Carrega os sistemas rapidamente</li>
-                            </ul>
-                            <p style="margin-top: 15px;"><strong>Layout em Grid:</strong> Os cards se organizam em uma grade que se ajusta conforme a largura da tela - em desktop são 3-4 cards por linha, em tablet são 2, e em mobile é 1.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="highlight-box">
-                    <strong>✨ Interface Totalmente Responsiva:</strong> O CONVERGE se adapta automaticamente para smartphone, tablet e desktop. Você pode usar em qualquer dispositivo e o layout se ajustará perfeitamente!
-                </div>
-            </div>
-
-            <!-- SECTION 4: PARA QUE SERVE -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-bulb"></i>
-                    <h1>Para Que Serve o CONVERGE?</h1>
-                </div>
-
-                <p style="color: var(--text-muted); margin-bottom: 20px;">
-                    O Converge é muito mais que um portal de atalhos. É uma plataforma estratégica que centraliza o acesso e a gestão de toda a infraestrutura digital do HC-FMUSP.
-                </p>
-
-                <div class="status-grid" style="margin-bottom: 30px;">
-                    <div class="status-card">
-                        <div class="status-icon">🎯</div>
-                        <div class="status-content">
-                            <h4>Centralização Completa</h4>
-                            <p>Acesso único a 30+ sistemas integrados do HC em um só lugar</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">🔐</div>
-                        <div class="status-content">
-                            <h4>Autenticação Segura</h4>
-                            <p>Login centralizado via Clerk, validação por @hc.fm.usp.br</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">⏱️</div>
-                        <div class="status-content">
-                            <h4>Economia de Tempo</h4>
-                            <p>Não precisa decorar URLs - tudo ao alcance de um clique</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">👥</div>
-                        <div class="status-content">
-                            <h4>Gestão de Colaboradores</h4>
-                            <p>Consulte dados de pessoal, matrículas, vínculos e histórico</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">📊</div>
-                        <div class="status-content">
-                            <h4>Indicadores e Analytics</h4>
-                            <p>Acesso a painéis, dashboards e relatórios estratégicos</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">📱</div>
-                        <div class="status-content">
-                            <h4>Acesso Universal</h4>
-                            <p>Funciona perfeitamente em desktop, tablet e smartphone</p>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 style="color: var(--brand-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                    <i class="ti ti-list"></i> Sistemas Integrados por Categoria
-                </h3>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 30px;">
-                    <div class="status-card" style="border-left: 5px solid #0077c8;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">🏥</div>
-                        <h4>Assistencial</h4>
-                        <p>HCMED, Interrad, Linha de Cuidados, Programa de Rastreio, Consultas, Agenda</p>
-                    </div>
-                    <div class="status-card" style="border-left: 5px solid #e74c3c;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">📋</div>
-                        <h4>Administrativo</h4>
-                        <p>Contratos, Suprimentos, Faturamento, Custos, Apoio Predial, Gestão</p>
-                    </div>
-                    <div class="status-card" style="border-left: 5px solid #9b59b6;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">📊</div>
-                        <h4>Indicadores</h4>
-                        <p>Painel MV, PIH, MVGE, Análises, Relatórios, Performance</p>
-                    </div>
-                    <div class="status-card" style="border-left: 5px solid #f39c12;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">🛡️</div>
-                        <h4>Saúde Ocupacional</h4>
-                        <p>Minhas Doses, Meu ASO, Ficha EPI, Segurança do Trabalho, CIPA</p>
-                    </div>
-                    <div class="status-card" style="border-left: 5px solid #27ae60;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">👥</div>
-                        <h4>Recursos Humanos</h4>
-                        <p>Portal RH FFM, Dados de Colaboradores, Gestores, Perfil</p>
-                    </div>
-                    <div class="status-card" style="border-left: 5px solid #1abc9c;">
-                        <div style="font-size: 1.5em; margin-bottom: 8px;">🚑</div>
-                        <h4>Pronto Atendimento</h4>
-                        <p>Sistemas específicos para atendimento de emergência</p>
-                    </div>
-                </div>
-
-                <div class="interactive-section">
-                    <h3><i class="ti ti-star"></i> Principais Benefícios para Você</h3>
-                    <ul style="margin: 15px 0 0 20px; line-height: 2;">
-                        <li>✅ <strong>Interface Intuitiva</strong> - Aprenda a usar em minutos, sem treinamento demorado</li>
-                        <li>✅ <strong>Acesso Rápido</strong> - Encontre qualquer sistema em menos de 2 cliques</li>
-                        <li>✅ <strong>Segurança Aumentada</strong> - Apenas emails institucionais @hc.fm.usp.br podem acessar</li>
-                        <li>✅ <strong>Dados Confiáveis</strong> - Informações estruturadas e organizadas em banco de dados robusto</li>
-                        <li>✅ <strong>Escalabilidade</strong> - Plataforma que cresce conforme as necessidades da instituição</li>
-                        <li>✅ <strong>Tecnologia Moderna</strong> - Desenvolvido com TypeScript, React e Convex backend</li>
-                        <li>✅ <strong>Sem Limites Geográficos</strong> - Acesse de qualquer lugar com internet</li>
-                        <li>✅ <strong>Documentação Completa</strong> - Manuais, tutoriais e suporte integrado</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- SECTION 5: STATUS DO PROJETO -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-chart-line"></i>
-                    <h1>Arquitetura e Status do Projeto</h1>
-                </div>
-
-                <p style="color: var(--text-muted); margin-bottom: 20px;">
-                    O Converge é uma plataforma moderna, construída com tecnologias de ponta. Conheça sua arquitetura, componentes e status de desenvolvimento.
-                </p>
-
-                <h3 style="color: var(--brand-blue); margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                    <i class="ti ti-building"></i> Arquitetura Técnica
-                </h3>
-
-                <div style="background: var(--hc-lighter); padding: 20px; border-radius: 12px; margin-bottom: 25px; font-size: 0.95em; line-height: 1.8;">
-                    <p style="font-weight: 600; margin-bottom: 12px;">📦 Stack Tecnológico:</p>
-                    <ul style="margin: 0 0 0 20px;">
-                        <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript (responsivo)</li>
-                        <li><strong>Backend:</strong> Convex (plataforma TypeScript reativa)</li>
-                        <li><strong>Banco de Dados:</strong> Convex DB (database reativo)</li>
-                        <li><strong>Autenticação:</strong> Clerk (OAuth + validação de domínio)</li>
-                        <li><strong>Ícones:</strong> Tabler Icons (CDN)</li>
-                        <li><strong>Hospedagem:</strong> Convex Cloud</li>
-                    </ul>
-                </div>
-
-                <div style="background: linear-gradient(135deg, #f0f9fa, #e8f4f6); padding: 20px; border-radius: 12px; border-left: 4px solid #0077c8; margin-bottom: 25px;">
-                    <p style="font-weight: 600; margin-bottom: 12px; color: #0077c8;"><i class="ti ti-database"></i> Estrutura de Dados:</p>
-                    <p style="font-size: 0.95em; line-height: 1.7; color: var(--text-muted);">
-                        O Converge utiliza duas tabelas principais: <strong>Tabela Mãe</strong> (dados resumidos por CPF) e <strong>Tabela Filha</strong> (dados detalhados com múltiplos registros por colaborador). 
-                        Essa arquitetura reduz redundância, permite histórico de posições e melhora performance em buscas.
-                    </p>
-                    <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-muted);">
-                        <strong>Campos principais:</strong> CPF, Matrícula, Vínculo, Situação, Cargo, Função, Local de Trabalho, Empresa, Filial
-                    </p>
-                </div>
-
-                <div class="progress-section">
-                    <div class="progress-label">
-                        <strong><i class="ti ti-package"></i> Versão Atual</strong>
-                        <span style="color: var(--text-muted);">v1.0.0 - Produção</span>
-                    </div>
-                </div>
-
-                <div class="progress-section">
-                    <div class="progress-label">
-                        <strong><i class="ti ti-flag"></i> Progresso Geral</strong>
-                        <span class="progress-percentage">75%</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: 75%;"></div>
-                    </div>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 10px;">
-                        <strong>Significado:</strong> Portal funcional em produção, documentação completa, tour guiado integrado. Aguardando feedback de usuários para melhorias contínuas.
-                    </p>
-                </div>
-
-                <h3 style="margin-top: 30px; color: var(--brand-blue); display: flex; align-items: center; gap: 10px;">
-                    <i class="ti ti-checklist"></i> Features Implementadas
-                </h3>
-                <table class="feature-matrix">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Descrição</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>🔐 Autenticação Segura</strong></td>
-                            <td>Login via Clerk com validação de domínio @hc.fm.usp.br</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🎨 Interface Principal</strong></td>
-                            <td>Dashboard com topbar, sidebar e grid de cards</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>📱 Responsividade</strong></td>
-                            <td>Funciona perfeitamente em desktop, tablet e mobile</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🔗 30+ Links de Sistemas</strong></td>
-                            <td>Acesso direto a sistemas do HC (HCMED, SoulMV, PIH, etc)</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>📂 Categorização de Menus</strong></td>
-                            <td>Navegação por áreas (Administrativo, Assistencial, etc)</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🗄️ Banco de Dados Convex</strong></td>
-                            <td>Tabelas mãe e filha com dados de colaboradores</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🔧 Backend TypeScript</strong></td>
-                            <td>Queries, mutations e type-safety no backend</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>📚 Documentação Completa</strong></td>
-                            <td>Manual explicativo, interativo e tour guiado</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🧭 Tour Guiado Integrado</strong></td>
-                            <td>Explicação passo a passo de cada seção do portal</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>👤 Perfil do Usuário</strong></td>
-                            <td>Visualização de dados pessoais e de login</td>
-                            <td><span class="badge badge-success">✅ Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🔍 Busca Avançada</strong></td>
-                            <td>Search bar com filtros por sistema ou categoria</td>
-                            <td><span class="badge badge-warning">⏳ Em Progresso</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🌙 Dark Mode</strong></td>
-                            <td>Tema escuro opcional para melhor experiência noturna</td>
-                            <td><span class="badge badge-warning">⏳ Planejado</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🔔 Notificações em Tempo Real</strong></td>
-                            <td>Avisos integrados para mensagens e updates</td>
-                            <td><span class="badge badge-info">📋 Proposto</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>📊 Painéis Customizáveis</strong></td>
-                            <td>Cada usuário organiza seu dashboard conforme preferência</td>
-                            <td><span class="badge badge-info">📋 Proposto</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>🌍 Multi-idioma</strong></td>
-                            <td>Suporte a português, inglês e espanhol</td>
-                            <td><span class="badge badge-info">📋 Proposto</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3 style="margin-top: 30px; color: var(--brand-blue); display: flex; align-items: center; gap: 10px;">
-                    <i class="ti ti-calendar"></i> Roadmap (Cronograma de Desenvolvimento)
-                </h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker">✅</div>
-                        <div class="timeline-content">
-                            <h4>Junho - Julho 2026</h4>
-                            <p><strong>MVP Lançado:</strong> Autenticação com Clerk, interface responsiva, links de 30+ sistemas, sidebar com categorias</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker">✅</div>
-                        <div class="timeline-content">
-                            <h4>Agosto 2026</h4>
-                            <p><strong>Documentação Completa:</strong> Manual explicativo (MANUAL_EXPLICATIVO.md), tutorial interativo (MANUAL_INTERATIVO.html), tour guiado integrado na interface</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker">⏳</div>
-                        <div class="timeline-content">
-                            <h4>Setembro 2026</h4>
-                            <p><strong>Testes e Otimização:</strong> Testes unitários com convex-test, testes de performance, auditoria de segurança, otimização de queries</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker">📋</div>
-                        <div class="timeline-content">
-                            <h4>Outubro 2026</h4>
-                            <p><strong>Features Avançadas:</strong> Busca avançada com filtros, dark mode, melhorias na UX, feedback de usuários</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker">📋</div>
-                        <div class="timeline-content">
-                            <h4>Novembro 2026</h4>
-                            <p><strong>Customização:</strong> Painéis personalizáveis, preferências de usuário, temas customizados por setor</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker">📋</div>
-                        <div class="timeline-content">
-                            <h4>Dezembro 2026</h4>
-                            <p><strong>Produção Full:</strong> Deploy em produção, suporte técnico, treinamento para usuários, documentação final</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="highlight-box" style="margin-top: 30px;">
-                    <strong>🚀 Próximos Passos:</strong> O projeto está em fase de consolidação. Estamos coletando feedback de usuários, planejando melhorias na UX e preparando a expansão para novas features. Acompanhe as atualizações regularmente!
-                </div>
-            </div>
-
-            <!-- SECTION 6: TECNOLOGIAS -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-code"></i>
-                    <h1>Stack Tecnológico</h1>
-                </div>
-
-                <div class="status-grid">
-                    <div class="status-card">
-                        <div class="status-icon">🌐</div>
-                        <div class="status-content">
-                            <h4>Frontend</h4>
-                            <p>HTML5 + CSS3 + JavaScript Vanilla</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">⚙️</div>
-                        <div class="status-content">
-                            <h4>Backend</h4>
-                            <p>Convex (TypeScript)</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">🗄️</div>
-                        <div class="status-content">
-                            <h4>Banco de Dados</h4>
-                            <p>Convex Database (NoSQL)</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">🔐</div>
-                        <div class="status-content">
-                            <h4>Autenticação</h4>
-                            <p>Clerk (OAuth)</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">🎨</div>
-                        <div class="status-content">
-                            <h4>Ícones</h4>
-                            <p>Tabler Icons</p>
-                        </div>
-                    </div>
-                    <div class="status-card">
-                        <div class="status-icon">📦</div>
-                        <div class="status-content">
-                            <h4>Versionamento</h4>
-                            <p>Git + GitHub</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="highlight-box">
-                    <strong>🚀 Por que essas tecnologias?</strong><br>
-                    Escolhemos tecnologias modernas, seguras e escaláveis que garantem performance, segurança e facilidade de manutenção. O Convex é especialmente poderoso para este tipo de aplicação pois oferece backend completo em um único lugar.
-                </div>
-            </div>
-
-            <!-- SECTION 7: PRÓXIMOS PASSOS -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-rocket"></i>
-                    <h1>Próximos Passos</h1>
-                </div>
-
-                <div class="tutorial-steps">
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #3498db, #2980b9);">1</div>
-                        <h3>Explorar o Portal</h3>
-                        <p>Clique em "Voltar ao Portal" acima e navegue pelos sistemas disponíveis.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">2</div>
-                        <h3>Ler a Documentação</h3>
-                        <p>Abra o arquivo MANUAL_EXPLICATIVO.md ou MANUAL_INTERATIVO.html para mais detalhes.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-number" style="background: linear-gradient(135deg, #27ae60, #229954);">3</div>
-                        <h3>Enviar Feedback</h3>
-                        <p>Sua opinião é importante! Entre em contato com o time de desenvolvimento.</p>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <a href="index.html" class="btn btn-primary">
-                        <i class="ti ti-arrow-left"></i>
-                        Voltar ao Portal
-                    </a>
-                    <a href="MANUAL_INTERATIVO.html" class="btn btn-secondary">
-                        <i class="ti ti-book"></i>
-                        Manual Interativo
-                    </a>
-                </div>
-            </div>
-
-            <!-- SECTION 8: FAQ -->
-            <div class="section-container">
-                <div class="section-title">
-                    <i class="ti ti-help-circle"></i>
-                    <h1>Perguntas Frequentes</h1>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>❓ Como faço login?</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Use seu email corporativo <strong>@hc.fm.usp.br</strong> para fazer login. O sistema suporta OAuth com Google e Microsoft, além de Passkey (biometria).</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>❓ O site funciona no celular?</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Sim! O CONVERGE é totalmente responsivo e funciona perfeitamente em smartphone, tablet e desktop. O menu se adapta automaticamente ao tamanho da tela.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>❓ Meus dados estão seguros?</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Absolutamente! Implementamos várias camadas de segurança: validação de domínio, autenticação Clerk, HTTPS, backup automático no Convex e controle de acesso.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>❓ O que fazer se um sistema não abrir?</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Tente: (1) Recarregar a página (F5), (2) Limpar cache (Ctrl+Shift+Delete), (3) Tentar outro navegador, (4) Verificar conexão de internet. Se persistir, contate o suporte técnico.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>❓ Posso acessar os dados dos colaboradores?</span>
-                        <i class="ti ti-chevron-down accordion-icon"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="accordion-body">
-                            <p>Sim, dependendo de suas permissões. O CONVERGE integra dados do banco de dados do HC, mostrando informações como matrícula, cargo, setor, situação (ativo/inativo), etc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FOOTER -->
-            <footer>
-                <p><strong>📚 Tutorial - CONVERGE</strong></p>
-                <p>Portal Integrado do HC-FMUSP</p>
-                <p style="font-size: 0.85em;">© 2026 Dados-CeAC. Todos os direitos reservados.</p>
-            </footer>
-        </div>
-    </div>
-
-    <script>
-        function toggleAccordion(element) {
-            // Se o click veio de um card no tutorial-steps, não fazer nada
-            if (element.classList && element.classList.contains('step-card')) {
-                return;
-            }
-
-            // Se o click veio de um accordion-header
-            if (element.classList && element.classList.contains('accordion-header')) {
-                const isActive = element.classList.contains('active');
-                
-                // Fechar todos os acordeões abertos (opcional)
-                // document.querySelectorAll('.accordion-header.active').forEach(h => {
-                //     h.classList.remove('active');
-                //     h.nextElementSibling.classList.remove('active');
-                // });
-
-                // Toggle o atual
-                element.classList.toggle('active');
-                element.nextElementSibling.classList.toggle('active');
-            }
-        }
-
-        // Inicializar
-        console.log('✅ Tutorial do CONVERGE Carregado!');
-        console.log('Bem-vindo ao CONVERGE v1.0.0');
-    </script>
-</body>
-</html>
+ 
+<div class="layout">
+ 
+	<div class="topbar">
+		<button id="mobileMenuToggle" class="topbar-mobile-toggle" type="button" title="Abrir menu">
+			<i class="ti ti-menu"></i>
+		</button>
+		<div class="logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="hcfmuspLogo" class="brand-logo-img brand-logo-hcfmusp" src="LOGO HCFMUSP.png" alt="Logo HCFMUSP" />
+			</div>
+		</div>
+		<div class="logo-box ceac-logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
+			</div>
+		</div>
+	</div>
+ 
+	<div class="body-row">
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-scroll" id="menuContainer"></div>
+			<div class="sidebar-footer">
+				<div class="sidebar-profile">
+					<div id="sidebarAvatar" class="sidebar-avatar">RB</div>
+					<div class="sidebar-profile-info">
+						<div id="sidebarUserName" class="sidebar-profile-name"><i class="ti ti-user"></i> ricardo.borges</div>
+						<div id="sidebarUserEmail" class="sidebar-profile-email">usuario@dominio.com</div>
+						<a id="sidebarProfileLink" class="sidebar-profile-link" href="#">
+							Ir para meu perfil
+							<i class="ti ti-external-link"></i>
+						</a>
+					</div>
+				</div>
+				<button class="sidebar-logout" type="button">
+					<i class="ti ti-logout"></i>
+					<span>Sair do sistema</span>
+				</button>
+				<button id="themeToggleBtn" class="sidebar-theme-btn" type="button" title="Alternar modo">
+					<i class="ti ti-contrast"></i>
+					<span>Modo: Padrão</span>
+				</button>
+				<div class="toggle-btn" id="toggleBtn" title="Recolher menu">
+					<i class="ti ti-chevrons-left" id="toggleIcon"></i>
+				</div>
+			</div>
+		</div>
+ 
+		<div class="main main-container">
+			<div class="content">
+				<div class="page-header">
+					<button id="cardBackBtn" class="btn back-btn" type="button" style="display:none;">
+						<i class="ti ti-arrow-left"></i> Voltar
+					</button>
+					<h1 class="page-title" id="dispPageTitle">Home</h1>
+				</div>
+				<div class="cards-grid" id="cardsGrid"></div>
+				<div class="empty-state" id="emptyState" style="display:none">
+					<i class="ti ti-apps"></i>
+					<p>Nenhum sistema nesta seção</p>
+				</div>
+			</div>
+			<div class="footer" id="footerEl">
+				<span class="brand">Dados</span> | CeAC HCFMUSP
+			</div>
+		</div>
+	</div>
+</div>
+ 
+ 
+<div class="modal-overlay" id="modalCard">
+	<div class="modal">
+		<h3><i class="ti ti-app-window"></i> Adicionar Sistema</h3>
+		<label>Nome do sistema</label>
+		<input id="cardName" placeholder="Ex: Painel MV" />
+		<label>Seção</label>
+		<select id="cardSection" class="custom-select"></select>
+			<div class="modal-actions">
+				<button id="modalCardCancel" class="btn">Cancelar</button>
+				<button id="modalCardAdd" class="btn primary">Adicionar</button>
+			</div>
+	</div>
+</div>
+ 
+ 
+<div class="modal-overlay" id="modalSection">
+	<div class="modal">
+		<h3><i class="ti ti-folder-plus"></i> Nova Seção</h3>
+		<label>Nome da seção</label>
+		<input id="sectionName" placeholder="Ex: Financeiro" />
+		<div class="modal-actions">
+			<button id="modalSectionCancel" class="btn">Cancelar</button>
+			<button id="modalSectionAdd" class="btn primary">Criar</button>
+		</div>
+	</div>
+</div>
+ 
+<!-- Tour Guiado - Elementos -->
+<div class="tour-overlay" id="tourOverlay"></div>
+<div class="tour-spotlight" id="tourSpotlight"></div>
+<div class="tour-popover" id="tourPopover">
+	<div id="tourPopoverContent"></div>
+</div>
+<button class="tour-trigger-btn" id="tourTriggerBtn" title="Iniciar tour guiado">
+	<i class="ti ti-player-play"></i>
+</button>
+ 
+<script src="script.js"></script>
+<script>
+	class TourGuide {
+		constructor() {
+			this.currentStep = 0;
+			this.isActive = false;
+			this.tracks = this.defineTracks();
+			this.steps = this.tracks.complete;
+			this.init();
+		}
+ 
+		init() {
+			document.getElementById('tourTriggerBtn').addEventListener('click', () => this.start());
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && this.isActive) this.end();
+			});
+		}
+ 
+		// Cada trilha é uma lista de passos. type: 'welcome' | 'element' | 'info' | 'complete'
+		// 'element' destaca um elemento real da tela (spotlight). 'info' mostra um cartão central,
+		// usado para explicar recursos que não têm um único elemento visual (ex: autenticação, banco de dados).
+		defineTracks() {
+			const topbarStep = {
+				type: 'element',
+				selector: '.topbar',
+				title: '📍 Barra Superior (Topbar)',
+				description: 'Aqui você vê as logos do HC-FMUSP e CeAC. Esta barra fica fixa no topo e contém informações importantes.',
+				fields: [
+					'🏥 Logo HC-FMUSP',
+					'🏢 Logo CeAC',
+					'📱 Botão de menu (mobile)'
+				]
+			};
+ 
+			const sidebarStep = {
+				type: 'element',
+				selector: '.sidebar',
+				title: '📂 Menu Lateral (Sidebar)',
+				description: 'O menu lateral é sua navegação principal, organizado por seções. Já está implementado e populado automaticamente com os sistemas cadastrados.',
+				fields: [
+					'🏠 Home - Dashboard principal',
+					'⚙️ Meus Sistemas - Seus acessos',
+					'📋 Administrativo',
+					'🏥 Assistencial',
+					'👥 Colaboradores'
+				]
+			};
+ 
+			const cardsStep = {
+				type: 'element',
+				selector: '.cards-grid',
+				title: '🎴 Cards de Sistemas',
+				description: 'Cada card representa um sistema já cadastrado no portal. Clique em qualquer card para abrir o sistema correspondente.',
+				fields: [
+					'🎨 Ícone visual único',
+					'📝 Nome do sistema',
+					'✨ Efeito hover (destacamento)',
+					'🔗 Link direto ao sistema'
+				]
+			};
+ 
+			const profileStep = {
+				type: 'element',
+				selector: '.sidebar-profile',
+				title: '👤 Perfil do Usuário',
+				description: 'Seus dados (nome, e-mail e avatar com iniciais) já são carregados automaticamente após o login e ficam sempre visíveis no rodapé do menu.',
+				fields: [
+					'👤 Avatar com iniciais',
+					'📧 Seu e-mail corporativo',
+					'🔗 Link para perfil',
+				]
+			};
+ 
+			const themeStep = {
+				type: 'element',
+				selector: '#themeToggleBtn',
+				title: '🌗 Modo Claro / Escuro',
+				description: 'O CONVERGE já tem tema claro e escuro prontos. Clique neste botão a qualquer momento para alternar a aparência do portal.',
+				fields: [
+					'☀️ Modo claro',
+					'🌙 Modo escuro',
+					'💾 Preferência mantida durante a navegação'
+				]
+			};
+ 
+			const collapseStep = {
+				type: 'element',
+				selector: '#toggleBtn',
+				title: '↔️ Recolher o Menu',
+				description: 'Para ganhar espaço de tela, o menu lateral pode ser recolhido para um modo compacto (só ícones) e expandido de novo quando quiser.',
+				fields: [
+					'📐 Mais espaço para o conteúdo',
+					'🖱️ Um clique para recolher/expandir'
+				]
+			};
+ 
+			const logoutStep = {
+				type: 'element',
+				selector: '.sidebar-logout',
+				title: '🔐 Logout',
+				description: 'Clique aqui para sair do portal de forma segura.',
+				fields: [
+					'✅ Encerra sua sessão',
+					'🔒 Dados permanecem protegidos',
+					'↪️ Retorna ao login'
+				]
+			};
+ 
+			const authInfoStep = {
+				type: 'info',
+				icon: 'ti-shield-lock',
+				title: '🔐 Login institucional (já implementado)',
+				description: 'O acesso ao CONVERGE é feito via login institucional (Clerk), aceitando apenas e-mails do domínio @hc.fm.usp.br. Quem não é do domínio institucional é desconectado automaticamente.',
+				fields: [
+					'✅ Autenticação centralizada (Clerk)',
+					'✅ Validação obrigatória de domínio institucional',
+					'✅ Sessão segura, com redirecionamento automático ao login quando expira'
+				]
+			};
+ 
+			const dataInfoStep = {
+				type: 'info',
+				icon: 'ti-database',
+				title: '🗄️ Dados de colaboradores (já implementado)',
+				description: 'Por trás do portal existe um banco de dados normalizado (via Convex) que já alimenta o perfil do usuário e outros sistemas com informações de colaboradores.',
+				fields: [
+					'✅ Tabela Mãe - dado resumido por CPF',
+					'✅ Tabela Filha - dados completos do colaborador',
+					'✅ Consultas em tempo real (Convex)'
+				]
+			};
+ 
+			const mobileInfoStep = {
+				type: 'info',
+				icon: 'ti-device-mobile',
+				title: '📱 Responsivo (já implementado)',
+				description: 'O CONVERGE já funciona em celular e tablet: em telas pequenas o menu lateral vira um menu retrátil, acessível pelo ícone de menu na barra superior.',
+				fields: [
+					'📱 Layout adaptado para mobile',
+					'☰ Botão de menu na topbar em telas pequenas',
+					'👆 Cards e menu otimizados para toque'
+				]
+			};
+ 
+			const welcome = (subtext) => ({
+				type: 'welcome',
+				title: '🎓 Bem-vindo ao Tour Guiado!',
+				description: 'Vamos explorar o CONVERGE juntos e mostrar o que já está pronto no sistema.',
+				subtext: subtext || 'Clique em "Começar" para iniciar.'
+			});
+ 
+			const complete = (description) => ({
+				type: 'complete',
+				title: '🎉 Parabéns!',
+				description: description || 'Você completou o tour guiado! Agora você sabe como navegar pelo CONVERGE.',
+				subtext: 'Explore o portal e aproveite todos os sistemas disponíveis. Você pode reabrir este tour a qualquer momento clicando no botão flutuante.',
+				nextText: 'Fechar'
+			});
+ 
+			return {
+				// Tour Rápido: só o essencial da navegação
+				quick: [
+					welcome('Um resumo rápido da tela principal. Leva cerca de 2 minutos.'),
+					topbarStep,
+					sidebarStep,
+					cardsStep,
+					complete('Você já conhece o essencial para navegar pelo CONVERGE!')
+				],
+				// Tour Completo: todos os elementos da interface, em detalhe
+				complete: [
+					welcome('Um passeio completo por toda a interface do portal.'),
+					topbarStep,
+					sidebarStep,
+					cardsStep,
+					profileStep,
+					themeStep,
+					collapseStep,
+					logoutStep,
+					complete()
+				],
+				// O que já foi feito: recursos e funcionalidades já implementados no projeto
+				features: [
+					welcome('Um resumo do que já foi implementado no CONVERGE até agora.'),
+					authInfoStep,
+					sidebarStep,
+					cardsStep,
+					dataInfoStep,
+					profileStep,
+					themeStep,
+					collapseStep,
+					mobileInfoStep,
+					complete('Esse é o panorama do que já está pronto no CONVERGE. Novidades continuarão sendo adicionadas!')
+				]
+			};
+		}
+ 
+		start() {
+			this.isActive = true;
+			this.currentStep = 0;
+			document.body.classList.add('tour-active');
+			document.getElementById('tourTriggerBtn').classList.add('hidden');
+			this.showWelcome();
+		}
+ 
+		showWelcome() {
+			const overlay = document.getElementById('tourOverlay');
+			overlay.classList.add('active');
+ 
+			const startPage = document.createElement('div');
+			startPage.className = 'tour-start-page';
+			startPage.innerHTML = `
+				<h2><i class="ti ti-book"></i> Escolha seu Tour</h2>
+				<div class="tour-option" onclick="tourGuide.startTour('quick')">
+					<div class="tour-option-icon"><i class="ti ti-bolt"></i></div>
+					<div>
+						<h3>⚡ Tour Rápido (2 min)</h3>
+						<p>Visão geral da interface principal e navegação básica.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.startTour('complete')">
+					<div class="tour-option-icon"><i class="ti ti-route"></i></div>
+					<div>
+						<h3>🗺️ Tour Completo (5 min)</h3>
+						<p>Explore tudo em detalhes: interface, sistemas, dados e funcionalidades.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.startTour('features')">
+					<div class="tour-option-icon"><i class="ti ti-star"></i></div>
+					<div>
+						<h3>✨ O que já foi feito</h3>
+						<p>Resumo do que já está implementado no CONVERGE: login, dados, tema, mobile e mais.</p>
+					</div>
+				</div>
+				<div class="tour-option" onclick="tourGuide.end()">
+					<div class="tour-option-icon"><i class="ti ti-x"></i></div>
+					<div>
+						<h3>❌ Cancelar</h3>
+						<p>Voltar ao portal normal.</p>
+					</div>
+				</div>
+			`;
+			document.body.appendChild(startPage);
+			startPage.id = 'tourStartPage';
+		}
+ 
+		startTour(type) {
+			const page = document.getElementById('tourStartPage');
+			if (page) page.remove();
+ 
+			this.steps = this.tracks[type] || this.tracks.complete;
+			this.currentStep = 0;
+			this.showStep(0);
+		}
+ 
+		showStep(index) {
+			const step = this.steps[index];
+			if (!step) return;
+ 
+			const overlay = document.getElementById('tourOverlay');
+			const spotlight = document.getElementById('tourSpotlight');
+			const popover = document.getElementById('tourPopover');
+ 
+			if (step.type === 'welcome') {
+				this.showWelcomeStep(step);
+			} else if (step.type === 'element') {
+				const element = document.querySelector(step.selector);
+				if (!element) {
+					// Elemento não está presente na tela agora (ex: menu recolhido) - pula o passo
+					this.nextStep();
+					return;
+				}
+				overlay.classList.add('active');
+				this.highlightElement(step.selector, spotlight);
+				this.showPopover(step, popover);
+			} else if (step.type === 'info') {
+				overlay.classList.add('active');
+				spotlight.style.display = 'none';
+				this.showInfoStep(step);
+			} else if (step.type === 'complete') {
+				this.showCompleteStep(step);
+			}
+		}
+ 
+		showInfoStep(step) {
+			const fieldsHtml = (step.fields || [])
+				.map(field => `<li style="margin-bottom: 8px;">${field}</li>`)
+				.join('');
+ 
+			const info = document.createElement('div');
+			info.className = 'tour-welcome';
+			info.innerHTML = `
+				<div class="tour-welcome-icon"><i class="ti ${step.icon || 'ti-info-circle'}"></i></div>
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<div class="tour-step-info">
+					Passo ${this.currentStep + 1} de ${this.steps.length}
+				</div>
+				<div style="background: var(--hc-lighter); padding: 15px; border-radius: 6px; margin: 15px 0 20px; text-align: left;">
+					<ul style="margin: 0 0 0 20px; color: var(--text-muted); font-size: 0.9em;">
+						${fieldsHtml}
+					</ul>
+				</div>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.previousStep()">
+						<i class="ti ti-arrow-left"></i>
+						Anterior
+					</button>
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
+						Próximo
+						<i class="ti ti-arrow-right"></i>
+					</button>
+				</div>
+				<button class="tour-skip" onclick="tourGuide.end()">
+					Pular tour
+				</button>
+			`;
+			document.body.appendChild(info);
+			info.id = 'tourInfo';
+		}
+ 
+		showWelcomeStep(step) {
+			const overlay = document.getElementById('tourOverlay');
+			overlay.classList.add('active');
+ 
+			const welcome = document.createElement('div');
+			welcome.className = 'tour-welcome';
+			welcome.innerHTML = `
+				<div class="tour-welcome-icon"><i class="ti ti-bulb"></i></div>
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
+						<i class="ti ti-arrow-right"></i>
+						Começar
+					</button>
+					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.end()">
+						<i class="ti ti-x"></i>
+						Cancelar
+					</button>
+				</div>
+			`;
+			document.body.appendChild(welcome);
+			welcome.id = 'tourWelcome';
+		}
+ 
+		showCompleteStep(step) {
+			const complete = document.createElement('div');
+			complete.className = 'tour-welcome';
+			complete.innerHTML = `
+				<div class="tour-welcome-icon"><i class="ti ti-confetti"></i></div>
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<p style="font-size: 0.9em; color: var(--text-muted);">${step.subtext}</p>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.end()">
+						<i class="ti ti-check"></i>
+						${step.nextText}
+					</button>
+				</div>
+			`;
+			document.body.appendChild(complete);
+			complete.id = 'tourComplete';
+		}
+ 
+		highlightElement(selector, spotlight) {
+			const element = document.querySelector(selector);
+			if (!element) return;
+ 
+			const rect = element.getBoundingClientRect();
+			const padding = 10;
+ 
+			spotlight.style.display = 'block';
+			spotlight.style.top = (rect.top - padding) + 'px';
+			spotlight.style.left = (rect.left - padding) + 'px';
+			spotlight.style.width = (rect.width + padding * 2) + 'px';
+			spotlight.style.height = (rect.height + padding * 2) + 'px';
+		}
+ 
+		showPopover(step, popover) {
+			const element = document.querySelector(step.selector);
+			if (!element) return;
+ 
+			const fieldsHtml = step.fields
+				.map(field => `<li style="margin-bottom: 8px;">${field}</li>`)
+				.join('');
+ 
+			popover.innerHTML = `
+				<h3><i class="ti ti-info-circle"></i> ${step.title}</h3>
+				<p>${step.description}</p>
+				<div class="tour-step-info">
+					Passo ${this.currentStep + 1} de ${this.steps.length}
+				</div>
+				<div style="background: var(--hc-lighter); padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+					<strong style="color: var(--brand-blue);">📌 Elementos nesta seção:</strong>
+					<ul style="margin: 10px 0 0 20px; color: var(--text-muted); font-size: 0.9em;">
+						${fieldsHtml}
+					</ul>
+				</div>
+				<div class="tour-buttons">
+					<button class="tour-btn tour-btn-secondary" onclick="tourGuide.previousStep()">
+						<i class="ti ti-arrow-left"></i>
+						Anterior
+					</button>
+					<button class="tour-btn tour-btn-primary" onclick="tourGuide.nextStep()">
+						Próximo
+						<i class="ti ti-arrow-right"></i>
+					</button>
+				</div>
+				<button class="tour-skip" onclick="tourGuide.end()">
+					Pular tour
+				</button>
+				<div class="tour-progress">
+					${this.steps.map((_, i) => `
+						<div class="tour-dot ${i === this.currentStep ? 'active' : ''}"></div>
+					`).join('')}
+				</div>
+			`;
+ 
+			this.positionPopover(element, popover);
+		}
+ 
+		positionPopover(element, popover) {
+			const rect = element.getBoundingClientRect();
+			const popoverRect = { width: 400, height: 400 };
+ 
+			let top, left, arrowClass = 'arrow-bottom';
+ 
+			if (rect.bottom + 320 < window.innerHeight) {
+				top = rect.bottom + 15;
+				arrowClass = 'arrow-top';
+			} else if (rect.top - 320 > 0) {
+				top = rect.top - 320;
+				arrowClass = 'arrow-bottom';
+			} else {
+				top = window.innerHeight - 420;
+				arrowClass = 'arrow-top';
+			}
+ 
+			if (rect.left + 200 > window.innerWidth - 20) {
+				left = window.innerWidth - 420;
+				arrowClass = 'arrow-right';
+			} else {
+				left = rect.left + 50;
+				arrowClass = 'arrow-left';
+			}
+ 
+			popover.style.top = top + 'px';
+			popover.style.left = Math.max(10, left) + 'px';
+			popover.className = `tour-popover ${arrowClass}`;
+		}
+ 
+		nextStep() {
+			if (this.currentStep < this.steps.length - 1) {
+				this.currentStep++;
+				this.clearStepElements();
+				this.showStep(this.currentStep);
+			} else {
+				this.end();
+			}
+		}
+ 
+		previousStep() {
+			if (this.currentStep > 0) {
+				this.currentStep--;
+				this.clearStepElements();
+				this.showStep(this.currentStep);
+			}
+		}
+ 
+		clearStepElements() {
+			const welcome = document.getElementById('tourWelcome');
+			if (welcome) welcome.remove();
+			const complete = document.getElementById('tourComplete');
+			if (complete) complete.remove();
+			const info = document.getElementById('tourInfo');
+			if (info) info.remove();
+		}
+ 
+		end() {
+			this.isActive = false;
+			document.body.classList.remove('tour-active');
+			document.getElementById('tourOverlay').classList.remove('active');
+			document.getElementById('tourSpotlight').style.display = 'none';
+			document.getElementById('tourPopover').style.display = 'none';
+			document.getElementById('tourTriggerBtn').classList.remove('hidden');
+ 
+			const welcome = document.getElementById('tourWelcome');
+			if (welcome) welcome.remove();
+			const complete = document.getElementById('tourComplete');
+			if (complete) complete.remove();
+			const info = document.getElementById('tourInfo');
+			if (info) info.remove();
+			const startPage = document.getElementById('tourStartPage');
+			if (startPage) startPage.remove();
+		}
+	}
+ 
+	const tourGuide = new TourGuide();
+	console.log('✅ Tour Guiado Integrado!');
+</script>
+ 
