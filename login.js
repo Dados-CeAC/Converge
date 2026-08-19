@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     return false;
   }
 
+  if (loginBtn) loginBtn.disabled = true;
+
   const clerkAvailable = await waitForClerk();
   if (!clerkAvailable) {
     showError("Clerk não foi carregado. Verifique a conexão ou a chave publishable.");
@@ -55,6 +57,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     showError("Erro ao inicializar o Clerk: " + (error?.message || error));
     return;
   }
+
+  if (loginBtn) loginBtn.disabled = false;
 
   if (window.Clerk.user) {
     const email = window.Clerk.user.primaryEmailAddress?.emailAddress || "";
@@ -73,25 +77,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     return; 
   }
 
-  loginBtn.addEventListener("click", () => {
+  loginBtn.addEventListener("click", async () => {
     clearError();
+    loginBtn.disabled = true;
 
-    // Tenta redirecionar para a tela de login do Clerk (se disponível).
     try {
       if (typeof window.Clerk.redirectToSignIn === 'function') {
-        window.Clerk.redirectToSignIn({ redirectUrl: new URL("index.html", window.location.href).href });
+        await window.Clerk.redirectToSignIn({
+          signInForceRedirectUrl: new URL("index.html", window.location.href).href,
+        });
         return;
       }
-      // fallback: tenta métodos alternativos conhecidos
-      if (typeof window.Clerk.openSignIn === 'function') {
-        window.Clerk.openSignIn({ afterSignInUrl: new URL("index.html", window.location.href).href });
-        return;
-      }
-    } catch (e) {
-      // continua para fallback
-    }
 
-    // Fallback local (útil para desenvolvimento): redireciona direto para o site
-    window.location.href = 'index.html';
+      if (typeof window.Clerk.openSignIn === 'function') {
+        await window.Clerk.openSignIn({
+          afterSignInUrl: new URL("index.html", window.location.href).href,
+        });
+        return;
+      }
+
+      throw new Error("O método de login do Clerk não está disponível.");
+    } catch (error) {
+      showError("Não foi possível iniciar o login: " + (error?.message || error));
+      loginBtn.disabled = false;
+    }
   });
 });
