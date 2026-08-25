@@ -468,7 +468,7 @@ return {
     { id: 8, name: "Ocupacional", items: ["Segurança do Trabalho", "Saúde Ocupacional"] },
     { id: 9, name: "Qualidade", items: ["Meus Chamados","operador"] },
     { id: 10, name: "Dados", items: ["Meu Chamados", "Operador"] },
-    {id: 11, name: "Ouvidoria", items: ["Meu Chamados", "Operador"] },
+    {id: 11, name: "Ouvidoria", items: ["Ouvidoria", "Trello"] },
     { id: 13, name: "Assessoria Jurídica", items: ["Processos", "Profissionais", "Perícias"] },
   ];
 
