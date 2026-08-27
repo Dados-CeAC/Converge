@@ -134,6 +134,34 @@
             color: var(--text-main);
         }
 
+        .top-bar-start {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: white;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
         .btn-add {
             background-color: var(--primary);
             color: white;
@@ -234,6 +262,107 @@
             padding: 15px;
             overflow-y: auto;
             flex: 1;
+        }
+
+        .detail-hero {
+            padding: 14px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #eef8fb, #f8fafc);
+            border: 1px solid #cce8ee;
+            border-radius: 8px;
+        }
+
+        .detail-hero-label {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .detail-hero-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .detail-protocol {
+            color: var(--text-main);
+            font-size: 21px;
+            line-height: 1.1;
+        }
+
+        .detail-status {
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: #fff7ed;
+            color: #c2410c;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .detail-section-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0 0 10px;
+            color: var(--text-main);
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .detail-section-title i {
+            color: var(--primary);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            margin-bottom: 17px;
+        }
+
+        .detail-field {
+            min-width: 0;
+            padding: 9px 10px;
+            border: 1px solid #e7ecef;
+            border-radius: 6px;
+            background: #fbfcfd;
+        }
+
+        .detail-field-label {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .detail-field-value {
+            display: block;
+            overflow-wrap: anywhere;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .detail-description {
+            padding: 12px;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 6px 6px 0;
+            background: #f4f8f9;
+            color: #344448;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 680px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Drawer Overlay & Forms */
@@ -428,7 +557,12 @@
         
         <!-- TOPBAR -->
         <div class="top-bar">
-            <div class="page-title" id="pageTitle">View Operador (Cadastro)</div>
+            <div class="top-bar-start">
+                <button class="btn-back" type="button" onclick="goBackOuvidoria()" title="Voltar para a tela anterior">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar
+                </button>
+                <div class="page-title" id="pageTitle">View Operador (Cadastro)</div>
+            </div>
             <button class="btn-add" id="btnAddOuvidoria" onclick="openAddModal()">
                 <i class="fa-solid fa-plus"></i> + Add Ouvidoria
             </button>
@@ -794,6 +928,7 @@
         // Current Profile & Active Tab State
         let currentProfile = 'ADM';
         let currentTab = 'Operador';
+        let previousTab = null;
 
         // Init App
         window.onload = function() {
@@ -816,6 +951,7 @@
         }
 
         function switchTab(tab) {
+            if (tab !== currentTab) previousTab = currentTab;
             currentTab = tab;
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             
@@ -844,6 +980,22 @@
             }
 
             renderViews();
+        }
+
+        function goBackOuvidoria() {
+            if (currentTab === 'MinhasOuvidorias' && !document.getElementById('ouvidoriasDetail').classList.contains('hidden')) {
+                closeDetail();
+                return;
+            }
+
+            if (previousTab && previousTab !== currentTab) {
+                const tabToOpen = previousTab;
+                previousTab = null;
+                switchTab(tabToOpen);
+                return;
+            }
+
+            switchTab(currentTab === 'Operador' ? 'MinhasOuvidorias' : 'Operador');
         }
 
         function renderViews() {
@@ -900,21 +1052,32 @@
         function openDetail(id) {
             selectedOuvidoriaId = id;
             const item = database.find(i => i.id === id);
+            const latestAction = item.actions[item.actions.length - 1];
+            const status = latestAction ? latestAction.status : 'Em Análise';
             
             document.getElementById('ouvidoriasList').classList.add('hidden');
             document.getElementById('ouvidoriasDetail').classList.remove('hidden');
 
             // Populate Panel 1: Details
             document.getElementById('panelDetailsBody').innerHTML = `
-                <p><strong>Protocolo:</strong> #${item.id}</p>
-                <p><strong>Data:</strong> ${item.date}</p>
-                <p><strong>Tipo:</strong> ${item.tipo}</p>
-                <p><strong>Setor:</strong> ${item.setor}</p>
-                <p><strong>Anônima:</strong> ${item.anonima ? 'Sim' : 'Não'}</p>
-                ${!item.anonima ? `<p><strong>Manifestante:</strong> ${item.nome}</p><p><strong>CPF:</strong> ${item.cpf}</p>` : ''}
-                <hr style="margin:10px 0; border-color:var(--border-color);">
-                <p><strong>Descrição:</strong></p>
-                <p style="background:#f1f5f9; padding:8px; border-radius:6px; font-size:13px;">${item.desc}</p>
+                <div class="detail-hero">
+                    <span class="detail-hero-label">Protocolo da manifestação</span>
+                    <div class="detail-hero-main">
+                        <strong class="detail-protocol">#${item.id}</strong>
+                        <span class="detail-status">${status}</span>
+                    </div>
+                </div>
+                <h4 class="detail-section-title"><i class="fa-solid fa-circle-info"></i> Informações</h4>
+                <div class="detail-grid">
+                    <div class="detail-field"><span class="detail-field-label">Data</span><strong class="detail-field-value">${item.date}</strong></div>
+                    <div class="detail-field"><span class="detail-field-label">Tipo</span><strong class="detail-field-value">${item.tipo}</strong></div>
+                    <div class="detail-field"><span class="detail-field-label">Setor de destino</span><strong class="detail-field-value">${item.setor}</strong></div>
+                    <div class="detail-field"><span class="detail-field-label">Procedente</span><strong class="detail-field-value">${item.procedente ? 'Sim' : 'Não'}</strong></div>
+                    <div class="detail-field"><span class="detail-field-label">Manifestante</span><strong class="detail-field-value">${item.anonima ? 'Anônimo' : item.nome}</strong></div>
+                    <div class="detail-field"><span class="detail-field-label">Identificação</span><strong class="detail-field-value">${item.anonima ? 'Manifestação anônima' : (item.cpf || 'Não informado')}</strong></div>
+                </div>
+                <h4 class="detail-section-title"><i class="fa-solid fa-align-left"></i> Relato</h4>
+                <p class="detail-description">${item.desc}</p>
             `;
 
             // Populate Panel 2: Actions
