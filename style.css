@@ -3742,6 +3742,89 @@ Exemplo:
   */
   color: var(--text-muted);
 }
+
+.ouvidoria-active {
+  min-height: 0;
+  grid-template-columns: 1fr;
+}
+
+.ouvidoria-active > .ouvidoria-embed {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.ouvidoria-embed {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - var(--topbar-h) - 96px);
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.ouvidoria-embed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, var(--hc-light), var(--surface));
+}
+
+.ouvidoria-embed-kicker {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ouvidoria-embed-header h2 {
+  color: var(--hc-dark);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ouvidoria-embed-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--hc-dark);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ouvidoria-embed-status i {
+  color: var(--brand-teal);
+}
+
+.ouvidoria-embed-frame {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  border: 0;
+  background: var(--bg);
+}
+
+@media (max-width: 700px) {
+  .ouvidoria-embed-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ouvidoria-embed-frame {
+    min-height: 0;
+  }
+}
 /* 
 .sys-card .del-btn
 

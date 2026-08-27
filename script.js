@@ -654,6 +654,7 @@ return {
     const isDataJudProcessos = activeCard === "Processos";
     const isProfissionais = activeCard === "Profissionais";
     const isPericias = activeCard === "Perícias";
+    const isOuvidoria = activeCard === "Ouvidoria" && sec.name === "Ouvidoria";
     const isAssessoriaJuridica = isDataJudProcessos || isProfissionais || isPericias;
     title.textContent = isBorboletasForm
       ? "Formulário - Borboletas"
@@ -677,6 +678,8 @@ return {
       ? "Profissionais"
       : isPericias
       ? "Perícias"
+      : isOuvidoria
+      ? "Ouvidoria"
       : activeCard
       ? activeCard
       : sec.name;
@@ -685,6 +688,7 @@ return {
     grid.classList.toggle("meus-chamados-active", isMeusChamados);
     grid.classList.toggle("consultar-funcionario-active", isConsultarFuncionario);
     grid.classList.toggle("legal-active", isAssessoriaJuridica);
+    grid.classList.toggle("ouvidoria-active", isOuvidoria);
     const contentWrapper = document.querySelector(".content");
     if (contentWrapper) {
       contentWrapper.classList.toggle("form-open", isBorboletasForm || isMeusChamados || isConsultarFuncionario);
@@ -708,6 +712,11 @@ return {
 
     if (isConsultarFuncionario) {
       renderConsultarFuncionario(grid);
+      return;
+    }
+
+    if (isOuvidoria) {
+      renderOuvidoriaApp(grid);
       return;
     }
 
@@ -887,6 +896,12 @@ return {
       card.classList.toggle("epi-card", cardData.name === "Ficha de EPI");
       card.classList.toggle("active", activeCard === cardData.name);
       card.addEventListener("click", () => {
+        if (cardData.name === "Ouvidoria" && sec.name === "Ouvidoria") {
+          activeDetailParent = null;
+          activeCard = cardData.name;
+          renderCards();
+          return;
+        }
         const url = cardUrlMap[cardData.name];
         if (url) {
           window.open(url, "_blank");
@@ -902,6 +917,27 @@ return {
 
       grid.appendChild(card);
     });
+  }
+
+  function renderOuvidoriaApp(grid) {
+    const panel = document.createElement("section");
+    panel.className = "ouvidoria-embed";
+    panel.innerHTML = `
+      <div class="ouvidoria-embed-header">
+        <div>
+          <span class="ouvidoria-embed-kicker">Sistema integrado</span>
+          <h2>appOuvidoria</h2>
+        </div>
+        <span class="ouvidoria-embed-status"><i class="ti ti-circle-check"></i> Disponível</span>
+      </div>
+      <iframe
+        class="ouvidoria-embed-frame"
+        src="appOuvidoria_Simulador%20(1)%20(1).html"
+        title="appOuvidoria"
+        loading="eager"
+      ></iframe>
+    `;
+    grid.appendChild(panel);
   }
 
   function renderBorboletasForm(grid) {

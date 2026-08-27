@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Interativo - appOuvidoria</title>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-family-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0077c8;
+            --primary-hover: #005f9a;
+            --primary-light: #e8f4f6;
+            --accent: #009ca6;
+            --bg-main: #f5f7f8;
+            --sidebar-bg: #ffffff;
+            --border-color: #e0e4e6;
+            --text-main: #1a2224;
+            --text-muted: #6b7b80;
+            --status-open: #f97316;
+            --status-exec: #eab308;
+            --status-done: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Nav */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-selector {
+            padding: 15px 20px;
+            background-color: #e8f4f6;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-selector label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-selector select {
+            width: 100%;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: white;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 15px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Main Content Header */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .top-bar {
+            height: 60px;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .btn-add {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Tables & Lists */
+        .data-card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+            cursor: pointer;
+        }
+
+        /* Badge Status */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .badge-aberto { background: #ffedd5; color: #c2410c; }
+        .badge-exec { background: #fef9c3; color: #854d0e; }
+        .badge-fim { background: #dcfce7; color: #15803d; }
+
+        /* Detail 3-Panel View */
+        .three-panel {
+            display: grid;
+            grid-template-columns: 320px 1fr 340px;
+            gap: 15px;
+            height: calc(100vh - 120px);
+        }
+
+        .panel {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 16px;
+            background-color: #f8fafc;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-body {
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Drawer Overlay & Forms */
+        .drawer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: flex-end;
+            z-index: 100;
+        }
+
+        .drawer {
+            width: 480px;
+            background: white;
+            height: 100%;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            animation: slideLeft 0.3s ease;
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .drawer-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .drawer-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #f8fafc;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-group label span.req {
+            color: var(--primary);
+        }
+
+        .form-control, select, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn-toggle-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-toggle {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            background: #f8fafc;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-toggle.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Chat / Interactions UI */
+        .chat-msg {
+            background: #f1f5f9;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        .chat-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Kanban Columns in Minhas Acoes */
+        .kanban-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            height: calc(100vh - 120px);
+        }
+
+        .kanban-col {
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kanban-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kanban-card {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div>
+            <div class="brand">
+                <i class="fa-solid fa-comments"></i> appOuvidoria
+            </div>
+            
+            <div class="profile-selector">
+                <label>Perfil de Simulação:</label>
+                <select id="userProfile" onchange="switchProfile()">
+                    <option value="ADM">Operador / ADM (Acesso Total)</option>
+                    <option value="COMISSAO">Comissão (Sem Operador)</option>
+                    <option value="SETOR">Setor Específico (Filtrado)</option>
+                </select>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" id="navOperador" onclick="switchTab('Operador')">
+                    <i class="fa-solid fa-headset"></i> Operador
+                </li>
+                <li class="nav-item" id="navOuvidorias" onclick="switchTab('MinhasOuvidorias')">
+                    <i class="fa-solid fa-folder-open"></i> Minhas Ouvidorias
+                </li>
+                <li class="nav-item" id="navAcoes" onclick="switchTab('MinhasAcoes')">
+                    <i class="fa-solid fa-list-check"></i> Minhas Ações
+                </li>
+            </ul>
+        </div>
+        <div style="padding: 15px; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border-color);">
+            Prototótipo Interativo Completo v1.0
+        </div>
+    </div>
+
+    <!-- MAIN AREA -->
+    <div class="main-wrapper">
+        
+        <!-- TOPBAR -->
+        <div class="top-bar">
+            <div class="page-title" id="pageTitle">View Operador (Cadastro)</div>
+            <button class="btn-add" id="btnAddOuvidoria" onclick="openAddModal()">
+                <i class="fa-solid fa-plus"></i> + Add Ouvidoria
+            </button>
+        </div>
+
+        <div class="content-area">
+
+            <!-- VIEW 1: OPERADOR -->
+            <div id="viewOperador">
+                <div class="data-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Setor</th>
+                                <th>Manifestante</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableOperador">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW 2: MINHAS OUVIDORIAS -->
+            <div id="viewOuvidorias" class="hidden">
+                <!-- List View or Detail View -->
+                <div id="ouvidoriasList" class="data-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Setor Destino</th>
+                                <th>Procedente?</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableOuvidorias">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 3 PANEL DETAIL VIEW -->
+                <div id="ouvidoriasDetail" class="three-panel hidden">
+                    <!-- Panel 1: Details -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span>Detalhes da Ouvidoria</span>
+                            <button onclick="closeDetail()" style="border:none; background:none; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="panel-body" id="panelDetailsBody">
+                            <!-- Dynamic Details -->
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Actions -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span>Histórico de Ações</span>
+                            <button class="btn-add" style="padding: 4px 8px; font-size: 12px;" onclick="openActionModal()">+ Adicionar Ação</button>
+                        </div>
+                        <div class="panel-body" id="panelActionsBody">
+                            <!-- Dynamic Actions -->
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Interactions Chat -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span>Histórico de Interações</span>
+                            <button class="btn-add" style="padding: 4px 8px; font-size: 12px;" onclick="openChatModal()">+ Adicionar</button>
+                        </div>
+                        <div class="panel-body" id="panelChatBody">
+                            <!-- Dynamic Chat -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: MINHAS AÇÕES (KANBAN) -->
+            <div id="viewAcoes" class="hidden">
+                <div class="kanban-grid">
+                    <div class="kanban-col">
+                        <div class="kanban-title" style="color: var(--status-open);">
+                            <span><i class="fa-regular fa-circle-dot"></i> Em Aberto</span>
+                            <span id="countAberto">0</span>
+                        </div>
+                        <div id="colAberto"></div>
+                    </div>
+
+                    <div class="kanban-col">
+                        <div class="kanban-title" style="color: var(--status-exec);">
+                            <span><i class="fa-solid fa-spinner"></i> Em Execução</span>
+                            <span id="countExec">0</span>
+                        </div>
+                        <div id="colExec"></div>
+                    </div>
+
+                    <div class="kanban-col">
+                        <div class="kanban-title" style="color: var(--status-done);">
+                            <span><i class="fa-regular fa-circle-check"></i> Finalizadas</span>
+                            <span id="countFim">0</span>
+                        </div>
+                        <div id="colFim"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- DRAWER MODAL: CADASTRO OUVIDORIA (OPERADOR FORM) -->
+        <div class="drawer-overlay" id="modalOuvidoria">
+            <div class="drawer">
+                <div class="drawer-header">
+                    <h3>Operador Form</h3>
+                    <i class="fa-solid fa-xmark" onclick="closeAddModal()" style="cursor:pointer;"></i>
+                </div>
+                <div class="drawer-body">
+                    <form id="formOuvidoria">
+                        <div class="form-group">
+                            <label>Data da Manifestação <span class="req">*</span></label>
+                            <input type="date" class="form-control" id="formDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Anônima? <span class="req">*</span></label>
+                            <div class="btn-toggle-group">
+                                <div class="btn-toggle active" id="btnAnonSim" onclick="setAnon(true)">Sim</div>
+                                <div class="btn-toggle" id="btnAnonNao" onclick="setAnon(false)">Não</div>
+                            </div>
+                        </div>
+
+                        <!-- Campos Condicionais do Manifestante -->
+                        <div id="fieldsManifestante" class="hidden">
+                            <div class="form-group">
+                                <label>Nome do Manifestante <span class="req">*</span></label>
+                                <input type="text" class="form-control" id="formNome">
+                            </div>
+                            <div class="form-group">
+                                <label>CPF <span class="req">*</span></label>
+                                <input type="text" class="form-control" id="formCPF" placeholder="000.000.000-00">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo / Instituto <span class="req">*</span></label>
+                                <input type="text" class="form-control" id="formCargo" placeholder="Ex: Técnico Enfermagem - ICHC">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Manifestação <span class="req">*</span></label>
+                            <select class="form-control" id="formTipo">
+                                <option>Reclamação</option>
+                                <option>Elogio</option>
+                                <option>Sugestão</option>
+                                <option>Solicitação</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Setor de Destino <span class="req">*</span></label>
+                            <select class="form-control" id="formSetor">
+                                <option>Pronto Atendimento</option>
+                                <option>Ambulatório</option>
+                                <option>Recepção Predial</option>
+                                <option>Engenharia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Envolve Médico Terceiro? <span class="req">*</span></label>
+                            <div class="btn-toggle-group">
+                                <div class="btn-toggle" id="btnMedSim" onclick="setMed(true)">Sim</div>
+                                <div class="btn-toggle active" id="btnMedNao" onclick="setMed(false)">Não</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden" id="fieldMedNome">
+                            <label>Nome do Médico Terceiro <span class="req">*</span></label>
+                            <input type="text" class="form-control" id="formMedNome">
+                        </div>
+
+                        <div class="form-group">
+                            <label>É uma manifestação procedente? <span class="req">*</span></label>
+                            <div class="btn-toggle-group">
+                                <div class="btn-toggle active" id="btnProcSim" onclick="setProc(true)">Sim</div>
+                                <div class="btn-toggle" id="btnProcNao" onclick="setProc(false)">Não</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Haverá Plano de Ação? <span class="req">*</span></label>
+                            <div class="btn-toggle-group">
+                                <div class="btn-toggle active" id="btnPlanoSim" onclick="setPlano(true)">Sim</div>
+                                <div class="btn-toggle" id="btnPlanoNao" onclick="setPlano(false)">Não</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrição da Manifestação <span class="req">*</span></label>
+                            <textarea class="form-control" id="formDesc" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="drawer-footer">
+                    <button class="btn-toggle" onclick="closeAddModal()">Cancelar</button>
+                    <button class="btn-add" onclick="saveOuvidoria()">Salvar Ocorrência</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRAWER MODAL: ADICIONAR AÇÃO -->
+        <div class="drawer-overlay" id="modalAcao">
+            <div class="drawer">
+                <div class="drawer-header">
+                    <h3>Criar / Editar Plano de Ação</h3>
+                    <i class="fa-solid fa-xmark" onclick="closeActionModal()" style="cursor:pointer;"></i>
+                </div>
+                <div class="drawer-body">
+                    <div class="form-group">
+                        <label>Descrição da Ação <span class="req">*</span></label>
+                        <textarea class="form-control" id="formAcaoDesc" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Haverá alteração de processo? <span class="req">*</span></label>
+                        <div class="btn-toggle-group">
+                            <div class="btn-toggle" id="btnProcAltSim" onclick="setProcAlt(true)">Sim</div>
+                            <div class="btn-toggle active" id="btnProcAltNao" onclick="setProcAlt(false)">Não</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="fieldProcAltDesc">
+                        <label>Informe qual foi a alteração <span class="req">*</span></label>
+                        <input type="text" class="form-control" id="formProcAltText">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Prazo de Execução <span class="req">*</span></label>
+                        <input type="date" class="form-control" id="formAcaoPrazo">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Responsável <span class="req">*</span></label>
+                        <input type="text" class="form-control" id="formAcaoResp" value="Equipe Recepção">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status da Ação <span class="req">*</span></label>
+                        <select class="form-control" id="formAcaoStatus" onchange="toggleEvidencia()">
+                            <option value="Em Aberto">Em Aberto</option>
+                            <option value="Em Execução">Em Execução</option>
+                            <option value="Finalizado">Finalizado</option>
+                        </select>
+                    </div>
+
+                    <!-- Campos Obrigatórios se Finalizados -->
+                    <div id="fieldsEvidencia" class="hidden">
+                        <div class="form-group">
+                            <label>Descrição da Evidência <span class="req">*</span></label>
+                            <textarea class="form-control" id="formAcaoEvidencia" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Anexo de Comprovação <span class="req">*</span></label>
+                            <input type="file" class="form-control" id="formAcaoFile">
+                        </div>
+                    </div>
+                </div>
+                <div class="drawer-footer">
+                    <button class="btn-toggle" onclick="closeActionModal()">Cancelar</button>
+                    <button class="btn-add" onclick="saveAcao()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRAWER MODAL: CHAT / INTERAÇÃO -->
+        <div class="drawer-overlay" id="modalChat">
+            <div class="drawer">
+                <div class="drawer-header">
+                    <h3>Nova Interação / Chat</h3>
+                    <i class="fa-solid fa-xmark" onclick="closeChatModal()" style="cursor:pointer;"></i>
+                </div>
+                <div class="drawer-body">
+                    <div class="form-group">
+                        <label>Anotações Internas <span class="req">*</span></label>
+                        <textarea class="form-control" id="chatText" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Arquivo de Interação (Opcional)</label>
+                        <input type="file" class="form-control">
+                    </div>
+                </div>
+                <div class="drawer-footer">
+                    <button class="btn-toggle" onclick="closeChatModal()">Cancelar</button>
+                    <button class="btn-add" onclick="saveChat()">Adicionar Mensagem</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LOGICA EM JAVASCRIPT TOTALMENTE FUNCIONAL -->
+    <script>
+        // Data Storage Simulated DB
+        let database = [
+            {
+                id: "1038552",
+                date: "2026-05-15",
+                tipo: "Reclamação",
+                setor: "Pronto Atendimento",
+                anonima: false,
+                nome: "Vanessa de Moraes Viana",
+                cpf: "402.241.058-42",
+                cargo: "Técnico Enfermagem - ICHC",
+                medicoTerceiro: false,
+                medicoNome: "",
+                procedente: true,
+                planoAcao: true,
+                desc: "Demora no atendimento do pronto socorro por mais de 30 minutos.",
+                actions: [
+                    {
+                        id: 1,
+                        desc: "Reorganizar triagem de pacientes prioritários",
+                        prazo: "2026-06-01",
+                        resp: "Pronto Atendimento",
+                        status: "Em Execução",
+                        altProcesso: true,
+                        altDesc: "Nova fila rápida no guichê 2"
+                    }
+                ],
+                chats: [
+                    { user: "dados.ceac@hc.fm.usp.br", date: "19/08/2026 11:39", text: "Solicitado esclarecimentos ao setor responsável." }
+                ]
+            },
+            {
+                id: "1040169",
+                date: "2026-05-20",
+                tipo: "Elogio",
+                setor: "Ambulatório",
+                anonima: true,
+                nome: "Anônimo",
+                procedente: true,
+                planoAcao: false,
+                desc: "Atendimento excelente de toda a equipe médica.",
+                actions: [],
+                chats: []
+            }
+        ];
+
+        let selectedOuvidoriaId = null;
+        let isAnon = true;
+        let isMed = false;
+        let isProc = true;
+        let isPlano = true;
+        let isProcAlt = false;
+
+        // Current Profile & Active Tab State
+        let currentProfile = 'ADM';
+        let currentTab = 'Operador';
+
+        // Init App
+        window.onload = function() {
+            renderViews();
+        };
+
+        function switchProfile() {
+            currentProfile = document.getElementById('userProfile').value;
+            
+            // Adjust Visible Navigation Tabs Based on Profile
+            const navOperador = document.getElementById('navOperador');
+            if (currentProfile === 'COMISSAO') {
+                navOperador.classList.add('hidden');
+                if (currentTab === 'Operador') switchTab('MinhasOuvidorias');
+            } else {
+                navOperador.classList.remove('hidden');
+            }
+
+            renderViews();
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('viewOperador').classList.add('hidden');
+            document.getElementById('viewOuvidorias').classList.add('hidden');
+            document.getElementById('viewAcoes').classList.add('hidden');
+
+            const btnAdd = document.getElementById('btnAddOuvidoria');
+
+            if (tab === 'Operador') {
+                document.getElementById('navOperador').classList.add('active');
+                document.getElementById('viewOperador').classList.remove('hidden');
+                document.getElementById('pageTitle').innerText = 'View Operador (Cadastro de Ocorrências)';
+                btnAdd.classList.remove('hidden');
+            } else if (tab === 'MinhasOuvidorias') {
+                document.getElementById('navOuvidorias').classList.active = true;
+                document.getElementById('navOuvidorias').classList.add('active');
+                document.getElementById('viewOuvidorias').classList.remove('hidden');
+                document.getElementById('pageTitle').innerText = 'View Minhas Ouvidorias (Tratamento)';
+                btnAdd.classList.add('hidden');
+            } else if (tab === 'MinhasAcoes') {
+                document.getElementById('navAcoes').classList.add('active');
+                document.getElementById('viewAcoes').classList.remove('hidden');
+                document.getElementById('pageTitle').innerText = 'View Minhas Ações (Kanban de Tarefas)';
+                btnAdd.classList.add('hidden');
+            }
+
+            renderViews();
+        }
+
+        function renderViews() {
+            renderOperadorTable();
+            renderOuvidoriasTable();
+            renderAcoesKanban();
+        }
+
+        /* 1. OPERADOR TABLE */
+        function renderOperadorTable() {
+            const tbody = document.getElementById('tableOperador');
+            tbody.innerHTML = '';
+
+            database.forEach(item => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>#${item.id}</strong></td>
+                    <td>${item.date}</td>
+                    <td><span class="badge badge-purple">${item.tipo}</span></td>
+                    <td>${item.setor}</td>
+                    <td>${item.anonima ? '<i>Anônimo</i>' : item.nome}</td>
+                    <td><span class="badge badge-exec">Em Análise</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* 2. MINHAS OUVIDORIAS */
+        function renderOuvidoriasTable() {
+            const tbody = document.getElementById('tableOuvidorias');
+            tbody.innerHTML = '';
+
+            // Filter for Setor Especifico profile
+            let filtered = database;
+            if (currentProfile === 'SETOR') {
+                filtered = database.filter(i => i.setor === 'Pronto Atendimento');
+            }
+
+            filtered.forEach(item => {
+                let tr = document.createElement('tr');
+                tr.onclick = () => openDetail(item.id);
+                tr.innerHTML = `
+                    <td><strong>#${item.id}</strong></td>
+                    <td>${item.date}</td>
+                    <td>${item.tipo}</td>
+                    <td>${item.setor}</td>
+                    <td>${item.procedente ? 'Sim' : 'Não'}</td>
+                    <td><button class="btn-add" style="padding:2px 8px; font-size:11px;">Analisar</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openDetail(id) {
+            selectedOuvidoriaId = id;
+            const item = database.find(i => i.id === id);
+            
+            document.getElementById('ouvidoriasList').classList.add('hidden');
+            document.getElementById('ouvidoriasDetail').classList.remove('hidden');
+
+            // Populate Panel 1: Details
+            document.getElementById('panelDetailsBody').innerHTML = `
+                <p><strong>Protocolo:</strong> #${item.id}</p>
+                <p><strong>Data:</strong> ${item.date}</p>
+                <p><strong>Tipo:</strong> ${item.tipo}</p>
+                <p><strong>Setor:</strong> ${item.setor}</p>
+                <p><strong>Anônima:</strong> ${item.anonima ? 'Sim' : 'Não'}</p>
+                ${!item.anonima ? `<p><strong>Manifestante:</strong> ${item.nome}</p><p><strong>CPF:</strong> ${item.cpf}</p>` : ''}
+                <hr style="margin:10px 0; border-color:var(--border-color);">
+                <p><strong>Descrição:</strong></p>
+                <p style="background:#f1f5f9; padding:8px; border-radius:6px; font-size:13px;">${item.desc}</p>
+            `;
+
+            // Populate Panel 2: Actions
+            renderPanelActions(item);
+
+            // Populate Panel 3: Chat
+            renderPanelChat(item);
+        }
+
+        function renderPanelActions(item) {
+            const body = document.getElementById('panelActionsBody');
+            body.innerHTML = '';
+
+            if (!item.planoAcao) {
+                body.innerHTML = `<p style="color:var(--text-muted); font-size:13px;">Sem plano de ação habilitado para esta ocorrência.</p>`;
+                return;
+            }
+
+            item.actions.forEach(act => {
+                let badgeClass = act.status === 'Finalizado' ? 'badge-fim' : (act.status === 'Em Execução' ? 'badge-exec' : 'badge-aberto');
+                body.innerHTML += `
+                    <div style="border:1px solid var(--border-color); padding:10px; border-radius:6px; margin-bottom:8px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <span class="badge ${badgeClass}">${act.status}</span>
+                            <small style="color:var(--text-muted)">Prazo: ${act.prazo}</small>
+                        </div>
+                        <p style="font-size:13px; font-weight:500;">${act.desc}</p>
+                        <small style="color:var(--text-muted)">Resp: ${act.resp}</small>
+                    </div>
+                `;
+            });
+        }
+
+        function renderPanelChat(item) {
+            const body = document.getElementById('panelChatBody');
+            body.innerHTML = '';
+
+            item.chats.forEach(c => {
+                body.innerHTML += `
+                    <div class="chat-msg">
+                        <div class="chat-meta">
+                            <strong>${c.user}</strong>
+                            <span>${c.date}</span>
+                        </div>
+                        <div>${c.text}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function closeDetail() {
+            document.getElementById('ouvidoriasDetail').classList.add('hidden');
+            document.getElementById('ouvidoriasList').classList.remove('hidden');
+        }
+
+        /* 3. MINHAS AÇÕES (KANBAN) */
+        function renderAcoesKanban() {
+            const colAberto = document.getElementById('colAberto');
+            const colExec = document.getElementById('colExec');
+            const colFim = document.getElementById('colFim');
+
+            colAberto.innerHTML = '';
+            colExec.innerHTML = '';
+            colFim.innerHTML = '';
+
+            let cAberto = 0, cExec = 0, cFim = 0;
+
+            database.forEach(ouv => {
+                ouv.actions.forEach(act => {
+                    let card = document.createElement('div');
+                    card.className = 'kanban-card';
+                    card.innerHTML = `
+                        <small style="color:var(--primary); font-weight:bold;">Ouvidoria #${ouv.id}</small>
+                        <p style="font-size:13px; font-weight:500; margin:4px 0;">${act.desc}</p>
+                        <small style="color:var(--text-muted);">Prazo: ${act.prazo} | ${act.resp}</small>
+                    `;
+
+                    if (act.status === 'Em Aberto') {
+                        colAberto.appendChild(card);
+                        cAberto++;
+                    } else if (act.status === 'Em Execução') {
+                        colExec.appendChild(card);
+                        cExec++;
+                    } else {
+                        colFim.appendChild(card);
+                        cFim++;
+                    }
+                });
+            });
+
+            document.getElementById('countAberto').innerText = cAberto;
+            document.getElementById('countExec').innerText = cExec;
+            document.getElementById('countFim').innerText = cFim;
+        }
+
+        /* MODAL CADASTRO OUVIDORIA */
+        function openAddModal() {
+            document.getElementById('modalOuvidoria').style.display = 'flex';
+        }
+        function closeAddModal() {
+            document.getElementById('modalOuvidoria').style.display = 'none';
+        }
+
+        /* CONDITIONAL FIELDS TOGGLES */
+        function setAnon(val) {
+            isAnon = val;
+            document.getElementById('btnAnonSim').className = `btn-toggle ${val ? 'active' : ''}`;
+            document.getElementById('btnAnonNao').className = `btn-toggle ${!val ? 'active' : ''}`;
+            
+            if (val) {
+                document.getElementById('fieldsManifestante').classList.add('hidden');
+            } else {
+                document.getElementById('fieldsManifestante').classList.remove('hidden');
+            }
+        }
+
+        function setMed(val) {
+            isMed = val;
+            document.getElementById('btnMedSim').className = `btn-toggle ${val ? 'active' : ''}`;
+            document.getElementById('btnMedNao').className = `btn-toggle ${!val ? 'active' : ''}`;
+            
+            if (val) {
+                document.getElementById('fieldMedNome').classList.remove('hidden');
+            } else {
+                document.getElementById('fieldMedNome').classList.add('hidden');
+            }
+        }
+
+        function setProc(val) {
+            isProc = val;
+            document.getElementById('btnProcSim').className = `btn-toggle ${val ? 'active' : ''}`;
+            document.getElementById('btnProcNao').className = `btn-toggle ${!val ? 'active' : ''}`;
+        }
+
+        function setPlano(val) {
+            isPlano = val;
+            document.getElementById('btnPlanoSim').className = `btn-toggle ${val ? 'active' : ''}`;
+            document.getElementById('btnPlanoNao').className = `btn-toggle ${!val ? 'active' : ''}`;
+        }
+
+        function setProcAlt(val) {
+            isProcAlt = val;
+            document.getElementById('btnProcAltSim').className = `btn-toggle ${val ? 'active' : ''}`;
+            document.getElementById('btnProcAltNao').className = `btn-toggle ${!val ? 'active' : ''}`;
+            
+            if (val) {
+                document.getElementById('fieldProcAltDesc').classList.remove('hidden');
+            } else {
+                document.getElementById('fieldProcAltDesc').classList.add('hidden');
+            }
+        }
+
+        function toggleEvidencia() {
+            const st = document.getElementById('formAcaoStatus').value;
+            if (st === 'Finalizado') {
+                document.getElementById('fieldsEvidencia').classList.remove('hidden');
+            } else {
+                document.getElementById('fieldsEvidencia').classList.add('hidden');
+            }
+        }
+
+        function saveOuvidoria() {
+            const newObj = {
+                id: Math.floor(1000000 + Math.random() * 9000000).toString(),
+                date: document.getElementById('formDate').value || "2026-08-19",
+                tipo: document.getElementById('formTipo').value,
+                setor: document.getElementById('formSetor').value,
+                anonima: isAnon,
+                nome: document.getElementById('formNome').value || "Não informado",
+                cpf: document.getElementById('formCPF').value || "",
+                procedente: isProc,
+                planoAcao: isPlano,
+                desc: document.getElementById('formDesc').value || "Sem descrição",
+                actions: [],
+                chats: []
+            };
+
+            database.unshift(newObj);
+            renderViews();
+            closeAddModal();
+        }
+
+        /* ACTIONS & CHAT MODALS */
+        function openActionModal() { document.getElementById('modalAcao').style.display = 'flex'; }
+        function closeActionModal() { document.getElementById('modalAcao').style.display = 'none'; }
+        
+        function saveAcao() {
+            const item = database.find(i => i.id === selectedOuvidoriaId);
+            if (item) {
+                item.actions.push({
+                    id: Date.now(),
+                    desc: document.getElementById('formAcaoDesc').value || "Nova tarefa registrada",
+                    prazo: document.getElementById('formAcaoPrazo').value || "2026-09-01",
+                    resp: document.getElementById('formAcaoResp').value || "Setor Destino",
+                    status: document.getElementById('formAcaoStatus').value
+                });
+                renderPanelActions(item);
+                renderAcoesKanban();
+            }
+            closeActionModal();
+        }
+
+        function openChatModal() { document.getElementById('modalChat').style.display = 'flex'; }
+        function closeChatModal() { document.getElementById('modalChat').style.display = 'none'; }
+
+        function saveChat() {
+            const item = database.find(i => i.id === selectedOuvidoriaId);
+            if (item) {
+                item.chats.push({
+                    user: "usuario.ativo@hc.fm.usp.br",
+                    date: "19/08/2026 11:45",
+                    text: document.getElementById('chatText').value || "Interação adicionada."
+                });
+                renderPanelChat(item);
+            }
+            closeChatModal();
+        }
+    </script>
+</body>
+</html>
