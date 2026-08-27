@@ -720,7 +720,7 @@
                 <div class="drawer-body">
                     <div class="form-group">
                         <label>Anotações Internas <span class="req">*</span></label>
-                        <textarea class="form-control" id="chatText" rows="4"></textarea>
+                        <textarea class="form-control" id="chatText" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Arquivo de Interação (Opcional)</label>
@@ -748,7 +748,7 @@
                 anonima: false,
                 nome: "Lucas marques",
                 cpf: "300.000.000-00",
-                cargo: "Técnico Enfermagem - ICHC",
+                cargo: "Técnico de Segurança - ICHC",
                 medicoTerceiro: false,
                 medicoNome: "",
                 procedente: true,
@@ -1023,11 +1023,14 @@
             isAnon = val;
             document.getElementById('btnAnonSim').className = `btn-toggle ${val ? 'active' : ''}`;
             document.getElementById('btnAnonNao').className = `btn-toggle ${!val ? 'active' : ''}`;
-            
+
+            const manifestanteFields = ['formNome', 'formCPF', 'formCargo'];
             if (val) {
                 document.getElementById('fieldsManifestante').classList.add('hidden');
+                manifestanteFields.forEach(id => document.getElementById(id).required = false);
             } else {
                 document.getElementById('fieldsManifestante').classList.remove('hidden');
+                manifestanteFields.forEach(id => document.getElementById(id).required = true);
             }
         }
 
@@ -1038,8 +1041,10 @@
             
             if (val) {
                 document.getElementById('fieldMedNome').classList.remove('hidden');
+                document.getElementById('formMedNome').required = true;
             } else {
                 document.getElementById('fieldMedNome').classList.add('hidden');
+                document.getElementById('formMedNome').required = false;
             }
         }
 
@@ -1062,8 +1067,10 @@
             
             if (val) {
                 document.getElementById('fieldProcAltDesc').classList.remove('hidden');
+                document.getElementById('formProcAltText').required = true;
             } else {
                 document.getElementById('fieldProcAltDesc').classList.add('hidden');
+                document.getElementById('formProcAltText').required = false;
             }
         }
 
@@ -1071,29 +1078,70 @@
             const st = document.getElementById('formAcaoStatus').value;
             if (st === 'Finalizado') {
                 document.getElementById('fieldsEvidencia').classList.remove('hidden');
+                document.getElementById('formAcaoEvidencia').required = true;
+                document.getElementById('formAcaoFile').required = true;
             } else {
                 document.getElementById('fieldsEvidencia').classList.add('hidden');
+                document.getElementById('formAcaoEvidencia').required = false;
+                document.getElementById('formAcaoFile').required = false;
             }
         }
 
+        function isFormValid(formId) {
+            const container = document.getElementById(formId);
+            if (!container) return false;
+            const form = container.matches('form') ? container : container.querySelector('form');
+            if (form) {
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return false;
+                }
+                return true;
+            }
+
+            const invalidField = [...container.querySelectorAll('[required]')]
+                .find(field => !field.checkValidity());
+            if (invalidField) {
+                invalidField.reportValidity();
+                return false;
+            }
+            return true;
+        }
+
         function saveOuvidoria() {
+            setAnon(isAnon);
+            setMed(isMed);
+            if (!isFormValid('formOuvidoria')) return;
+
             const newObj = {
                 id: Math.floor(1000000 + Math.random() * 9000000).toString(),
-                date: document.getElementById('formDate').value || "2026-08-19",
+                date: document.getElementById('formDate').value,
                 tipo: document.getElementById('formTipo').value,
                 setor: document.getElementById('formSetor').value,
                 anonima: isAnon,
-                nome: document.getElementById('formNome').value || "Não informado",
-                cpf: document.getElementById('formCPF').value || "",
+                nome: isAnon ? "Anônimo" : document.getElementById('formNome').value.trim(),
+                cpf: isAnon ? "" : document.getElementById('formCPF').value.trim(),
+                cargo: isAnon ? "" : document.getElementById('formCargo').value.trim(),
+                medicoTerceiro: isMed,
+                medicoNome: isMed ? document.getElementById('formMedNome').value.trim() : "",
                 procedente: isProc,
                 planoAcao: isPlano,
-                desc: document.getElementById('formDesc').value || "Sem descrição",
+                desc: document.getElementById('formDesc').value.trim(),
                 actions: [],
                 chats: []
             };
 
             database.unshift(newObj);
             renderViews();
+            document.getElementById('formOuvidoria').reset();
+            isAnon = true;
+            isMed = false;
+            isProc = true;
+            isPlano = true;
+            setAnon(true);
+            setMed(false);
+            setProc(true);
+            setPlano(true);
             closeAddModal();
         }
 
@@ -1103,17 +1151,26 @@
         
         function saveAcao() {
             const item = database.find(i => i.id === selectedOuvidoriaId);
-            if (item) {
-                item.actions.push({
-                    id: Date.now(),
-                    desc: document.getElementById('formAcaoDesc').value || "Nova tarefa registrada",
-                    prazo: document.getElementById('formAcaoPrazo').value || "2026-09-01",
-                    resp: document.getElementById('formAcaoResp').value || "Setor Destino",
-                    status: document.getElementById('formAcaoStatus').value
-                });
-                renderPanelActions(item);
-                renderAcoesKanban();
-            }
+            if (!item || !isFormValid('modalAcao')) return;
+
+            item.actions.push({
+                id: Date.now(),
+                desc: document.getElementById('formAcaoDesc').value.trim(),
+                prazo: document.getElementById('formAcaoPrazo').value,
+                resp: document.getElementById('formAcaoResp').value.trim(),
+                status: document.getElementById('formAcaoStatus').value,
+                altProcesso: isProcAlt,
+                altDesc: isProcAlt ? document.getElementById('formProcAltText').value.trim() : "",
+                evidencia: document.getElementById('formAcaoEvidencia').value.trim()
+            });
+            renderPanelActions(item);
+            renderAcoesKanban();
+            document.querySelector('#modalAcao .drawer-body').querySelectorAll('input, textarea').forEach(field => {
+                if (field.type !== 'file') field.value = '';
+            });
+            setProcAlt(false);
+            document.getElementById('formAcaoStatus').value = 'Em Aberto';
+            toggleEvidencia();
             closeActionModal();
         }
 
@@ -1122,14 +1179,18 @@
 
         function saveChat() {
             const item = database.find(i => i.id === selectedOuvidoriaId);
-            if (item) {
-                item.chats.push({
-                    user: "usuario.ativo@hc.fm.usp.br",
-                    date: "19/08/2026 11:45",
-                    text: document.getElementById('chatText').value || "Interação adicionada."
-                });
-                renderPanelChat(item);
+            const chatText = document.getElementById('chatText');
+            if (!item || !isFormValid('modalChat')) {
+                return;
             }
+
+            item.chats.push({
+                user: "usuario.ativo@hc.fm.usp.br",
+                date: new Date().toLocaleString('pt-BR'),
+                text: chatText.value.trim()
+            });
+            renderPanelChat(item);
+            chatText.value = '';
             closeChatModal();
         }
     </script>
