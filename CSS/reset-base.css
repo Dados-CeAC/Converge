@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.site-nav nav ul {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  padding: 12px 24px;
+  align-items: center;
+}
+.site-nav nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+}
+.site-nav nav a:hover {
+  color: var(--hc);
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}

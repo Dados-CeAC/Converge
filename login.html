@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+   <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONVERGE - Login</title>
+
+  <link rel="stylesheet" href="CSS/variables.css">
+  <link rel="stylesheet" href="CSS/reset-base.css">
+  <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js" as="script">
+    <script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+    <script>
+        // Promise pública que resolve quando o script do Clerk carregar — usado para acelerar inicialização
+        (function () {
+            if (window._clerkLoaded) return;
+            window._clerkLoaded = new Promise((resolve, reject) => {
+                const existing = document.querySelector('script[src*="clerk.browser.js"]');
+                function attach(s) {
+                    if (!s) return;
+                    if (s.__clerkListenerAttached) return;
+                    s.__clerkListenerAttached = true;
+                    s.addEventListener('load', () => resolve(true));
+                    s.addEventListener('error', () => reject(new Error('Falha ao carregar Clerk')));
+                    if (s.readyState === 'complete') resolve(true);
+                }
+                if (existing) {
+                    attach(existing);
+                } else {
+                    // cria e injeta o script o mais cedo possível
+                    const s = document.createElement('script');
+                    s.async = true;
+                    s.crossOrigin = 'anonymous';
+                    s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
+                    // mantém a chave publishable no atributo quando presente no body
+                    const key = document.body?.getAttribute('data-clerk-publishable-key');
+                    if (key) s.setAttribute('data-clerk-publishable-key', key);
+                    attach(s);
+                    document.head.appendChild(s);
+                }
+                // safety timeout
+                setTimeout(() => resolve(false), 8000);
+            });
+        })();
+    </script>
+</head>
+<body class="login-page" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-topbar">
+                <img class="login-brand-logo" src="./logo converge.png" alt="Logo Converge" />
+            </div>
+
+            <div class="login-header">
+                <h1 class="login-title">Sing in Converge</h1>
+                <p class="login-subtitle">Bem-vindo de volta! Por favor, faça login para continuar.</p>
+            </div>
+
+            <div class="login-form">
+                <div class="error-message" style="display:none"></div>
+                <p class="login-info">Clique em Fazer login para entrar no Converge.</p>
+                <button id="loginBtn" class="clerk-signin-btn" type="button">Fazer login</button>
+            </div>
+
+            <div class="login-footer">
+                <div class="login-branding">
+                    <p>CeAc</p>
+                    <p>Centro de Atenção ao Colaborador</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

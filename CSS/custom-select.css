@@ -1,0 +1,35 @@
+/* Estilos padrão para selects personalizados */
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 40px 10px 12px;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.2;
+  background-image: linear-gradient(45deg, transparent 50%, #333 50%), linear-gradient(135deg, #333 50%, transparent 50%);
+  background-position: right 12px center, right 14px center;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: var(--hc);
+  box-shadow: 0 0 0 4px rgba(0, 119, 200, 0.12);
+}
+
+/* Remove o ícone padrão em alguns navegadores */
+.custom-select::-ms-expand {
+  display: none;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .custom-select {
+    padding-right: 34px;
+  }
+}

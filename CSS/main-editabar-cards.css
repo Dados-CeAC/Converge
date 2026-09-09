@@ -1,0 +1,109 @@
+.edit-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.edit-bar label {
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.edit-bar input {
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  width: 140px;
+  outline: none;
+  transition: border-color 0.12s;
+}
+.edit-bar input:focus {
+  border-color: var(--hc);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background 0.12s,
+    border-color 0.12s,
+    color 0.12s;
+}
+.btn:hover {
+  background: var(--hc-light);
+  color: var(--hc);
+  border-color: var(--hc);
+}
+.btn.primary {
+  background: var(--hc);
+  color: #fff;
+  border-color: var(--hc);
+}
+.btn.primary:hover {
+  background: var(--hc-dark);
+  border-color: var(--hc-dark);
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--hc);
+  margin-bottom: 24px;
+}
+.page-title i {
+  font-size: 26px;
+}
+
+.sys-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition:
+    border-color 0.12s,
+    box-shadow 0.12s,
+    transform 0.08s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.sys-card:hover {
+  border-color: var(--hc);
+  box-shadow: 0 2px 12px rgba(33, 150, 168, 0.12);
+  transform: translateY(-1px);
+}
+.sys-card i {
+  font-size: 30px;
+  color: var(--hc);
+}
+.sys-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color
+    : var(--text);
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
