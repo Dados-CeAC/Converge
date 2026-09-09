@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Converge — Gerenciador de Quadros e Planos de Ação</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo"><div class="logo-mark">C</div><span>CONVERGE</span></div>
+    <div class="nav-title">Navegação</div>
+    <nav class="nav">
+      <button class="active" id="btnMainBoard" onclick="showMainBoard()">▦ <span>Quadros de Ação</span></button>
+      <button id="btnArchived" onclick="showArchivedView()">▤ <span>Arquivados (Suspenso)</span></button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="pageTitle">Quadros por Área</h1>
+      </div>
+    </div>
+
+    <div class="area-selector-container" id="areaSelectorContainer">
+      <div class="area-pills" id="areaPills"></div>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+      <div class="search">
+        <input id="search" placeholder="Buscar por ação, título ou responsável..." oninput="render()">
+      </div>
+      <button class="primary" onclick="openForm()">＋ Novo Card</button>
+    </div>
+
+    <div class="archived-view-switcher" id="archivedViewSwitcher" role="group" aria-label="Modo de visualização dos arquivados">
+      <span>Exibir arquivados como:</span>
+      <button class="view-button" id="listViewButton" onclick="setViewMode('list')" title="Visualização em lista">☷ Lista</button>
+      <button class="view-button active" id="gridViewButton" onclick="setViewMode('grid')" title="Visualização em grade">▦ Grade</button>
+    </div>
+
+    <section class="board" id="board"></section>
+  </main>
+</div>
+
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="modal" id="actionModal">
+  <h3>Configurar Prazo da Ação</h3>
+  <div class="field"><label>Ação *</label><input id="modalActionText" readonly></div>
+  <div class="grid2">
+    <div class="field"><label>Data Início</label><input type="date" id="modalStartDate" readonly></div>
+    <div class="field"><label>Prazo (dias) *</label><input type="number" id="modalDays" min="1" value="5" oninput="calculateModalDueDate()"></div>
+  </div>
+  <div class="grid2">
+    <div class="field"><label>Data Prevista Conclusão</label><input type="date" id="modalDueDate" readonly></div>
+    <div class="field"><label>Responsável pela Ação *</label><input id="modalResponsible" placeholder="Ex: Marina Costa"></div>
+  </div>
+  <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+    <button class="ghost" onclick="closeActionModal()">Cancelar</button>
+    <button class="primary" onclick="saveActionFromModal()">Confirmar Ação</button>
+  </div>
+</div>
+
+<div class="card-detail-modal" id="cardDetailModal">
+  <div class="detail-header" id="detailHeader">
+    <div class="detail-header-status" id="detailHeaderStatus">A FAZER</div>
+    <div class="detail-header-actions">
+    <button type="button" onclick="editCurrentCardFromModal()" title="Editar Card" aria-label="Editar card">✏️</button>
+    <button type="button" onclick="closeCardDetailModal()" title="Fechar" aria-label="Fechar detalhes">✕</button>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-left">
+      <h2 id="detailTitle">Título do Card</h2>
+
+      <div id="detailTagsContainer" class="badges" style="margin-bottom: 12px;"></div>
+
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="toggleDetailPopover('popoverTags')">🏷️ Etiquetas</button>
+        <button class="quick-btn" onclick="toggleDetailPopover('popoverLocation')">📍 Localização</button>
+        <button class="quick-btn" onclick="toggleDetailPopover('popoverAttachment')">📎 Anexo / Link</button>
+        
+        <div class="popover" id="popoverTags">
+          <div class="popover-title">Selecionar Etiquetas</div>
+          <div class="tag-option" style="background:#ef4444;" onclick="toggleCardTag('Crítico')">Crítico</div>
+          <div class="tag-option" style="background:#f59e0b;" onclick="toggleCardTag('Atenção')">Atenção</div>
+          <div class="tag-option" style="background:#10b981;" onclick="toggleCardTag('Normal')">Normal</div>
+          <div class="tag-option" style="background:#6366f1;" onclick="toggleCardTag('Planejamento')">Planejamento</div>
+        </div>
+
+        <div class="popover" id="popoverLocation">
+          <div class="popover-title">Adicionar Localização (Google Maps)</div>
+          <input id="locationInput" placeholder="Ex.: São Paulo - SP ou endereço..." style="width:100%; padding:6px; font-size:12px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
+          <button class="ghost" style="width:100%; font-size:11px; padding:6px; margin-bottom:6px;" onclick="openGoogleMapsSearch()">Pesquisar no Google Maps</button>
+          <button class="primary" style="width:100%; font-size:11px; padding:6px;" onclick="addLocation()">Salvar Localização</button>
+        </div>
+
+        <div class="popover" id="popoverAttachment">
+          <div class="popover-title">Adicionar Anexo ou Link</div>
+          <input type="file" id="fileAttachmentInput" style="font-size:11px; margin-bottom:8px; width:100%;">
+          <input id="linkAttachmentInput" placeholder="ou cole um Link (https://...)" style="width:100%; padding:6px; font-size:12px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
+          <button class="primary" style="width:100%; font-size:11px; padding:6px;" onclick="addAttachment()">Anexar</button>
+        </div>
+      </div>
+
+      <div id="locationDisplay" style="margin-bottom:16px;"></div>
+
+      <div class="detail-section-title">
+        <span>≡ Descrição</span>
+        <button class="ghost" style="padding: 2px 8px; font-size:11px;" onclick="editCurrentCardFromModal()">Editar</button>
+      </div>
+      <div class="detail-desc-box" id="detailDesc">
+        Sem descrição.
+      </div>
+
+      <div class="detail-section-title">
+        <span>📎 Anexos e Links</span>
+      </div>
+      <div class="attachments-list" id="detailAttachmentsList"></div>
+
+      <div class="detail-section-title">
+        <span>☑ Plano de Ação</span>
+      </div>
+      <div id="detailActionsList" style="margin-bottom: 24px;"></div>
+    </div>
+
+    <div class="detail-right">
+      <div class="detail-section-title" style="margin-bottom: 16px;">
+        <span>💬 Comentários e atividade</span>
+      </div>
+
+      <div class="comment-input-box">
+        <div class="comment-toolbar">
+          <button type="button" onclick="formatComment('Tt')" title="Título"><b>Tt</b></button>
+          <button type="button" onclick="formatComment('B')" title="Negrito"><b>B</b></button>
+          <button type="button" onclick="formatComment('I')" title="Itálico"><i>I</i></button>
+          <button type="button" onclick="formatComment('Quote')" title="Citação">❞</button>
+          <button type="button" onclick="triggerCommentFileUpload()" title="Anexar arquivo">📎</button>
+        </div>
+        <input type="file" id="commentFileInput" style="display:none;" onchange="handleCommentFileUpload(event)">
+        <div id="newCommentText" class="comment-editor" contenteditable="true" role="textbox" aria-label="Escreva um comentário..." data-placeholder="Escreva um comentário..."></div>
+      </div>
+      <button class="primary" style="margin-bottom: 20px;" onclick="addComment()">Salvar Comentário</button>
+
+      <div class="comment-list" id="detailCommentsList"></div>
+    </div>
+  </div>
+</div>
+
+<aside class="drawer" id="cardDrawer">
+  <div class="drawer-head">
+    <h3 id="drawerTitle">Novo Card</h3>
+    <button class="ghost" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="form">
+    <input type="hidden" id="cardId">
+
+    <div class="field"><label>Título do Card *</label><input id="fTitle" placeholder="Informe o título principal do card"></div>
+    <div class="field"><label>Descrição</label><textarea id="fDesc" placeholder="Detalhes, contextualização ou observações..."></textarea></div>
+
+    <div class="grid2">
+      <div class="field">
+        <label>Área do Quadro *</label>
+        <select id="fArea"></select>
+      </div>
+      <div class="field">
+        <label>Urgência *</label>
+        <select id="fUrgencia">
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label>Visibilidade *</label>
+        <select id="fVisibility" onchange="toggleUsersSelection()">
+          <option value="area">Todos da área</option>
+          <option value="selected">Somente pessoas selecionadas</option>
+        </select>
+      </div>
+      <div class="field" id="usersField" style="display:none;">
+        <label>Pessoas Selecionadas</label>
+        <div class="mention-field">
+          <input id="fSelectedUsers" placeholder="Digite @ para escolher uma pessoa" autocomplete="off" oninput="updateMentionSuggestions()" onkeydown="handleMentionKeydown(event)" onfocus="updateMentionSuggestions()">
+          <div id="mentionSuggestions" class="mention-suggestions" role="listbox"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Plano de Ações (Ao menos 1 ação obrigatória) *</label>
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <input id="newActionInput" placeholder="Descreva a ação a realizar...">
+        <button type="button" class="ghost" onclick="triggerAddAction()" style="white-space:nowrap;">+ Definir Prazo</button>
+      </div>
+      <div id="actionsList"></div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; border-top:1px solid var(--line); padding-top:16px;">
+      <button type="button" class="ghost" id="btnSuspend" style="color:#dc2626; border-color:#fecaca; display:none;" onclick="suspendCurrentCard()">Suspender por tempo indeterminado</button>
+      <button type="button" class="primary" onclick="saveCard()">Salvar Card</button>
+    </div>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  window.GOOGLE_MAPS_API_KEY = '';
+</script>
+<script src="script.js"></script>
+</body>
+</html>
