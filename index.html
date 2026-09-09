@@ -1,220 +1,756 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Converge — Gerenciador de Quadros e Planos de Ação</title>
-  <link rel="stylesheet" href="style.css">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CONVERGE</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="CSS/custom-select.css" />
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<style>
+		/* Tour Guiado - Estilos Integrados */
+		.tour-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.68);
+			z-index: 9998;
+			display: none;
+		}
+
+		.tour-overlay.active {
+			display: block;
+		}
+
+		.tour-spotlight {
+			position: fixed;
+			border: 2px solid var(--brand-blue);
+			box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7),
+						inset 0 0 20px rgba(0, 119, 200, 0.3);
+			z-index: 9999;
+			border-radius: 8px;
+			transition: all 0.35s ease;
+			pointer-events: none;
+			display: none;
+		}
+
+		.tour-popover {
+			position: fixed;
+			background: var(--surface);
+			border-radius: 12px;
+			padding: 25px;
+			z-index: 10000;
+			max-width: 400px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.3s ease;
+			display: none;
+		}
+
+		.tour-modal {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 18px;
+			padding: 30px 28px 22px;
+			max-width: 520px;
+			width: min(90vw, 520px);
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+			z-index: 10001;
+			display: none;
+			color: var(--text);
+		}
+
+		.tour-modal.active {
+			display: block;
+		}
+
+		.tour-modal h2 {
+			color: var(--brand-blue);
+			margin-bottom: 12px;
+			font-size: clamp(1.4rem, 2vw, 2rem);
+		}
+
+		.tour-modal p {
+			color: var(--text-muted);
+			line-height: 1.6;
+			margin-bottom: 16px;
+		}
+
+		.tour-step-info {
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: var(--brand-blue);
+			background: rgba(0, 119, 200, 0.08);
+			padding: 8px 10px;
+			border-radius: 8px;
+			margin-bottom: 12px;
+		}
+
+		.tour-items {
+			margin: 0 0 18px 18px;
+			padding: 0;
+			color: var(--text-muted);
+			line-height: 1.7;
+		}
+
+		.tour-actions {
+			display: flex;
+			justify-content: space-between;
+			gap: 12px;
+			margin-top: 10px;
+		}
+
+		.tour-btn {
+			border: none;
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-weight: 600;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			transition: all 0.2s ease;
+		}
+
+		.tour-btn.primary {
+			background: var(--brand-blue);
+			color: white;
+		}
+
+		.tour-btn.secondary {
+			background: var(--hc-light);
+			color: var(--text);
+		}
+
+		.tour-btn:disabled {
+			opacity: 0.45;
+			cursor: not-allowed;
+		}
+
+		.tour-highlight {
+			outline: 3px solid var(--brand-blue);
+			outline-offset: 4px;
+			box-shadow: 0 0 0 6px rgba(0, 119, 200, 0.18);
+			border-radius: 10px;
+		}
+
+		@keyframes popoverIn {
+			from {
+				opacity: 0;
+				transform: scale(0.9);
+			}
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		.tour-popover h3 {
+			color: var(--brand-blue);
+			margin-bottom: 10px;
+			font-size: 1.3em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.tour-popover p {
+			color: var(--text-muted);
+			line-height: 1.6;
+			margin-bottom: 20px;
+			font-size: 0.95em;
+		}
+
+		.tour-popover .tour-step-info {
+			background: var(--hc-light);
+			padding: 10px;
+			border-radius: 6px;
+			margin-bottom: 15px;
+			font-size: 0.9em;
+			color: var(--text-muted);
+		}
+
+		.tour-popover .tour-buttons {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 15px;
+		}
+
+		.tour-popover .tour-btn {
+			flex: 1;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.9em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			transition: all 0.3s ease;
+		}
+
+		.tour-btn-primary {
+			background: var(--brand-blue);
+			color: white;
+		}
+
+		.tour-btn-primary:hover {
+			background: var(--hc-dark);
+			transform: translateY(-2px);
+		}
+
+		.tour-btn-secondary {
+			background: var(--hc-light);
+			color: var(--text);
+		}
+
+		.tour-btn-secondary:hover {
+			background: #d1e8f1;
+		}
+
+		.tour-skip {
+			width: 100%;
+			padding: 8px;
+			background: transparent;
+			color: var(--text-muted);
+			border: 1px solid var(--hc-light);
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.85em;
+			transition: all 0.3s ease;
+		}
+
+		.tour-skip:hover {
+			border-color: var(--text-muted);
+			color: var(--text);
+		}
+
+		.tour-popover .arrow-top::before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-bottom::before {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-top: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-left::before {
+			content: '';
+			position: absolute;
+			left: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-right: 10px solid var(--surface);
+		}
+
+		.tour-popover .arrow-right::before {
+			content: '';
+			position: absolute;
+			right: -10px;
+			top: 20px;
+			width: 0;
+			height: 0;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-left: 10px solid var(--surface);
+		}
+
+		.tour-popover {
+			position: relative;
+		}
+
+		.tour-welcome {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 500px;
+			text-align: center;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			animation: popoverIn 0.4s ease;
+		}
+
+		.tour-welcome h2 {
+			color: var(--brand-blue);
+			margin-bottom: 15px;
+			font-size: 2em;
+		}
+
+		.tour-welcome p {
+			color: var(--text-muted);
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 1em;
+		}
+
+		.tour-welcome-icon {
+			font-size: 4em;
+			margin-bottom: 20px;
+			color: var(--brand-teal);
+		}
+
+		.tour-welcome .tour-buttons {
+			margin-top: 30px;
+			flex-direction: column;
+		}
+
+		.tour-welcome .tour-btn {
+			width: 100%;
+			justify-content: center;
+			padding: 12px 24px;
+		}
+
+		.tour-start-page {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: var(--surface);
+			border-radius: 16px;
+			padding: 40px;
+			max-width: 600px;
+			z-index: 10000;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+			max-height: 80vh;
+			overflow-y: auto;
+			animation: popoverIn 0.4s ease;
+		}
+
+		.tour-start-page h2 {
+			color: var(--brand-blue);
+			margin-bottom: 25px;
+			font-size: 1.8em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.tour-option {
+			background: var(--hc-light);
+			border: 2px solid transparent;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 15px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: flex-start;
+			gap: 15px;
+		}
+
+		.tour-option:hover {
+			border-color: var(--brand-blue);
+			transform: translateX(5px);
+			box-shadow: 0 8px 20px rgba(0, 119, 200, 0.15);
+		}
+
+		.tour-option-icon {
+			font-size: 2em;
+			color: var(--brand-blue);
+			flex-shrink: 0;
+		}
+
+		.tour-option h3 {
+			color: var(--text);
+			margin-bottom: 5px;
+			font-size: 1.1em;
+		}
+
+		.tour-option p {
+			color: var(--text-muted);
+			font-size: 0.9em;
+			line-height: 1.5;
+		}
+
+		body.tour-active {
+			overflow: hidden;
+		}
+
+		.tour-trigger-btn {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			width: 60px;
+			height: 60px;
+			background: linear-gradient(135deg, var(--brand-blue), var(--brand-teal));
+			color: white;
+			border: none;
+			border-radius: 50%;
+			font-size: 1.5em;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 8px 25px rgba(0, 119, 200, 0.3);
+			transition: all 0.3s ease;
+			z-index: 1000;
+		}
+
+		.tour-trigger-btn:hover {
+			transform: scale(1.1);
+			box-shadow: 0 12px 35px rgba(0, 119, 200, 0.4);
+		}
+
+		.tour-trigger-btn.hidden {
+			display: none;
+		}
+
+		.tour-progress {
+			display: flex;
+			gap: 6px;
+			margin-top: 15px;
+			justify-content: center;
+		}
+
+		.tour-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--hc-light);
+			transition: all 0.3s ease;
+		}
+
+		.tour-dot.active {
+			background: var(--brand-blue);
+			width: 24px;
+			border-radius: 4px;
+		}
+
+		@media (max-width: 768px) {
+			.tour-popover {
+				max-width: 90vw;
+				padding: 20px;
+			}
+
+			.tour-welcome,
+			.tour-start-page {
+				max-width: 90vw;
+				padding: 25px;
+			}
+
+			.tour-welcome h2 {
+				font-size: 1.5em;
+			}
+
+			.tour-trigger-btn {
+				width: 50px;
+				height: 50px;
+				font-size: 1.2em;
+				bottom: 20px;
+				right: 20px;
+			}
+		}
+	</style>
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js" as="script">
+	<script async crossorigin="anonymous" data-clerk-publishable-key="pk_test_bWF4aW11bS1zbmlwZS0yMS5jbGVyay5hY2NvdW50cy5kZXYk" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+	<script>
+	  if (!window._clerkLoaded) {
+	    window._clerkLoaded = new Promise((resolve, reject) => {
+	      const existing = document.querySelector('script[src*="clerk.browser.js"]');
+	      function attach(s) {
+	        if (!s) return;
+	        if (s.__clerkListenerAttached) return;
+	        s.__clerkListenerAttached = true;
+	        s.addEventListener('load', () => resolve(true));
+	        s.addEventListener('error', () => reject(new Error('Falha ao carregar Clerk')));
+	        if (s.readyState === 'complete') resolve(true);
+	      }
+	      if (existing) attach(existing);
+	      else {
+	        const s = document.createElement('script');
+	        s.async = true;
+	        s.crossOrigin = 'anonymous';
+	        s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
+	        const key = document.body?.getAttribute('data-clerk-publishable-key');
+	        if (key) s.setAttribute('data-clerk-publishable-key', key);
+	        attach(s);
+	        document.head.appendChild(s);
+	      }
+	      setTimeout(() => resolve(false), 8000);
+	    });
+	  }
+	</script>
 </head>
 <body>
 
-<div class="app">
-  <aside class="sidebar">
-    <div class="logo"><div class="logo-mark">C</div><span>CONVERGE</span></div>
-    <div class="nav-title">Navegação</div>
-    <nav class="nav">
-      <button class="active" id="btnMainBoard" onclick="showMainBoard()">▦ <span>Quadros de Ação</span></button>
-      <button id="btnArchived" onclick="showArchivedView()">▤ <span>Arquivados (Suspenso)</span></button>
-    </nav>
-  </aside>
+<div class="layout">
 
-  <main class="main">
-    <div class="topbar">
-      <div>
-        <h1 id="pageTitle">Quadros por Área</h1>
-      </div>
-    </div>
+	<div class="topbar">
+		<button id="mobileMenuToggle" class="topbar-mobile-toggle" type="button" title="Abrir menu">
+			<i class="ti ti-menu"></i>
+		</button>
+		<div class="logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="hcfmuspLogo" class="brand-logo-img brand-logo-hcfmusp" src="LOGO HCFMUSP.png" alt="Logo HCFMUSP" />
+			</div>
+		</div>
+		<div class="logo-box ceac-logo-box brand-safe-area">
+			<div class="brand-logo">
+				<img id="ceacLogo" class="brand-logo-img brand-logo-ceac" src="Logo CeAC Azul e Turqueza Sem Fundo.png" alt="Logo CeAC" />
+			</div>
+		</div>
+	</div>
 
-    <div class="area-selector-container" id="areaSelectorContainer">
-      <div class="area-pills" id="areaPills"></div>
-    </div>
+	<div class="body-row">
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-scroll" id="menuContainer"></div>
+			<div class="sidebar-footer">
+				<div class="sidebar-profile">
+					<div id="sidebarAvatar" class="sidebar-avatar">RB</div>
+					<div class="sidebar-profile-info">
+						<div id="sidebarUserName" class="sidebar-profile-name"><i class="ti ti-user"></i> ricardo.borges</div>
+						<div id="sidebarUserEmail" class="sidebar-profile-email">usuario@dominio.com</div>
+						<a id="sidebarProfileLink" class="sidebar-profile-link" href="#">
+							Ir para meu perfil
+							<i class="ti ti-external-link"></i>
+						</a>
+					</div>
+				</div>
+				<button class="sidebar-logout" type="button">
+					<i class="ti ti-logout"></i>
+					<span>Sair do sistema</span>
+				</button>
+				<button id="themeToggleBtn" class="sidebar-theme-btn" type="button" title="Alternar modo">
+					<i class="ti ti-contrast"></i>
+					<span>Modo: Padrão</span>
+				</button>
+				<div class="toggle-btn" id="toggleBtn" title="Recolher menu">
+					<i class="ti ti-chevrons-left" id="toggleIcon"></i>
+				</div>
+			</div>
+		</div>
 
-    <div class="toolbar" id="toolbar">
-      <div class="search">
-        <input id="search" placeholder="Buscar por ação, título ou responsável..." oninput="render()">
-      </div>
-      <button class="primary" onclick="openForm()">＋ Novo Card</button>
-    </div>
-
-    <div class="archived-view-switcher" id="archivedViewSwitcher" role="group" aria-label="Modo de visualização dos arquivados">
-      <span>Exibir arquivados como:</span>
-      <button class="view-button" id="listViewButton" onclick="setViewMode('list')" title="Visualização em lista">☷ Lista</button>
-      <button class="view-button active" id="gridViewButton" onclick="setViewMode('grid')" title="Visualização em grade">▦ Grade</button>
-    </div>
-
-    <section class="board" id="board"></section>
-  </main>
+		<div class="main main-container">
+			<div class="content">
+				<div class="page-header">
+					<button id="cardBackBtn" class="btn back-btn" type="button" style="display:none;">
+						<i class="ti ti-arrow-left"></i> Voltar
+					</button>
+					<h1 class="page-title" id="dispPageTitle">Home</h1>
+				</div>
+				<div class="cards-grid" id="cardsGrid"></div>
+				<div class="empty-state" id="emptyState" style="display:none">
+					<i class="ti ti-apps"></i>
+					<p>Nenhum sistema nesta seção</p>
+				</div>
+			</div>
+			<div class="footer" id="footerEl">
+				<span class="brand">Dados</span> | CeAC HCFMUSP
+			</div>
+		</div>
+	</div>
 </div>
 
 
-<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="modal-overlay" id="modalCard">
+	<div class="modal">
+		<h3><i class="ti ti-app-window"></i> Adicionar Sistema</h3>
+		<label>Nome do sistema</label>
+		<input id="cardName" placeholder="Ex: Painel MV" />
+		<label>Seção</label>
+		<select id="cardSection" class="custom-select"></select>
+			<div class="modal-actions">
+				<button id="modalCardCancel" class="btn">Cancelar</button>
+				<button id="modalCardAdd" class="btn primary">Adicionar</button>
+			</div>
+	</div>
+</div>
+ 
 
-<div class="modal" id="actionModal">
-  <h3>Configurar Prazo da Ação</h3>
-  <div class="field"><label>Ação *</label><input id="modalActionText" readonly></div>
-  <div class="grid2">
-    <div class="field"><label>Data Início</label><input type="date" id="modalStartDate" readonly></div>
-    <div class="field"><label>Prazo (dias) *</label><input type="number" id="modalDays" min="1" value="5" oninput="calculateModalDueDate()"></div>
-  </div>
-  <div class="grid2">
-    <div class="field"><label>Data Prevista Conclusão</label><input type="date" id="modalDueDate" readonly></div>
-    <div class="field"><label>Responsável pela Ação *</label><input id="modalResponsible" placeholder="Ex: Marina Costa"></div>
-  </div>
-  <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
-    <button class="ghost" onclick="closeActionModal()">Cancelar</button>
-    <button class="primary" onclick="saveActionFromModal()">Confirmar Ação</button>
-  </div>
+<div class="modal-overlay" id="modalSection">
+	<div class="modal">
+		<h3><i class="ti ti-folder-plus"></i> Nova Seção</h3>
+		<label>Nome da seção</label>
+		<input id="sectionName" placeholder="Ex: Financeiro" />
+		<div class="modal-actions">
+			<button id="modalSectionCancel" class="btn">Cancelar</button>
+			<button id="modalSectionAdd" class="btn primary">Criar</button>
+		</div>
+	</div>
 </div>
 
-<div class="card-detail-modal" id="cardDetailModal">
-  <div class="detail-header" id="detailHeader">
-    <div class="detail-header-status" id="detailHeaderStatus">A FAZER</div>
-    <div class="detail-header-actions">
-    <button type="button" onclick="editCurrentCardFromModal()" title="Editar Card" aria-label="Editar card">✏️</button>
-    <button type="button" onclick="closeCardDetailModal()" title="Fechar" aria-label="Fechar detalhes">✕</button>
-    </div>
-  </div>
-  <div class="detail-body">
-    <div class="detail-left">
-      <h2 id="detailTitle">Título do Card</h2>
-
-      <div id="detailTagsContainer" class="badges" style="margin-bottom: 12px;"></div>
-
-      <div class="quick-btns">
-        <button class="quick-btn" onclick="toggleDetailPopover('popoverTags')">🏷️ Etiquetas</button>
-        <button class="quick-btn" onclick="toggleDetailPopover('popoverLocation')">📍 Localização</button>
-        <button class="quick-btn" onclick="toggleDetailPopover('popoverAttachment')">📎 Anexo / Link</button>
-        
-        <div class="popover" id="popoverTags">
-          <div class="popover-title">Selecionar Etiquetas</div>
-          <div class="tag-option" style="background:#ef4444;" onclick="toggleCardTag('Crítico')">Crítico</div>
-          <div class="tag-option" style="background:#f59e0b;" onclick="toggleCardTag('Atenção')">Atenção</div>
-          <div class="tag-option" style="background:#10b981;" onclick="toggleCardTag('Normal')">Normal</div>
-          <div class="tag-option" style="background:#6366f1;" onclick="toggleCardTag('Planejamento')">Planejamento</div>
-        </div>
-
-        <div class="popover" id="popoverLocation">
-          <div class="popover-title">Adicionar Localização (Google Maps)</div>
-          <input id="locationInput" placeholder="Ex.: São Paulo - SP ou endereço..." style="width:100%; padding:6px; font-size:12px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-          <button class="ghost" style="width:100%; font-size:11px; padding:6px; margin-bottom:6px;" onclick="openGoogleMapsSearch()">Pesquisar no Google Maps</button>
-          <button class="primary" style="width:100%; font-size:11px; padding:6px;" onclick="addLocation()">Salvar Localização</button>
-        </div>
-
-        <div class="popover" id="popoverAttachment">
-          <div class="popover-title">Adicionar Anexo ou Link</div>
-          <input type="file" id="fileAttachmentInput" style="font-size:11px; margin-bottom:8px; width:100%;">
-          <input id="linkAttachmentInput" placeholder="ou cole um Link (https://...)" style="width:100%; padding:6px; font-size:12px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:4px;">
-          <button class="primary" style="width:100%; font-size:11px; padding:6px;" onclick="addAttachment()">Anexar</button>
-        </div>
-      </div>
-
-      <div id="locationDisplay" style="margin-bottom:16px;"></div>
-
-      <div class="detail-section-title">
-        <span>≡ Descrição</span>
-        <button class="ghost" style="padding: 2px 8px; font-size:11px;" onclick="editCurrentCardFromModal()">Editar</button>
-      </div>
-      <div class="detail-desc-box" id="detailDesc">
-        Sem descrição.
-      </div>
-
-      <div class="detail-section-title">
-        <span>📎 Anexos e Links</span>
-      </div>
-      <div class="attachments-list" id="detailAttachmentsList"></div>
-
-      <div class="detail-section-title">
-        <span>☑ Plano de Ação</span>
-      </div>
-      <div id="detailActionsList" style="margin-bottom: 24px;"></div>
-    </div>
-
-    <div class="detail-right">
-      <div class="detail-section-title" style="margin-bottom: 16px;">
-        <span>💬 Comentários e atividade</span>
-      </div>
-
-      <div class="comment-input-box">
-        <div class="comment-toolbar">
-          <button type="button" onclick="formatComment('Tt')" title="Título"><b>Tt</b></button>
-          <button type="button" onclick="formatComment('B')" title="Negrito"><b>B</b></button>
-          <button type="button" onclick="formatComment('I')" title="Itálico"><i>I</i></button>
-          <button type="button" onclick="formatComment('Quote')" title="Citação">❞</button>
-          <button type="button" onclick="triggerCommentFileUpload()" title="Anexar arquivo">📎</button>
-        </div>
-        <input type="file" id="commentFileInput" style="display:none;" onchange="handleCommentFileUpload(event)">
-        <div id="newCommentText" class="comment-editor" contenteditable="true" role="textbox" aria-label="Escreva um comentário..." data-placeholder="Escreva um comentário..."></div>
-      </div>
-      <button class="primary" style="margin-bottom: 20px;" onclick="addComment()">Salvar Comentário</button>
-
-      <div class="comment-list" id="detailCommentsList"></div>
-    </div>
-  </div>
+<!-- Tour Guiado - Elementos -->
+<div class="tour-overlay" id="tourOverlay"></div>
+<div class="tour-spotlight" id="tourSpotlight"></div>
+<div class="tour-popover" id="tourPopover">
+	<div id="tourPopoverContent"></div>
 </div>
+<div class="tour-modal" id="tourModal"></div>
+<button class="tour-trigger-btn" id="tourTriggerBtn" title="Iniciar tour guiado">
+	<i class="ti ti-player-play"></i>
+</button>
 
-<aside class="drawer" id="cardDrawer">
-  <div class="drawer-head">
-    <h3 id="drawerTitle">Novo Card</h3>
-    <button class="ghost" onclick="closeDrawer()">×</button>
-  </div>
-  <div class="form">
-    <input type="hidden" id="cardId">
-
-    <div class="field"><label>Título do Card *</label><input id="fTitle" placeholder="Informe o título principal do card"></div>
-    <div class="field"><label>Descrição</label><textarea id="fDesc" placeholder="Detalhes, contextualização ou observações..."></textarea></div>
-
-    <div class="grid2">
-      <div class="field">
-        <label>Área do Quadro *</label>
-        <select id="fArea"></select>
-      </div>
-      <div class="field">
-        <label>Urgência *</label>
-        <select id="fUrgencia">
-          <option value="Não">Não</option>
-          <option value="Sim">Sim</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="grid2">
-      <div class="field">
-        <label>Visibilidade *</label>
-        <select id="fVisibility" onchange="toggleUsersSelection()">
-          <option value="area">Todos da área</option>
-          <option value="selected">Somente pessoas selecionadas</option>
-        </select>
-      </div>
-      <div class="field" id="usersField" style="display:none;">
-        <label>Pessoas Selecionadas</label>
-        <div class="mention-field">
-          <input id="fSelectedUsers" placeholder="Digite @ para escolher uma pessoa" autocomplete="off" oninput="updateMentionSuggestions()" onkeydown="handleMentionKeydown(event)" onfocus="updateMentionSuggestions()">
-          <div id="mentionSuggestions" class="mention-suggestions" role="listbox"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Plano de Ações (Ao menos 1 ação obrigatória) *</label>
-      <div style="display:flex; gap:8px; margin-bottom:10px;">
-        <input id="newActionInput" placeholder="Descreva a ação a realizar...">
-        <button type="button" class="ghost" onclick="triggerAddAction()" style="white-space:nowrap;">+ Definir Prazo</button>
-      </div>
-      <div id="actionsList"></div>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; border-top:1px solid var(--line); padding-top:16px;">
-      <button type="button" class="ghost" id="btnSuspend" style="color:#dc2626; border-color:#fecaca; display:none;" onclick="suspendCurrentCard()">Suspender por tempo indeterminado</button>
-      <button type="button" class="primary" onclick="saveCard()">Salvar Card</button>
-    </div>
-  </div>
-</aside>
-
-<div class="toast" id="toast"></div>
-
-<script>
-  window.GOOGLE_MAPS_API_KEY = '';
-</script>
 <script src="script.js"></script>
-</body>
-</html>
+<script>
+	class TourGuide {
+		constructor() {
+			this.currentStep = 0;
+			this.isActive = false;
+			this.steps = this.defineSteps();
+			this.init();
+		}
+
+		init() {
+			const trigger = document.getElementById('tourTriggerBtn');
+			if (trigger) {
+				trigger.addEventListener('click', () => this.start());
+			}
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && this.isActive) this.end();
+			});
+		}
+
+		defineSteps() {
+			return [
+				{
+					selector: '.topbar',
+					title: '📍 Barra superior: identidade e contexto',
+					description: 'Essa área fica no topo da tela e mostra quem está usando o sistema, a marca da instituição e o acesso rápido ao menu em dispositivos menores. Ela dá contexto visual e ajuda a manter a navegação organizada.',
+					items: ['Logo do HC-FMUSP e do CeAC para identificação institucional', 'Menu responsivo para telas menores', 'Estrutura fixa que acompanha a navegação da página']
+				},
+				{
+					selector: '.sidebar',
+					title: '📂 Menu lateral: centro da navegação',
+					description: 'A sidebar é o mapa do portal. Ela organiza as seções principais e direciona o usuário para as áreas de trabalho. Em vez de procurar manualmente, o usuário consegue acessar rapidamente o que precisa.',
+					items: ['Home para voltar ao início', 'Meus Sistemas para acessar ferramentas do usuário', 'Assistencial, Ocupacional, Qualidade e Dados como áreas de negócio', 'Navegação simples e consistente em toda a aplicação']
+				},
+				{
+					selector: '.cards-grid',
+					title: '🎴 Cards: acesso rápido aos sistemas',
+					description: 'Cada card representa uma funcionalidade ou sistema disponível. Esse bloco é a parte mais prática do portal porque reúne tudo em um único lugar. Quando você clica, entra diretamente na ferramenta correta.',
+					items: ['Ícone visual para reconhecer rapidamente o sistema', 'Nome do sistema para identificar a funcionalidade', 'Abertura direta ao clicar no card', 'Organização por categoria e contexto']
+				},
+				{
+					selector: '.page-header',
+					title: '🧭 Cabeçalho da página: onde você está',
+					description: 'O cabeçalho mostra em qual seção você está navegando e ajuda a manter o contexto. Ele é importante para orientar o usuário e evitar que ele se perca dentro do portal.',
+					items: ['Título da página atual', 'Botão de voltar para páginas anteriores', 'Noção clara do contexto do usuário']
+				},
+				{
+					selector: '.sidebar-profile',
+					title: '👤 Perfil do usuário: identidade e acesso ao usuário',
+					description: 'Este bloco exibe quem está logado, seu e-mail e o caminho para o perfil. Ele serve para confirmar que a sessão está correta e para facilitar a personalização da experiência.',
+					items: ['Avatar com iniciais do usuário', 'Nome e e-mail corporativo', 'Link para perfil ou dados pessoais', 'Identificação segura da sessão atual']
+				},
+				{
+					selector: '.sidebar-logout',
+					title: '🔐 Logout: encerramento seguro da sessão',
+					description: 'Esse botão encerra a sessão do usuário de maneira segura. É a forma de sair do portal e retornar ao login sem perder a organização do ambiente de trabalho.',
+					items: ['Finaliza a sessão ativa', 'Protege o uso na máquina atual', 'Retorna à tela de acesso do sistema']
+				},
+				{
+					selector: '.main',
+					title: '🖥️ Área principal: o painel de trabalho',
+					description: 'É a parte central da aplicação, onde ficam os sistemas, os cards e o conteúdo principal. Aqui o usuário perfaz a jornada de trabalho: identifica a área, escolhe a funcionalidade e entra no sistema correto.',
+					items: ['Espaço principal do portal', 'Acompanhamento da seção ativa', 'Controle visual da navegação e do conteúdo']
+				}
+			];
+		}
+
+		start() {
+			this.isActive = true;
+			this.currentStep = 0;
+			document.body.classList.add('tour-active');
+			document.getElementById('tourOverlay').classList.add('active');
+			document.getElementById('tourTriggerBtn').classList.add('hidden');
+			this.showStep();
+		}
+
+		showStep() {
+			const modal = document.getElementById('tourModal');
+			const step = this.steps[this.currentStep];
+			if (!modal || !step) return;
+
+			this.clearHighlights();
+			const target = document.querySelector(step.selector);
+			if (target) {
+				target.classList.add('tour-highlight');
+				target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+			}
+
+			const itemsHtml = step.items.map(item => `<li>${item}</li>`).join('');
+			modal.classList.add('active');
+			modal.innerHTML = `
+				<h2>${step.title}</h2>
+				<p>${step.description}</p>
+				<div class="tour-step-info">Passo ${this.currentStep + 1} de ${this.steps.length}</div>
+				<ul class="tour-items">
+					${itemsHtml}
+				</ul>
+				<div class="tour-actions">
+					<button class="tour-btn secondary" type="button" ${this.currentStep === 0 ? 'disabled' : ''} onclick="window.tourGuide.previousStep()">
+						<i class="ti ti-arrow-left"></i> Anterior
+					</button>
+					<button class="tour-btn primary" type="button" onclick="window.tourGuide.nextStep()">
+						${this.currentStep === this.steps.length - 1 ? 'Finalizar' : 'Próximo'}
+						<i class="ti ti-arrow-right"></i>
+					</button>
+				</div>
+				<button class="tour-skip" type="button" onclick="window.tourGuide.end()">Pular tour</button>
+			`;
+		}
+
+		nextStep() {
+			if (this.currentStep < this.steps.length - 1) {
+				this.currentStep += 1;
+				this.showStep();
+				return;
+			}
+			this.end();
+		}
+
+		previousStep() {
+			if (this.currentStep > 0) {
+				this.currentStep -= 1;
+				this.showStep();
+			}
+		}
+
+		clearHighlights() {
+			document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+		}
+
+		end() {
+			this.isActive = false;
+			document.body.classList.remove('tour-active');
+			document.getElementById('tourOverlay').classList.remove('active');
+			document.getElementById('tourModal').classList.remove('active');
+			document.getElementById('tourTriggerBtn').classList.remove('hidden');
+			this.clearHighlights();
+		}
+	}
+
+	window.tourGuide = new TourGuide();
+	console.log('✅ Tour Guiado carregado');
+</script>
